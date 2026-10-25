@@ -1,5 +1,5 @@
 {
- "_comment": "Runs of the conformance suite (spec/IR_SPEC.md section 11.4): one results file per engine, with every case's verdict and detail. SKIP means the engine has no path for the case (the reference: the gradient cases, which are its own finite differences; mtstudio: single ops other than expr and recurrence, sessions, document loading, refusals, dequantisation; ember: single ops other than recurrence, whose run_node its adapter has, and the gradient cases, since it does not train). The numpy and mtstudio runs are of keramos v1.1.2 and ember's of v1.1.1; the two tags hold the same 284 cases and expected values (v1.1.2 changes documentation only).",
+ "_comment": "Runs of the conformance suite (spec/IR_SPEC.md section 11.4): one results file per engine, with every case's verdict and detail. SKIP means the engine has no path for the case (the reference: the gradient cases, which are its own finite differences; mtstudio: single ops other than expr and recurrence, sessions, document loading, refusals, dequantisation; ember: single ops other than recurrence, whose run_node its adapter has, and the gradient cases, since it does not train). All three runs are of keramos v1.1.2 (284 cases).",
  "runs": [
   {
    "file": "ir_numpy.json",
@@ -129,7 +129,7 @@
   },
   {
    "file": "ember_cpu.json",
-   "engine": "ember.cpp ir_adapter, CPU interpreter, ember 39dcce94886fbac759c26c123007d7e106b84aed (/home/jonat/ember_adapter_39dcce9/build/ir_adapter (git archive of that commit, CPU only: HAS_CUDA off, Release, GCC 13.3, WSL ext4; the interpreter's IR translation units with -ffp-contract=off); hello: 'ir_adapter 2 (IR versions 0 and 1; spec revision 1.1)'), against keramos v1.1.1 (6170ee052cf20d65687428a25288843148646c1e)",
+   "engine": "ember.cpp ir_adapter, CPU interpreter, ember 39dcce94886fbac759c26c123007d7e106b84aed (/home/jonat/ember_adapter_39dcce9/build/ir_adapter (git archive of that commit, CPU only: HAS_CUDA off, Release, GCC 13.3, WSL ext4; the interpreter's IR translation units with -ffp-contract=off); hello: 'ir_adapter 2 (IR versions 0 and 1; spec revision 1.1)'), against keramos v1.1.2 (33dff0348d4e2e1035acbbc933f1e7bb61f87ff1)",
    "date": "2026-10-25",
    "counts": {
     "PASS": 230,
