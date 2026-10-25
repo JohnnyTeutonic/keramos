@@ -223,7 +223,7 @@ impl Engine {
         Ok(match method {
             "hello" => Reply::Result(Json::obj(vec![
                 ("engine", Json::str(ENGINE)),
-                ("version", Json::str(concat!("0.1.0 (IR versions 0 and 1; spec revision 1.1, keramos v1.1.3)"))),
+                ("version", Json::str(concat!("0.1.0 (IR versions 0 and 1; spec revision 1.1, keramos v1.1.4)"))),
                 ("backend", Json::str("cpu")),
                 ("exact", Json::Bool(true)),
                 ("profiles", Json::Arr(PROFILES.iter().map(|s| Json::str(s)).collect())),
