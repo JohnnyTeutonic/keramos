@@ -388,12 +388,12 @@
   },
   {
    "file": "hf_cpu.json",
-   "engine": "Hugging Face transformers 5.20.2 (torch 2.14.1+cpu), CPU, float32, sdpa, through adapters/hf (in process; GGUFs exported by adapters/common/gguf_to_hf.py v1; never reads the IR document), against keramos v1.2.1 (92b89f0baab12589f6eae548181c5d6c5e5b333f), suite as at d38da543",
+   "engine": "Hugging Face transformers 5.20.2 (torch 2.14.1+cpu), CPU, float32, sdpa, through adapters/hf (in process; GGUFs exported by adapters/common/gguf_to_hf.py v2; never reads the IR document), against keramos v1.3.3 (254b6b4d9feb9b2ed241b961ca8b5f3403e369bc), adapter and exporter at c1455b0",
    "date": "2026-10-27",
    "counts": {
-    "PASS": 18,
-    "FAIL": 2,
-    "SKIP": 350,
+    "PASS": 26,
+    "FAIL": 3,
+    "SKIP": 384,
     "XFAIL": 0,
     "XPASS": 0
    },
@@ -401,35 +401,35 @@
     "model": {
      "PASS": 8,
      "FAIL": 0,
-     "SKIP": 13,
+     "SKIP": 14,
      "XFAIL": 0,
      "XPASS": 0
     },
     "trace": {
-     "PASS": 10,
-     "FAIL": 2,
-     "SKIP": 27,
+     "PASS": 18,
+     "FAIL": 3,
+     "SKIP": 43,
      "XFAIL": 0,
      "XPASS": 0
     },
     "op": {
      "PASS": 0,
      "FAIL": 0,
-     "SKIP": 59,
+     "SKIP": 62,
      "XFAIL": 0,
      "XPASS": 0
     },
     "refuse": {
      "PASS": 0,
      "FAIL": 0,
-     "SKIP": 83,
+     "SKIP": 94,
      "XFAIL": 0,
      "XPASS": 0
     },
     "digest": {
      "PASS": 0,
      "FAIL": 0,
-     "SKIP": 84,
+     "SKIP": 85,
      "XFAIL": 0,
      "XPASS": 0
     },
@@ -450,7 +450,7 @@
     "accept": {
      "PASS": 0,
      "FAIL": 0,
-     "SKIP": 34,
+     "SKIP": 36,
      "XFAIL": 0,
      "XPASS": 0
     },
