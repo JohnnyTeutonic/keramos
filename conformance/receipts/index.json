@@ -1,5 +1,5 @@
 {
- "_comment": "Runs of the conformance suite (spec/IR_SPEC.md section 11.4): one results file per engine, with every case's verdict and detail; each run names the keramos tag and commit it ran against. v1.3.3 has 413 cases (v1.3.2 added pk_flex_t5's 5; v1.3.1 408, v1.3.0 404, v1.2.0 370); each run names its tag. SKIP means the engine has no path for the case (the reference: the gradient cases, which are its own finite differences; mtstudio: the single ops it has no kernel path for, sessions other than its scored traces, document loading, refusals and acceptance, dequantisation, chat rendering; the clean-room Rust engine: the gradient cases and render_chat; ember: single ops other than recurrence, expr and attention, and the gradient cases). reference_environment.json is the generating environment's receipt (IR_SPEC 4.6), not a run of an engine. llama.cpp is the first engine measured that was not written against the spec: its FAILs are classified in adapters/llamacpp/FINDINGS.txt. transformers (5.20.2, torch 2.14.1+cpu) is measured through an export of each GGUF to an HF checkpoint (adapters/common/gguf_to_hf.py); its FAILs and the GGUF reader's are classified in adapters/hf/FINDINGS.txt.",
+ "_comment": "Runs of the conformance suite (spec/IR_SPEC.md section 11.4): one results file per engine, with every case's verdict and detail; each run names the keramos tag and commit it ran against. v1.3.3 has 413 cases (v1.3.2 added pk_flex_t5's 5; v1.3.1 408, v1.3.0 404, v1.2.0 370); each run names its tag. SKIP means the engine has no path for the case (the reference: the gradient cases, which are its own finite differences; mtstudio: the single ops it has no kernel path for, sessions other than its scored traces, document loading, refusals and acceptance, dequantisation, chat rendering; the clean-room Rust engine: the gradient cases and render_chat; ember: single ops other than recurrence, expr and attention, and the gradient cases). reference_environment.json is the generating environment's receipt (IR_SPEC 4.6), not a run of an engine. llama.cpp is the first engine measured that was not written against the spec: its FAILs are classified in adapters/llamacpp/FINDINGS.txt. transformers (5.20.2, torch 2.14.1+cpu) is measured through an export of each GGUF to an HF checkpoint (adapters/common/gguf_to_hf.py); its FAILs and the GGUF reader's are classified in adapters/hf/FINDINGS.txt. ONNX Runtime GenAI (0.18.0, onnxruntime 1.31.1, CPU) is measured through the same export and its own model builder: its FAILs and the builder's and kernel's refusals are classified in adapters/ortgenai/FINDINGS.txt.",
  "runs": [
   {
    "file": "ir_numpy.json",
@@ -451,6 +451,83 @@
      "PASS": 0,
      "FAIL": 0,
      "SKIP": 34,
+     "XFAIL": 0,
+     "XPASS": 0
+    },
+    "chat": {
+     "PASS": 0,
+     "FAIL": 0,
+     "SKIP": 32,
+     "XFAIL": 0,
+     "XPASS": 0
+    }
+   }
+  },
+  {
+   "file": "ortgenai_cpu.json",
+   "engine": "ONNX Runtime GenAI 0.18.0 (onnxruntime 1.31.1), CPU, float32, through adapters/ortgenai (in process; GGUFs exported by adapters/common/gguf_to_hf.py v2 and built by the stock model builder under transformers 5.20.2; never reads the IR document), against keramos v1.3.3 (254b6b4d9feb9b2ed241b961ca8b5f3403e369bc), adapter at 93788b4",
+   "date": "2026-10-27",
+   "counts": {
+    "PASS": 0,
+    "FAIL": 4,
+    "SKIP": 409,
+    "XFAIL": 0,
+    "XPASS": 0
+   },
+   "by_kind": {
+    "model": {
+     "PASS": 0,
+     "FAIL": 1,
+     "SKIP": 21,
+     "XFAIL": 0,
+     "XPASS": 0
+    },
+    "trace": {
+     "PASS": 0,
+     "FAIL": 3,
+     "SKIP": 61,
+     "XFAIL": 0,
+     "XPASS": 0
+    },
+    "op": {
+     "PASS": 0,
+     "FAIL": 0,
+     "SKIP": 62,
+     "XFAIL": 0,
+     "XPASS": 0
+    },
+    "refuse": {
+     "PASS": 0,
+     "FAIL": 0,
+     "SKIP": 94,
+     "XFAIL": 0,
+     "XPASS": 0
+    },
+    "digest": {
+     "PASS": 0,
+     "FAIL": 0,
+     "SKIP": 85,
+     "XFAIL": 0,
+     "XPASS": 0
+    },
+    "dequant": {
+     "PASS": 0,
+     "FAIL": 0,
+     "SKIP": 10,
+     "XFAIL": 0,
+     "XPASS": 0
+    },
+    "grad": {
+     "PASS": 0,
+     "FAIL": 0,
+     "SKIP": 8,
+     "XFAIL": 0,
+     "XPASS": 0
+    },
+    "accept": {
+     "PASS": 0,
+     "FAIL": 0,
+     "SKIP": 36,
      "XFAIL": 0,
      "XPASS": 0
     },
