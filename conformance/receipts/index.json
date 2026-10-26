@@ -1,12 +1,12 @@
 {
- "_comment": "Runs of the conformance suite (spec/IR_SPEC.md section 11.4): one results file per engine, with every case's verdict and detail; each run names the keramos tag and commit it ran against. v1.3.1 has 408 cases (v1.3.0 404, v1.2.0 370); each run names its tag. SKIP means the engine has no path for the case (the reference: the gradient cases, which are its own finite differences; mtstudio: the single ops it has no kernel path for, sessions other than its scored traces, document loading, refusals and acceptance, dequantisation, chat rendering; the clean-room Rust engine: the gradient cases and render_chat; ember: single ops other than recurrence, expr and attention, and the gradient cases). reference_environment.json is the generating environment's receipt (IR_SPEC 4.6), not a run of an engine. llama.cpp is the first engine measured that was not written against the spec: its FAILs are classified in adapters/llamacpp/FINDINGS.txt. transformers (5.20.2, torch 2.14.1+cpu) is measured through an export of each GGUF to an HF checkpoint (adapters/common/gguf_to_hf.py); its FAILs and the GGUF reader's are classified in adapters/hf/FINDINGS.txt.",
+ "_comment": "Runs of the conformance suite (spec/IR_SPEC.md section 11.4): one results file per engine, with every case's verdict and detail; each run names the keramos tag and commit it ran against. v1.3.3 has 413 cases (v1.3.2 added pk_flex_t5's 5; v1.3.1 408, v1.3.0 404, v1.2.0 370); each run names its tag. SKIP means the engine has no path for the case (the reference: the gradient cases, which are its own finite differences; mtstudio: the single ops it has no kernel path for, sessions other than its scored traces, document loading, refusals and acceptance, dequantisation, chat rendering; the clean-room Rust engine: the gradient cases and render_chat; ember: single ops other than recurrence, expr and attention, and the gradient cases). reference_environment.json is the generating environment's receipt (IR_SPEC 4.6), not a run of an engine. llama.cpp is the first engine measured that was not written against the spec: its FAILs are classified in adapters/llamacpp/FINDINGS.txt. transformers (5.20.2, torch 2.14.1+cpu) is measured through an export of each GGUF to an HF checkpoint (adapters/common/gguf_to_hf.py); its FAILs and the GGUF reader's are classified in adapters/hf/FINDINGS.txt.",
  "runs": [
   {
    "file": "ir_numpy.json",
-   "engine": "numpy reference (tools/ir_numpy.py) (CPython 3.13.14, numpy 2.3.5, Windows 11 x86-64: the generating environment), against keramos v1.3.1 (c898414cc1b569b50e0a2061d01ac269edce2d30)",
+   "engine": "numpy reference (tools/ir_numpy.py) (CPython 3.13.14, numpy 2.3.5, Windows 11 x86-64: the generating environment), against keramos v1.3.3 (254b6b4d9feb9b2ed241b961ca8b5f3403e369bc)",
    "date": "2026-10-27",
    "counts": {
-    "PASS": 400,
+    "PASS": 405,
     "FAIL": 0,
     "SKIP": 8,
     "XFAIL": 0,
@@ -14,14 +14,14 @@
    },
    "by_kind": {
     "model": {
-     "PASS": 21,
+     "PASS": 22,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
      "XPASS": 0
     },
     "trace": {
-     "PASS": 62,
+     "PASS": 64,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
@@ -42,7 +42,7 @@
      "XPASS": 0
     },
     "digest": {
-     "PASS": 84,
+     "PASS": 85,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
@@ -63,7 +63,7 @@
      "XPASS": 0
     },
     "accept": {
-     "PASS": 35,
+     "PASS": 36,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
@@ -80,18 +80,18 @@
   },
   {
    "file": "mtstudio.json",
-   "engine": "paperkiln mtstudio, CPU, with ir_eval and expr_eval (ext4 clean clone of paperkiln 8de00e57, which includes 70638baf's thirdparty ops; Release, GCC 13.3, -ffp-contract=off), against keramos v1.2.0 (d4b880ae2a42865f4334b2c3ea27af6db02ffc84)",
-   "date": "2026-10-26",
+   "engine": "paperkiln mtstudio, CPU, with ir_eval and expr_eval (ext4 clone of paperkiln e8f66a10, ir_eval with position_bias; Release, GCC 13.3, -ffp-contract=off), against keramos v1.3.3 (254b6b4d9feb9b2ed241b961ca8b5f3403e369bc)",
+   "date": "2026-10-27",
    "counts": {
-    "PASS": 139,
+    "PASS": 143,
     "FAIL": 0,
-    "SKIP": 231,
+    "SKIP": 270,
     "XFAIL": 0,
     "XPASS": 0
    },
    "by_kind": {
     "model": {
-     "PASS": 16,
+     "PASS": 17,
      "FAIL": 0,
      "SKIP": 5,
      "XFAIL": 0,
@@ -100,26 +100,26 @@
     "trace": {
      "PASS": 6,
      "FAIL": 0,
-     "SKIP": 33,
+     "SKIP": 58,
      "XFAIL": 0,
      "XPASS": 0
     },
     "op": {
-     "PASS": 25,
+     "PASS": 27,
      "FAIL": 0,
-     "SKIP": 34,
+     "SKIP": 35,
      "XFAIL": 0,
      "XPASS": 0
     },
     "refuse": {
      "PASS": 0,
      "FAIL": 0,
-     "SKIP": 83,
+     "SKIP": 94,
      "XFAIL": 0,
      "XPASS": 0
     },
     "digest": {
-     "PASS": 84,
+     "PASS": 85,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
@@ -142,7 +142,7 @@
     "accept": {
      "PASS": 0,
      "FAIL": 0,
-     "SKIP": 34,
+     "SKIP": 36,
      "XFAIL": 0,
      "XPASS": 0
     },
@@ -157,13 +157,13 @@
   },
   {
    "file": "cleanroom.json",
-   "engine": "keramos-cleanroom (Rust, cleanroom/rust at keramos 1d1fd377; rustc 1.98.1, release, no crates, WSL ext4), against keramos v1.3.1 (c898414cc1b569b50e0a2061d01ac269edce2d30)",
+   "engine": "keramos-cleanroom (Rust, cleanroom/rust at keramos 1d1fd377; rustc 1.98.1, release, no crates, WSL ext4), against keramos v1.3.3 (254b6b4d9feb9b2ed241b961ca8b5f3403e369bc)",
    "date": "2026-10-27",
    "counts": {
-    "PASS": 360,
+    "PASS": 361,
     "FAIL": 0,
     "SKIP": 40,
-    "XFAIL": 8,
+    "XFAIL": 12,
     "XPASS": 0
    },
    "by_kind": {
@@ -171,14 +171,14 @@
      "PASS": 21,
      "FAIL": 0,
      "SKIP": 0,
-     "XFAIL": 0,
+     "XFAIL": 1,
      "XPASS": 0
     },
     "trace": {
      "PASS": 62,
      "FAIL": 0,
      "SKIP": 0,
-     "XFAIL": 0,
+     "XFAIL": 2,
      "XPASS": 0
     },
     "op": {
@@ -196,7 +196,7 @@
      "XPASS": 0
     },
     "digest": {
-     "PASS": 84,
+     "PASS": 85,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
@@ -220,7 +220,7 @@
      "PASS": 35,
      "FAIL": 0,
      "SKIP": 0,
-     "XFAIL": 0,
+     "XFAIL": 1,
      "XPASS": 0
     },
     "chat": {
@@ -311,12 +311,12 @@
   },
   {
    "file": "llamacpp_cpu.json",
-   "engine": "llama.cpp b6000 (4762ad7316dcdec20016ab5985fb46a27902204d), CPU, f32 kv cache, through adapters/llamacpp (a shim over llama.h; reads the GGUF, never the IR document), against keramos v1.3.1 (c898414cc1b569b50e0a2061d01ac269edce2d30)",
+   "engine": "llama.cpp b6000 (4762ad7316dcdec20016ab5985fb46a27902204d), CPU, f32 kv cache, through adapters/llamacpp (a shim over llama.h; reads the GGUF, never the IR document), against keramos v1.3.3 (254b6b4d9feb9b2ed241b961ca8b5f3403e369bc)",
    "date": "2026-10-27",
    "counts": {
     "PASS": 27,
     "FAIL": 12,
-    "SKIP": 369,
+    "SKIP": 374,
     "XFAIL": 0,
     "XPASS": 0
    },
@@ -324,14 +324,14 @@
     "model": {
      "PASS": 5,
      "FAIL": 3,
-     "SKIP": 13,
+     "SKIP": 14,
      "XFAIL": 0,
      "XPASS": 0
     },
     "trace": {
      "PASS": 12,
      "FAIL": 9,
-     "SKIP": 41,
+     "SKIP": 43,
      "XFAIL": 0,
      "XPASS": 0
     },
@@ -352,7 +352,7 @@
     "digest": {
      "PASS": 0,
      "FAIL": 0,
-     "SKIP": 84,
+     "SKIP": 85,
      "XFAIL": 0,
      "XPASS": 0
     },
@@ -373,7 +373,7 @@
     "accept": {
      "PASS": 0,
      "FAIL": 0,
-     "SKIP": 35,
+     "SKIP": 36,
      "XFAIL": 0,
      "XPASS": 0
     },
