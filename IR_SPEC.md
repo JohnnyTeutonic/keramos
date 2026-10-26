@@ -2,7 +2,7 @@
 
 *Normative specification of the paperkiln model IR: a versioned JSON graph of a language model that an
 engine interprets, rather than recognising a fixed architecture. IR version 1, specification revision
-1.3 (27 October 2026; v1.3.2).*
+1.3 (27 October 2026; v1.3.3).*
 
 - Repository: keramos (`github.com/JohnnyTeutonic/keramos`), which holds this text, its schema, the
   reference tools, the worked documents and the conformance suite. Paths in this document are
@@ -2431,6 +2431,7 @@ equal to dc29b5e6 bit for bit) and the pinned commits of the RunPod campaigns ar
 
 ## Appendix B. Changelog
 
+- **v1.3.3** (tag, 27 October 2026; section 2.6). The runner: an expected failure (`expected_fail.json`) covers a case the engine fails with an error as well as one it fails on values, so the clean-room engine's refusal of `position_bias` at load reports XFAIL. No case or expected value changes.
 - **v1.3.2** (tag, 27 October 2026; section 2.6). The whole-model case of T5's relative bias, `pk_flex_t5`
   (paperkiln's recipe in its `tools/ir_conformance_mtstudio.py`: flex, rmsnorm, relu, `position:
   "t5_relative"` with 8 buckets up to distance 12, so the 16-token contexts reach the last bucket; trained by
