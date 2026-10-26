@@ -2315,7 +2315,7 @@ extractor's proposal of T5's bias (paperkiln, 26 October 2026). Each with the an
   max(1, |ref|), greedy 40/40, and the reference's lines give its values bit for bit on the three op
   cases. The suite has the three op cases and four refusals; the whole-model case `pk_flex_t5`
   (paperkiln's gate recipe) follows at v1.3.2, a new case that moves no existing value (section 2.6).
-  ember refuses the attribute by name until it implements it (Appendix C).
+  ember runs it on its CPU interpreter (1ab6a252; the op cases within 1.6e-7 at v1.3.0).
 
 - **transformers' findings** (`adapters/hf/FINDINGS.txt`, H1 to H6, keramos f1b7b49). H1: a
   multi-id forward over an existing state is now a case of its own for every model (traces
@@ -2577,8 +2577,8 @@ scale and shift, depth_route step, and the slot's window (per-layer sinks includ
 list (which excludes `split`, `moe_ffn`, `rope`, `pos_embedding` and `embedding`); `depth_route` with
 recurrent state or a windowed slot; `mask: turn_state` with `kv_rows: active`; eviction with recurrent
 state; `expr` nested deeper than 200 (the CUDA expr kernel takes up to 96 instructions, a stack of 16
-and 8 reductions, and serves larger expressions on the CPU); `attention.position_bias` (revision 1.3),
-by name, until ember implements it.
+and 8 reductions, and serves larger expressions on the CPU); `attention.position_bias` per layer or under
+`depth_route` (ember runs it on the CPU interpreter otherwise, from 1ab6a252).
 
 **ember's conformance.** At ember 39dcce9 its adapter passes keramos v1.1.2 (as v1.1.1) with 230 pass, 0
 fail and 54 skip, the skips being the single-op fixtures of ops other than `recurrence` (its `run_node` runs
