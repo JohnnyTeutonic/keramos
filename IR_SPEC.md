@@ -3144,7 +3144,7 @@ llama.cpp, transformers and ONNX Runtime GenAI read no document: the two new mod
 "paperkiln" (rule 38) and the other new cases need a document or a single node, so each of the 28 is a skip
 for them by construction; their v1.3.5 receipts stand. ember's CPU interpreter (757e36b, written from
 section 5.15's text) passes 413, fails 0 and skips 52 at v1.4.0: every new case but the three gradient
-ones (at v1.4.1, ember b49eb5c, 415, 0 and 52 with the two `weight_index` cases), with `relative_kv` in the stated order and `pk_flex_mdha` as written at ec3201b. Its CUDA builds
+ones (at v1.4.1, ember b49eb5c, 415, 0 and 52 with the two `weight_index` cases; at v1.4.2, ember 1456c0c, 472, 0 and 52, the 57 new cases passing: the windows under `depth_route`, `parse_reply` and the v2 chat cases), with `relative_kv` in the stated order and `pk_flex_mdha` as written at ec3201b. Its CUDA builds
 run `pk_flex_mdha` on the device and serve `relative_kv` on the CPU; WebAssembly is bit-equal to the CPU
 and WebGPU (a software adapter) has a `relative_kv` kernel. On the arXiv chain's model from Shaw et al.
 (1803.02155; flex d 64, 2 layers, per-head tables, max_distance 16) ember's replies equal mtstudio's
@@ -3168,7 +3168,7 @@ the host, so a depth is EXACT given its logits; each recursion step runs over it
 their absolute positions into each application's compact kv cache, and decode runs per launch.
 ROUNDING. On a T4 against ember's CPU on mor3 and mor2p0: greedy 40/40, top-1 1299/1299, logits within
 2.0e-7, depth traces 40/40 in prefill and decode, kv rows held per application equal to the CPU's,
-rewinds 160/160. A pos_embedding inside a MoR block keeps the document on the CPU.
+rewinds 160/160. A pos_embedding or a window inside a MoR block keeps the document on the CPU (the CPU interpreter counts the window in positions over each application's rows, section 5.15, from ember 1456c0c).
 
 **ember and revision 1.1.** ember 39dcce9 or later implements revision 1.1 on its CPU interpreter,
 written from this text: it checks `paperkiln.ir_sha256` at load (rule 30), answers `digest` and
@@ -3180,7 +3180,7 @@ block; per-layer values other than attention window and sinks, rope theta and fr
 scale and shift, depth_route step, and the slot's window (per-layer sinks included); `rope_heads`
 "first"; rope nodes with differing theta, freq_scale, n_rot or pairing; head ops outside its head
 list (which excludes `split`, `moe_ffn`, `rope`, `pos_embedding` and `embedding`); `depth_route` with
-recurrent state or a windowed slot; `mask: turn_state` with `kv_rows: active`; eviction with recurrent
+recurrent state; `mask: turn_state` with `kv_rows: active`; eviction with recurrent
 state; `expr` nested deeper than 200 (the CUDA expr kernel takes up to 96 instructions, a stack of 16
 and 8 reductions, and serves larger expressions on the CPU); `attention.position_bias` per layer or under
 `depth_route` (ember runs it on the CPU interpreter otherwise, from 1ab6a252).
