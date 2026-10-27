@@ -1,8 +1,12 @@
-# The paperkiln IR, version 1
+# The keramos IR, version 1
 
-*Normative specification of the paperkiln model IR: a versioned JSON graph of a language model that an
+*Normative specification of the keramos IR: a versioned JSON graph of a language model that an
 engine interprets, rather than recognising a fixed architecture. IR version 1, specification revision
-1.3 (27 October 2026; v1.3.3).*
+1.3 (27 October 2026; v1.3.4).*
+
+The format's GGUF keys keep their `paperkiln.` prefix (`paperkiln.ir`, `paperkiln.ir_version`,
+`paperkiln.ir_sha256` and the rest), as does the architecture label "paperkiln" (rule 38): they are
+names in the format, unchanged by the specification's name.
 
 - Repository: keramos (`github.com/JohnnyTeutonic/keramos`), which holds this text, its schema, the
   reference tools, the worked documents and the conformance suite. Paths in this document are
@@ -1080,7 +1084,8 @@ those n tokens would leave. Per slot:
   `llama_memory_seq_rm` should (finding 4 of `adapters/llamacpp/FINDINGS.txt`, H3 of
   `adapters/hf/FINDINGS.txt`); the engine above it then re-prefills or refuses. Traces `pk_gpt2_swa_rewind_window` (window 4, sinks 2: 14 tokens, a cut to 7) and
   `tp_gemma3_rewind_window` (window 4 on its local layers: 48 tokens, more than llama.cpp's smallest
-  windowed cache, a cut to 10).
+  windowed cache, a cut to 10) and `tp_mistral_hd16_rewind_window` (window 4 on every layer: 14
+  tokens, a cut to 7).
 - **kv with kv_rows active:** keep the rows whose positions are < n, per application, with each
   application's written-rows mask truncated with them (section 7.5).
 - **recurrent:** a recurrence cannot drop tokens. Prefix reuse keeps a snapshot of the slot's
@@ -1706,8 +1711,8 @@ builder makes from the file), and an engine without the capability refuses such 
   `<arch>.attention.sliding_window` w sets window w, sinks 0 (HF Mistral's mask). llama.cpp has no
   architecture "mistral" (b6000 and its later releases refuse such a file): its converter writes a
   Mistral checkpoint as "llama" without the window key, and its llama graph has no window, so llama.cpp
-  computes a converted Mistral without its window (the suite's `tp_mistral` tests this builder, not
-  llama.cpp). A llama file with `llama.expert_count` and `ffn_gate_inp` (Mixtral's layout, revision
+  computes a converted Mistral without its window (the suite's `tp_mistral` and `tp_mistral_hd16`
+  test this builder, not llama.cpp). A llama file with `llama.expert_count` and `ffn_gate_inp` (Mixtral's layout, revision
   1.3): `moe_ffn` in place of the SwiGLU (router `ffn_gate_inp`, experts `ffn_{gate,up,down}_exps`,
   top_k `expert_used_count`, gate_norm renorm, activation silu), as llama.cpp's llama graph.
 - **qwen2, qwen3**: llama with NEOX RoPE; qwen2 biased q/k/v, qwen3 per-head q/k rmsnorm (group
@@ -2431,6 +2436,15 @@ equal to dc29b5e6 bit for bit) and the pinned commits of the RunPod campaigns ar
 
 ## Appendix B. Changelog
 
+- **v1.3.4** (tag, 27 October 2026; section 2.6). The specification's name is the keramos IR (titles and
+  prose); the format's keys and labels keep their `paperkiln` names (the front matter). Three third-party
+  models with head_dim 16, the smallest head size onnxruntime's CPU GroupQueryAttention runs with fused
+  rotary (finding 1 of `adapters/ortgenai/FINDINGS.txt`; every earlier attention model of the suite has
+  head_dim 4 or 8): `tp_llama_hd16` (d 32, 2 heads, 2 kv heads), `tp_mistral_hd16` (d 32, 2 heads over 1 kv
+  head, window 4) and `tp_qwen3_hd16` (d 32, 4 heads over 2, head_dim 16 apart from d / heads, as in the
+  released Qwen3 checkpoints), 2 layers each, with their model cases, decode and chunks traces, truncate
+  traces (llama, qwen3) and a rewind into the window (mistral), accept cases and digest vectors: 431 cases,
+  no existing case or value changes; regenerated in the named environment (section 4.6) and reproduced.
 - **v1.3.3** (tag, 27 October 2026; section 2.6). The runner: an expected failure (`expected_fail.json`) covers a case the engine fails with an error as well as one it fails on values, so the clean-room engine's refusal of `position_bias` at load reports XFAIL. No case or expected value changes.
 - **v1.3.2** (tag, 27 October 2026; section 2.6). The whole-model case of T5's relative bias, `pk_flex_t5`
   (paperkiln's recipe in its `tools/ir_conformance_mtstudio.py`: flex, rmsnorm, relu, `position:
