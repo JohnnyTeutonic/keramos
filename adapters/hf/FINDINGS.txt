@@ -181,7 +181,7 @@ runner). Findings 1 to 5 are transformers'; 6 and 7 are the measurement's.
    with the scan seeded). Passing the full 13-id sequence with the cache instead is wrong differently (0.055):
    generate slices already-cached ids only for past_key_values, and a Mamba cache has no length, so every id
    is fed again on top of the state. A Hugging Face forum thread ("Sequential Prefilling w/ Mamba",
-   discuss.huggingface.co/t/113101) reports the symptom without a cause or a fix. Drafted issue 1.
+   discuss.huggingface.co/t/113101) reports the symptom without a cause or a fix. Upstream issue 1.
 
 2. Gemma 3 from GGUF loses the global layers' RoPE scaling and the attention scale (SEMANTIC; transformers'
    GGUF reader).
@@ -195,7 +195,7 @@ runner). Findings 1 to 5 are transformers'; 6 and 7 are the measurement's.
    with the reader's two config values substituted reproduces the reader's logits bit for bit (each alone
    does not: 1.30 and 0.26). For real checkpoints: the 4B, 12B and 27B lose their linear RoPE factor 8 on the
    global layers at every position; the 27B also gets scale 1/16 for 1/sqrt(168); the 1B (no scaling,
-   head_dim 256) is unaffected. Drafted issue 2.
+   head_dim 256) is unaffected. Upstream issue 2.
 
 3. A llama.cpp Mixtral GGUF loads as a dense Llama with randomly initialised MLPs (SEMANTIC; transformers'
    GGUF reader).
@@ -204,7 +204,7 @@ runner). Findings 1 to 5 are transformers'; 6 and 7 are the measurement's.
    ffn_*_exps (the tensor loop skips names not in the map), and from_pretrained initialises every MLP at
    random with only the usual "newly initialized" warning. On pk_moe: missing_keys = every layer's
    mlp.{gate,up,down}_proj; logits 0.82 off the reference. The keramos export loads the same file as
-   MixtralForCausalLM within 1.6e-7. Drafted issue 3.
+   MixtralForCausalLM within 1.6e-7. Upstream issue 3.
 
 4. Smaller gaps in the GGUF reader's config mapping (SEMANTIC or loud; transformers' GGUF reader).
    (a) qwen3.attention.key_length is not mapped, so head_dim takes Qwen3Config's default 128: a Qwen3-
@@ -216,7 +216,7 @@ runner). Findings 1 to 5 are transformers'; 6 and 7 are the measurement's.
    tokens), and a file named exactly "mistral" then fails in gguf-py 0.19.0 ("Unknown gguf model_type:
    mistral"). tp_mistral loaded as llama.cpp would write it matches the windowless reference to 5.4e-7.
    (c) No gptneox reader (Pythia GGUFs are refused; a skip here). (d) gpt2's n_positions is not mapped
-   (1024 by default; harmless on pk_gpt2). Folded into drafted issue 4.
+   (1024 by default; harmless on pk_gpt2). Folded into upstream issue 4.
 
 5. Rewind into a sliding window is refused, not silently wrong (conforms; informative).
    llama.cpp's finding 4 does not recur. DynamicSlidingWindowLayer.crop raises RuntimeError once the layer
@@ -270,15 +270,25 @@ H6. Appendix C. A transformers row would read: CPU float32 ROUNDING throughout (
     architecture MoE files unloadable.
 
 
-DRAFTED UPSTREAM ISSUES (NOT FILED)
------------------------------------
+UPSTREAM ISSUES
+---------------
 
-Posting is Jonathan's decision. Before any is filed: search the transformers tracker for duplicates (a web
-search on 27 Oct 2026 found only the forum thread under issue 1), reproduce on current main with a real
-checkpoint (state-spaces/mamba-130m-hf; a Gemma 3 4B GGUF; a Mixtral 8x7B GGUF), and drop the keramos context
-where it does not help a transformers reader.
+None is filed. transformers' CONTRIBUTING.md asks first-time contributors not to use code agents to create issues
+or PRs at present, and autonomous agents not to open any; JohnnyTeutonic has no earlier issue or PR in
+huggingface/transformers, so these are Jonathan's to write himself if he wants them filed. Each was reproduced on
+27 Oct 2026 with a self-contained script (a random tiny model, or a GGUF written with gguf-py 0.19.0) under
+transformers 5.20.2 and 5.21.0, the current release, whose modeling_mamba.py, integrations/ggml.py and
+modeling_gguf_pytorch_utils.py are identical to main at 8979c57. The duplicate search (gh, open and closed)
+found nothing for 2 to 4; issue 1's neighbours are below.
 
 Issue 1. Mamba: a multi-token forward with cache_params ignores the cached SSM state
+
+  Not filed: the contributing policy above. Reproduced (random MambaConfig, d 16, 2 layers, initializer_range
+  0.5): 8 tokens then 8 more over the cache, against one forward of 16, 0.361 relative; 8 then one at a time,
+  5.0e-7. Neighbours: https://github.com/huggingface/transformers/issues/31909 (closed 2024 by its reporter,
+  after a maintainer said a multi-token forward over a Mamba-1 cache is not supported; it crashed on the CUDA
+  path then) and https://github.com/huggingface/transformers/issues/46032 (the same bug in Mamba2Mixer, labelled
+  bug and fixed by PR #46084; Mamba-1's MambaMixer was not changed). A new report would cite both.
 
   Summary. MambaMixer.forward uses the cached recurrent state only when seq_len == 1. With a cache that
   already holds a state and an input of two or more tokens, the full-sequence path concatenates the cached
@@ -300,6 +310,11 @@ Issue 1. Mamba: a multi-token forward with cache_params ignores the cached SSM s
 
 Issue 2. GGUF: Gemma 3 loads without its RoPE scaling and with the wrong attention scale
 
+  Not filed: the contributing policy above. Reproduced (6-layer Gemma 3 GGUF, head_dim 16, linear factor 8):
+  rope_parameters full_attention "default", query_pre_attn_scalar 256; 0.425 relative off the same weights with
+  the file's configuration (RoPE scaling alone 0.383, attention scale alone 0.013), greedy different at 14 of 64.
+  llama.cpp master's converter writes the scaling keys from the full_attention entry (conversion/base.py).
+
   Summary. GGUF_CONFIG_MAPPING["gemma3"] has no entry for gemma3.rope.scaling.type / .factor and does not set
   query_pre_attn_scalar. Gemma 3 4B, 12B and 27B GGUFs (llama.cpp's convert writes rope.scaling.type linear,
   factor 8, for the global layers) load with unscaled RoPE on the global layers; the 27B also gets
@@ -318,6 +333,10 @@ Issue 2. GGUF: Gemma 3 loads without its RoPE scaling and with the wrong attenti
 
 Issue 3. GGUF: llama-architecture MoE files (Mixtral) load as a dense Llama with random MLP weights
 
+  Not filed: the contributing policy above. Reproduced (2-layer llama GGUF, 4 experts): LlamaForCausalLM,
+  missing_keys every layer's mlp.{gate,up,down}_proj, two loads of the same file give different logits.
+  llama.cpp master still converts MixtralForCausalLM to architecture "llama" (conversion/__init__.py).
+
   Summary. llama.cpp writes Mixtral as general.architecture "llama" with llama.expert_count and merged
   blk.N.ffn_{gate,up,down}_exps tensors. The GGUF reader builds a LlamaConfig, skips the expert tensors (no
   mapping), and from_pretrained initialises every mlp.*_proj at random; only the "newly initialized" warning
@@ -332,6 +351,13 @@ Issue 3. GGUF: llama-architecture MoE files (Mixtral) load as a dense Llama with
   ffn_down_exps -> experts.down_proj, as Qwen2MoeTensorProcessor does), or raise on expert_count.
 
 Issue 4. GGUF config mapping: smaller gaps (Qwen3 head_dim, Mistral detection, GPT-2 positions)
+
+  Not filed: the contributing policy above. (a) reproduced: key_length 32 loads with head_dim 128 and the
+  forward fails ("The size of tensor a (32) must match the size of tensor b (128)"). (b) reproduced: general.name
+  "Mistral-7B-v0.1" loads as LlamaForCausalLM; "mistral" fails with NotImplementedError ("Unknown gguf model_type:
+  mistral in gguf-py", gguf 0.19.0). Fixing the name test alone would give windowless Mistral files
+  MistralConfig's default sliding_window 4096; loading as Llama is the safer reading. (c) is not a defect: a gpt2
+  GGUF with context_length 2048 loads with n_positions 1024 in the config but a 2048-row wpe, and runs.
 
   (a) qwen3.attention.key_length is not mapped to head_dim (gemma3's entry maps it), so a Qwen3 GGUF whose
   head_dim is not 128 loads silently and fails at the first forward with a reshape error.
