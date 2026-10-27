@@ -1,13 +1,13 @@
 {
  "spec": {
   "repository": "keramos",
-  "tag": "v1.4.0",
-  "commit": "c1a5319784ed66f2f3d3e4e4e18903eeb49a8f08"
+  "tag": "v1.4.1",
+  "commit": "a29ce6f596e2e79c6fca52e6382c962cb5f7011e"
  },
  "engine": {
   "name": "paperkiln mtstudio, CPU, with ir_eval (recurrence nodes, attention with relative_kv and the thirdparty single ops, their gradients, the digest) and expr_eval",
-  "environment": "ext4 clone of paperkiln 0478dcbd (branch d2), Release, GCC 13.3, -ffp-contract=off, built in WSL (~/d2_build); runner under CPython 3.12.3, numpy 2.3.3",
-  "run": "the mtstudio adapter (tools/ir_conformance_mtstudio.py) with the runner of a clean clone of keramos at v1.4.0 (c1a53197), 2026-10-27. New at 1.4: pk_flex_shaw and pk_flex_mdha through mtstudio score; the relative_kv op cases and gradient cases through ops::shaw_attention (window and sinks: skip, as for position_bias); their traces, refusals and acceptance cases skip (mtstudio runs its own models); no earlier verdict moves"
+  "environment": "ext4 clone of paperkiln 43e32a05 (branch d2), Release, GCC 13.3, -ffp-contract=off, built in WSL (~/d2_build); runner under CPython 3.12.3, numpy 2.3.3",
+  "run": "the mtstudio adapter (tools/ir_conformance_mtstudio.py) with the runner of a clean clone of keramos at v1.4.1 (a29ce6f5), 2026-10-27. New at 1.4.0: pk_flex_shaw and pk_flex_mdha through mtstudio score; the relative_kv op cases and gradient cases through ops::shaw_attention (window and sinks: skip, as for position_bias); their traces, refusals and acceptance cases skip (mtstudio runs its own models); no earlier verdict moves; v1.4.1's trace and acceptance case of pk_flex_shaw under weight_index skip (a substituted document)"
  },
  "adapter": {
   "engine": "mtstudio",
@@ -24,7 +24,7 @@
  "counts": {
   "PASS": 158,
   "FAIL": 0,
-  "SKIP": 307,
+  "SKIP": 309,
   "XFAIL": 0,
   "XPASS": 0
  },
@@ -39,7 +39,7 @@
   "trace": {
    "PASS": 6,
    "FAIL": 0,
-   "SKIP": 74,
+   "SKIP": 75,
    "XFAIL": 0,
    "XPASS": 0
   },
@@ -81,7 +81,7 @@
   "accept": {
    "PASS": 0,
    "FAIL": 0,
-   "SKIP": 42,
+   "SKIP": 43,
    "XFAIL": 0,
    "XPASS": 0
   },
@@ -2441,6 +2441,12 @@
    "detail": "not implemented"
   },
   {
+   "id": "trace/pk_flex_shaw_weight_index",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
    "id": "accept/documents/model_pk_attnres",
    "kind": "accept",
    "verdict": "SKIP",
@@ -2688,6 +2694,12 @@
   },
   {
    "id": "accept/documents/untagged_application_queries",
+   "kind": "accept",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "accept/documents/relative_kv_weight_index",
    "kind": "accept",
    "verdict": "SKIP",
    "detail": "not implemented"

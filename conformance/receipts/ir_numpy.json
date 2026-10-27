@@ -1,13 +1,13 @@
 {
  "spec": {
   "repository": "keramos",
-  "tag": "v1.4.0",
-  "commit": "c1a5319784ed66f2f3d3e4e4e18903eeb49a8f08"
+  "tag": "v1.4.1",
+  "commit": "a29ce6f596e2e79c6fca52e6382c962cb5f7011e"
  },
  "engine": {
   "name": "numpy reference (tools/ir_numpy.py)",
   "environment": "CPython 3.13.14, numpy 2.3.5, Windows 11 x86-64 (the generating environment, IR_SPEC 4.6)",
-  "run": "python tools/ir_conformance.py --adapter ir_numpy, in a clean clone of keramos at v1.4.0 (c1a53197), 2026-10-27; skips: the 11 gradient cases (its own finite differences)"
+  "run": "python tools/ir_conformance.py --adapter ir_numpy, in a clean clone of keramos at v1.4.1 (a29ce6f5), 2026-10-27; skips: the 11 gradient cases (its own finite differences)"
  },
  "adapter": {
   "engine": "ir_numpy",
@@ -23,7 +23,7 @@
   ]
  },
  "counts": {
-  "PASS": 454,
+  "PASS": 456,
   "FAIL": 0,
   "SKIP": 11,
   "XFAIL": 0,
@@ -38,7 +38,7 @@
    "XPASS": 0
   },
   "trace": {
-   "PASS": 80,
+   "PASS": 81,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
@@ -80,7 +80,7 @@
    "XPASS": 0
   },
   "accept": {
-   "PASS": 42,
+   "PASS": 43,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
@@ -2442,6 +2442,12 @@
    "detail": "5 steps"
   },
   {
+   "id": "trace/pk_flex_shaw_weight_index",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "5 steps"
+  },
+  {
    "id": "accept/documents/model_pk_attnres",
    "kind": "accept",
    "verdict": "PASS",
@@ -2689,6 +2695,12 @@
   },
   {
    "id": "accept/documents/untagged_application_queries",
+   "kind": "accept",
+   "verdict": "PASS",
+   "detail": "accepted"
+  },
+  {
+   "id": "accept/documents/relative_kv_weight_index",
    "kind": "accept",
    "verdict": "PASS",
    "detail": "accepted"
