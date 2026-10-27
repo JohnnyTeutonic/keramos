@@ -179,6 +179,11 @@
    "name": "relative_kv_weight_index",
    "gguf": "models/pk_flex_shaw/pk_flex_shaw.gguf",
    "ir": "accept/pk_flex_shaw_weight_index.ir.json"
+  },
+  {
+   "name": "mor_window",
+   "gguf": "models/pk_mor/pk_mor.gguf",
+   "ir": "accept/pk_mor_window.ir.json"
   }
  ]
 }
