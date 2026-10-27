@@ -2752,11 +2752,15 @@ and 8 reductions, and serves larger expressions on the CPU); `attention.position
 `depth_route` (ember runs it on the CPU interpreter otherwise, from 1ab6a252).
 
 **tensor_index** (section 7.2). The numpy reference and the clean-room engine pass every case of
-section 7.2 at v1.3.5; ember's CPU interpreter (from aa50a61, which binds a tagged node's names by
-application on every path and refuses the key nowhere at load) passed the model case and its traces
-at v1.3.4, before the six cases v1.3.5 adds; paperkiln's mtstudio exports it for llama_attnres
-under fixed recursion and scores its own models (the model case). ember's CUDA, WebAssembly and
-WebGPU paths are not yet gated on a model that carries it.
+section 7.2 at v1.3.5, as does ember's CPU interpreter (from aa50a61, which binds a tagged node's
+names by application on every path and refuses the key nowhere at load; receipt at v1.3.5, 388 pass,
+0 fail, 49 skip); paperkiln's mtstudio exports it for llama_attnres under fixed recursion and scores
+its own models (the model case). On paperkiln's gate model ar_rec (llama_attnres under 1 + [2] x 2 + 1
+recursion, weight_index [0, 1, 2, 1, 2, 3], F32 and Q8_0), at ember ec3201b, the CPU interpreter is
+within 2.7e-7 of the numpy reference, WebAssembly is bit-equal to the CPU, CUDA is within 2.1e-7 of
+the CPU and WebGPU on a software adapter is within 1.5e-6, each with greedy 40/40; on every path the
+untagged document computes its own function, 2.1e-2 from the tagged reading (ember
+`experiments/tensor_index_gate_2026-10-27`).
 
 **ember's conformance.** At ember 39dcce9 its adapter passes keramos v1.1.2 (as v1.1.1) with 230 pass, 0
 fail and 54 skip, the skips being the single-op fixtures of ops other than `recurrence` (its `run_node` runs
