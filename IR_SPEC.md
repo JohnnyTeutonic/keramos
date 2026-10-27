@@ -2715,7 +2715,14 @@ it through `ops::shaw_attention`, the op it trains with, in its `ir_eval` (op an
 engine (revision 1.2) runs `pk_flex_mdha` and fails the `relative_kv` cases, which `expected_fail.json` lists.
 llama.cpp, transformers and ONNX Runtime GenAI read no document: the two new models are architecture
 "paperkiln" (rule 38) and the other new cases need a document or a single node, so each of the 28 is a skip
-for them by construction; their v1.3.5 receipts stand. ember writes its own receipt.
+for them by construction; their v1.3.5 receipts stand. ember's CPU interpreter (757e36b, written from
+section 5.15's text) passes 413, fails 0 and skips 52 at v1.4.0: every new case but the three gradient
+ones, with `relative_kv` in the stated order and `pk_flex_mdha` as written at ec3201b. Its CUDA builds
+run `pk_flex_mdha` on the device and serve `relative_kv` on the CPU; WebAssembly is bit-equal to the CPU
+and WebGPU (a software adapter) has a `relative_kv` kernel. On the arXiv chain's model from Shaw et al.
+(1803.02155; flex d 64, 2 layers, per-head tables, max_distance 16) ember's replies equal mtstudio's
+42/42 and its logits are within 5.1e-7 of the numpy reference (ember
+`experiments/d2_primitives_2026-10-27`).
 
 **ember's tuned-path selection.** ember selects its tuned llama path by structural match (ember
 f2727c3): the node list against the canonical llama graph, with `family_hint` "llama" only as a
