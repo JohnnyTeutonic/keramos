@@ -14,9 +14,10 @@ except --json and the adapter's cache (~/ort_keramos, probe builds under ~/ort_k
                 the attention nodes it emits, genai_config's sliding_window, and whether the CPU kernel runs it.
   attribution   prefill logits of 16 ids (48 for the windowed models) against the file's own document, in the
                 configuration where ONNX Runtime runs the model (unfused: GQA with a separate RotaryEmbedding,
-                for head_size 8; mha: MultiHeadAttention, for head_size 4); windowed models also against the
-                document with its window removed. error = |a - b| / max(1, max|ref|), tol 1e-5.
-  consistency   inside ONNX Runtime GenAI (unfused, pk_llama and tp_gemma3 with the local-RoPE fix): one prefill
+                for head_size 8; mha: MultiHeadAttention, for head_size 4; the stock build for the head_dim 16
+                files); windowed models also against the document with its window removed. error = |a - b| / max(1, max|ref|), tol 1e-5.
+  consistency   inside ONNX Runtime GenAI (unfused, pk_llama and tp_gemma3 with the local-RoPE fix; the stock
+                build, tp_llama_hd16 and tp_qwen3_hd16): one prefill
                 against token-by-token append_tokens, chunks 5 + 6 + 5, and a second run: bit identity or the
                 worst difference; rewind_to against a fresh prefill; snapshot (rewind) and restore.
   generate      the GenAI search (generate_next_token, greedy; id 0 masked through set_logits, as the suite
@@ -33,6 +34,10 @@ except --json and the adapter's cache (~/ort_keramos, probe builds under ~/ort_k
                 genai_config's sliding_window layers; MistralConfig's layer_types; the MHA build's logits
                 against the document with and without its window; with --tf4-py, the same export through the
                 stock builder of onnxruntime-genai 0.15.2 (which keeps the window).
+  mistral_hd16  tp_mistral_hd16 (head_dim 16, which the stock CPU graph runs): the same graph and config facts,
+                the stock build's logits of 16 ids against the document with and without its window, and how
+                many tokens the stock generator takes before it errors, with genai_config's sliding_window
+                window_size as built (4), 8 and 12, and with that section removed.
   gguf          pk_llama through the builder's own GGUF loader (-i model.gguf): logits against the export
                 path's, bit for bit.
 """
@@ -58,8 +63,9 @@ import ortgenai_adapter as oa  # noqa: E402
 
 SUITE = ROOT / "conformance" / "models"
 TOL = 1e-5
-HF_MODELS = ["pk_llama", "pk_moe", "pk_gpt2", "tp_qwen3", "tp_mistral", "tp_gemma3", "tp_gptneox", "tp_mamba1"]
-WINDOWED = {"tp_mistral", "tp_gemma3"}
+HF_MODELS = ["pk_llama", "pk_moe", "pk_gpt2", "tp_qwen3", "tp_mistral", "tp_gemma3", "tp_gptneox", "tp_mamba1",
+             "tp_llama_hd16", "tp_mistral_hd16", "tp_qwen3_hd16"]
+WINDOWED = {"tp_mistral", "tp_gemma3", "tp_mistral_hd16"}
 UNFUSED = "unfused_rope,gemma3_config"
 GEMMA_FIX = "unfused_rope,gemma3_config,local_rope_unscaled"
 MHA = "no_gqa,gemma3_config"
@@ -182,8 +188,9 @@ def builds():
 def attribution():
     res = {}
     for name, patch in (("pk_llama", UNFUSED), ("tp_gemma3", UNFUSED), ("tp_gemma3", GEMMA_FIX), ("tp_qwen3", MHA),
-                        ("tp_mistral", MHA), ("pk_llama", MHA)):
-        ids = n_ids(name)
+                        ("tp_mistral", MHA), ("pk_llama", MHA), ("tp_llama_hd16", "none"), ("tp_qwen3_hd16", "none"),
+                        ("tp_mistral_hd16", "none")):
+        ids = n_ids(name, 16 if name == "tp_mistral_hd16" else None)  # its stock generator holds 20 tokens
         got = run(engine(patch), name, [ids])
         r = {"n": len(ids), "vs_reference": compare(got, reference(name, ids))}
         if name in WINDOWED:
@@ -194,7 +201,8 @@ def attribution():
 
 def consistency():
     res = {}
-    for name, patch in (("pk_llama", UNFUSED), ("tp_gemma3", GEMMA_FIX)):
+    for name, patch in (("pk_llama", UNFUSED), ("tp_gemma3", GEMMA_FIX), ("tp_llama_hd16", "none"),
+                        ("tp_qwen3_hd16", "none")):
         a = engine(patch)
         ids = n_ids(name)[:16]
         ref = reference(name, ids)
@@ -230,7 +238,8 @@ def consistency():
 
 def generate():
     res = {}
-    for name, patch in (("pk_llama", UNFUSED), ("tp_gemma3", UNFUSED), ("tp_gemma3", GEMMA_FIX), ("tp_qwen3", MHA)):
+    for name, patch in (("pk_llama", UNFUSED), ("tp_gemma3", UNFUSED), ("tp_gemma3", GEMMA_FIX), ("tp_qwen3", MHA),
+                        ("tp_llama_hd16", "none"), ("tp_qwen3_hd16", "none"), ("tp_mistral_hd16", "none")):
         a = engine(patch)
         m = a._model(rc.gguf_of(SUITE / name))
         case = json.loads((SUITE / name / "case.json").read_text(encoding="utf-8"))
@@ -397,9 +406,8 @@ def worker_hf_logits(model_dir, ids_npy, out_npy):
 
 # ---------------------------------------------------------------- Mistral, GGUF loader
 
-def mistral(tf4_py=None):
+def mistral(tf4_py=None, name="tp_mistral"):
     from transformers import AutoConfig
-    name = "tp_mistral"
     gguf = rc.gguf_of(SUITE / name)
     res = {}
     if tf4_py:
@@ -426,10 +434,54 @@ def mistral(tf4_py=None):
     c = AutoConfig.from_pretrained(str(ex))
     res["MistralConfig"] = {"sliding_window": c.sliding_window, "layer_types": getattr(c, "layer_types", None)}
     ids = n_ids(name)
-    got = run(engine(MHA), name, [ids])
-    res["mha_vs_reference"] = compare(got, reference(name, ids))["worst"]
-    res["mha_vs_reference_without_window"] = compare(got, reference(name, ids, no_window=True))["worst"]
+    if name == "tp_mistral":  # head_size 4: only the MHA build runs on CPU
+        got = run(engine(MHA), name, [ids])
+        res["mha_vs_reference"] = compare(got, reference(name, ids))["worst"]
+        res["mha_vs_reference_without_window"] = compare(got, reference(name, ids, no_window=True))["worst"]
+    else:  # head_size 16: the stock graph runs, up to window_size + 16 tokens (capacity below)
+        ids = n_ids(name, 16)
+        got = run(engine("none"), name, [ids])
+        res["stock_vs_reference"] = compare(got, reference(name, ids))
+        res["stock_vs_reference_without_window"] = compare(got, reference(name, ids, no_window=True))
+        res["capacity"] = capacity(engine("none").build(gguf))
     return res
+
+
+def capacity(built):
+    """Tokens a stock generator takes one at a time (max_length 64) before its first error, for genai_config's
+    sliding_window.window_size as built, set to 8 and 12, and with the section removed (copies of the build)."""
+    og = engine("none").og
+    ids = ids_for(24, 64)
+    work = Path.home() / "ort_keramos" / "probe" / "capacity"
+    out = {}
+    for label, w in (("as built", None), ("window_size 8", 8), ("window_size 12", 12), ("no sliding_window", 0)):
+        d = work / label.replace(" ", "_")
+        if d.exists():
+            shutil.rmtree(d)
+        shutil.copytree(built, d)
+        gc = json.loads((d / "genai_config.json").read_text(encoding="utf-8"))
+        if w == 0:
+            gc["model"]["decoder"].pop("sliding_window", None)
+        elif w:
+            gc["model"]["decoder"]["sliding_window"]["window_size"] = w
+        (d / "genai_config.json").write_text(json.dumps(gc, indent=1), encoding="utf-8")
+        cfg = og.Config(str(d))
+        cfg.clear_providers()
+        m = og.Model(cfg)
+        gp = og.GeneratorParams(m)
+        gp.set_search_options(max_length=64)
+        g = og.Generator(m, gp)
+        n, err = 0, None
+        try:
+            for t in ids:
+                g.append_tokens([t])
+                n += 1
+        except Exception as e:  # noqa: BLE001
+            err = str(e).strip().splitlines()[-1][-160:]
+        out[label] = {"tokens": n, "error": err}
+        del g, gp, m
+    shutil.rmtree(work)
+    return out
 
 
 def gguf_loader():
@@ -441,7 +493,7 @@ def gguf_loader():
 
 
 SECTIONS = {"kernel": kernel, "builds": builds, "attribution": attribution, "consistency": consistency,
-            "generate": generate, "gemma3": None, "mistral": mistral, "gguf": gguf_loader}
+            "generate": generate, "gemma3": None, "mistral": mistral, "mistral_hd16": None, "gguf": gguf_loader}
 
 
 def main(argv=None):
@@ -458,7 +510,8 @@ def main(argv=None):
     for name, fn in SECTIONS.items():
         if a.only and a.only != name:
             continue
-        res[name] = gemma3(a.tf4_py) if name == "gemma3" else mistral(a.tf4_py) if name == "mistral" else fn()
+        res[name] = (gemma3(a.tf4_py) if name == "gemma3" else mistral(a.tf4_py) if name == "mistral"
+                     else mistral(a.tf4_py, "tp_mistral_hd16") if name == "mistral_hd16" else fn())
         print(name, json.dumps(res[name], default=str)[:4000], flush=True)
     if a.json:
         Path(a.json).write_text(json.dumps(res, indent=1, default=str) + "\n", encoding="utf-8")

@@ -1,4 +1,14 @@
 {
+ "spec": {
+  "repository": "keramos",
+  "tag": "v1.3.4",
+  "commit": "7a37bf6973543914e7b3f4750b91131860d11b8f"
+ },
+ "engine": {
+  "name": "Hugging Face transformers 5.20.2 (torch 2.14.1+cpu), CPU, float32, sdpa, positions from the cache, through keramos/adapters/hf/hf_adapter.py (in process; each GGUF exported by adapters/common/gguf_to_hf.py v2; transformers never reads the IR document)",
+  "environment": "CPython 3.12.3, numpy 2.5.4, safetensors 0.8.0; WSL2 (Ubuntu 24.04), venv on ext4 (adapters/hf/requirements.txt)",
+  "run": "python adapters/hf/hf_adapter.py --adapter hf --hf-export-dir FRESH, in a clean clone of keramos at v1.3.4 (7a37bf69), a fresh export cache, 2026-10-27. FAILs (3): tp_mamba1's chunks, truncate and snapshot traces, the multi-token-over-cache scan restart (FINDINGS 1). The 18 cases of v1.3.4: 12 pass, 6 skip (digest, accept)"
+ },
  "adapter": {
   "engine": "transformers",
   "version": "transformers 5.20.2, torch 2.14.1+cpu",
@@ -29,22 +39,22 @@
   ]
  },
  "counts": {
-  "PASS": 26,
+  "PASS": 38,
   "FAIL": 3,
-  "SKIP": 384,
+  "SKIP": 390,
   "XFAIL": 0,
   "XPASS": 0
  },
  "by_kind": {
   "model": {
-   "PASS": 8,
+   "PASS": 11,
    "FAIL": 0,
    "SKIP": 14,
    "XFAIL": 0,
    "XPASS": 0
   },
   "trace": {
-   "PASS": 18,
+   "PASS": 27,
    "FAIL": 3,
    "SKIP": 43,
    "XFAIL": 0,
@@ -67,7 +77,7 @@
   "digest": {
    "PASS": 0,
    "FAIL": 0,
-   "SKIP": 85,
+   "SKIP": 88,
    "XFAIL": 0,
    "XPASS": 0
   },
@@ -88,7 +98,7 @@
   "accept": {
    "PASS": 0,
    "FAIL": 0,
-   "SKIP": 36,
+   "SKIP": 39,
    "XFAIL": 0,
    "XPASS": 0
   },
@@ -390,6 +400,24 @@
    "detail": "6 steps"
   },
   {
+   "id": "model/tp_llama_hd16",
+   "kind": "model",
+   "verdict": "PASS",
+   "detail": "log-probs worst 3.91e-07; greedy 4/4"
+  },
+  {
+   "id": "trace/tp_llama_hd16_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "6 steps"
+  },
+  {
+   "id": "trace/tp_llama_hd16_truncate",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "3 steps"
+  },
+  {
    "id": "model/tp_mamba1",
    "kind": "model",
    "verdict": "PASS",
@@ -420,6 +448,18 @@
    "detail": "6 steps"
   },
   {
+   "id": "model/tp_mistral_hd16",
+   "kind": "model",
+   "verdict": "PASS",
+   "detail": "log-probs worst 6.33e-07; greedy 4/4"
+  },
+  {
+   "id": "trace/tp_mistral_hd16_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "6 steps"
+  },
+  {
    "id": "model/tp_qwen3",
    "kind": "model",
    "verdict": "PASS",
@@ -433,6 +473,24 @@
   },
   {
    "id": "trace/tp_qwen3_truncate",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "3 steps"
+  },
+  {
+   "id": "model/tp_qwen3_hd16",
+   "kind": "model",
+   "verdict": "PASS",
+   "detail": "log-probs worst 3.41e-07; greedy 4/4"
+  },
+  {
+   "id": "trace/tp_qwen3_hd16_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "6 steps"
+  },
+  {
+   "id": "trace/tp_qwen3_hd16_truncate",
    "kind": "trace",
    "verdict": "PASS",
    "detail": "3 steps"
@@ -1770,6 +1828,12 @@
    "detail": "transformers has no IR digest"
   },
   {
+   "id": "digest/vectors/document_tp_llama_hd16",
+   "kind": "digest",
+   "verdict": "SKIP",
+   "detail": "transformers has no IR digest"
+  },
+  {
    "id": "digest/vectors/document_tp_mamba1",
    "kind": "digest",
    "verdict": "SKIP",
@@ -1782,7 +1846,19 @@
    "detail": "transformers has no IR digest"
   },
   {
+   "id": "digest/vectors/document_tp_mistral_hd16",
+   "kind": "digest",
+   "verdict": "SKIP",
+   "detail": "transformers has no IR digest"
+  },
+  {
    "id": "digest/vectors/document_tp_qwen3",
+   "kind": "digest",
+   "verdict": "SKIP",
+   "detail": "transformers has no IR digest"
+  },
+  {
+   "id": "digest/vectors/document_tp_qwen3_hd16",
    "kind": "digest",
    "verdict": "SKIP",
    "detail": "transformers has no IR digest"
@@ -2040,6 +2116,12 @@
    "detail": "3 steps"
   },
   {
+   "id": "trace/tp_mistral_hd16_rewind_window",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "3 steps"
+  },
+  {
    "id": "trace/pk_attnres_chunks",
    "kind": "trace",
    "verdict": "SKIP",
@@ -2154,6 +2236,12 @@
    "detail": "4 steps"
   },
   {
+   "id": "trace/tp_llama_hd16_chunks",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "4 steps"
+  },
+  {
    "id": "trace/tp_mamba1_chunks",
    "kind": "trace",
    "verdict": "FAIL",
@@ -2166,7 +2254,19 @@
    "detail": "4 steps"
   },
   {
+   "id": "trace/tp_mistral_hd16_chunks",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "4 steps"
+  },
+  {
    "id": "trace/tp_qwen3_chunks",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "4 steps"
+  },
+  {
+   "id": "trace/tp_qwen3_hd16_chunks",
    "kind": "trace",
    "verdict": "PASS",
    "detail": "4 steps"
@@ -2286,6 +2386,12 @@
    "detail": "transformers has no IR validation (it never reads the document)"
   },
   {
+   "id": "accept/documents/model_tp_llama_hd16",
+   "kind": "accept",
+   "verdict": "SKIP",
+   "detail": "transformers has no IR validation (it never reads the document)"
+  },
+  {
    "id": "accept/documents/model_tp_mamba1",
    "kind": "accept",
    "verdict": "SKIP",
@@ -2298,7 +2404,19 @@
    "detail": "transformers has no IR validation (it never reads the document)"
   },
   {
+   "id": "accept/documents/model_tp_mistral_hd16",
+   "kind": "accept",
+   "verdict": "SKIP",
+   "detail": "transformers has no IR validation (it never reads the document)"
+  },
+  {
    "id": "accept/documents/model_tp_qwen3",
+   "kind": "accept",
+   "verdict": "SKIP",
+   "detail": "transformers has no IR validation (it never reads the document)"
+  },
+  {
+   "id": "accept/documents/model_tp_qwen3_hd16",
    "kind": "accept",
    "verdict": "SKIP",
    "detail": "transformers has no IR validation (it never reads the document)"

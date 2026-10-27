@@ -8,8 +8,8 @@ transformers. It does not read GGUF in the path a user takes: its model builder 
 takes an HF checkpoint and writes model.onnx and genai_config.json, and the runtime executes that graph through
 onnxruntime. So each suite GGUF is exported to an HF checkpoint by adapters/common/gguf_to_hf.py, built by the
 builder as shipped (-p fp32 -e cpu), and run with the CPU execution provider, as a user of a converted checkpoint
-would. ONNX Runtime GenAI never sees the IR document. What follows is what the suite (keramos v1.3.3, 254b6b4d,
-413 cases) says about it, and why each failure and refusal happens.
+would. ONNX Runtime GenAI never sees the IR document. What follows is what the suite (keramos v1.3.4, 7a37bf69,
+431 cases) says about it, and why each failure and refusal happens.
 
 - Engine: onnxruntime-genai 0.18.0 with onnxruntime 1.31.1, CPU execution provider only, float32, 2 intra-op
   threads (inter-op 1); the builder runs under transformers 5.20.2 and torch 2.14.1+cpu (onnx 1.23.2, onnx-ir
@@ -37,8 +37,7 @@ probe's transformers 4 checks, a second one in ~/ort_keramos/venv_tf4: requireme
 run_suite.sh runs the suite in five configurations and then probe.py. With empty caches the first run exports
 and builds every model (a few seconds each); the whole takes a few minutes on 2 threads. Exports and
 builds are cached under ~/ort_keramos by the GGUF's sha256 and the configuration. The receipt is the "receipt"
-configuration, run in a clean clone of keramos at 93788b4 (the adapter commit; suite, tools and IR_SPEC
-identical to v1.3.3) with fresh caches.
+configuration, run in a clean clone of keramos at v1.3.4 with fresh export and build caches (--ort-dir).
 
 
 THE BUILD PATH
@@ -53,9 +52,8 @@ Exporter (adapters/common/gguf_to_hf.py, now v2). Two changes, both ours, both f
   (b) v1 dropped None-valued keys from config.json, so where the GGUF declares no bos/eos/pad id the config
       class's defaults stood in (Gemma3TextConfig's eos 1, MistralConfig's and LlamaConfig's eos 2). v2 writes
       them as null. Neither change touches the weights; transformers' verdicts do not depend on these keys.
-  41 exporter tests pass (test_gguf_to_hf.py, 8 new: the tokenizer gives every GGUF token its id and an unknown
-  word the unknown id; the special ids are the GGUF's), under transformers 5.20.2 in this venv and in
-  ~/hf_keramos/venv.
+  The exporter's tests (test_gguf_to_hf.py, 53 at v1.3.4; among them: the tokenizer gives every GGUF token its
+  id and an unknown word the unknown id; the special ids are the GGUF's) pass under transformers 5.20.2.
 
 eos. The tp_ files declare no eos id, and the builder stops without one ("Could not resolve eos_token_id from the
 model config, text config, or tokenizer", for tp_qwen3 first). build_onnx.py --eos-fallback sets the
@@ -74,7 +72,7 @@ WHAT THE ADAPTER DOES
 
 - open: export and build (cached), og.Config with the providers cleared (CPU), og.Model. Skip for architecture
   "paperkiln" (IR_SPEC 9.1), for a file whose own document says more than its architecture's HF config can
-  carry (adapters/hf's rule; at v1.3.3 those files are all "paperkiln"), for a replacement document (ir), for
+  carry (adapters/hf's rule; at v1.3.4 those files are all "paperkiln"), for a replacement document (ir), for
   evict true, where the builder declines the architecture, and where onnxruntime's CPU kernel refuses the built
   graph's shape: at load the adapter appends one id on a throwaway generator, and if that fails with the
   kernel's head_size check (finding 1) the kernel's message is the skip reason. Any other build or run error is
@@ -96,22 +94,24 @@ WHAT THE ADAPTER DOES
 RESULTS
 -------
 
-Receipt configuration (the builder as shipped, export input): 0 pass, 4 fail, 409 skip.
+Receipt configuration (the builder as shipped, export input): 8 pass, 8 fail, 415 skip.
 
   kind      pass fail skip   the skips are
-  model        0    1   21   architecture "paperkiln" (14); the builder declines Mixtral, GPT-2, GPT-NeoX, Mamba
+  model        2    2   21   architecture "paperkiln" (14); the builder declines Mixtral, GPT-2, GPT-NeoX, Mamba
                              (4); the CPU kernel refuses the head size (3: pk_llama, tp_qwen3, tp_mistral)
-  trace        0    3   61   "paperkiln" (39); builder declines (10); kernel refuses (8); replacement document (4)
+  trace        6    6   61   "paperkiln" (39); builder declines (10); kernel refuses (8); replacement document (4)
   op           0    0   62   single nodes
   refuse       0    0   94   IR validation
-  accept       0    0   36   IR validation
-  digest       0    0   85   no IR digest
+  accept       0    0   39   IR validation
+  digest       0    0   88   no IR digest
   dequant      0    0   10   gguf-py's code
   grad         0    0    8   single nodes
   chat         0    0   32   IR template records
 
-The four FAILs are tp_gemma3 and its three traces, the builder's KeyError (finding 2). No attention model of
-the suite runs on the stock CPU build: every one has head_dim 4 or 8 (finding 1).
+The eight passes are tp_llama_hd16 and tp_qwen3_hd16, every case: the stock CPU build runs both at head_dim 16.
+The eight FAILs are tp_gemma3's four, the builder's KeyError (finding 2), and tp_mistral_hd16's four, its
+sliding window dropped (finding 4). The suite's other attention models have head_dim 4 or 8, which the stock
+CPU kernel refuses (finding 1).
 
 The configurations, each a builder patch named in build_onnx.py, isolate the rest:
 
@@ -127,24 +127,32 @@ The configurations, each a builder patch named in build_onnx.py, isolate the res
 Every model and trace of an HF architecture (model case / its traces, P pass, F fail, S skip; traces in the
 order decode, chunks, then truncate or rewind_window):
 
-  model        receipt    unfused   fixed     mha       gguf      model case worst log-prob error
-  pk_llama     S/SSS      P/PPP     P/PPP     P/PFF     P/PPP     1.05e-7 (unfused, fixed, gguf)
-  tp_qwen3     S/SSS      S/SSS     S/SSS     P/PFF     S/SSS     3.82e-7 (mha)
-  tp_mistral   S/SS       S/SS      S/SS      F/FF      S/SS      1.30 (mha: no window, finding 4)
-  tp_gemma3    F/FFF      F/FFF     P/PPP     F/FFF     S/SSS     1.23 (unfused), 2.60e-6 (fixed)
-  pk_moe       S/SS       S/SS      S/SS      S/SS      S/SS      builder declines MixtralForCausalLM
-  pk_gpt2      S/SS       S/SS      S/SS      S/SS      S/SS      builder declines GPT2LMHeadModel
-  tp_gptneox   S/SS       S/SS      S/SS      S/SS      S/SS      builder declines GPTNeoXForCausalLM
-  tp_mamba1    S/SSSS     S/SSSS    S/SSSS    S/SSSS    S/SSSS    builder declines MambaForCausalLM
+  model            receipt    unfused   fixed     mha       gguf      model case worst log-prob error
+  tp_llama_hd16    P/PPP      P/PPP     P/PPP     P/PFF     P/PPP     5.10e-7 (receipt), 3.40e-7 (mha)
+  tp_qwen3_hd16    P/PPP      P/PPP     P/PPP     P/PFF     S/SSS     6.68e-7 (receipt), 5.15e-7 (mha)
+  tp_mistral_hd16  F/FFF      F/FFF     F/FFF     F/FFF     F/FFF     0.563 in every configuration (no window,
+                                                                      finding 4); greedy 2/4
+  pk_llama         S/SSS      P/PPP     P/PPP     P/PFF     P/PPP     1.05e-7 (unfused, fixed, gguf)
+  tp_qwen3         S/SSS      S/SSS     S/SSS     P/PFF     S/SSS     3.82e-7 (mha)
+  tp_mistral       S/SS       S/SS      S/SS      F/FF      S/SS      1.30 (mha: no window, finding 4)
+  tp_gemma3        F/FFF      F/FFF     P/PPP     F/FFF     S/SSS     1.23 (unfused), 2.60e-6 (fixed)
+  pk_moe           S/SS       S/SS      S/SS      S/SS      S/SS      builder declines MixtralForCausalLM
+  pk_gpt2          S/SS       S/SS      S/SS      S/SS      S/SS      builder declines GPT2LMHeadModel
+  tp_gptneox       S/SS       S/SS      S/SS      S/SS      S/SS      builder declines GPTNeoXForCausalLM
+  tp_mamba1        S/SSSS     S/SSSS    S/SSSS    S/SSSS    S/SSSS    builder declines MambaForCausalLM
 
-Counts: receipt 0/4/409; unfused 4/4/405; fixed 8/0/405; mha 4/11/398; gguf 4/0/409.
+The gguf configuration's tp_qwen3_hd16 skips are the builder's GGUF loader declining Qwen3; through that loader
+tp_mistral_hd16 fails as it does through the export (the loader keeps no window either).
 
-What ONNX Runtime GenAI computes right, where it runs: pk_llama through the export and through its own GGUF
-loader (bit-identical logits: the loader's un-permutation of llama.cpp's q/k rows is exact); Qwen3, q/k norms
-included (mha: 3.8e-7, greedy 4/4); Gemma 3 with the one-line fix of finding 3, including its five sliding
-layers with window-sized KV buffers (sliding_window_cache) and Generator.rewind_to into a window
-(tp_gemma3_rewind_window passes: llama.cpp's finding 4 does not recur); multi-id appends after a prefill
-(chunks traces); float32 throughout.
+Counts: receipt 8/8/415; unfused 12/8/411; fixed 16/4/411; mha 8/19/404; gguf 8/4/419.
+
+What ONNX Runtime GenAI computes right, where it runs: Llama and Qwen3 at head_dim 16 on the stock CPU build,
+Qwen3's q/k norms and a head_dim apart from d / heads included (tp_qwen3_hd16: 4 heads of 16 over d 32), with
+rewind_to (the truncate traces); pk_llama through the export and through its own GGUF loader (bit-identical
+logits: the loader's un-permutation of llama.cpp's q/k rows is exact); Qwen3 at head_dim 4 (mha: 3.8e-7,
+greedy 4/4); Gemma 3 with the one-line fix of finding 3, including its five sliding layers with window-sized
+KV buffers (sliding_window_cache) and Generator.rewind_to into a window (tp_gemma3_rewind_window passes:
+llama.cpp's finding 4 does not recur); multi-id appends after a prefill (chunks traces); float32 throughout.
 
 
 HOW EACH RESULT WAS ATTRIBUTED (probe.py)
@@ -163,17 +171,22 @@ HOW EACH RESULT WAS ATTRIBUTED (probe.py)
     tp_mistral mha 1.39 (first past tol at position 4, where the window starts to bite; greedy differs at 29 of
                48 positions); against the document with its window removed: 5.2e-7
     tp_gemma3  unfused 0.75 (from position 1; greedy differs at 17 of 48); fixed 1.07e-6
+    tp_llama_hd16    stock 8.3e-7
+    tp_qwen3_hd16    stock 5.6e-7
+    tp_mistral_hd16  stock 1.07 (16 ids, the most its stock generator holds being 20, finding 4; first past tol
+                     at position 4; greedy differs at 8 of 16); against the document without its window: 5.9e-7
 
-  inside ONNX Runtime GenAI (pk_llama unfused; tp_gemma3 fixed): prefill = chunks 5 + 6 + 5 bit for bit; prefill
-  = a second run bit for bit; token-by-token append_tokens not bit-identical (pk_llama 150 values, worst 2.4e-7
-  absolute; tp_gemma3 336 values, worst 2.0e-6); token by token and chunked, each within 7.4e-7 of the
-  reference; rewind_to(10) and
-  rewind_to(3), then 4 ids: bit-identical to a fresh prefill of the same ids; snapshot at 8, 4 ids, restore (by
-  rewind_to), the same 4 ids: bit-identical.
+  inside ONNX Runtime GenAI (pk_llama unfused; tp_gemma3 fixed; tp_llama_hd16 and tp_qwen3_hd16 stock): prefill =
+  chunks 5 + 6 + 5 bit for bit; prefill = a second run bit for bit; token-by-token append_tokens not
+  bit-identical (pk_llama 150 values, worst 2.4e-7 absolute; tp_gemma3 336, worst 2.0e-6; tp_llama_hd16 337,
+  worst 1.9e-6; tp_qwen3_hd16 331, worst 1.5e-6); token by token and chunked, each within 8.4e-7 of the
+  reference; rewind_to(10) and rewind_to(3), then 4 ids: bit-identical to a fresh prefill of the same ids;
+  snapshot at 8, 4 ids, restore (by rewind_to), the same 4 ids: bit-identical.
 
   generate (GenAI's greedy search, generate_next_token, id 0 masked through set_logits, on each model case's
   prompts): pk_llama 4/4 (one prompt ends on id 1, the file's eos, and the generator reports is_done there, as
-  it should); tp_qwen3 (mha) 4/4; tp_gemma3 unfused 2/4, fixed 4/4.
+  it should); tp_qwen3 (mha) 4/4; tp_gemma3 unfused 2/4, fixed 4/4; stock: tp_llama_hd16 4/4, tp_qwen3_hd16
+  4/4, tp_mistral_hd16 2/4.
 
 
 FINDINGS
@@ -189,13 +202,13 @@ stops with an exception on an architecture it lists), ADAPTER or EXPORTER (a lim
    On CPU float32 the builder always emits GroupQueryAttention (is_gqa_supported: ("cpu", FLOAT)) with rotary
    fused into it (is_fused_rope_supported: every EP but DML). The CPU kernel requires head_size % 8 == 0, and
    with do_rotary head_size % 16 == 0 (the kernel table above). The builder checks neither, so the model builds
-   and loads and the first append_tokens fails. Every attention model of the suite is affected: pk_llama and
-   tp_gemma3 have head_dim 8 (refused with fused rotary only), tp_qwen3 and tp_mistral head_dim 4 (refused
-   outright). Without fused rotary (the unfused configuration: a separate RotaryEmbedding node, which the
+   and loads and the first append_tokens fails. Every attention model of the suite before v1.3.4 is affected:
+   pk_llama and tp_gemma3 have head_dim 8 (refused with fused rotary only), tp_qwen3 and tp_mistral head_dim 4
+   (refused outright); the head_dim 16 files of v1.3.4 run on the stock build. Without fused rotary (the unfused configuration: a separate RotaryEmbedding node, which the
    builder's own DML path already makes) head_size 8 runs and pk_llama passes every case. Reach: head sizes
    64, 80, 96, 128 and 256 are multiples of 16 and unaffected; a head size that is a multiple of 8 but not of
    16 (24, 40, 72, ...) fails on CPU though the kernel runs it without fused rotary, and so do small test
-   checkpoints. The receipt counts these as skips (the kernel's own refusal, decided at load); see DECISIONS.
+   checkpoints. The receipt counts these as skips (the kernel's own refusal, decided at load; Jonathan's ruling, O4).
    Upstream issue 4.
 
 2. Gemma 3 cannot be built with onnxruntime-genai 0.18.0 (BUILD; model builder). The receipt's four FAILs.
@@ -235,12 +248,24 @@ stops with an exception on an architecture it lists), ADAPTER or EXPORTER (a lim
    and sets local_window_size -1 on every other layer (Model.make_attention). MistralConfig has no layer_types
    (transformers 5.20.2 and 4.57.6), so the builder's default, all "full_attention", applies: tp_mistral's graph
    has local_window_size -1 on both layers, and genai_config's sliding_window section lists no layers. 0.15.2's
-   stock builder on the same export writes local_window_size 4 on both (probe mistral.stock_0.15.2). The suite
-   cannot run the GQA graph (head_dim 4, finding 1), so the receipt shows a skip; the MHA build, which has no
-   window at all, is 1.39 off the reference and 5.2e-7 off the document without its window: the rest of the
-   Mistral graph is right. Reach: Mistral 7B v0.1 and models built on it (sliding_window 4096) beyond 4096
-   tokens, as llama.cpp's finding 3; later Mistral 7B versions have no window. Any other configuration class
-   with sliding_window and no layer_types takes the same path. Upstream issue 3.
+   stock builder on the same export writes local_window_size 4 on both (probe mistral.stock_0.15.2). The
+   receipt's four tp_mistral_hd16 FAILs are this: its stock graph runs (head_dim 16) with local_window_size -1
+   on both layers and genai_config listing no sliding layers, and its logits of 16 ids are 1.07 off the
+   reference from position 4 (greedy different at 8 of 16 positions) and 5.9e-7 off the document without its
+   window (probe mistral_hd16); every configuration fails them alike. The same build also stops: genai_config
+   keeps a sliding_window section (window_size 4, layers []), and the generator then holds window_size + 16
+   tokens and errors at the next one, in a prefill ("total_sequence_length must equal past_sequence_length +
+   kv_sequence_length for a dynamic cache, or be no greater than past_sequence_length for a static cache. Got
+   total_sequence_length=21, past_sequence_length=20") or token by token (probe mistral_hd16.capacity: 20, 24
+   and 28 tokens with window_size 4, 8 and 12; 64, max_length, with the section removed). The suite's
+   tp_mistral_hd16 sessions stay within 20 tokens, so its four FAILs are the window alone. tp_mistral (head_dim 4) is a kernel skip in the stock graph (finding 1);
+   its MHA build, which has no window at all, is 1.39 off the reference and 5.2e-7 off the document without
+   its window. The rest of the Mistral graph is right.
+   Reach: Mistral 7B v0.1 and models built on it (sliding_window 4096) beyond 4096 tokens, as llama.cpp's
+   finding 3, and, if the window_size + 16 capacity holds at that size (measured here only up to 12), an error
+   past 4,112 tokens; later Mistral 7B versions have no window. Any other configuration class with
+   sliding_window and no layer_types takes the same path. Upstream issue 3 (filed before the capacity was
+   measured).
 
 5. The builder's Gemma embedding scale is sqrt(hidden_size) rounded to two decimals (NUMERICS; model builder;
    read in the code, not measured). GemmaModel sets embed_attrs["scale"] = np.round(np.sqrt(hidden_size),
@@ -254,46 +279,31 @@ stops with an exception on an architecture it lists), ADAPTER or EXPORTER (a lim
    nodes get an empty input and onnxruntime refuses the model; fuse_qkv=false avoids it. The packed Attention
    op's CPU graph has no present.N.key outputs and does not load ("Graph output (present.0.key) does not exist").
 
-7. ADAPTER: the mha configuration's 11 FAILs are the builder's MultiHeadAttention graph, which no stock CPU
+7. ADAPTER: the mha configuration's 19 FAILs are the builder's MultiHeadAttention graph, which no stock CPU
    float32 build selects, not ORT GenAI as shipped. Its attention-mask subgraph takes one id per call after the
-   prefill: a multi-id append_tokens over a past (the chunks traces, and the truncate traces' ids after the
-   rewind) fails with "invalid expand shape" (6 cases), and tp_gemma3's windowed rewind fails on a present
-   buffer sized for the window (1). MultiHeadAttention has no window, so tp_mistral's model case and decode
-   trace are the windowless model (2), and tp_gemma3's are finding 3 without the window as well (2). The mha
-   configuration exists only to get head_size 4 running: tp_qwen3's model case and decode trace pass.
+   prefill: a multi-id append_tokens over a past (the chunks traces, and the truncate and rewind_window traces'
+   ids after the rewind) fails with "invalid expand shape" (12 cases), and tp_gemma3's windowed rewind fails on
+   a present buffer sized for the window (1). MultiHeadAttention has no window, so tp_mistral's and
+   tp_mistral_hd16's model cases and decode traces are the windowless model (4), and tp_gemma3's are finding 3
+   without the window as well (2). The mha configuration exists only to get head_size 4 running: tp_qwen3's
+   model case and decode trace pass.
 
 
 FOR THE KERAMOS MAINTAINER (spec, fixtures, runner)
 ---------------------------------------------------
 
-O1. Head sizes. Every attention model of the suite has head_dim 4 or 8, below what onnxruntime's CPU GQA runs
-    with fused rotary (16). So the stock CPU build runs none, and finding 4 (Mistral's window) shows in the
-    receipt only as a skip. A thirdparty variant with head_dim 16 of each tp_ attention model (or of tp_mistral
-    and pk_llama alone) would let the stock build run, turn finding 4 into tp_mistral FAILs, and make
-    finding 1 a statement about real head sizes rather than the suite's.
 O2. tp_gemma3 has d 16, an exact square root, which hides finding 5. A Gemma 3 file with d 24 (or any non-
     square) would catch an approximated embedding scale in any engine.
 O3. The tp_ files declare no bos/eos ids. Builders that need an eos (this one) need the adapter's fallback, and
     converters that drop absent keys pick up class defaults (exporter v1 did). Declaring eos (the unknown id, or
     a dedicated one) in the tp_ files would remove both.
 O4. 11.3 says a skip is decided "before running anything". This adapter decides the kernel refusals at load, by
-    one id on a throwaway generator, before the case's first call. Worth a sentence on whether a kernel's own
-    shape precondition is a skip (as here) or a fail (an engine that loads a model and then cannot run it).
-O5. Appendix C. A row would read: CPU float32 ROUNDING where it runs (Llama, Qwen3, Gemma 3 once finding 3 is
-    fixed, GGUF loader included); refuses head_size % 16 != 0 with fused rotary on CPU; Gemma 3 does not build
+    one id on a throwaway generator, before the case's first call. Jonathan's ruling (27 Oct 2026): a kernel's
+    own shape precondition is a skip, as here (the refusal is the engine's); 11.3 does not yet say so.
+O5. Appendix C. A row would read: CPU float32 ROUNDING where it runs (Llama and Qwen3 at head_dim 16 on the stock
+    build, Gemma 3 once finding 3 is fixed, GGUF loader included); refuses head_size % 16 != 0 with fused rotary on CPU; Gemma 3 does not build
     (0.18.0) or is built with its sliding layers' RoPE scaled (0.15.2); Mistral's window dropped since 0.15.2;
     rewind_to exact, into a window included; no Mixtral, GPT-2, GPT-NeoX or Mamba builder.
-
-
-DECISIONS FOR JONATHAN
-----------------------
-
-- Skip or fail for the kernel refusals (finding 1). The receipt reports them as skips (11 cases: 0/4/409). As
-  fails, it would read 0 pass, 15 fail, 398 skip.
-- Whether to add head_dim-16 thirdparty models to the suite (O1), which is a suite change and a new tag.
-- Exporter v2 changes the HF export's config.json (absent special ids written as null) and adds tokenizer files.
-  transformers' verdicts do not depend on either, and the exporter tests pass in the HF venv; hf_cpu.json (at
-  v1.2.1, exporter v1) was not re-run.
 
 
 UPSTREAM ISSUES
