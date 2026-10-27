@@ -1,13 +1,13 @@
 {
  "spec": {
   "repository": "keramos",
-  "tag": "v1.4.0",
-  "commit": "c1a5319784ed66f2f3d3e4e4e18903eeb49a8f08"
+  "tag": "v1.4.1",
+  "commit": "a29ce6f596e2e79c6fca52e6382c962cb5f7011e"
  },
  "engine": {
   "name": "keramos-cleanroom (Rust), kcr --conformance, built from keramos 1d1fd3773e82b6c03d263426fe95fa10fb1cae51 (cleanroom/rust; rustc 1.98.1, release, no crates, WSL ext4)",
   "environment": "the runner under CPython 3.12.3, numpy 2.3.3, WSL",
-  "run": "python3 tools/ir_conformance.py --adapter cmd:kcr --conformance, in a clean clone of keramos at v1.4.0 (c1a53197), 2026-10-27, the engine unchanged since 1d1fd377 (revision 1.2, a black box here); skips: the 11 gradient cases and the 32 chat cases; XFAIL: the 22 cases expected_fail.json lists (revision 1.3's 12 and revision 1.4's 10 relative_kv cases: its run_node ignores the attribute, its loader refuses it as an unknown key). pk_flex_mdha's model, decode, snapshot, truncate, chunks, acceptance and digest cases pass from revision 1.2's text; the relative_kv refusals pass (rule 1 before rule 40); no earlier verdict moves"
+  "run": "python3 tools/ir_conformance.py --adapter cmd:kcr --conformance, in a clean clone of keramos at v1.4.1 (a29ce6f5), 2026-10-27, the engine unchanged since 1d1fd377 (revision 1.2, a black box here); skips: the 11 gradient cases and the 32 chat cases; XFAIL: the 24 cases expected_fail.json lists (revision 1.3's 12 and revision 1.4's 12 relative_kv cases: its run_node ignores the attribute, its loader refuses it as an unknown key). pk_flex_mdha's model, decode, snapshot, truncate, chunks, acceptance and digest cases pass from revision 1.2's text; the relative_kv refusals pass (rule 1 before rule 40); no earlier verdict moves"
  },
  "adapter": {
   "engine": "keramos-cleanroom (Rust)",
@@ -25,7 +25,7 @@
   "PASS": 400,
   "FAIL": 0,
   "SKIP": 43,
-  "XFAIL": 22,
+  "XFAIL": 24,
   "XPASS": 0
  },
  "by_kind": {
@@ -40,7 +40,7 @@
    "PASS": 76,
    "FAIL": 0,
    "SKIP": 0,
-   "XFAIL": 4,
+   "XFAIL": 5,
    "XPASS": 0
   },
   "op": {
@@ -82,7 +82,7 @@
    "PASS": 40,
    "FAIL": 0,
    "SKIP": 0,
-   "XFAIL": 2,
+   "XFAIL": 3,
    "XPASS": 0
   },
   "chat": {
@@ -2441,6 +2441,12 @@
    "detail": "5 steps"
   },
   {
+   "id": "trace/pk_flex_shaw_weight_index",
+   "kind": "trace",
+   "verdict": "XFAIL",
+   "detail": "RuntimeError: IR_SPEC 10.1 (rule 1): $.block.nodes[3]: key relative_kv is not defined [expected to fail: revision 1.4's attention.relative_kv (IR_SPEC 5.15): the clean-room engine (revi]"
+  },
+  {
    "id": "accept/documents/model_pk_attnres",
    "kind": "accept",
    "verdict": "PASS",
@@ -2691,6 +2697,12 @@
    "kind": "accept",
    "verdict": "PASS",
    "detail": "accepted"
+  },
+  {
+   "id": "accept/documents/relative_kv_weight_index",
+   "kind": "accept",
+   "verdict": "XFAIL",
+   "detail": "refused: IR_SPEC 10.1 (rule 1): $.block.nodes[3]: key relative_kv is not defined [expected to fail: revision 1.4's attention.relative_kv (IR_SPEC 5.15): the clean-room engine (revi]"
   },
   {
    "id": "chat/render/one user prompt",
