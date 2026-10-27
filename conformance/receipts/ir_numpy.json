@@ -1,13 +1,13 @@
 {
  "spec": {
   "repository": "keramos",
-  "tag": "v1.4.1",
-  "commit": "a29ce6f596e2e79c6fca52e6382c962cb5f7011e"
+  "tag": "v1.4.2",
+  "commit": "6bbfe01cc7459abc2bd47c42e1f0376438705e6b"
  },
  "engine": {
   "name": "numpy reference (tools/ir_numpy.py)",
   "environment": "CPython 3.13.14, numpy 2.3.5, Windows 11 x86-64 (the generating environment, IR_SPEC 4.6)",
-  "run": "python tools/ir_conformance.py --adapter ir_numpy, in a clean clone of keramos at v1.4.1 (a29ce6f5), 2026-10-27; skips: the 11 gradient cases (its own finite differences)"
+  "run": "python tools/ir_conformance.py --adapter ir_numpy, in a clean clone of keramos at v1.4.2 (6bbfe01c), 2026-10-28; skips: the 11 gradient cases (its own finite differences); the 57 new cases pass (pk_mor_window traces and acceptance, 42 v2 conversations, 12 parse_reply cases); --regenerate in that clone reproduces every fixture byte for byte"
  },
  "adapter": {
   "engine": "ir_numpy",
@@ -23,7 +23,7 @@
   ]
  },
  "counts": {
-  "PASS": 456,
+  "PASS": 513,
   "FAIL": 0,
   "SKIP": 11,
   "XFAIL": 0,
@@ -38,7 +38,7 @@
    "XPASS": 0
   },
   "trace": {
-   "PASS": 81,
+   "PASS": 83,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
@@ -80,14 +80,14 @@
    "XPASS": 0
   },
   "accept": {
-   "PASS": 43,
+   "PASS": 44,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
    "XPASS": 0
   },
   "chat": {
-   "PASS": 32,
+   "PASS": 86,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
@@ -2448,6 +2448,18 @@
    "detail": "5 steps"
   },
   {
+   "id": "trace/pk_mor_window",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "9 steps"
+  },
+  {
+   "id": "trace/pk_mor_window_rewind",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "3 steps"
+  },
+  {
    "id": "accept/documents/model_pk_attnres",
    "kind": "accept",
    "verdict": "PASS",
@@ -2706,6 +2718,12 @@
    "detail": "accepted"
   },
   {
+   "id": "accept/documents/mor_window",
+   "kind": "accept",
+   "verdict": "PASS",
+   "detail": "accepted"
+  },
+  {
    "id": "chat/render/one user prompt",
    "kind": "chat",
    "verdict": "PASS",
@@ -2896,6 +2914,330 @@
    "kind": "chat",
    "verdict": "PASS",
    "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 one user prompt (v1's text)",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 user and assistant only (v1's text)",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 system turn",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 empty system message",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 system turn and history",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 training conversation with a system turn",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 system and tool definitions",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 tool definitions without a system message",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 tool definitions with an empty system message",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 unicode tool definition",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 a call answered: the prompt ends on the tool message",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 a call, its result and the reply",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 content before a call",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 two calls, two results, a reply, then a user message",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 tool_call_id matching the call's id",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 a training conversation ending on a call",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 empty arguments",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 newline-only and empty contents",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "text equal"
+  },
+  {
+   "id": "chat/render/v2 a tool message without a call",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 a tool message first",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 fewer results than calls",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 a prompt ending while a call has no result",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 a reply without its results",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 tool_call_id not the call's id",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 tool_call_id when the call has no id",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 a call name with a newline",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 an empty call name",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 arguments holding a control token",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 arguments that are not a string",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 a call type other than function",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 an empty tool_calls list",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 tool_calls on a user message",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 user content holding <|system|>",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 tool content holding a spare token",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 system content holding <|tool|>",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 a tool definition holding a control token",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 a tool definition with a non-integer number",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 a tool definition that is not an object",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 a system message mid-conversation",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v2 loss on a tool message",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v1 refuses tool definitions",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/render/v1 refuses tool_calls",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "refused"
+  },
+  {
+   "id": "chat/parse_reply/no call",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "content and calls equal"
+  },
+  {
+   "id": "chat/parse_reply/content then a call",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "content and calls equal"
+  },
+  {
+   "id": "chat/parse_reply/a call alone",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "content and calls equal"
+  },
+  {
+   "id": "chat/parse_reply/two calls",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "content and calls equal"
+  },
+  {
+   "id": "chat/parse_reply/empty arguments",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "content and calls equal"
+  },
+  {
+   "id": "chat/parse_reply/arguments holding a newline",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "content and calls equal"
+  },
+  {
+   "id": "chat/parse_reply/the call's text as BPE pieces is content",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "content and calls equal"
+  },
+  {
+   "id": "chat/parse_reply/a call without a newline",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "not parsed"
+  },
+  {
+   "id": "chat/parse_reply/an empty name",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "not parsed"
+  },
+  {
+   "id": "chat/parse_reply/an empty call",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "not parsed"
+  },
+  {
+   "id": "chat/parse_reply/one good call and one bad",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "not parsed"
+  },
+  {
+   "id": "chat/parse_reply/no ids",
+   "kind": "chat",
+   "verdict": "PASS",
+   "detail": "content and calls equal"
   }
  ]
 }
