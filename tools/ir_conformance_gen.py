@@ -1058,6 +1058,11 @@ def accept_cases():
         json.dumps(untagged_document(), indent=1) + "\n", encoding="utf-8")
     cases.append({"name": "untagged_application_queries", "gguf": f"models/{UNTAGGED}/{UNTAGGED}.gguf",
                   "ir": f"accept/{UNTAGGED}_untagged.ir.json"})
+    # v1.4.1 (3.7, 7.1): pk_flex_shaw under weight_index [1, 0]; relative_kv's names read stored layer m_i.
+    (SUITE / "accept" / f"{PERMUTED}_weight_index.ir.json").write_text(
+        json.dumps(permuted_document(), indent=1) + "\n", encoding="utf-8")
+    cases.append({"name": "relative_kv_weight_index", "gguf": f"models/{PERMUTED}/{PERMUTED}.gguf",
+                  "ir": f"accept/{PERMUTED}_weight_index.ir.json"})
     for c in cases:
         errs = ir_validate.check_errors(SUITE / c["gguf"] if "gguf" in c else None,
                                         SUITE / c["ir"] if "ir" in c else None)
@@ -1130,6 +1135,33 @@ def untagged_document():
     for n in doc["block"]["nodes"]:
         n.pop("tensor_index", None)
     return doc
+
+
+PERMUTED = "pk_flex_shaw"
+
+
+def permuted_document():
+    """v1.4.1 (3.7, 7.1): pk_flex_shaw's document with weight_index [1, 0]: application 0 reads stored layer 1's
+    tensors and application 1 layer 0's, relative_kv's key and value among them (the file has architecture
+    paperkiln and block_count 2, so the document is valid). An engine that binds relative_kv's names to the
+    application index instead of m_i computes another function."""
+    doc = copy.deepcopy(load_model(SUITE / "models" / PERMUTED)[0])
+    doc["block"]["weight_index"] = {"per_layer": [1, 0]}
+    return doc
+
+
+def permuted_traces():
+    """v1.4.1: the trace of the permuted document over pk_flex_shaw's file (a prefill of 4, then token-by-token
+    decode). Draws from a stream of its own."""
+    doc, W, meta, _ = load_model(SUITE / "models" / PERMUTED)
+    alt = permuted_document()
+    rng = np.random.default_rng(sum(map(ord, PERMUTED)) + 1600)
+    V = doc["model"]["vocab"]
+    ids = [int(x) for x in rng.integers(1, V, 8)]
+    case = trace_case(PERMUTED, alt, W, [{"method": "forward", "ids": ids[:4]}]
+                      + [{"method": "forward", "ids": [t]} for t in ids[4:]])
+    case["ir"] = f"accept/{PERMUTED}_weight_index.ir.json"
+    return [(f"{PERMUTED}_weight_index", case)]
 
 
 def untagged_traces():
@@ -1230,7 +1262,7 @@ def regenerate():
         (SUITE / f).write_text(json.dumps(case, indent=1) + "\n", encoding="utf-8")
         manifest.append({"id": f"trace/{name}_recurrence", "kind": "trace", "file": f, "model": f"models/{name}",
                          "profile": "recurrence"})
-    for name, case in extra_traces() + window_traces() + chunk_traces() + untagged_traces():
+    for name, case in extra_traces() + window_traces() + chunk_traces() + untagged_traces() + permuted_traces():
         f = f"state/{name}.json"
         (SUITE / f).write_text(json.dumps(case, indent=1) + "\n", encoding="utf-8")
         manifest.append({"id": f"trace/{name}", "kind": "trace", "file": f, "model": case["model"],

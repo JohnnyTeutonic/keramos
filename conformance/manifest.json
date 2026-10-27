@@ -1745,11 +1745,18 @@
    "profile": "state"
   },
   {
+   "id": "trace/pk_flex_shaw_weight_index",
+   "kind": "trace",
+   "file": "state/pk_flex_shaw_weight_index.json",
+   "model": "models/pk_flex_shaw",
+   "profile": "state"
+  },
+  {
    "id": "accept/documents",
    "kind": "accept",
    "file": "accept/documents.json",
    "profile": "core",
-   "n": 42
+   "n": 43
   },
   {
    "id": "chat/render",
