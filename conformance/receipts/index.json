@@ -80,12 +80,12 @@
   },
   {
    "file": "mtstudio.json",
-   "engine": "paperkiln mtstudio, CPU, with ir_eval and expr_eval (ext4 clone of paperkiln 43e32a05; Release, GCC 13.3, -ffp-contract=off), against keramos v1.4.1 (a29ce6f596e2e79c6fca52e6382c962cb5f7011e)",
-   "date": "2026-10-27",
+   "engine": "paperkiln mtstudio, CPU, with ir_eval and expr_eval (ext4 clone of paperkiln 968b4926; Release, GCC 13.3, -ffp-contract=off), against keramos v1.4.2 (6bbfe01cc7459abc2bd47c42e1f0376438705e6b)",
+   "date": "2026-10-28",
    "counts": {
     "PASS": 158,
     "FAIL": 0,
-    "SKIP": 309,
+    "SKIP": 366,
     "XFAIL": 0,
     "XPASS": 0
    },
@@ -100,7 +100,7 @@
     "trace": {
      "PASS": 6,
      "FAIL": 0,
-     "SKIP": 75,
+     "SKIP": 77,
      "XFAIL": 0,
      "XPASS": 0
     },
@@ -142,14 +142,14 @@
     "accept": {
      "PASS": 0,
      "FAIL": 0,
-     "SKIP": 43,
+     "SKIP": 44,
      "XFAIL": 0,
      "XPASS": 0
     },
     "chat": {
      "PASS": 0,
      "FAIL": 0,
-     "SKIP": 32,
+     "SKIP": 86,
      "XFAIL": 0,
      "XPASS": 0
     }
