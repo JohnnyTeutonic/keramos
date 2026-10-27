@@ -1,12 +1,12 @@
 {
- "_comment": "Runs of the conformance suite (spec/IR_SPEC.md section 11.4): one results file per engine, with every case's verdict and detail; each run names the keramos tag and commit it ran against. v1.4.2 has 524 cases (v1.4.2 added the traces pk_mor_window and pk_mor_window_rewind, the acceptance case mor_window, 42 paperkiln/2 conversations and the 12 parse_reply cases; llama.cpp, transformers and ONNX Runtime GenAI have no path for any of them, a substituted document or chat rendering, so their v1.3.5 receipts stand; v1.4.1 467, adding the trace and acceptance case of relative_kv under weight_index, which ember's v1.4.0 receipt predates; v1.4.0 465, v1.4.0 added the 28 cases of attention.relative_kv and Primer's MDHA, section 12.6; llama.cpp, transformers and ONNX Runtime GenAI have no path for any of them, IR-only models or single nodes or documents, so their v1.3.5 receipts stand; v1.3.5 437, adding the six tensor_index cases of section 7.2; v1.3.4 431, adding the 18 cases of tp_llama_hd16, tp_mistral_hd16 and tp_qwen3_hd16; v1.3.3 413, v1.3.1 408, v1.3.0 404, v1.2.0 370); each run names its tag. SKIP means the engine has no path for the case (the reference: the gradient cases, which are its own finite differences; mtstudio: the single ops it has no kernel path for, sessions other than its scored traces, document loading, refusals and acceptance, dequantisation, chat rendering; the clean-room Rust engine: the gradient cases; ember: single ops other than recurrence, expr and attention, and the gradient cases). reference_environment.json is the generating environment's receipt (IR_SPEC 4.6), not a run of an engine. llama.cpp is the first engine measured that was not written against the spec: its FAILs are classified in adapters/llamacpp/FINDINGS.txt. transformers (5.20.2, torch 2.14.1+cpu) is measured through an export of each GGUF to an HF checkpoint (adapters/common/gguf_to_hf.py); its FAILs and the GGUF reader's are classified in adapters/hf/FINDINGS.txt. ONNX Runtime GenAI (0.18.0, onnxruntime 1.31.1, CPU) is measured through the same export and its own model builder: its FAILs and the builder's and kernel's refusals are classified in adapters/ortgenai/FINDINGS.txt.",
+ "_comment": "Runs of the conformance suite (spec/IR_SPEC.md section 11.4): one results file per engine, with every case's verdict and detail; each run names the keramos tag and commit it ran against. v1.5.0 has 578 cases (v1.5.0 added the 54 cases of revision 1.5, the later third-party families: models tp_phi3, tp_gemma2, tp_qwen2moe, tp_qwen3moe and tp_deepseek2 with their traces, acceptance and digest cases, 12 op cases of softcap, freq_factors, attn_factor, split groups and mla_attention, and 14 refusals; mtstudio runs only its own modules and has no path for them, so its v1.4.1 receipt stands, as do llama.cpp's, transformers' and ONNX Runtime GenAI's v1.3.5 ones; v1.4.2 524, v1.4.2 added the traces pk_mor_window and pk_mor_window_rewind, the acceptance case mor_window, 42 paperkiln/2 conversations and the 12 parse_reply cases; llama.cpp, transformers and ONNX Runtime GenAI have no path for any of them, a substituted document or chat rendering, so their v1.3.5 receipts stand; v1.4.1 467, adding the trace and acceptance case of relative_kv under weight_index, which ember's v1.4.0 receipt predates; v1.4.0 465, v1.4.0 added the 28 cases of attention.relative_kv and Primer's MDHA, section 12.6; llama.cpp, transformers and ONNX Runtime GenAI have no path for any of them, IR-only models or single nodes or documents, so their v1.3.5 receipts stand; v1.3.5 437, adding the six tensor_index cases of section 7.2; v1.3.4 431, adding the 18 cases of tp_llama_hd16, tp_mistral_hd16 and tp_qwen3_hd16; v1.3.3 413, v1.3.1 408, v1.3.0 404, v1.2.0 370); each run names its tag. SKIP means the engine has no path for the case (the reference: the gradient cases, which are its own finite differences; mtstudio: the single ops it has no kernel path for, sessions other than its scored traces, document loading, refusals and acceptance, dequantisation, chat rendering; the clean-room Rust engine: the gradient cases; ember: single ops other than recurrence, expr and attention, and the gradient cases). reference_environment.json is the generating environment's receipt (IR_SPEC 4.6), not a run of an engine. llama.cpp is the first engine measured that was not written against the spec: its FAILs are classified in adapters/llamacpp/FINDINGS.txt. transformers (5.20.2, torch 2.14.1+cpu) is measured through an export of each GGUF to an HF checkpoint (adapters/common/gguf_to_hf.py); its FAILs and the GGUF reader's are classified in adapters/hf/FINDINGS.txt. ONNX Runtime GenAI (0.18.0, onnxruntime 1.31.1, CPU) is measured through the same export and its own model builder: its FAILs and the builder's and kernel's refusals are classified in adapters/ortgenai/FINDINGS.txt.",
  "runs": [
   {
    "file": "ir_numpy.json",
-   "engine": "numpy reference (tools/ir_numpy.py) (CPython 3.13.14, numpy 2.3.5, Windows 11 x86-64: the generating environment), against keramos v1.4.2 (6bbfe01cc7459abc2bd47c42e1f0376438705e6b)",
+   "engine": "numpy reference (tools/ir_numpy.py), against keramos v1.5.0 (062c1513a3d5b1a3ae2055695da56474dffc92f8)",
    "date": "2026-10-28",
    "counts": {
-    "PASS": 513,
+    "PASS": 567,
     "FAIL": 0,
     "SKIP": 11,
     "XFAIL": 0,
@@ -14,35 +14,35 @@
    },
    "by_kind": {
     "model": {
-     "PASS": 27,
+     "PASS": 32,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
      "XPASS": 0
     },
     "trace": {
-     "PASS": 83,
+     "PASS": 96,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
      "XPASS": 0
     },
     "op": {
-     "PASS": 68,
+     "PASS": 80,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
      "XPASS": 0
     },
     "refuse": {
-     "PASS": 105,
+     "PASS": 119,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
      "XPASS": 0
     },
     "digest": {
-     "PASS": 90,
+     "PASS": 95,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
@@ -63,7 +63,7 @@
      "XPASS": 0
     },
     "accept": {
-     "PASS": 44,
+     "PASS": 49,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
@@ -157,13 +157,13 @@
   },
   {
    "file": "cleanroom.json",
-   "engine": "keramos-cleanroom (Rust, cleanroom/rust at keramos v1.4.2 6bbfe01c, revision 1.4 from the text alone; rustc 1.98.1, release, no crates, WSL ext4), against keramos v1.4.2 (6bbfe01cc7459abc2bd47c42e1f0376438705e6b)",
+   "engine": "keramos-cleanroom (Rust), kcr --conformance, built from keramos v1.4.2's cleanroom/rust (unchanged at v1.5.0; rustc 1.98.1, release, no crates, WSL ext4; this copy's sha256 2ea5f92d512e197ed3fe64f4a5fbe7478fafef7c64a26721e06ba022a0efadd6), against keramos v1.5.0 (062c1513a3d5b1a3ae2055695da56474dffc92f8)",
    "date": "2026-10-28",
    "counts": {
-    "PASS": 513,
+    "PASS": 532,
     "FAIL": 0,
     "SKIP": 11,
-    "XFAIL": 0,
+    "XFAIL": 35,
     "XPASS": 0
    },
    "by_kind": {
@@ -171,32 +171,32 @@
      "PASS": 27,
      "FAIL": 0,
      "SKIP": 0,
-     "XFAIL": 0,
+     "XFAIL": 5,
      "XPASS": 0
     },
     "trace": {
      "PASS": 83,
      "FAIL": 0,
      "SKIP": 0,
-     "XFAIL": 0,
+     "XFAIL": 13,
      "XPASS": 0
     },
     "op": {
      "PASS": 68,
      "FAIL": 0,
      "SKIP": 0,
-     "XFAIL": 0,
+     "XFAIL": 12,
      "XPASS": 0
     },
     "refuse": {
-     "PASS": 105,
+     "PASS": 119,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
      "XPASS": 0
     },
     "digest": {
-     "PASS": 90,
+     "PASS": 95,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
@@ -220,7 +220,7 @@
      "PASS": 44,
      "FAIL": 0,
      "SKIP": 0,
-     "XFAIL": 0,
+     "XFAIL": 5,
      "XPASS": 0
     },
     "chat": {
