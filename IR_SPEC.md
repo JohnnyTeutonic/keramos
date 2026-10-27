@@ -2732,7 +2732,7 @@ llama.cpp, transformers and ONNX Runtime GenAI read no document: the two new mod
 "paperkiln" (rule 38) and the other new cases need a document or a single node, so each of the 28 is a skip
 for them by construction; their v1.3.5 receipts stand. ember's CPU interpreter (757e36b, written from
 section 5.15's text) passes 413, fails 0 and skips 52 at v1.4.0: every new case but the three gradient
-ones, with `relative_kv` in the stated order and `pk_flex_mdha` as written at ec3201b. Its CUDA builds
+ones (at v1.4.1, ember b49eb5c, 415, 0 and 52 with the two `weight_index` cases), with `relative_kv` in the stated order and `pk_flex_mdha` as written at ec3201b. Its CUDA builds
 run `pk_flex_mdha` on the device and serve `relative_kv` on the CPU; WebAssembly is bit-equal to the CPU
 and WebGPU (a software adapter) has a `relative_kv` kernel. On the arXiv chain's model from Shaw et al.
 (1803.02155; flex d 64, 2 layers, per-head tables, max_distance 16) ember's replies equal mtstudio's
