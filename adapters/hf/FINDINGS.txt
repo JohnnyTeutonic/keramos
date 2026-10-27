@@ -7,7 +7,7 @@ transformers is the second engine measured here that was not written against IR_
 does not read GGUF natively in the path measured: each suite GGUF is exported to an HF checkpoint
 (model.safetensors + config.json) by adapters/common/gguf_to_hf.py and loaded with AutoModelForCausalLM, as
 a user of a converted checkpoint would. transformers never sees the IR document. What follows is what the
-suite (keramos v1.3.3, 254b6b4d; 413 cases; exporter v2, adapter at c1455b0) says about it, and why each
+suite (keramos v1.3.4, 7a37bf69; 431 cases; exporter v2) says about it, and why each
 failure happens.
 transformers' own GGUF reader (from_pretrained(..., gguf_file=...)) is measured as a second configuration.
 
@@ -28,7 +28,7 @@ From WSL, at the keramos root, with the environment of requirements.txt in ~/hf_
 
 run_suite.sh runs the suite in four configurations and then probe.py; the whole takes about a minute on 2
 threads. Exports are cached under ~/hf_keramos/export by the GGUF's sha256. The receipt is the "receipt"
-configuration. The receipt run used a clean clone of keramos at c1455b0, whose suite files are v1.3.3's.
+configuration, run in a clean clone of keramos at v1.3.4 with a fresh export cache (--hf-export-dir).
 
 
 THE EXPORTER (adapters/common/gguf_to_hf.py)
@@ -50,12 +50,12 @@ llama.cpp's convert transforms:
   gpt2                     GPT2LMHeadModel      Conv1D transposes
   mamba                    MambaForCausalLM     conv1d [Di, K] -> [Di, 1, K]; A_log with -exp(A_log) = ssm_a
 
-Coverage: every tp_ architecture (qwen3, mistral, gemma3, gptneox, mamba) and the pk_ files of llama.cpp
-architectures (pk_llama, pk_moe as Mixtral, pk_gpt2; pk_gpt2_swa, pk_kimi and pk_recurrence export as gpt2
-but the adapter refuses them, below). Architecture "paperkiln" raises Unsupported. Each export loads in
-float32 on CPU with no missing, unexpected or mismatched keys.
+Coverage: every tp_ architecture (llama, qwen3, mistral, gemma3, gptneox, mamba) and the pk_ files of
+llama.cpp architectures (pk_llama, pk_moe as Mixtral, pk_gpt2); every other pk_ file has architecture
+"paperkiln", which raises Unsupported. Each export loads in float32 on CPU with no missing, unexpected or
+mismatched keys.
 
-Exactness (test_gguf_to_hf.py: 28 tests, 3 skips for the IR-only files): GGUF -> HF -> GGUF is bit for bit
+Exactness (test_gguf_to_hf.py: 53 tests at v1.3.4, all passing in ~/hf_keramos/venv): GGUF -> HF -> GGUF is bit for bit
 for every tensor of every supported file, with one exception. Gemma's s - 1 is exact because every norm
 weight lies in [0.5, 2] (Sterbenz), and transformers' 1 + w gives s back (checked in torch at load: 0 values
 differ). Mamba stores A_log, and -exp(A_log) in float32 does not reach every float32 A: the exporter picks
@@ -92,38 +92,40 @@ WHAT THE ADAPTER DOES
 RESULTS
 -------
 
-Receipt configuration (export, sdpa, implicit positions): 26 pass, 3 fail, 384 skip.
+Receipt configuration (export, sdpa, implicit positions): 38 pass, 3 fail, 390 skip.
 
   kind      pass fail skip   the skips are
-  model        8    0   14   architecture "paperkiln" (14; rule 38 labels every IR-only file so)
-  trace       18    3   43   "paperkiln" (39); a replacement document (4)
+  model       11    0   14   architecture "paperkiln" (14; rule 38 labels every IR-only file so)
+  trace       27    3   43   "paperkiln" (39); a replacement document (4)
   op           0    0   62   single nodes
   refuse       0    0   94   IR validation
-  accept       0    0   36   IR validation
-  digest       0    0   85   no IR digest
+  accept       0    0   39   IR validation
+  digest       0    0   88   no IR digest
   dequant      0    0   10   gguf-py's code, not transformers'
   grad         0    0    8   single nodes
   chat         0    0   32   IR template records
 
 Every model and trace that runs, per configuration (receipt = sdpa, implicit positions; eager; explicit
-positions; gguf = transformers' own GGUF reader, below). Model case / its traces, P pass, F fail, S skip:
+positions; gguf = transformers' own GGUF reader, below). Model case / its traces, P pass, F fail, S skip;
+traces in the order chunks, decode, then (where the model has them) truncate, rewind_window, snapshot.
 
-  model          receipt   eager    explicit  gguf       model case worst log-prob error (receipt)
-Traces in the order chunks, decode, then (where the model has them) truncate, rewind_window, snapshot.
+  model            receipt   eager     explicit  gguf       model case worst log-prob error (receipt)
+  tp_qwen3         P/PPP     P/PPP     P/PPP     F/FFF      4.7e-7
+  tp_qwen3_hd16    P/PPP     P/PPP     P/PPP     F/FFF      3.4e-7
+  tp_llama_hd16    P/PPP     P/PPP     P/PPP     P/PPP      3.9e-7
+  tp_mistral       P/PP      P/PP      P/PP      F/FF       2.8e-7
+  tp_mistral_hd16  P/PPP     P/PPP     P/PPP     F/FFF      6.3e-7 (rewind_window passes)
+  tp_gemma3        P/PPP     P/PPP     P/PPP     F/FFF      6.9e-7 (rewind_window passes)
+  tp_gptneox       P/PP      P/PP      P/PP      S/SS       4.3e-7
+  tp_mamba1        P/FPFF    P/FPFF    P/FPFF    P/FPFF     3.1e-7 (decode passes; chunks, truncate, snapshot fail)
+  pk_llama         P/PPP     P/PPP     P/PPP     P/PPP      9.3e-8
+  pk_moe           P/PP      P/PP      P/PP      F/FF       7.6e-8
+  pk_gpt2          P/PP      P/PP      P/PP      P/PP       1.0e-7
 
-  model          receipt   eager     explicit  gguf       model case worst log-prob error (receipt)
-  tp_qwen3       P/PPP     P/PPP     P/PPP     F/FFF      4.7e-7
-  tp_mistral     P/PP      P/PP      P/PP      F/FF       2.8e-7
-  tp_gemma3      P/PPP     P/PPP     P/PPP     F/FFF      6.9e-7 (rewind_window passes)
-  tp_gptneox     P/PP      P/PP      P/PP      S/SS       4.3e-7
-  tp_mamba1      P/FPFF    P/FPFF    P/FPFF    P/FPFF     3.1e-7 (decode passes; chunks, truncate, snapshot fail)
-  pk_llama       P/PPP     P/PPP     P/PPP     P/PPP      9.3e-8
-  pk_moe         P/PP      P/PP      P/PP      F/FF       7.6e-8
-  pk_gpt2        P/PP      P/PP      P/PP      P/PP       1.0e-7
-
-Counts: receipt, eager and explicit 26/3/384 each; gguf 9/17/387. Every FAIL has a cause named below: the three
+Counts: receipt, eager and explicit 38/3/390 each; gguf 13/25/393. Every FAIL has a cause named below: the three
 tp_mamba1 traces are the multi-token-over-cache scan restart (chunks appends several tokens to a cache, as
-truncate and snapshot do); the gguf configuration's other fourteen are the GGUF reader's bugs, by model.
+truncate and snapshot do); the gguf configuration's other 22 are the GGUF reader's bugs, by model (the head_dim
+16 files: Qwen3's head_dim and Mistral's detection, finding 4; tp_llama_hd16 passes through the reader).
 
 Against llama.cpp's semantic findings, transformers computes what the documents say: Mistral's window is
 applied (llama.cpp finding 3), GPT-NeoX's GELU is exact (finding 2), GELU is f32 with no fp16 table (finding
@@ -144,6 +146,9 @@ HOW EACH RESULT WAS ATTRIBUTED (probe.py)
   pk_llama     2.4e-7    1.6e-7           no (3.0e-7)        no             bit-identical 4/4
   pk_moe       1.6e-7    1.6e-7           no (2.4e-7)        no             bit-identical 4/4
   pk_gpt2      2.2e-7    1.8e-7           no (2.4e-7)        no             bit-identical 4/4
+  tp_llama_hd16   7.6e-7  9.4e-7 (16 ids) no (1.7e-6)        no (1.1e-6)    bit-identical 4/4
+  tp_qwen3_hd16   5.6e-7  5.2e-7 (16 ids) no (1.9e-6)        no (1.3e-6)    bit-identical 4/4
+  tp_mistral_hd16 5.8e-7  6.6e-7 (48 ids) no (1.5e-6)        no (1.1e-6)    bit-identical 4/4
 
 (error = |a - b| / max(1, max|ref|), the suite's ROUNDING measure, tol 1e-5; prefill = decode and chunks give
 the worst absolute difference inside transformers, and every token-by-token and chunked run of the attention
@@ -214,15 +219,18 @@ runner). Findings 1 to 5 are transformers'; 6 and 7 are the measurement's.
    values, so it matches only a general.name of exactly "mistral"; a llama.cpp Mistral ("Mistral-7B-v0.1")
    loads as LlamaForCausalLM, without the window (as llama.cpp computes it; matters for v0.1 beyond 4096
    tokens), and a file named exactly "mistral" then fails in gguf-py 0.19.0 ("Unknown gguf model_type:
-   mistral"). tp_mistral loaded as llama.cpp would write it matches the windowless reference to 5.4e-7.
+   mistral"). tp_mistral loaded as llama.cpp would write it matches the windowless reference to 5.4e-7, and
+   tp_mistral_hd16 to 7.1e-7 (1.10 off the windowed one from position 4); tp_qwen3_hd16 (head_dim 16) fails
+   at its first forward like tp_qwen3 ("shape '[1, 16, -1, 128]' is invalid"); tp_llama_hd16 loads and runs
+   within 7.6e-7 through the reader.
    (c) No gptneox reader (Pythia GGUFs are refused; a skip here). (d) gpt2's n_positions is not mapped
    (1024 by default; harmless on pk_gpt2). Folded into upstream issue 4.
 
 5. Rewind into a sliding window is refused, not silently wrong (conforms; informative).
    llama.cpp's finding 4 does not recur. DynamicSlidingWindowLayer.crop raises RuntimeError once the layer
-   has reached its window unless activate_past_recording() was called before the prefill. On tp_mistral and
-   tp_gemma3 (window 4), prefill 48 ids, crop to 10, 40 or 2: refused each time; the adapter re-prefills and
-   the next 4 tokens are within 2.3e-6 of the reference. With activate_past_recording, crop succeeds and the
+   has reached its window unless activate_past_recording() was called before the prefill. On tp_mistral,
+   tp_mistral_hd16 and tp_gemma3 (window 4), prefill 48 ids, crop to 10, 40 or 2: refused each time; the
+   adapter re-prefills and the next 4 tokens are within 2.3e-6 of the reference. With activate_past_recording, crop succeeds and the
    next 4 tokens are within 3.3e-6 of the reference (not bit-identical to a fresh prefill: other shapes).
    Full-attention layers crop in place (tp_qwen3_truncate, pk_llama_truncate pass). Mamba's layers refuse
    crop without past recording, and the re-prefill then meets finding 1 in the next multi-token forward.

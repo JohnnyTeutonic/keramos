@@ -1,13 +1,13 @@
 {
  "spec": {
   "repository": "keramos",
-  "tag": "v1.3.3",
-  "commit": "254b6b4d9feb9b2ed241b961ca8b5f3403e369bc"
+  "tag": "v1.3.4",
+  "commit": "7a37bf6973543914e7b3f4750b91131860d11b8f"
  },
  "engine": {
   "name": "numpy reference (tools/ir_numpy.py)",
   "environment": "CPython 3.13.14, numpy 2.3.5, Windows 11 x86-64 (the generating environment, IR_SPEC 4.6)",
-  "run": "python tools/ir_conformance.py --adapter ir_numpy, keramos working tree equal to v1.3.3 (254b6b4d), 2026-10-27"
+  "run": "python tools/ir_conformance.py --adapter ir_numpy, in a clean clone of keramos at v1.3.4 (7a37bf69), 2026-10-27"
  },
  "adapter": {
   "engine": "ir_numpy",
@@ -23,7 +23,7 @@
   ]
  },
  "counts": {
-  "PASS": 405,
+  "PASS": 423,
   "FAIL": 0,
   "SKIP": 8,
   "XFAIL": 0,
@@ -31,14 +31,14 @@
  },
  "by_kind": {
   "model": {
-   "PASS": 22,
+   "PASS": 25,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
    "XPASS": 0
   },
   "trace": {
-   "PASS": 64,
+   "PASS": 73,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
@@ -59,7 +59,7 @@
    "XPASS": 0
   },
   "digest": {
-   "PASS": 85,
+   "PASS": 88,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
@@ -80,7 +80,7 @@
    "XPASS": 0
   },
   "accept": {
-   "PASS": 36,
+   "PASS": 39,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
@@ -384,6 +384,24 @@
    "detail": "6 steps"
   },
   {
+   "id": "model/tp_llama_hd16",
+   "kind": "model",
+   "verdict": "PASS",
+   "detail": "log-probs worst 0.00e+00; greedy 4/4"
+  },
+  {
+   "id": "trace/tp_llama_hd16_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "6 steps"
+  },
+  {
+   "id": "trace/tp_llama_hd16_truncate",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "3 steps"
+  },
+  {
    "id": "model/tp_mamba1",
    "kind": "model",
    "verdict": "PASS",
@@ -414,6 +432,18 @@
    "detail": "6 steps"
   },
   {
+   "id": "model/tp_mistral_hd16",
+   "kind": "model",
+   "verdict": "PASS",
+   "detail": "log-probs worst 0.00e+00; greedy 4/4"
+  },
+  {
+   "id": "trace/tp_mistral_hd16_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "6 steps"
+  },
+  {
    "id": "model/tp_qwen3",
    "kind": "model",
    "verdict": "PASS",
@@ -427,6 +457,24 @@
   },
   {
    "id": "trace/tp_qwen3_truncate",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "3 steps"
+  },
+  {
+   "id": "model/tp_qwen3_hd16",
+   "kind": "model",
+   "verdict": "PASS",
+   "detail": "log-probs worst 0.00e+00; greedy 4/4"
+  },
+  {
+   "id": "trace/tp_qwen3_hd16_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "6 steps"
+  },
+  {
+   "id": "trace/tp_qwen3_hd16_truncate",
    "kind": "trace",
    "verdict": "PASS",
    "detail": "3 steps"
@@ -1764,6 +1812,12 @@
    "detail": "sha256 equal; canonical equal"
   },
   {
+   "id": "digest/vectors/document_tp_llama_hd16",
+   "kind": "digest",
+   "verdict": "PASS",
+   "detail": "sha256 equal; canonical equal"
+  },
+  {
    "id": "digest/vectors/document_tp_mamba1",
    "kind": "digest",
    "verdict": "PASS",
@@ -1776,7 +1830,19 @@
    "detail": "sha256 equal; canonical equal"
   },
   {
+   "id": "digest/vectors/document_tp_mistral_hd16",
+   "kind": "digest",
+   "verdict": "PASS",
+   "detail": "sha256 equal; canonical equal"
+  },
+  {
    "id": "digest/vectors/document_tp_qwen3",
+   "kind": "digest",
+   "verdict": "PASS",
+   "detail": "sha256 equal; canonical equal"
+  },
+  {
+   "id": "digest/vectors/document_tp_qwen3_hd16",
    "kind": "digest",
    "verdict": "PASS",
    "detail": "sha256 equal; canonical equal"
@@ -2034,6 +2100,12 @@
    "detail": "3 steps"
   },
   {
+   "id": "trace/tp_mistral_hd16_rewind_window",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "3 steps"
+  },
+  {
    "id": "trace/pk_attnres_chunks",
    "kind": "trace",
    "verdict": "PASS",
@@ -2148,6 +2220,12 @@
    "detail": "4 steps"
   },
   {
+   "id": "trace/tp_llama_hd16_chunks",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "4 steps"
+  },
+  {
    "id": "trace/tp_mamba1_chunks",
    "kind": "trace",
    "verdict": "PASS",
@@ -2160,7 +2238,19 @@
    "detail": "4 steps"
   },
   {
+   "id": "trace/tp_mistral_hd16_chunks",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "4 steps"
+  },
+  {
    "id": "trace/tp_qwen3_chunks",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "4 steps"
+  },
+  {
+   "id": "trace/tp_qwen3_hd16_chunks",
    "kind": "trace",
    "verdict": "PASS",
    "detail": "4 steps"
@@ -2280,6 +2370,12 @@
    "detail": "accepted"
   },
   {
+   "id": "accept/documents/model_tp_llama_hd16",
+   "kind": "accept",
+   "verdict": "PASS",
+   "detail": "accepted"
+  },
+  {
    "id": "accept/documents/model_tp_mamba1",
    "kind": "accept",
    "verdict": "PASS",
@@ -2292,7 +2388,19 @@
    "detail": "accepted"
   },
   {
+   "id": "accept/documents/model_tp_mistral_hd16",
+   "kind": "accept",
+   "verdict": "PASS",
+   "detail": "accepted"
+  },
+  {
    "id": "accept/documents/model_tp_qwen3",
+   "kind": "accept",
+   "verdict": "PASS",
+   "detail": "accepted"
+  },
+  {
+   "id": "accept/documents/model_tp_qwen3_hd16",
    "kind": "accept",
    "verdict": "PASS",
    "detail": "accepted"
