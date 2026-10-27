@@ -161,6 +161,11 @@
    "name": "substituted_over_duplicate_embedded",
    "gguf": "refuse/duplicate_member_embedded.gguf",
    "ir": "accept/pk_llama.ir.json"
+  },
+  {
+   "name": "untagged_application_queries",
+   "gguf": "models/pk_llama_attnres_rec/pk_llama_attnres_rec.gguf",
+   "ir": "accept/pk_llama_attnres_rec_untagged.ir.json"
   }
  ]
 }

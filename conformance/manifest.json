@@ -1239,6 +1239,34 @@
    "section": "3.8"
   },
   {
+   "id": "refuse/tensor_index_in_head",
+   "kind": "refuse",
+   "file": "refuse/tensor_index_in_head.json",
+   "rule": 19,
+   "section": "7.2"
+  },
+  {
+   "id": "refuse/tensor_index_value_unknown",
+   "kind": "refuse",
+   "file": "refuse/tensor_index_value_unknown.json",
+   "rule": 5,
+   "section": "7.2"
+  },
+  {
+   "id": "refuse/tensor_index_on_affine",
+   "kind": "refuse",
+   "file": "refuse/tensor_index_on_affine.json",
+   "rule": 4,
+   "section": "3.5"
+  },
+  {
+   "id": "refuse/tensor_index_absent_application_tensor",
+   "kind": "refuse",
+   "file": "refuse/tensor_index_absent_application_tensor.json",
+   "rule": 25,
+   "section": "3.7"
+  },
+  {
    "id": "refuse/duplicate_member_top",
    "kind": "refuse",
    "file": "refuse/duplicate_member_top.json",
@@ -1596,11 +1624,18 @@
    "profile": "state"
   },
   {
+   "id": "trace/pk_llama_attnres_rec_untagged",
+   "kind": "trace",
+   "file": "state/pk_llama_attnres_rec_untagged.json",
+   "model": "models/pk_llama_attnres_rec",
+   "profile": "state"
+  },
+  {
    "id": "accept/documents",
    "kind": "accept",
    "file": "accept/documents.json",
    "profile": "core",
-   "n": 39
+   "n": 40
   },
   {
    "id": "chat/render",

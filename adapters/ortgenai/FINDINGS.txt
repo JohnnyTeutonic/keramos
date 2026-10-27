@@ -299,8 +299,8 @@ O3. The tp_ files declare no bos/eos ids. Builders that need an eos (this one) n
     a dedicated one) in the tp_ files would remove both.
 O4. 11.3 says a skip is decided "before running anything". This adapter decides the kernel refusals at load, by
     one id on a throwaway generator, before the case's first call. Jonathan's ruling (27 Oct 2026): a kernel's
-    own shape precondition is a skip, as here (the refusal is the engine's); 11.3 does not yet say so.
-O5. Appendix C. A row would read: CPU float32 ROUNDING where it runs (Llama and Qwen3 at head_dim 16 on the stock
+    own shape precondition is a skip, as here (the refusal is the engine's); 11.3 says so from v1.3.5.
+O5. Appendix C. Its row (from v1.3.5) reads: CPU float32 ROUNDING where it runs (Llama and Qwen3 at head_dim 16 on the stock
     build, Gemma 3 once finding 3 is fixed, GGUF loader included); refuses head_size % 16 != 0 with fused rotary on CPU; Gemma 3 does not build
     (0.18.0) or is built with its sliding layers' RoPE scaled (0.15.2); Mistral's window dropped since 0.15.2;
     rewind_to exact, into a window included; no Mixtral, GPT-2, GPT-NeoX or Mamba builder.
