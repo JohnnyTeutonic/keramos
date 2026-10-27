@@ -22,6 +22,8 @@
   "model/pk_flex_shaw": "revision 1.4's attention.relative_kv (IR_SPEC 5.15): the clean-room engine (revision 1.2) refuses the attribute at load (rule 1, an unknown key); waits for its 1.4 pass",
   "trace/pk_flex_shaw_decode": "revision 1.4's attention.relative_kv (IR_SPEC 5.15): the clean-room engine (revision 1.2) refuses the attribute at load (rule 1, an unknown key); waits for its 1.4 pass",
   "trace/pk_flex_shaw_chunks": "revision 1.4's attention.relative_kv (IR_SPEC 5.15): the clean-room engine (revision 1.2) refuses the attribute at load (rule 1, an unknown key); waits for its 1.4 pass",
-  "accept/documents/model_pk_flex_shaw": "revision 1.4's attention.relative_kv (IR_SPEC 5.15): the clean-room engine (revision 1.2) refuses the attribute at load (rule 1, an unknown key); waits for its 1.4 pass"
+  "accept/documents/model_pk_flex_shaw": "revision 1.4's attention.relative_kv (IR_SPEC 5.15): the clean-room engine (revision 1.2) refuses the attribute at load (rule 1, an unknown key); waits for its 1.4 pass",
+  "trace/pk_flex_shaw_weight_index": "revision 1.4's attention.relative_kv (IR_SPEC 5.15): the clean-room engine (revision 1.2) refuses the attribute at load (rule 1, an unknown key); waits for its 1.4 pass",
+  "accept/documents/relative_kv_weight_index": "revision 1.4's attention.relative_kv (IR_SPEC 5.15): the clean-room engine (revision 1.2) refuses the attribute at load (rule 1, an unknown key); waits for its 1.4 pass"
  }
 }

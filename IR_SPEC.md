@@ -2,7 +2,7 @@
 
 *Normative specification of the keramos IR: a versioned JSON graph of a language model that an
 engine interprets, rather than recognising a fixed architecture. IR version 1, specification revision
-1.4 (27 October 2026; v1.4.0).*
+1.4 (27 October 2026; v1.4.1).*
 
 The format's GGUF keys keep their `paperkiln.` prefix (`paperkiln.ir`, `paperkiln.ir_version`,
 `paperkiln.ir_sha256` and the rest), as does the architecture label "paperkiln" (rule 38): they are
@@ -345,8 +345,9 @@ GGUF tensor and never state.
 
 ### 3.7 Tensors and names
 
-- `weight` (and `bias`, `router`, `experts`, `state_weight`, the `weight` of `attention.position_bias`
-  and the tensor attributes of `ssm_scan`, `conv1d_causal` and `selective_scan`) name GGUF tensors.
+- `weight` (and `bias`, `router`, `experts`, `state_weight`, the `weight` of `attention.position_bias`,
+  the `key` and `value` of `attention.relative_kv` and the tensor attributes of `ssm_scan`,
+  `conv1d_causal` and `selective_scan`) name GGUF tensors; `"{i}"` in any of them follows the rule below.
 - Layout: a matrix is [out, in] row-major, as GGUF and llama.cpp store it (ggml `ne0` = in).
 - Storage: each tensor's storage type is its GGUF type (f32, f16, q8_0, ...), and its values are the
   f32 values section 4.7 defines for that type. Engines compute in `model.dtype`.
@@ -1298,7 +1299,8 @@ A key of the block itself, not of a node: `{"per_layer": [m_0, ..., m_{L-1}]}`, 
 integers m_i >= 0.
 
 - Application i of the block reads every tensor name it holds (`weight`, `bias`, `router`,
-  `experts`, ssm_scan's `a b c d`, ...) with `"{i}"` replaced by m_i, i.e. `blk.{m_i}.*`, so several
+  `experts`, ssm_scan's `a b c d`, `position_bias`'s weight, `relative_kv`'s key and value, ...) with
+  `"{i}"` replaced by m_i, i.e. `blk.{m_i}.*`, so several
   applications share one stored layer's tensors (tied-block recursion: prelude layers, a shared block
   applied R times, coda layers; paperkiln family_hint `llama_recursive`).
 - Everything else per application stays indexed by i: each application has its own instance of
@@ -1322,7 +1324,8 @@ integers m_i >= 0.
 - The key belongs to the ops that name tensors, as `ir.schema.json` lists it: `embedding`,
   `pos_embedding`, `linear`, `scale`, `rmsnorm`, `layernorm`, `moe_ffn`, `depth_attend`, `ssm_scan`,
   `conv1d_causal`, `selective_scan` and `recurrence`. On any other op it is an attribute the op does
-  not define (rule 4). Its one value is `"application"` (rule 5).
+  not define (rule 4). Its one value is `"application"` (rule 5). `attention` is not among them, so the
+  names of `position_bias` and `relative_kv` always read m_i.
 - It governs every tensor name of the node that holds `{i}` (`weight`, `bias`, `router`, `experts`,
   ssm_scan's `a b c d`, a recurrence's `weights`), and only that node: the tag on one node moves no
   other node's names. It is structural (section 3.8), so it holds in every application.
@@ -2460,6 +2463,12 @@ The first primitive drafted under the workspace's path for new primitives (`LOCA
   does. Cases: model `pk_flex_mdha` (K 3, RoPE, squared ReLU) with decode, snapshot, truncate and chunks
   traces. The clean-room engine, written from revision 1.2's text and unchanged since, passes all of them
   and the acceptance case: the wiring needed no new text.
+- **N3. relative_kv's names under weight_index** (ember's question on 1.4.0; v1.4.1). Section 3.7 listed
+  the tensor names without `relative_kv`'s, so whether its `{i}` follows `weight_index` was stated only by
+  7.1's "every tensor name it holds". Stated in 3.7, 7.1 and 7.2 as the reference, ember and the validator
+  already behave: m_i, never the application (attention carries no `tensor_index`). Case: the trace
+  `pk_flex_shaw_weight_index` and the acceptance case `relative_kv_weight_index`, pk_flex_shaw's file under
+  its document with `weight_index` [1, 0], whose logits are 1.4e-1 of max(1, max |ref|) from the unpermuted document's over 8 ids (the argmax agrees everywhere), against the ROUNDING tolerance 1e-5.
 
 ## Appendix A. The `-ffast-math` audit
 
@@ -2552,6 +2561,12 @@ equal to dc29b5e6 bit for bit) and the pinned commits of the RunPod campaigns ar
 
 ## Appendix B. Changelog
 
+- **v1.4.1** (tag, 27 October 2026; section 2.6). `relative_kv`'s `key` and `value` named among the tensor
+  names of section 3.7, of 7.1's `weight_index` and of 7.2's reach (ember's question; section 12.6 N3), as
+  the reference already reads them. New cases, no existing case or value changes: the trace
+  `pk_flex_shaw_weight_index` and the acceptance case `relative_kv_weight_index` (pk_flex_shaw under
+  `weight_index` [1, 0], `accept/pk_flex_shaw_weight_index.ir.json`): 467 cases; regenerated in the named
+  environment (section 4.6). `expected_fail.json`: the clean-room engine's two new cases.
 - **v1.4.0** (tag, 27 October 2026; revision 1.4). Shaw-style relative key and value vectors, an optional
   attribute of `attention` (section 5.15, rule 40; section 12.6 N1), and Primer's multi-dconv-head
   attention stated as `conv1d_causal` wiring beside a kv slot (sections 6.9, 9.2; 12.6 N2). Schema:
