@@ -44,6 +44,7 @@
   "accept/documents/model_tp_deepseek3": "revision 1.6's tp_deepseek3 (deepseek2 with apply, the sigmoid router and YaRN; IR_SPEC 9.3, Appendix D.11): the clean-room engine (revision 1.4) has no graph for the architecture, so rule 38 refuses the file at load; waits for its 1.5 and 1.6 passes",
   "trace/tp_deepseek3_decode": "revision 1.6's tp_deepseek3 (deepseek2 with apply, the sigmoid router and YaRN; IR_SPEC 9.3, Appendix D.11): the clean-room engine (revision 1.4) has no graph for the architecture, so rule 38 refuses the file at load; waits for its 1.5 and 1.6 passes",
   "trace/tp_deepseek3_chunks": "revision 1.6's tp_deepseek3 (deepseek2 with apply, the sigmoid router and YaRN; IR_SPEC 9.3, Appendix D.11): the clean-room engine (revision 1.4) has no graph for the architecture, so rule 38 refuses the file at load; waits for its 1.5 and 1.6 passes",
-  "trace/tp_deepseek3_truncate": "revision 1.6's tp_deepseek3 (deepseek2 with apply, the sigmoid router and YaRN; IR_SPEC 9.3, Appendix D.11): the clean-room engine (revision 1.4) has no graph for the architecture, so rule 38 refuses the file at load; waits for its 1.5 and 1.6 passes"
+  "trace/tp_deepseek3_truncate": "revision 1.6's tp_deepseek3 (deepseek2 with apply, the sigmoid router and YaRN; IR_SPEC 9.3, Appendix D.11): the clean-room engine (revision 1.4) has no graph for the architecture, so rule 38 refuses the file at load; waits for its 1.5 and 1.6 passes",
+  "refuse/apply_with_depth_route": "revision 1.6's rule 43 (IR_SPEC 3.8): apply in a block with depth_route; the clean-room engine (revision 1.4) ignores the unknown attribute on a valid pk_mor document and accepts the file; waits for its 1.6 pass"
  }
 }

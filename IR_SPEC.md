@@ -3228,7 +3228,7 @@ the engine has agreed to close, the specification already states the intended be
 **Revision 1.6 in the engines.** The numpy reference computes all of it (section 12.8 for its float64
 checks), and paperkiln's gates run it against transformers on synthetic DeepSeek-V2 (a dense first layer,
 YaRN) and DeepSeek-V3 models (`LOCAL_LLM_STACK.md` section 5.3). mtstudio has no path for third-party documents.
-The clean-room engine (revision 1.4) fails the 44 cases that need revision 1.5 or 1.6, which `expected_fail.json`
+The clean-room engine (revision 1.4) fails the 45 cases that need revision 1.5 or 1.6 (44 by missing paths, one by accepting `apply` beside `depth_route`), which `expected_fail.json`
 lists. ember's CPU interpreter computes it (ember 5cc541d; receipt `conformance/receipts/ember_cpu.json` at v1.6.1, 554 pass, 0 fail, 44 skip): `tp_deepseek3` and its traces, the four op cases (`rope/freq_factors_values` and three `moe_ffn` router cases, through `run_node`) and the ten refusals pass. Its CUDA builds serve documents with `apply` or that router on the CPU, and WebGPU leaves them to WebAssembly.
 
 **Revision 1.5 in the engines.** The numpy reference computes all of it; its float64 checks are in section
