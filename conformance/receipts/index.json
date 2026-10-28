@@ -234,46 +234,46 @@
   },
   {
    "file": "ember_cpu.json",
-   "engine": "ember.cpp ir_adapter, CPU interpreter, ember 1456c0c95ca213f90383f316f046354097d8428e, against keramos v1.4.2 (6bbfe01cc7459abc2bd47c42e1f0376438705e6b)",
+   "engine": "ember.cpp ir_adapter, CPU interpreter, ember 5cc541db7e251cc4ec8648405ce08e3039ed4cd9, against keramos v1.6.1 (b74a410d00cc2e2698d8353adaf0ca36bc95ed51)",
    "date": "2026-10-28",
    "counts": {
-    "PASS": 472,
+    "PASS": 554,
     "FAIL": 0,
-    "SKIP": 52,
+    "SKIP": 44,
     "XFAIL": 0,
     "XPASS": 0
    },
    "by_kind": {
     "model": {
-     "PASS": 27,
+     "PASS": 33,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
      "XPASS": 0
     },
     "trace": {
-     "PASS": 83,
+     "PASS": 99,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
      "XPASS": 0
     },
     "op": {
-     "PASS": 27,
+     "PASS": 51,
      "FAIL": 0,
-     "SKIP": 41,
+     "SKIP": 33,
      "XFAIL": 0,
      "XPASS": 0
     },
     "refuse": {
-     "PASS": 105,
+     "PASS": 129,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
      "XPASS": 0
     },
     "digest": {
-     "PASS": 90,
+     "PASS": 96,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
@@ -294,7 +294,7 @@
      "XPASS": 0
     },
     "accept": {
-     "PASS": 44,
+     "PASS": 50,
      "FAIL": 0,
      "SKIP": 0,
      "XFAIL": 0,
