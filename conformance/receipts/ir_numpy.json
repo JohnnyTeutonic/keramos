@@ -1,13 +1,13 @@
 {
  "spec": {
   "repository": "keramos",
-  "tag": "v1.5.0",
-  "commit": "062c1513a3d5b1a3ae2055695da56474dffc92f8"
+  "tag": "v1.6.0",
+  "commit": "6de4604dd5d85c6b6f3bf232cc2ddd2ddad44927"
  },
  "engine": {
   "name": "numpy reference (tools/ir_numpy.py)",
   "environment": "CPython 3.13.14, numpy 2.3.5, Windows 11 x86-64 (the generating environment, IR_SPEC 4.6)",
-  "run": "python tools/ir_conformance.py --adapter ir_numpy, in a clean export of keramos at v1.5.0 (062c1513, git archive), 2026-10-28; skips: the 11 gradient cases (its own finite differences); the 54 new cases of revision 1.5 pass (tp_phi3, tp_gemma2, tp_qwen2moe, tp_qwen3moe, tp_deepseek2: model cases, 13 traces, acceptance and digest; 12 op cases; 14 refusals); no earlier verdict moves"
+  "run": "python tools/ir_conformance.py --adapter ir_numpy, in a clean export of keramos at v1.6.0 (6de4604d, git archive), 2026-10-28; skips: the 11 gradient cases; the 20 new cases of revision 1.6 pass (tp_deepseek3's model case, 3 traces, acceptance and digest; 4 op cases; 10 refusals); no earlier verdict moves"
  },
  "adapter": {
   "engine": "ir_numpy",
@@ -23,7 +23,7 @@
   ]
  },
  "counts": {
-  "PASS": 567,
+  "PASS": 587,
   "FAIL": 0,
   "SKIP": 11,
   "XFAIL": 0,
@@ -31,35 +31,35 @@
  },
  "by_kind": {
   "model": {
-   "PASS": 32,
+   "PASS": 33,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
    "XPASS": 0
   },
   "trace": {
-   "PASS": 96,
+   "PASS": 99,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
    "XPASS": 0
   },
   "op": {
-   "PASS": 80,
+   "PASS": 84,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
    "XPASS": 0
   },
   "refuse": {
-   "PASS": 119,
+   "PASS": 129,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
    "XPASS": 0
   },
   "digest": {
-   "PASS": 95,
+   "PASS": 96,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
@@ -80,7 +80,7 @@
    "XPASS": 0
   },
   "accept": {
-   "PASS": 49,
+   "PASS": 50,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
@@ -403,6 +403,24 @@
   },
   {
    "id": "trace/tp_deepseek2_truncate",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "3 steps"
+  },
+  {
+   "id": "model/tp_deepseek3",
+   "kind": "model",
+   "verdict": "PASS",
+   "detail": "log-probs worst 0.00e+00; greedy 4/4"
+  },
+  {
+   "id": "trace/tp_deepseek3_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "6 steps"
+  },
+  {
+   "id": "trace/tp_deepseek3_truncate",
    "kind": "trace",
    "verdict": "PASS",
    "detail": "3 steps"
@@ -798,6 +816,12 @@
    "detail": "q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)"
   },
   {
+   "id": "op/rope/freq_factors_values",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)"
+  },
+  {
    "id": "op/attention/causal",
    "kind": "op",
    "verdict": "PASS",
@@ -895,6 +919,24 @@
   },
   {
    "id": "op/moe_ffn/raw",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "y worst 0.00e+00 of max(1, |ref|)"
+  },
+  {
+   "id": "op/moe_ffn/sigmoid_renorm",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "y worst 0.00e+00 of max(1, |ref|)"
+  },
+  {
+   "id": "op/moe_ffn/sigmoid_bias_groups",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "y worst 0.00e+00 of max(1, |ref|)"
+  },
+  {
+   "id": "op/moe_ffn/softmax_bias_raw",
    "kind": "op",
    "verdict": "PASS",
    "detail": "y worst 0.00e+00 of max(1, |ref|)"
@@ -1686,6 +1728,66 @@
    "detail": "refused (IR_SPEC 5.20 (rule 14))"
   },
   {
+   "id": "refuse/apply_entries_not_boolean",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused (IR_SPEC 3.8 (rule 43))"
+  },
+  {
+   "id": "refuse/apply_outside_block",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused (IR_SPEC 3.8 (rule 43))"
+  },
+  {
+   "id": "refuse/apply_on_attention",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused (IR_SPEC 3.5 (rule 4))"
+  },
+  {
+   "id": "refuse/apply_leaves_value_unwritten",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused (IR_SPEC 3.5 (rule 36))"
+  },
+  {
+   "id": "refuse/apply_with_depth_route",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused (IR_SPEC 3.8 (rule 43))"
+  },
+  {
+   "id": "refuse/moe_groups_not_dividing",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused (IR_SPEC 5.16 (rule 10))"
+  },
+  {
+   "id": "refuse/moe_scoring_unknown",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused (IR_SPEC 5.16 (rule 5))"
+  },
+  {
+   "id": "refuse/moe_selection_bias_shape",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused (IR_SPEC 5.16 (rule 44))"
+  },
+  {
+   "id": "refuse/freq_factors_values_length",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused (IR_SPEC 5.14 (rule 41))"
+  },
+  {
+   "id": "refuse/freq_factors_values_not_positive",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused (IR_SPEC 5.14 (rule 41))"
+  },
+  {
    "id": "refuse/duplicate_member_top",
    "kind": "refuse",
    "verdict": "PASS",
@@ -2178,6 +2280,12 @@
    "detail": "sha256 equal; canonical equal"
   },
   {
+   "id": "digest/vectors/document_tp_deepseek3",
+   "kind": "digest",
+   "verdict": "PASS",
+   "detail": "sha256 equal; canonical equal"
+  },
+  {
    "id": "digest/vectors/document_tp_gemma2",
    "kind": "digest",
    "verdict": "PASS",
@@ -2658,6 +2766,12 @@
    "detail": "4 steps"
   },
   {
+   "id": "trace/tp_deepseek3_chunks",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "4 steps"
+  },
+  {
    "id": "trace/tp_gemma2_chunks",
    "kind": "trace",
    "verdict": "PASS",
@@ -2869,6 +2983,12 @@
   },
   {
    "id": "accept/documents/model_tp_deepseek2",
+   "kind": "accept",
+   "verdict": "PASS",
+   "detail": "accepted"
+  },
+  {
+   "id": "accept/documents/model_tp_deepseek3",
    "kind": "accept",
    "verdict": "PASS",
    "detail": "accepted"
