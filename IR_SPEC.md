@@ -3229,7 +3229,7 @@ the engine has agreed to close, the specification already states the intended be
 checks), and paperkiln's gates run it against transformers on synthetic DeepSeek-V2 (a dense first layer,
 YaRN) and DeepSeek-V3 models (`LOCAL_LLM_STACK.md` section 5.3). mtstudio has no path for third-party documents.
 The clean-room engine (revision 1.4) fails the 44 cases that need revision 1.5 or 1.6, which `expected_fail.json`
-lists. ember's interpreter implements the revision in its own session.
+lists. ember's CPU interpreter computes it (ember 5cc541d; receipt `conformance/receipts/ember_cpu.json` at v1.6.1, 554 pass, 0 fail, 44 skip): `tp_deepseek3` and its traces, the four op cases (`rope/freq_factors_values` and three `moe_ffn` router cases, through `run_node`) and the ten refusals pass. Its CUDA builds serve documents with `apply` or that router on the CPU, and WebGPU leaves them to WebAssembly.
 
 **Revision 1.5 in the engines.** The numpy reference computes all of it; its float64 checks are in section
 12.7, and its gates against transformers on synthetic models converted by llama.cpp's own converter (Phi-3
@@ -3237,8 +3237,8 @@ with LongRoPE and with a window, Gemma 2, Mixtral, Qwen2-MoE, Qwen3-MoE, DeepSee
 low-rank query) are paperkiln's (`LOCAL_LLM_STACK.md` section 5.3). paperkiln's mtstudio runs only its own
 modules, so the five new models and the new op cases are skips for it. The clean-room engine (revision 1.4,
 v1.4.2) has no graph for the five architectures and no path for the new attributes and op: the 35 cases
-that use them are in `expected_fail.json`. ember's interpreter
-implements the revision in its own session. llama.cpp, transformers and ONNX Runtime GenAI keep their v1.3.5
+that use them are in `expected_fail.json`. ember's CPU interpreter
+computes all of it (ember 4290c91: the mixtures of experts and `mla_attention`; ember 9e70cd4: `softcap`, `freq_factors`, `attn_factor` and the phi3 and gemma2 builders), 534 pass, 0 fail and 44 skip at v1.5.0, its builders' documents equal to `tools/gguf_ir.py`'s; a forward or truncate that changes the `freq_factors` set the sequence's length selects recomputes the kv slot from position 0. On paperkiln's synthetic Gemma 2, Phi-3 LongRoPE and Phi-3 window files its greedy ids equal transformers' 40/40 and its first token is within 3.4e-6 of the logit range of transformers' f32 logits; its WebAssembly build gives greedy 40/40 within 6.1e-7 of its CPU build (ember `experiments/e4_gemma2_phi3_2026-10-28`). WebGPU leaves `softcap` and `freq_factors` to WebAssembly; the CUDA kernels for both compile and are not yet validated on a device. llama.cpp, transformers and ONNX Runtime GenAI keep their v1.3.5
 receipts.
 
 **Revision 1.4 in the engines.** The numpy reference computes `relative_kv`. paperkiln's mtstudio runs
@@ -3282,9 +3282,10 @@ written from this text: it checks `paperkiln.ir_sha256` at load (rule 30), answe
 `recurrence` (rules 31-34). It does not answer `run_node_grad`, as it does not train.
 
 **ember interpreter refusals** (capability, not validation; section 10.3): more than one kv slot per
-block; per-layer values other than attention window and sinks, rope theta and freq_scale, affine
-scale and shift, depth_route step, and the slot's window (per-layer sinks included); `rope_heads`
-"first"; rope nodes with differing theta, freq_scale, n_rot or pairing; head ops outside its head
+block; per-layer values other than attention window, sinks and softcap, rope theta, freq_scale and attn_factor,
+affine scale and shift, depth_route step, moe_ffn scoring, apply, and the slot's window (per-layer sinks
+included); `rope_heads`
+"first"; rope nodes with differing theta, freq_scale, attn_factor, freq_factors, n_rot or pairing; head ops outside its head
 list (which excludes `split`, `moe_ffn`, `rope`, `pos_embedding` and `embedding`); `depth_route` with
 recurrent state; `mask: turn_state` with `kv_rows: active`; eviction with recurrent
 state; `expr` nested deeper than 200 (the CUDA expr kernel takes up to 96 instructions, a stack of 16
@@ -3694,36 +3695,36 @@ ember's CPU build (or, for WebGPU, against ember CPU and the numpy reference as 
 receipt's engine has no path for those cases. "—": no receipt measures it.
 
 Sources. Suite receipts (`conformance/receipts/`): [N] `ir_numpy.json` (v1.5.0, 567/0/11), [M] `mtstudio.json`
-(v1.4.2, 158/0/366), [E] `ember_cpu.json` (v1.4.2, 472/0/52), [K] `cleanroom.json` (v1.5.0, 532/0/11, 35 XFAIL),
+(v1.4.2, 158/0/366), [E] `ember_cpu.json` (v1.6.1, 554/0/44), [K] `cleanroom.json` (v1.5.0, 532/0/11, 35 XFAIL),
 [RE] `reference_environment.json`. ember gates (ember.cpp `experiments/`): [C12] `carry12_cuda_gates_2026-10-27`
 (T4), [DO] `decode_occupancy_2026-10-27` (L4), [TI] `tensor_index_gate_2026-10-27`, [WR]
 `webgpu_recurrence_2026-10-27`, [WG] `webgpu_gpu_2026-10-27` (Chrome on an L4), [WI] `webgpu_ir_2026-10-26`
-(SwiftShader), [U] `utf8_2026-10-27`; [AC] Appendix C's text.
+(SwiftShader), [U] `utf8_2026-10-27`, [E4] `e4_gemma2_phi3_2026-10-28`; [AC] Appendix C's text.
 
 | Op group | numpy reference | mtstudio CPU | mtstudio CUDA | ember CPU | ember CUDA | ember CUDA, `EMBER_DETERMINISTIC=1` | ember WebAssembly | ember WebGPU | clean-room (Rust, CPU) |
 |---|---|---|---|---|---|---|---|---|---|
-| Elementwise and data movement: `embedding` (with `state_weight`), `pos_embedding`, `scale`, `split`, `relu`, `add`, `mul`, `sub`, `affine`, `mul_col`, `list`, `append` | E; bit 15/15 against the stored values [N] | E; skip [M] | R; — | E; skip as single ops, reached only inside whole models [E] | R; — | R; — | E; — | R; — | E; bit 14/14, 1 XFAIL (`split.groups`, revision 1.5) [K] |
+| Elementwise and data movement: `embedding` (with `state_weight`), `pos_embedding`, `scale`, `split`, `relu`, `add`, `mul`, `sub`, `affine`, `mul_col`, `list`, `append` | E; bit 15/15 against the stored values [N] | E; skip [M] | R; — | E; `split` bit 2/2, the others skip as single ops, reached only inside whole models [E] | R; — | R; — | E; — | R; — | E; bit 14/14, 1 XFAIL (`split.groups`, revision 1.5) [K] |
 | `recurrence`, EXACT bodies (6.10.4) | E; bit 5/5 [N] | E; bit 5/5 [M] | R; — | E; bit 5/5 [E] | R; served on the CPU [AC] | R; served on the CPU [AC] | E; — | R; 8 EXACT body cases bit-equal to numpy and to ember CPU, on SwiftShader only [WR gate 2] | E; bit 5/5 [K] |
 | `recurrence`, ROUNDING bodies; `linear_attention`, `ssm_scan`, `conv1d_causal`, `selective_scan` | R; 0 [N] | R; 1.8e-7 (`linear_attention`, `ssm_scan` skip) [M] | R; — | R; 1.8e-7 (recurrence); the four ops skip [E] | R; recurrence served on the CPU [AC]; the four ops — | R; as default | R; — | R; 1.8e-7, 7 cases, SwiftShader [WR gate 2] | R; 1.8e-7 [K] |
 | `linear` | R; 0 [N] | R; skip [M] | R; — | R; skip [E] | R; — | R; — | R; — | R; — | R; 5.0e-8 [K] |
 | `rmsnorm`, `layernorm`, `rms_row`, `gelu`, `silu`, `sigmoid` | R; 0 [N] | R; 2.3e-8 (2 `rmsnorm` cases; rest skip) [M] | R; — | R; skip [E] | R; — | R; — | R; — | R; — | R; 6.0e-8 [K] |
-| `rope` (rotation E given the table, table R: cases judged R) | R; 0, 11 cases [N] | R; 1.4e-8, 4 cases [M] | R; — | R; skip [E] | R; — | R; — | R; — | R; — | R; 1.4e-8, 6 cases; 5 XFAIL (revisions 1.5-1.6) [K] |
-| `attention`, `depth_attend`, `mla_attention` | R; 0, 21 cases [N] | R; 1.3e-7, 9 `attention` cases [M] | R; — | R; 1.6e-7, 12 `attention` cases [E] | R; — | R; — | R; — | R; — | R; 1.3e-7, 15 cases; 6 XFAIL (revision 1.5) [K] |
-| `moe_ffn` | R; 0 [N] | R; skip [M] | R; — | R; skip [E] | R; — | R; — | R; — | R; — | R; 3.2e-7 [K] |
+| `rope` (rotation E given the table, table R: cases judged R) | R; 0, 11 cases [N] | R; 1.4e-8, 4 cases [M] | R; — | R; 1.4e-7, 11 cases (`first_head` skips: refused at load by name) [E] | R; — | R; — | R; — | R; — | R; 1.4e-8, 6 cases; 5 XFAIL (revisions 1.5-1.6) [K] |
+| `attention`, `depth_attend`, `mla_attention` | R; 0, 21 cases [N] | R; 1.3e-7, 9 `attention` cases [M] | R; — | R; 1.6e-7, 15 `attention` and 3 `mla_attention` cases (`depth_attend` skips) [E] | R; — | R; — | R; — | R; — | R; 1.3e-7, 15 cases; 6 XFAIL (revision 1.5) [K] |
+| `moe_ffn` | R; 0 [N] | R; skip [M] | R; — | R; 2.7e-7, 5 cases [E] | R; — | R; — | R; — | R; — | R; 3.2e-7 [K] |
 | `expr` | R; 0, 6 cases [N] | R; 1.6e-8 [M] | R; — | R; 1.6e-8 [E] | R; — | R; — | R; — | R; — | R; 1.6e-8 [K] |
-| Whole models and traces (R; greedy ids and depth traces must be identical) | 0 against the stored values, 32 models and 96 traces [N]; numpy 2.3.3 on Linux moves 6 of 242 files, at most 7.1e-7 [RE] | 2.0e-7, 19 models; 4.8e-8, 6 traces [M] | — | 6.1e-7, 27 models, 83 traces [E]; ar_rec 2.7e-7 [TI] | interpreter: 1.4e-6† at worst on six state-token and attnres files, greedy 40/40, top-1 complete [C12]; ar_rec 2.1e-7† [TI]; two runs byte-equal [C12]. Tuned llama path: two runs differ by up to 1.0e-5 (atomics in the decode `rmsnorm`) [DO] | as default against the CPU; bit-identical run to run: six files with both decode kernels [C12], ar_rec [TI], tuned path 360/360 requests, 9,744 positions [DO]; speculative verification bit-identical to plain decode, 2,692 rows [DO] | bit-equal to ember CPU on ar_rec, F32 and Q8_0 [TI]; `relative_kv` model bit-equal to the CPU [AC]; replies 37/37 equal to the native server [U] | small paperkiln and third-party documents 2.9e-6†, official checkpoints up to 1.4e-3† (Mamba-130m; Pythia-160m 2.3e-4, both past the flat 1e-4 bound), greedy 40/40 and top-1 complete on all 26 [WG]; 2.6e-6† on SwiftShader [WI] | 1.3e-6, 27 models, 83 traces; 5 models and 13 traces XFAIL [K] |
+| Whole models and traces (R; greedy ids and depth traces must be identical) | 0 against the stored values, 32 models and 96 traces [N]; numpy 2.3.3 on Linux moves 6 of 242 files, at most 7.1e-7 [RE] | 2.0e-7, 19 models; 4.8e-8, 6 traces [M] | — | 1.2e-6, 33 models, 99 traces [E]; ar_rec 2.7e-7 [TI]; the synthetic Gemma 2 and Phi-3 files: greedy 40/40 against transformers, first token within 3.4e-6 of the logit range [E4] | interpreter: 1.4e-6† at worst on six state-token and attnres files, greedy 40/40, top-1 complete [C12]; ar_rec 2.1e-7† [TI]; two runs byte-equal [C12]. Tuned llama path: two runs differ by up to 1.0e-5 (atomics in the decode `rmsnorm`) [DO] | as default against the CPU; bit-identical run to run: six files with both decode kernels [C12], ar_rec [TI], tuned path 360/360 requests, 9,744 positions [DO]; speculative verification bit-identical to plain decode, 2,692 rows [DO] | bit-equal to ember CPU on ar_rec, F32 and Q8_0 [TI]; `relative_kv` model bit-equal to the CPU [AC]; replies 37/37 equal to the native server [U]; the synthetic Gemma 2 and Phi-3 files within 6.1e-7†, greedy 40/40 against transformers [E4] | small paperkiln and third-party documents 2.9e-6†, official checkpoints up to 1.4e-3† (Mamba-130m; Pythia-160m 2.3e-4, both past the flat 1e-4 bound), greedy 40/40 and top-1 complete on all 26 [WG]; 2.6e-6† on SwiftShader [WI] | 1.3e-6, 27 models, 83 traces; 5 models and 13 traces XFAIL [K] |
 | Conditional exactness (4.5): prefill against decode, eviction against keeping | — (prefill only) | eviction E at equal chunking (Appendix A.5); prefill R | — | decode = prefill bit-equal on ar_rec [TI] | R: decode against prefill 1.6e-7 to 5.2e-7† [C12] | R; as default | decode = prefill and eviction on = off bit for bit [TI] | recurrence documents: token by token, chunked and multi-turn runs bit for bit, 5 documents x 5 prompts [WR gate 3] | — |
 
 What is and is not claimed. Bit identity across engines is claimed only for EXACT ops on CPU paths: the
 clean-room engine matches the reference bit for bit on every EXACT single-op case it runs, and mtstudio, ember's
 CPU build and the clean-room engine match it on the five EXACT recurrence cases. Whole models are bit-identical
-only within one engine: ember's WebAssembly against its CPU build, prefill against decode on those two (and on WebGPU for the recurrence documents), and run
+only within one engine: ember's WebAssembly against its CPU build on ar_rec and the `relative_kv` model (on the Gemma 2 and Phi-3 files within 6.1e-7†), prefill against decode on those two (and on WebGPU for the recurrence documents), and run
 to run on CUDA under `EMBER_DETERMINISTIC=1`, which also makes speculative verification equal plain decode.
 Everything else, across backends and across engines, holds within tolerance: whole models within 1.3e-6 of the
 reference on CPU, ember's CUDA within 1.4e-6† of its CPU, WebGPU within 2.9e-6† on small documents and up to
 1.4e-3† on deep official checkpoints, where the gate is greedy N/N and top-1 at every position (section 4.3).
 Coverage is missing for: mtstudio CUDA (no receipt); EXACT elementwise ops as single ops on mtstudio and every
-ember path (they skip them, so those ops are checked only inside ROUNDING whole models); any conformance-suite
+ember path (they skip them, `split` on ember's CPU aside, so those ops are checked only inside ROUNDING whole models); any conformance-suite
 receipt for ember's CUDA, WebAssembly or WebGPU paths, which are covered by ember's gates on named models only;
-revisions 1.5 and 1.6, which only the numpy reference passes in full (ember and mtstudio receipts are at v1.4.2,
-the clean-room engine's at v1.5.0 with those cases XFAIL); and any arm64 build.
+revisions 1.5 and 1.6 on mtstudio and the clean-room engine (mtstudio's receipt is at v1.4.2, the clean-room
+engine's at v1.5.0 with those cases XFAIL; the numpy reference and ember's CPU interpreter pass them); and any arm64 build.

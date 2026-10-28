@@ -1,20 +1,20 @@
 {
  "spec": {
   "repository": "keramos",
-  "tag": "v1.4.2",
-  "commit": "6bbfe01cc7459abc2bd47c42e1f0376438705e6b"
+  "tag": "v1.6.1",
+  "commit": "b74a410d00cc2e2698d8353adaf0ca36bc95ed51"
  },
  "engine": {
   "name": "ember.cpp",
-  "commit": "1456c0c95ca213f90383f316f046354097d8428e",
-  "binary": "/home/jonat/k142cpu/build_1456c0c/ir_adapter (git archive of that commit, CPU only: HAS_CUDA off, Release, GCC 13.3, WSL ext4; the interpreter's IR translation units with -ffp-contract=off; sha256 b2364c58f45c2a4b064e1c8eb8b4fdcd511de4b101f8f99f23f73fb8fc91909d)",
-  "hello": "ir_adapter 5 (IR versions 0 and 1; spec revision 1.4.2)",
-  "run": "python3 tools/ir_conformance.py --adapter cmd:\"<binary> --conformance\" from a git archive of keramos v1.4.2 (6bbfe01c) on ext4, no EMBER_* variable kept, 2026-10-28"
+  "commit": "5cc541db7e251cc4ec8648405ce08e3039ed4cd9",
+  "binary": "/home/jonat/ember_adapter_5cc541d/build/ir_adapter (git archive of that commit, CPU only: HAS_CUDA off, Release, GCC 13.3, WSL ext4; the interpreter's IR translation units with -ffp-contract=off; sha256 8eae3a1d84482c229eed4b14f9733440a208798fed716ad04c655d779e7d2aac)",
+  "hello": "ir_adapter 6 (IR versions 0 and 1; spec revision 1.6)",
+  "run": "python3 tools/ir_conformance.py --adapter cmd:\"<binary> --conformance\" from a git archive of keramos v1.6.1 (b74a410d) on ext4, no EMBER_* variable kept, 2026-10-28"
  },
  "_notes": [
-  "Revisions 1.2 and 1.3 were written for ember from IR_SPEC.md at the tags (ember 1522936, 66e648e, a2340fa, 4e75c02; gates 70ed063, experiments/ir_rev13_2026-10-27), revision 1.4's attention.relative_kv and rule 40 from section 5.15 and 10.1 (ember 757e36b; experiments/d2_primitives_2026-10-27, in the stated order, bit-equal to an f32 statement of it on the op cases), revision 1.4.2's windows under depth_route from sections 5.15, 6.9 and 7.5, its parse_reply from 8.1.6 and 11.3, its 8.1.1 message readings and Appendix D.7's comparison (ember 1456c0c); no paperkiln source (src/ir.cpp, recurrence, ops::shaw_attention, the chat template sources beyond the header ember vendors) and nothing in cleanroom/ was read. tools/ir_validate.py and tools/ir_numpy.py were black-box oracles only (rule citations on 171 mutations, rule 38's verdicts on the 145 stored GGUFs with a document, a whole-model position_bias check, the relative_kv cases, the windows under depth_route); the runner and tools/gguf_relabel.py were read or run as tools.",
-  "SKIP: op 41 = the single-op fixtures of ops other than recurrence, expr and attention (run_node runs those three; every other op is checked through whole models and traces; rope_heads \"first\" is refused at load by name); grad 11 = run_node_grad (ember is an inference engine, section 6.10.5 is for training engines).",
-  "Rule 38: the embedded document of a file labelled with a section 9.3 architecture is compared with the graph ember's own builder (build_ir_from_gguf, Appendix D's graphs) makes from the file, both in Appendix D.7's normal form; a file with a document and no general.architecture string is refused; the file's own document is checked also when another is read in its place. attention.position_bias and attention.relative_kv run on the CPU interpreter (CUDA builds serve such a document on the CPU; WebGPU has its own relative_kv kernel). Primer's multi-dconv-head attention (pk_flex_mdha) runs as written at ember ec3201b, on CUDA as well. ember's windowed kv cache keeps every position up to max_len, so a rewind into a window keeps the rows below the cut (section 6.9) without re-prefilling. Under depth_route a window and sinks count positions over the rows each application holds (section 5.15, Q16), on the CPU interpreter; CUDA builds serve such a document on the CPU."
+  "Revisions 1.2 and 1.3 were written for ember from IR_SPEC.md at the tags (ember 1522936, 66e648e, a2340fa, 4e75c02; gates 70ed063, experiments/ir_rev13_2026-10-27), revision 1.4's attention.relative_kv and rule 40 from section 5.15 and 10.1 (ember 757e36b; experiments/d2_primitives_2026-10-27, in the stated order, bit-equal to an f32 statement of it on the op cases), revision 1.4.2's windows under depth_route from sections 5.15, 6.9 and 7.5, its parse_reply from 8.1.6 and 11.3, its 8.1.1 message readings and Appendix D.7's comparison (ember 1456c0c), revision 1.5's families from sections 5.5, 5.14, 5.15, 5.20, 6.9, 9.3 and Appendix D.8 to D.11 (ember 4290c91: the third-party mixtures of experts and mla_attention; ember 9e70cd4: attention.softcap, rope.freq_factors and attn_factor, the phi3 and gemma2 builders), revision 1.6's apply, DeepSeek-V3's router, freq_factors by value and D.11's deepseek2 graph (ember 5cc541d, from f393955); no paperkiln source (src/ir.cpp, recurrence, ops::shaw_attention, the chat template sources beyond the header ember vendors) and nothing in cleanroom/ was read. tools/ir_validate.py and tools/ir_numpy.py were black-box oracles only (rule citations on 171 mutations, rule 38's verdicts on the 145 stored GGUFs with a document, a whole-model position_bias check, the relative_kv cases, the windows under depth_route, the third-party builders' documents against gguf_ir.py on the synthetic E4 files and the suite's models); the runner and tools/gguf_relabel.py were read or run as tools.",
+  "SKIP: op 33 = the single-op fixtures of ops other than recurrence, expr, attention, mla_attention, split, rope and moe_ffn (run_node runs those seven; every other op is checked through whole models and traces; rope_heads \"first\" is refused at load by name); grad 11 = run_node_grad (ember is an inference engine, section 6.10.5 is for training engines).",
+  "Rule 38: the embedded document of a file labelled with a section 9.3 architecture is compared with the graph ember's own builder (build_ir_from_gguf, Appendix D's graphs) makes from the file, both in Appendix D.7's normal form; a file with a document and no general.architecture string is refused; the file's own document is checked also when another is read in its place. attention.position_bias and attention.relative_kv run on the CPU interpreter (CUDA builds serve such a document on the CPU; WebGPU has its own relative_kv kernel). Primer's multi-dconv-head attention (pk_flex_mdha) runs as written at ember ec3201b, on CUDA as well. ember's windowed kv cache keeps every position up to max_len, so a rewind into a window keeps the rows below the cut (section 6.9) without re-prefilling. Under depth_route a window and sinks count positions over the rows each application holds (section 5.15, Q16), on the CPU interpreter; CUDA builds serve such a document on the CPU. attention.softcap runs in every CPU attention kernel; under two freq_factors sets the interpreter recomputes the kv slot from position 0 when a forward or a truncate changes the set the sequence's length selects (section 6.9). apply skips a block node where its value is false, and moe_ffn's scoring, selection_bias and groups run on the CPU interpreter; CUDA builds serve documents with apply or that router on the CPU."
  ],
  "adapter": {
   "engine": "ember.cpp",
@@ -30,43 +30,43 @@
   ]
  },
  "counts": {
-  "PASS": 472,
+  "PASS": 554,
   "FAIL": 0,
-  "SKIP": 52,
+  "SKIP": 44,
   "XFAIL": 0,
   "XPASS": 0
  },
  "by_kind": {
   "model": {
-   "PASS": 27,
+   "PASS": 33,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
    "XPASS": 0
   },
   "trace": {
-   "PASS": 83,
+   "PASS": 99,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
    "XPASS": 0
   },
   "op": {
-   "PASS": 27,
+   "PASS": 51,
    "FAIL": 0,
-   "SKIP": 41,
+   "SKIP": 33,
    "XFAIL": 0,
    "XPASS": 0
   },
   "refuse": {
-   "PASS": 105,
+   "PASS": 129,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
    "XPASS": 0
   },
   "digest": {
-   "PASS": 90,
+   "PASS": 96,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
@@ -87,7 +87,7 @@
    "XPASS": 0
   },
   "accept": {
-   "PASS": 44,
+   "PASS": 50,
    "FAIL": 0,
    "SKIP": 0,
    "XFAIL": 0,
@@ -397,6 +397,54 @@
    "detail": "3 steps"
   },
   {
+   "id": "model/tp_deepseek2",
+   "kind": "model",
+   "verdict": "PASS",
+   "detail": "log-probs worst 1.20e-06; greedy 4/4"
+  },
+  {
+   "id": "trace/tp_deepseek2_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "6 steps"
+  },
+  {
+   "id": "trace/tp_deepseek2_truncate",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "3 steps"
+  },
+  {
+   "id": "model/tp_deepseek3",
+   "kind": "model",
+   "verdict": "PASS",
+   "detail": "log-probs worst 5.89e-07; greedy 4/4"
+  },
+  {
+   "id": "trace/tp_deepseek3_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "6 steps"
+  },
+  {
+   "id": "trace/tp_deepseek3_truncate",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "3 steps"
+  },
+  {
+   "id": "model/tp_gemma2",
+   "kind": "model",
+   "verdict": "PASS",
+   "detail": "log-probs worst 1.55e-07; greedy 4/4"
+  },
+  {
+   "id": "trace/tp_gemma2_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "6 steps"
+  },
+  {
    "id": "model/tp_gemma3",
    "kind": "model",
    "verdict": "PASS",
@@ -481,6 +529,36 @@
    "detail": "6 steps"
   },
   {
+   "id": "model/tp_phi3",
+   "kind": "model",
+   "verdict": "PASS",
+   "detail": "log-probs worst 5.97e-07; greedy 4/4"
+  },
+  {
+   "id": "trace/tp_phi3_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "6 steps"
+  },
+  {
+   "id": "trace/tp_phi3_truncate",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "3 steps"
+  },
+  {
+   "id": "model/tp_qwen2moe",
+   "kind": "model",
+   "verdict": "PASS",
+   "detail": "log-probs worst 4.83e-07; greedy 4/4"
+  },
+  {
+   "id": "trace/tp_qwen2moe_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "6 steps"
+  },
+  {
    "id": "model/tp_qwen3",
    "kind": "model",
    "verdict": "PASS",
@@ -517,184 +595,238 @@
    "detail": "3 steps"
   },
   {
+   "id": "model/tp_qwen3moe",
+   "kind": "model",
+   "verdict": "PASS",
+   "detail": "log-probs worst 4.48e-07; greedy 4/4"
+  },
+  {
+   "id": "trace/tp_qwen3moe_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "6 steps"
+  },
+  {
    "id": "op/embedding/rows",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/embedding/state_weight",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/pos_embedding/rows",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/linear/bias",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/linear/no_bias",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/linear/tied_to",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/scale/bias",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/scale/no_bias",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/split/three",
    "kind": "op",
-   "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "verdict": "PASS",
+   "detail": "a 0 values differ in their bits; b 0 values differ in their bits; c 0 values differ in their bits"
+  },
+  {
+   "id": "op/split/groups",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "a 0 values differ in their bits; b 0 values differ in their bits"
   },
   {
    "id": "op/rmsnorm/row",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/rmsnorm/group",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/rmsnorm/weight_offset",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/layernorm/row",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/gelu/tanh",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/gelu/none",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/silu/x",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/sigmoid/x",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/relu/x",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/add/ab",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/mul/ab",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/sub/ab",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/affine/scale_shift",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/mul_col/x_c",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/rms_row/eps",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/rope/interleaved",
    "kind": "op",
-   "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "verdict": "PASS",
+   "detail": "q worst 1.36e-08 of max(1, |ref|); k worst 1.25e-09 of max(1, |ref|)"
   },
   {
    "id": "op/rope/neox",
    "kind": "op",
-   "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "verdict": "PASS",
+   "detail": "q worst 3.17e-09 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)"
   },
   {
    "id": "op/rope/neox_partial",
    "kind": "op",
-   "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "verdict": "PASS",
+   "detail": "q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)"
   },
   {
    "id": "op/rope/freq_scale",
    "kind": "op",
-   "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "verdict": "PASS",
+   "detail": "q worst 1.73e-09 of max(1, |ref|); k worst 2.66e-09 of max(1, |ref|)"
   },
   {
    "id": "op/rope/grouped_query",
    "kind": "op",
-   "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "verdict": "PASS",
+   "detail": "q worst 1.36e-08 of max(1, |ref|); k worst 4.88e-09 of max(1, |ref|)"
   },
   {
    "id": "op/rope/first_head",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: rope_heads \"first\" is not implemented in ember (refused at load by name)"
+  },
+  {
+   "id": "op/rope/freq_factors",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "q worst 2.68e-08 of max(1, |ref|); k worst 2.17e-08 of max(1, |ref|)"
+  },
+  {
+   "id": "op/rope/freq_factors_short",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "q worst 5.92e-08 of max(1, |ref|); k worst 4.73e-08 of max(1, |ref|)"
+  },
+  {
+   "id": "op/rope/freq_factors_long",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "q worst 2.68e-08 of max(1, |ref|); k worst 2.17e-08 of max(1, |ref|)"
+  },
+  {
+   "id": "op/rope/attn_factor",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "q worst 4.35e-08 of max(1, |ref|); k worst 6.39e-08 of max(1, |ref|)"
+  },
+  {
+   "id": "op/rope/freq_factors_partial_attn_factor",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "q worst 1.05e-07 of max(1, |ref|); k worst 1.38e-07 of max(1, |ref|)"
+  },
+  {
+   "id": "op/rope/freq_factors_values",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "q worst 0.00e+00 of max(1, |ref|); k worst 1.25e-09 of max(1, |ref|)"
   },
   {
    "id": "op/attention/causal",
@@ -769,46 +901,82 @@
    "detail": "a worst 1.19e-07 of max(1, |ref|)"
   },
   {
+   "id": "op/attention/softcap",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "a worst 1.19e-07 of max(1, |ref|)"
+  },
+  {
+   "id": "op/attention/softcap_window_sinks",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "a worst 1.19e-07 of max(1, |ref|)"
+  },
+  {
+   "id": "op/attention/softcap_position_bias",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "a worst 1.25e-07 of max(1, |ref|)"
+  },
+  {
    "id": "op/moe_ffn/renorm",
    "kind": "op",
-   "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "verdict": "PASS",
+   "detail": "y worst 2.64e-07 of max(1, |ref|)"
   },
   {
    "id": "op/moe_ffn/raw",
    "kind": "op",
-   "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "verdict": "PASS",
+   "detail": "y worst 2.64e-07 of max(1, |ref|)"
+  },
+  {
+   "id": "op/moe_ffn/sigmoid_renorm",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "y worst 1.21e-07 of max(1, |ref|)"
+  },
+  {
+   "id": "op/moe_ffn/sigmoid_bias_groups",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "y worst 1.26e-07 of max(1, |ref|)"
+  },
+  {
+   "id": "op/moe_ffn/softmax_bias_raw",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "y worst 2.74e-07 of max(1, |ref|)"
   },
   {
    "id": "op/list/two",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/append/one",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/depth_attend/one_source",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/depth_attend/three_sources",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/depth_attend/eps_default",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/expr/gelu_sigmoid",
@@ -850,25 +1018,25 @@
    "id": "op/linear_attention/two_heads",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/ssm_scan/n4",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/conv1d_causal/k4",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/selective_scan/d3n2",
    "kind": "op",
    "verdict": "SKIP",
-   "detail": "run_node: ember's adapter runs recurrence, expr and attention nodes only (whole-model methods for the other ops)"
+   "detail": "run_node: ember's adapter runs recurrence, expr, attention, mla_attention, split, rope and moe_ffn nodes only (whole-model methods for the other ops)"
   },
   {
    "id": "op/recurrence/linear_attention_body",
@@ -923,6 +1091,24 @@
    "kind": "op",
    "verdict": "PASS",
    "detail": "y 0 values differ in their bits; state pad.h 0 values differ in their bits"
+  },
+  {
+   "id": "op/mla_attention/two_heads",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "a worst 9.22e-08 of max(1, |ref|)"
+  },
+  {
+   "id": "op/mla_attention/window_sinks",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "a worst 9.22e-08 of max(1, |ref|)"
+  },
+  {
+   "id": "op/mla_attention/one_head",
+   "kind": "op",
+   "verdict": "PASS",
+   "detail": "a worst 6.80e-08 of max(1, |ref|)"
   },
   {
    "id": "refuse/unknown_op",
@@ -1471,6 +1657,144 @@
    "detail": "refused: IR attention: a per-layer 'relative_kv' is not implemented in ember"
   },
   {
+   "id": "refuse/softcap_not_positive",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.15 (rule 10): block[5] attention: softcap 0.0 is not positive"
+  },
+  {
+   "id": "refuse/attn_factor_not_positive",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.14 (rule 10): block[3] rope: attn_factor -1.25 is not positive"
+  },
+  {
+   "id": "refuse/freq_factors_without_original_ctx",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.14 (rule 41): doc.block.nodes[3].freq_factors must be of type \"string\", not {\"long\":\"rope_factors_long.weight\""
+  },
+  {
+   "id": "refuse/freq_factors_unknown_field",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.14 (rule 41): doc.block.nodes[3].freq_factors must be of type \"string\", not {\"long\":\"rope_factors_long.weight\""
+  },
+  {
+   "id": "refuse/freq_factors_tensor_shape",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.14 (rule 41): block[3] rope freq_factors 'output_norm.weight' (application 0) has ne [16], not {n_rot / 2} = {"
+  },
+  {
+   "id": "refuse/freq_factors_per_layer",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 3.8 (rule 6): rope freq_factors is structural and cannot be per-layer"
+  },
+  {
+   "id": "refuse/split_groups_zero",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.5 (rule 10): doc.block.nodes[4].groups 0 is below the minimum 1"
+  },
+  {
+   "id": "refuse/mla_slot_head_dim",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.20 (rule 12): mla_attention reads a kv slot of kv_heads 1 and head_dim 8; it holds c and kr: kv_heads 1, head_"
+  },
+  {
+   "id": "refuse/mla_slot_kv_heads",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.20 (rule 12): mla_attention reads a kv slot of kv_heads 2 and head_dim 10; it holds c and kr: kv_heads 1, head"
+  },
+  {
+   "id": "refuse/mla_k_b_shape",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.20 (rule 42): mla_attention k_b 'blk.0.attn_v_b.weight' is not of ne {4, 6, 2}"
+  },
+  {
+   "id": "refuse/mla_reads_three",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 10.1 rule 7: block[9] mla_attention reads 3 value(s), not 4"
+  },
+  {
+   "id": "refuse/mla_without_k_b",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.20 (rule 8): mla_attention needs its tensor k_b"
+  },
+  {
+   "id": "refuse/mla_not_causal",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.20 (rule 14): mla_attention causal must be true"
+  },
+  {
+   "id": "refuse/apply_entries_not_boolean",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 3.8 (rule 43): block linear: apply entry 1 is not true or false"
+  },
+  {
+   "id": "refuse/apply_outside_block",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 3.8 (rule 43): head[0] rmsnorm: apply outside the block"
+  },
+  {
+   "id": "refuse/apply_on_attention",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 3.5 (rule 4): doc.block.nodes[7] (mla_attention) has the key 'apply', which its specification does not define"
+  },
+  {
+   "id": "refuse/apply_leaves_value_unwritten",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 3.5 (rule 36): block[24] add reads 'f', which no node before it writes (application 0)"
+  },
+  {
+   "id": "refuse/apply_with_depth_route",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 3.8 (rule 43): block[1] rmsnorm: apply in a block with depth_route"
+  },
+  {
+   "id": "refuse/moe_groups_not_dividing",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.16 (rule 10): block[16] moe_ffn: groups {n 3, top 1} do not divide n_experts 8 into groups keeping at least to"
+  },
+  {
+   "id": "refuse/moe_scoring_unknown",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 3.5 (rule 5): doc.block.nodes[16].scoring \"relu\" is not one of [\"softmax\",\"sigmoid\"]"
+  },
+  {
+   "id": "refuse/moe_selection_bias_shape",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.16 (rule 44): moe_ffn selection_bias 'output_norm.weight' is not of ne {n_experts} = {8}"
+  },
+  {
+   "id": "refuse/freq_factors_values_length",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.14 (rule 41): block[6] rope: freq_factors [1.0] is neither a tensor name, {short, long, original_ctx} with two"
+  },
+  {
+   "id": "refuse/freq_factors_values_not_positive",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 5.14 (rule 41): block[6] rope: freq_factors [1.0,-4.0] is neither a tensor name, {short, long, original_ctx} wit"
+  },
+  {
    "id": "refuse/duplicate_member_top",
    "kind": "refuse",
    "verdict": "PASS",
@@ -1546,7 +1870,13 @@
    "id": "refuse/architecture_without_graph",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 3.1 (rule 38): general.architecture 'phi3' is neither \"paperkiln\" nor an architecture of section 9.3; a file who"
+   "detail": "refused: IR_SPEC 3.1 (rule 38): general.architecture 'falcon' is neither \"paperkiln\" nor an architecture of section 9.3; a file w"
+  },
+  {
+   "id": "refuse/architecture_gemma2_softcap_dropped",
+   "kind": "refuse",
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 3.1 (rule 38): general.architecture 'gemma2': the embedded document is not the gemma2 graph its metadata describ"
   },
   {
    "id": "refuse/architecture_substituted_document",
@@ -1951,6 +2281,24 @@
    "detail": "sha256 equal; canonical equal"
   },
   {
+   "id": "digest/vectors/document_tp_deepseek2",
+   "kind": "digest",
+   "verdict": "PASS",
+   "detail": "sha256 equal; canonical equal"
+  },
+  {
+   "id": "digest/vectors/document_tp_deepseek3",
+   "kind": "digest",
+   "verdict": "PASS",
+   "detail": "sha256 equal; canonical equal"
+  },
+  {
+   "id": "digest/vectors/document_tp_gemma2",
+   "kind": "digest",
+   "verdict": "PASS",
+   "detail": "sha256 equal; canonical equal"
+  },
+  {
    "id": "digest/vectors/document_tp_gemma3",
    "kind": "digest",
    "verdict": "PASS",
@@ -1987,6 +2335,18 @@
    "detail": "sha256 equal; canonical equal"
   },
   {
+   "id": "digest/vectors/document_tp_phi3",
+   "kind": "digest",
+   "verdict": "PASS",
+   "detail": "sha256 equal; canonical equal"
+  },
+  {
+   "id": "digest/vectors/document_tp_qwen2moe",
+   "kind": "digest",
+   "verdict": "PASS",
+   "detail": "sha256 equal; canonical equal"
+  },
+  {
    "id": "digest/vectors/document_tp_qwen3",
    "kind": "digest",
    "verdict": "PASS",
@@ -1994,6 +2354,12 @@
   },
   {
    "id": "digest/vectors/document_tp_qwen3_hd16",
+   "kind": "digest",
+   "verdict": "PASS",
+   "detail": "sha256 equal; canonical equal"
+  },
+  {
+   "id": "digest/vectors/document_tp_qwen3moe",
    "kind": "digest",
    "verdict": "PASS",
    "detail": "sha256 equal; canonical equal"
@@ -2281,6 +2647,12 @@
    "detail": "3 steps"
   },
   {
+   "id": "trace/tp_gemma2_rewind_window",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "3 steps"
+  },
+  {
    "id": "trace/pk_attnres_chunks",
    "kind": "trace",
    "verdict": "PASS",
@@ -2395,6 +2767,24 @@
    "detail": "4 steps"
   },
   {
+   "id": "trace/tp_deepseek2_chunks",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "4 steps"
+  },
+  {
+   "id": "trace/tp_deepseek3_chunks",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "4 steps"
+  },
+  {
+   "id": "trace/tp_gemma2_chunks",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "4 steps"
+  },
+  {
    "id": "trace/tp_gemma3_chunks",
    "kind": "trace",
    "verdict": "PASS",
@@ -2431,6 +2821,18 @@
    "detail": "4 steps"
   },
   {
+   "id": "trace/tp_phi3_chunks",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "4 steps"
+  },
+  {
+   "id": "trace/tp_qwen2moe_chunks",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "4 steps"
+  },
+  {
    "id": "trace/tp_qwen3_chunks",
    "kind": "trace",
    "verdict": "PASS",
@@ -2438,6 +2840,12 @@
   },
   {
    "id": "trace/tp_qwen3_hd16_chunks",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "4 steps"
+  },
+  {
+   "id": "trace/tp_qwen3moe_chunks",
    "kind": "trace",
    "verdict": "PASS",
    "detail": "4 steps"
@@ -2581,6 +2989,24 @@
    "detail": "accepted"
   },
   {
+   "id": "accept/documents/model_tp_deepseek2",
+   "kind": "accept",
+   "verdict": "PASS",
+   "detail": "accepted"
+  },
+  {
+   "id": "accept/documents/model_tp_deepseek3",
+   "kind": "accept",
+   "verdict": "PASS",
+   "detail": "accepted"
+  },
+  {
+   "id": "accept/documents/model_tp_gemma2",
+   "kind": "accept",
+   "verdict": "PASS",
+   "detail": "accepted"
+  },
+  {
    "id": "accept/documents/model_tp_gemma3",
    "kind": "accept",
    "verdict": "PASS",
@@ -2617,6 +3043,18 @@
    "detail": "accepted"
   },
   {
+   "id": "accept/documents/model_tp_phi3",
+   "kind": "accept",
+   "verdict": "PASS",
+   "detail": "accepted"
+  },
+  {
+   "id": "accept/documents/model_tp_qwen2moe",
+   "kind": "accept",
+   "verdict": "PASS",
+   "detail": "accepted"
+  },
+  {
    "id": "accept/documents/model_tp_qwen3",
    "kind": "accept",
    "verdict": "PASS",
@@ -2624,6 +3062,12 @@
   },
   {
    "id": "accept/documents/model_tp_qwen3_hd16",
+   "kind": "accept",
+   "verdict": "PASS",
+   "detail": "accepted"
+  },
+  {
+   "id": "accept/documents/model_tp_qwen3moe",
    "kind": "accept",
    "verdict": "PASS",
    "detail": "accepted"
