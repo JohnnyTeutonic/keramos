@@ -249,3 +249,18 @@ model 33, trace 99, op 84, refuse 129, digest 96, dequant 10, accept 50 and chat
 grad 11 skip. Built with rustc 1.98.1 (48a229cea 2026-09-01); binary SHA-256
 `7254c9d7c9d6dcf24f501717cd2330e9514972a6f7c112268040ca91a57f9b05`.
 Receipt: `/home/jonat/cleanroom_build/revision16-final.json`.
+
+
+### Independent review follow-up: routed LongRoPE
+
+Spec-only review found that selecting the two-set table from the largest active RoPE position
+breaks section 5.14 when a depth_route step excludes the final session token. `Rows.sequence_len`
+now carries the full final session length through active-row gathers. A bare `run_node` still derives
+that length from its largest supplied position plus one. The new handcrafted regression runs
+`ops::exec` on positions [0, 1], original_ctx 2 and different short/long factors, checking both q and k
+against long-table angles for session length 4 and short-table angles for session length 2.
+
+`cargo test` passes its one regression; the rebuilt complete black-box suite remains 587 PASS,
+0 FAIL, 11 gradient SKIP and no XFAIL/XPASS. Superseding binary SHA-256:
+`d1f88b8ff5dc5587f388b8a55f06d32d7a02aa21f18894dfc0bbc4cda033d41a`.
+Superseding receipt: `/home/jonat/cleanroom_build/revision16-routed-rope.json`.

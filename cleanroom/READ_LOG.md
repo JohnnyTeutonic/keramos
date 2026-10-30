@@ -96,3 +96,11 @@ READ_LOG.md tail, plus own directory listings and scoped Git diffs/status. It co
 Build products were placed on WSL ext4 at `/home/jonat/cleanroom_build/target_codex_20261030`, from the
 Windows source manifest. Builds took under ten seconds and black-box suite runs under a minute.
 Installed rustfmt was unavailable; no formatter dependency was downloaded.
+
+
+### Routed LongRoPE review follow-up (30 October 2026)
+
+Read own ops.rs, session.rs, main.rs and newly handcrafted rope_regression.rs, plus own Git diff/stat.
+The regression collaborator reviewed only IR_SPEC.md and own cleanroom Rust source; no external
+fixture or reference implementation was used. Executed `cargo test`, release build and the same
+black-box full conformance suite, writing `revision16-routed-rope.json` and `.log` outside the repository.
