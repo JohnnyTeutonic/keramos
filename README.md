@@ -136,3 +136,9 @@ reference on random inputs.
 Expected values come from the reference only, deterministically; change them only by regenerating,
 in the commit that changes the reference or the specification. The `pk_` models in
 `conformance/models/` are trained by paperkiln, which supplies them.
+
+## License
+
+Original Keramos project material is available under the [MIT License](LICENSE).
+Third-party components retain their own terms; see [Third-party notices](THIRD_PARTY_NOTICES.md),
+including the pinned llama.cpp/ggml reference used for GGUF dequantization layouts and numerics.
