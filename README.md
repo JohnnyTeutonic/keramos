@@ -10,8 +10,10 @@ backend gives the same f32 bits, because the order of every operation and every 
 or **ROUNDING** (the result is within a stated tolerance of the reference). A conformance suite
 checks an engine against those statements, op by op, model by model and session by session.
 
-Two engines implement it: paperkiln (`github.com/JohnnyTeutonic/paperkiln`, the C++/CUDA trainer
-that exports documents) and ember.cpp (the inference engine: CPU, CUDA and WebAssembly).
+Two engines implement it: [paperkiln](https://github.com/JohnnyTeutonic/paperkiln), the C++/CUDA
+trainer that exports documents, and [ember.cpp](https://github.com/JohnnyTeutonic/ember.cpp), the
+inference engine (CPU, CUDA and WebAssembly). Execution still requires the engine's implemented
+operations and profiles; a specification-level feature is not proof of support on every backend.
 
 ## Contents
 
@@ -37,6 +39,22 @@ and the tests need numpy; `pip install -r requirements.txt` adds pytest and the 
 (gguf-py for reading quantised GGUFs and for the dequantisation test, scipy for `erf`, jsonschema
 for a second evaluation of the schema). `requirements-reference.txt` names the environment that generated the conformance
 suite's expected values, the only one to regenerate them in (IR_SPEC section 4.6).
+
+## Quick start
+
+From a checkout, with Python 3.10 or later:
+
+```sh
+python -m pip install -r requirements.txt
+python tools/ir_validate.py examples/gpt2_tiny.ir.json
+python tools/ir_conformance.py --adapter ir_numpy
+python -m pytest tests -q
+```
+
+The bundled models are tiny conformance fixtures, not ready-made chat models. Validation checks
+the document's contract; running the reference suite checks the reference implementation. Test
+counts depend on optional dependencies: on 30 October the WSL environment passed 214 tests with
+2 skips; the release's original environment passed 206 with 10 optional skips.
 
 ## Validating a document
 
@@ -76,6 +94,18 @@ findings remain under `cleanroom/`. The current full receipt is
 [`conformance/receipts/cleanroom.json`](conformance/receipts/cleanroom.json); `cleanroom/receipt.json`
 is the preserved historical first receipt, not the current result. This closes the revision catch-up;
 it does not claim hardware/backend conformance for another engine.
+
+To build and run the Rust adapter on Linux/WSL, with Cargo installed (build outputs stay outside
+the checkout):
+
+```sh
+cargo build --release --manifest-path cleanroom/rust/Cargo.toml --target-dir /tmp/keramos-rust-build
+python tools/ir_conformance.py --adapter "cmd:/tmp/keramos-rust-build/release/kcr --conformance" --json rust-results.json
+```
+
+This is a specification-isolated implementation with a recorded read log, rather than evidence
+of adoption by an unrelated engine team. Its CPU result does not establish CUDA or browser
+conformance.
 
 ## Versions
 
