@@ -86,6 +86,12 @@ no part of the schema and no expected value (wording, paths, tool interfaces, te
 IR_SPEC 2.6). An engine pins a tag, records the tag and its full commit, and names both in its
 receipt in `conformance/receipts/`.
 
+The **v1.6.2 tooling patch (30 October 2026)** closes the independent Rust implementation's
+revision-1.6 catch-up and validates command-adapter reply envelopes. It changes no normative
+statement, schema or numerical expected value. The current Rust receipt passes all 587 supported
+cases with 11 gradient-only skips; the tool tests pass 206 with 10 optional skips. CUDA/backend
+conformance of other engines remains separate from this specification release.
+
 ## Tests
 
     python -m pytest tests -q
