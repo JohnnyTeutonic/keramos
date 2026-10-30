@@ -157,42 +157,42 @@
   },
   {
    "file": "cleanroom.json",
-   "engine": "keramos-cleanroom (Rust), kcr --conformance, built in place from v1.6.0's cleanroom/rust (unchanged since v1.4.2; rustc 1.98.1, release, no crates, WSL ext4; sha256 04ed50688838c5a8ac59d32f1a70b6cb821b5ab9b1e427c275a765cdfcf3d436), against keramos v1.6.0 (6de4604dd5d85c6b6f3bf232cc2ddd2ddad44927)",
-   "date": "2026-10-28",
+   "engine": "keramos-cleanroom (Rust), kcr --conformance, revision 1.6; rustc 1.98.1 (48a229cea 2026-09-01), release, no crates, WSL ext4; source 1fd77ed6f58979493c86bffe8a06df8c165d2814; against keramos v1.6.1 (0962a4fa7b84267e75f6db9cfdd67f927580e301)",
+   "date": "2026-10-30",
    "counts": {
-    "PASS": 542,
+    "PASS": 587,
     "FAIL": 0,
     "SKIP": 11,
-    "XFAIL": 45,
+    "XFAIL": 0,
     "XPASS": 0
    },
    "by_kind": {
     "model": {
-     "PASS": 27,
+     "PASS": 33,
      "FAIL": 0,
      "SKIP": 0,
-     "XFAIL": 6,
+     "XFAIL": 0,
      "XPASS": 0
     },
     "trace": {
-     "PASS": 83,
+     "PASS": 99,
      "FAIL": 0,
      "SKIP": 0,
-     "XFAIL": 16,
+     "XFAIL": 0,
      "XPASS": 0
     },
     "op": {
-     "PASS": 68,
+     "PASS": 84,
      "FAIL": 0,
      "SKIP": 0,
-     "XFAIL": 16,
+     "XFAIL": 0,
      "XPASS": 0
     },
     "refuse": {
-     "PASS": 128,
+     "PASS": 129,
      "FAIL": 0,
      "SKIP": 0,
-     "XFAIL": 1,
+     "XFAIL": 0,
      "XPASS": 0
     },
     "digest": {
@@ -217,10 +217,10 @@
      "XPASS": 0
     },
     "accept": {
-     "PASS": 44,
+     "PASS": 50,
      "FAIL": 0,
      "SKIP": 0,
-     "XFAIL": 6,
+     "XFAIL": 0,
      "XPASS": 0
     },
     "chat": {
