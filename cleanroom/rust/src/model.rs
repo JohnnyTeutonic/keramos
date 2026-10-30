@@ -59,7 +59,7 @@ pub fn outs(node: &Json) -> Vec<String> {
     }
 }
 
-pub const STATEFUL: [&str; 6] = ["attention", "linear_attention", "ssm_scan", "conv1d_causal", "selective_scan", "recurrence"];
+pub const STATEFUL: [&str; 7] = ["attention", "mla_attention", "linear_attention", "ssm_scan", "conv1d_causal", "selective_scan", "recurrence"];
 
 pub struct Model {
     pub vocab: usize,
