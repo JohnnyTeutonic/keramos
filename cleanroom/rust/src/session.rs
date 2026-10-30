@@ -31,6 +31,12 @@ fn has_recurrent(m: &Model) -> bool {
     m.slots.iter().any(|s| s.get("kind").and_then(|k| k.as_str()) == Some("recurrent"))
 }
 
+fn rope_set_changes(m: &Model, before: usize, after: usize) -> bool {
+    m.block.iter().filter_map(|node| node.get("freq_factors")
+        .and_then(|v| v.get("original_ctx")).and_then(|v| v.as_i64()))
+        .any(|threshold| (before as i64 > threshold) != (after as i64 > threshold))
+}
+
 impl Session {
     pub fn new(evict: bool) -> Session {
         Session { ids: Vec::new(), slots: Slots::default(), evict, snapshots: HashMap::new() }
@@ -59,6 +65,19 @@ impl Session {
     fn forward_inner(&mut self, m: &Model, ids: &[i64]) -> Result<CallOut, String> {
         let base = self.ids.len();
         let n = ids.len();
+        if base > 0 && rope_set_changes(m, base, base + n) {
+            // Two-set RoPE is selected by final sequence length; all cached keys must use that set.
+            let mut all = self.ids.clone();
+            all.extend_from_slice(ids);
+            self.ids.clear();
+            self.slots = Slots::default();
+            let output = self.forward_inner(m, &all)?;
+            let cols = output.logits.cols();
+            return Ok(CallOut {
+                logits: Tensor::mat(n, cols, output.logits.data[base * cols..].to_vec()),
+                depth: output.depth.into_iter().skip(base).collect(),
+            });
+        }
         for &id in ids {
             if id < 0 {
                 return Err(format!("id {} is negative (IR_SPEC 6.8.1)", id));
@@ -121,8 +140,8 @@ impl Session {
         if n == len {
             return Ok(());
         }
-        if has_recurrent(m) {
-            // a recurrence cannot drop tokens: run again from the start (IR_SPEC 6.9)
+        if has_recurrent(m) || rope_set_changes(m, len, n) {
+            // Recurrent state and a changed RoPE table require replay from position zero (6.9).
             let keep = self.ids[..n].to_vec();
             self.ids.clear();
             self.slots = Slots::default();
@@ -230,6 +249,7 @@ fn run_block(m: &Model, env: &mut Env, rows: &Rows, codes: Option<&Codes>, slots
         let start = if dr.is_some() { 1 } else { 0 };
         if s < 0 {
             for (ni, node) in m.block.iter().enumerate().skip(start) {
+                if at(node, "apply", a).and_then(|v| v.as_bool()) == Some(false) { continue; }
                 let ctx = Ctx { model: m, app: Some(a), rows, codes, section: 1, node_index: ni };
                 ops::exec(&ctx, node, env, slots)?;
             }

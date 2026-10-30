@@ -312,16 +312,21 @@ pub fn exec(ctx: &Ctx, node: &Json, env: &mut Env, slots: &mut Slots) -> Result<
             let sizes: Vec<usize> =
                 node.get("sizes").and_then(|s| s.as_arr()).ok_or("split: no sizes")?.iter().map(|v| v.as_i64().unwrap_or(0) as usize).collect();
             let names = outs(node);
-            if sizes.iter().sum::<usize>() != x.cols() || names.len() != sizes.len() {
+            let groups = node.get("groups").and_then(|v| v.as_i64()).unwrap_or(1) as usize;
+            let group_width = sizes.iter().sum::<usize>();
+            if groups == 0 || group_width * groups != x.cols() || names.len() != sizes.len() {
                 return Err(format!("split: sizes {:?} do not cover width {}", sizes, x.cols()));
             }
             let mut start = 0;
             for (k, &s) in sizes.iter().enumerate() {
-                let mut d = Vec::with_capacity(x.rows() * s);
+                let mut d = Vec::with_capacity(x.rows() * s * groups);
                 for t in 0..x.rows() {
-                    d.extend_from_slice(&x.row(t)[start..start + s]);
+                    for group in 0..groups {
+                        let offset = group * group_width + start;
+                        d.extend_from_slice(&x.row(t)[offset..offset + s]);
+                    }
                 }
-                env.insert(names[k].clone(), Val::T(Tensor::mat(x.rows(), s, d)));
+                env.insert(names[k].clone(), Val::T(Tensor::mat(x.rows(), s * groups, d)));
                 start += s;
             }
             Ok(())
@@ -492,6 +497,20 @@ pub fn exec(ctx: &Ctx, node: &Json, env: &mut Env, slots: &mut Slots) -> Result<
             }
             let half = n_rot / 2;
             let freqs: Vec<f32> = (0..half).map(|j| 1.0f32 / theta.powf((2 * j) as f32 / n_rot as f32)).collect();
+            let factors: Vec<f32> = match node.get("freq_factors") {
+                None => vec![1.0; half],
+                Some(Json::Arr(values)) => values.iter().map(|v| v.as_f64().unwrap_or(0.0) as f32).collect(),
+                Some(v) => {
+                    let name = if let Some(name) = v.as_str() { name } else {
+                        let length = pos.iter().max().copied().unwrap_or(-1) + 1;
+                        v.get(if length > v.get("original_ctx").and_then(|n| n.as_i64()).unwrap_or(0) { "long" } else { "short" })
+                            .and_then(|n| n.as_str()).ok_or("rope: frequency factor name")?
+                    };
+                    model.w(&model.tname(node, name, app))?.data.clone()
+                }
+            };
+            if factors.len() != half || factors.iter().any(|f| !(*f > 0.0)) { return Err("rope: frequency factors (rule 41)".into()); }
+            let amplitude = at(node, "attn_factor", a).and_then(|v| v.as_f64()).unwrap_or(1.0) as f32;
             let rot = |x: &Tensor, nh: usize| -> Tensor {
                 let mut d = x.data.clone();
                 let w = x.cols();
@@ -500,8 +519,8 @@ pub fn exec(ctx: &Ctx, node: &Json, env: &mut Env, slots: &mut Slots) -> Result<
                     for h in 0..(if first { 1 } else { nh }) {
                         let base = t * w + h * hd;
                         for j in 0..half {
-                            let ang = (p * fs) * freqs[j];
-                            let (s, c) = (ang.sin(), ang.cos());
+                            let ang = ((p * fs) * freqs[j]) / factors[j];
+                            let (s, c) = (ang.sin() * amplitude, ang.cos() * amplitude);
                             let (i0, i1) = if neox { (base + j, base + j + half) } else { (base + 2 * j, base + 2 * j + 1) };
                             let x0 = x.data[i0];
                             let x1 = x.data[i1];
@@ -523,6 +542,7 @@ pub fn exec(ctx: &Ctx, node: &Json, env: &mut Env, slots: &mut Slots) -> Result<
             Ok(())
         }
         "attention" => attention(ctx, node, env, slots),
+        "mla_attention" => mla_attention(ctx, node, env, slots),
         "moe_ffn" => {
             let x = input(0)?;
             let r = model.wa(node, "router", app)?;
@@ -548,30 +568,37 @@ pub fn exec(ctx: &Ctx, node: &Json, env: &mut Env, slots: &mut Slots) -> Result<
             for t in 0..x.rows() {
                 let xr = x.row(t);
                 let logits: Vec<f32> = (0..e_n).map(|e| dot(xr, &r.data[e * d..(e + 1) * d])).collect();
-                // top-k, ties to the lower index
-                let mut chosen: Vec<usize> = Vec::new();
-                for _ in 0..top_k {
-                    let mut best: Option<usize> = None;
-                    for e in 0..e_n {
-                        if chosen.contains(&e) {
-                            continue;
-                        }
-                        if best.map(|b| logits[e] > logits[b]).unwrap_or(true) {
-                            best = Some(e);
-                        }
-                    }
-                    chosen.push(best.unwrap());
+                let mut scores = logits.clone();
+                if at_str(node, "scoring", a) == Some("sigmoid") {
+                    for score in &mut scores { *score = expr::sigmoid(*score); }
+                } else { softmax_inplace(&mut scores); }
+                let mut selection = scores.clone();
+                if let Some(name) = node.get("selection_bias").and_then(|v| v.as_str()) {
+                    let bias = model.w(&model.tname(node, name, app))?;
+                    if bias.data.len() != e_n { return Err("moe_ffn: selection bias (rule 44)".into()); }
+                    for e in 0..e_n { selection[e] += bias.data[e]; }
                 }
+                let mut candidates = vec![true; e_n];
+                if let Some(groups) = node.get("groups") {
+                    let n = groups.get("n").and_then(|v| v.as_i64()).unwrap_or(0) as usize;
+                    let top = groups.get("top").and_then(|v| v.as_i64()).unwrap_or(0) as usize;
+                    if n == 0 || e_n % n != 0 || top == 0 || top > n || top * (e_n / n) < top_k { return Err("moe_ffn: groups (rule 10)".into()); }
+                    let width = e_n / n;
+                    let mut ranked: Vec<(usize, f32)> = (0..n).map(|group| {
+                        let mut entries = selection[group * width..(group + 1) * width].to_vec();
+                        entries.sort_by(|a, b| b.partial_cmp(a).unwrap());
+                        (group, entries[0] + if width > 1 { entries[1] } else { 0.0 })
+                    }).collect();
+                    ranked.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap().then(a.0.cmp(&b.0)));
+                    candidates.fill(false);
+                    for &(group, _) in ranked.iter().take(top) { for e in group * width..(group + 1) * width { candidates[e] = true; } }
+                }
+                let mut chosen: Vec<usize> = (0..e_n).filter(|&e| candidates[e]).collect();
+                chosen.sort_by(|&a, &b| selection[b].partial_cmp(&selection[a]).unwrap().then(a.cmp(&b)));
+                chosen.truncate(top_k);
                 chosen.sort();
-                let gates: Vec<f32> = if renorm {
-                    let mut l: Vec<f32> = chosen.iter().map(|&e| logits[e]).collect();
-                    softmax_inplace(&mut l);
-                    l
-                } else {
-                    let mut p = logits.clone();
-                    softmax_inplace(&mut p);
-                    chosen.iter().map(|&e| p[e]).collect()
-                };
+                let total: f32 = chosen.iter().map(|&e| scores[e]).sum();
+                let gates: Vec<f32> = chosen.iter().map(|&e| if renorm { scores[e] / total } else { scores[e] }).collect();
                 let mut acc = vec![0.0f32; d];
                 for (ci, &e) in chosen.iter().enumerate() {
                     let gw = &g.data[e * ff * d..(e + 1) * ff * d];
@@ -938,14 +965,13 @@ fn attention(ctx: &Ctx, node: &Json, env: &mut Env, slots: &mut Slots) -> Result
                     Some(rel) => (qk + dot(qh, rel.key_row(dist, h))) * scale,
                     None => qk * scale,
                 };
-                // T5 (1.3): s rounded, then s + W[b(p - j), h], rounded
-                let s = match &pbias {
-                    Some(pb) => s + pb.bias(dist, h),
+                let s = match at(node, "softcap", a).and_then(|v| v.as_f64()) {
+                    Some(c) => { let c = c as f32; (s / c).tanh() * c },
                     None => s,
                 };
-                if s > m {
-                    m = s;
-                }
+                // T5 position bias follows soft-capping (section 5.15).
+                let s = match &pbias { Some(pb) => s + pb.bias(dist, h), None => s };
+                if s > m { m = s; }
                 scores.push(s);
             }
             let mut z = 0.0f32;
@@ -1071,4 +1097,58 @@ fn relative_kv<'a>(ctx: &Ctx<'a>, node: &Json, heads: usize, hd: usize) -> Resul
     let key = table("key")?.ok_or("attention: relative_kv has no key (rule 40)")?;
     let value = table("value")?;
     Ok(Some(RelKv { key, value, k, hd }))
+}
+
+/// Compressed latent attention, directly in the absorbed order of section 5.20.
+fn mla_attention(ctx: &Ctx, node: &Json, env: &mut Env, slots: &mut Slots) -> Result<(), String> {
+    let a = ctx.app.unwrap_or(0);
+    let inputs = ins(node);
+    let qn = tensor(env, &inputs[0])?;
+    let qr = tensor(env, &inputs[1])?;
+    let latent = tensor(env, &inputs[2])?;
+    let kr = tensor(env, &inputs[3])?;
+    let h = at_usize(node, "heads", a)?;
+    let r = at_usize(node, "kv_rank", a)?;
+    let dn = at_usize(node, "qk_nope", a)?;
+    let dr = at_usize(node, "qk_rope", a)?;
+    let dv = at_usize(node, "v_head_dim", a)?;
+    let scale = at_f32(node, "scale", a)?;
+    let window = at_usize(node, "window", a)?;
+    let sinks = at_usize(node, "sinks", a)?;
+    if qn.cols() != h * dn || qr.cols() != h * dr || latent.cols() != r || kr.cols() != dr
+        || [qr.rows(), latent.rows(), kr.rows(), ctx.rows.pos.len()].iter().any(|&n| n != qn.rows()) {
+        return Err("mla_attention: input widths/rows (rule 37)".into());
+    }
+    let kb = ctx.model.wa(node, "k_b", ctx.app)?;
+    let vb = ctx.model.wa(node, "v_b", ctx.app)?;
+    if kb.shape != vec![h, r, dn] || vb.shape != vec![h, dv, r] { return Err("mla_attention: projection shapes (rule 42)".into()); }
+    let slot = node.get("state").and_then(|v| v.as_str()).ok_or("mla_attention: state")?;
+    let max_len = ctx.model.slot(slot).and_then(|s| at(s, "max_len", a)).and_then(|v| v.as_i64());
+    let inst = slots.kv.entry((slot.to_string(), a)).or_default();
+    for t in 0..qn.rows() {
+        let p = ctx.rows.pos[t];
+        if max_len.map(|m| p as i64 >= m).unwrap_or(false) { return Err("mla_attention: max_len".into()); }
+        let ix = inst.pos.partition_point(|&j| j < p);
+        if inst.pos.get(ix) == Some(&p) { return Err("mla_attention: duplicate position".into()); }
+        inst.pos.insert(ix, p);
+        inst.k.insert(ix, latent.row(t).to_vec());
+        inst.v.insert(ix, kr.row(t).to_vec());
+    }
+    let mut output = vec![0.0; qn.rows() * h * dv];
+    for t in 0..qn.rows() {
+        let p = ctx.rows.pos[t];
+        let visible: Vec<usize> = inst.pos.iter().enumerate().filter_map(|(i, &j)|
+            if j <= p && (window == 0 || j < sinks || j as i64 >= p as i64 - window as i64 + 1) { Some(i) } else { None }).collect();
+        for head in 0..h {
+            let query = &qn.row(t)[head * dn..(head + 1) * dn];
+            let qa: Vec<f32> = (0..r).map(|j| dot(query, &kb.data[(head * r + j) * dn..(head * r + j + 1) * dn])).collect();
+            let rotary = &qr.row(t)[head * dr..(head + 1) * dr];
+            let mut scores: Vec<f32> = visible.iter().map(|&i| (dot(&qa, &inst.k[i]) + dot(rotary, &inst.v[i])) * scale).collect();
+            softmax_inplace(&mut scores);
+            let mut u = vec![0.0; r];
+            for (j, &i) in visible.iter().enumerate() { for k in 0..r { u[k] += scores[j] * inst.k[i][k]; } }
+            for j in 0..dv { output[(t * h + head) * dv + j] = dot(&u, &vb.data[(head * dv + j) * r..(head * dv + j + 1) * r]); }
+        }
+    }
+    put(env, node, Tensor::mat(qn.rows(), h * dv, output))
 }

@@ -227,7 +227,7 @@ impl Engine {
         Ok(match method {
             "hello" => Reply::Result(Json::obj(vec![
                 ("engine", Json::str(ENGINE)),
-                ("version", Json::str(concat!("0.3.0 (IR versions 0 and 1; spec revision 1.4, keramos v1.4.2 text)"))),
+                ("version", Json::str(concat!("0.4.0 (IR versions 0 and 1; spec revision 1.6, keramos v1.6.1)"))),
                 ("backend", Json::str("cpu")),
                 ("exact", Json::Bool(true)),
                 ("profiles", Json::Arr(PROFILES.iter().map(|s| Json::str(s)).collect())),
@@ -475,12 +475,12 @@ fn default_slot(node: &Json, name: &str) -> Result<Json, String> {
         Json::obj(vec![("name", Json::str(name)), ("kind", Json::str("recurrent")), ("op", Json::str(op_)), ("dtype", Json::str("f32")), ("tensors", Json::Arr(tensors))])
     };
     Ok(match op(node) {
-        "attention" => Json::obj(vec![
+        "attention" | "mla_attention" => Json::obj(vec![
             ("name", Json::str(name)),
             ("kind", Json::str("kv")),
             ("heads", Json::int(gi("heads"))),
-            ("kv_heads", Json::int(gi("kv_heads"))),
-            ("head_dim", Json::int(gi("head_dim"))),
+            ("kv_heads", Json::int(if op(node) == "mla_attention" { 1 } else { gi("kv_heads") })),
+            ("head_dim", Json::int(if op(node) == "mla_attention" { gi("kv_rank") + gi("qk_rope") } else { gi("head_dim") })),
             ("max_len", Json::int(1 << 30)),
             ("window", Json::int(gi("window"))),
             ("sinks", Json::int(gi("sinks"))),

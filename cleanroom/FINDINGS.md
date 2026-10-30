@@ -228,3 +228,24 @@ after `trim` and before `strip_think` (8.1.3).
 Under any record, v1 included, a `tool_calls` member (even null) is refused without the field `tool` or on a
 message that is not an assistant message, and a `tool_call_id` member on a message that is not a tool
 message (8.1.1).
+
+
+## Revision 1.6 catch-up (30 October 2026)
+
+Implemented grouped split, single/two-set/value frequency divisors and RoPE amplitude, attention
+soft-capping before position bias, absorbed MLA with compressed per-position state, per-application
+`apply`, and sigmoid/biased/group-limited expert routing. Container and semantic checks cover the
+new tensor references and shapes, rules 41-44 and updated state/slot relationships. Crossing a two-set
+RoPE threshold in either direction replays from position zero, preserving prefill/decode/truncate parity.
+Appendix D builders now cover Phi-3, Gemma 2, Qwen MoE and DeepSeek V2/V3 from metadata alone.
+
+The first combined full black-box run passed all 45 previously expected failures (542 PASS,
+45 XPASS, no FAIL or XFAIL, 11 gradient skips). The final receipt records the manifest with those
+stale expected-failure entries removed. No training/gradient capability was added. No new spec
+ambiguity blocked the implementation.
+
+Final verification: **587 PASS, 0 FAIL, 11 SKIP, 0 XFAIL, 0 XPASS** over all 598 cases. By kind:
+model 33, trace 99, op 84, refuse 129, digest 96, dequant 10, accept 50 and chat 86 pass;
+grad 11 skip. Built with rustc 1.98.1 (48a229cea 2026-09-01); binary SHA-256
+`7254c9d7c9d6dcf24f501717cd2330e9514972a6f7c112268040ca91a57f9b05`.
+Receipt: `/home/jonat/cleanroom_build/revision16-final.json`.

@@ -7,27 +7,28 @@ use crate::model::{at, ins, is_per_layer, op, outs, STATEFUL};
 use crate::recurrence::Rec;
 use crate::schema::Schema;
 
-const NODE_STRUCTURAL: [&str; 26] = [
-    "op", "in", "out", "state", "tensor_index", "sizes", "expr", "position_bias", "relative_kv", "index", "inputs", "weights", "init",
+const NODE_STRUCTURAL: [&str; 31] = [
+    "freq_factors", "groups", "selection_bias", "k_b", "v_b", "op", "in", "out", "state", "tensor_index", "sizes", "expr", "position_bias", "relative_kv", "index", "inputs", "weights", "init",
     "let", "update", "readout", "weight", "bias", "router", "experts", "state_weight", "tied_to", "a", "b", "c", "d",
 ];
 const SLOT_STRUCTURAL: [&str; 7] = ["name", "kind", "op", "dtype", "tensors", "evict", "kv_rows"];
-const TENSOR_KEYS: [&str; 10] = ["weight", "bias", "router", "state_weight", "tied_to", "a", "b", "c", "d", "experts"];
+const TENSOR_KEYS: [&str; 13] = ["selection_bias", "k_b", "v_b", "weight", "bias", "router", "state_weight", "tied_to", "a", "b", "c", "d", "experts"];
 
 /// Closed sets (rule 5), including inside per_layer lists.
-const CLOSED: [(&str, &str, &[&str]); 7] = [
+const CLOSED: [(&str, &str, &[&str]); 8] = [
     ("gelu", "approx", &["tanh", "none"]),
     ("rope", "pairing", &["interleaved", "neox"]),
     ("rope", "rope_heads", &["all", "first"]),
     ("attention", "mask", &["causal", "turn_state"]),
     ("moe_ffn", "gate_norm", &["renorm", "raw"]),
+    ("moe_ffn", "scoring", &["softmax", "sigmoid"]),
     ("moe_ffn", "activation", &["silu"]),
     ("linear_attention", "feature_map", &["elu_plus_one"]),
 ];
-const INT_ATTRS: [&str; 14] =
-    ["heads", "kv_heads", "head_dim", "window", "sinks", "n_rot", "group", "n_experts", "top_k", "n", "channels", "kernel", "d_state", "max_len"];
-const NUM_ATTRS: [&str; 7] = ["eps", "theta", "freq_scale", "scale", "shift", "den_floor", "weight_offset"];
-const BOOL_ATTRS: [&str; 2] = ["causal", "dt_softplus"];
+const INT_ATTRS: [&str; 18] =
+    ["kv_rank", "qk_nope", "qk_rope", "v_head_dim", "heads", "kv_heads", "head_dim", "window", "sinks", "n_rot", "group", "n_experts", "top_k", "n", "channels", "kernel", "d_state", "max_len"];
+const NUM_ATTRS: [&str; 9] = ["attn_factor", "softcap", "eps", "theta", "freq_scale", "scale", "shift", "den_floor", "weight_offset"];
+const BOOL_ATTRS: [&str; 3] = ["causal", "dt_softplus", "apply"];
 
 pub struct Report {
     pub errors: Vec<String>,
@@ -70,6 +71,10 @@ fn tensor_names(node: &Json) -> Vec<(String, String)> {
             }
         }
     }
+    if let Some(factors) = node.get("freq_factors") {
+        if let Some(name) = factors.as_str() { v.push(("freq_factors".into(), name.into())); }
+        for key in ["short", "long"] { if let Some(name) = factors.get(key).and_then(|x| x.as_str()) { v.push((format!("freq_factors.{}", key), name.into())); } }
+    }
     if op(node) == "recurrence" {
         if let Some(Json::Obj(m)) = node.get("weights") {
             for (dk, dv) in m {
@@ -90,7 +95,7 @@ fn arity(o: &str) -> Option<(usize, usize, usize)> {
         | "moe_ffn" | "ssm_scan" | "conv1d_causal" | "depth_route" => (1, 1, 1),
         "attention" | "linear_attention" => (3, 3, 1),
         "rope" => (3, 3, 2),
-        "selective_scan" => (4, 4, 1),
+        "selective_scan" | "mla_attention" => (4, 4, 1),
         "list" | "depth_attend" | "recurrence" => (1, usize::MAX, 1),
         "expr" => (1, 23, 1),
         "split" => (1, 1, 0),
@@ -242,6 +247,14 @@ fn semantic(doc: &Json, v: &mut V) {
             if o == "depth_route" && n.get("out").is_none() {
                 v.e("20", "7.4", format!("{}: no out", where_));
             }
+            if let Some(apply) = n.get("apply") {
+                if !in_block || blk.iter().any(|n| op(n) == "depth_route") ||
+                    (0..l.max(1)).any(|a| at(n, "apply", a).and_then(|v| v.as_bool()).is_none()) {
+                    v.e("43", "3.8", format!("{}: invalid apply", where_));
+                }
+                if STATEFUL.contains(&o) || o == "depth_route" { v.e("4", "3.8", format!("{}: stateful apply", where_)); }
+                let _ = apply;
+            }
             // stateful ops outside the block (rule 11), depth_route outside (rule 20)
             if !in_block && STATEFUL.contains(&o) {
                 v.e("11", "6.1", format!("{}: a stateful op outside the block", where_));
@@ -305,6 +318,7 @@ fn semantic(doc: &Json, v: &mut V) {
                 let gi = |k: &str| at(n, k, a).and_then(|x| x.as_i64());
                 match o {
                     "split" => {
+                        if n.get("groups").map(|g| g.as_i64().map(|g| g > 0) != Some(true)).unwrap_or(false) { v.e("10", "5.5", format!("{}: groups not positive", where_)); }
                         let sz = n.get("sizes").and_then(|s| s.as_arr()).map(|s| s.len()).unwrap_or(0);
                         if sz != outs(n).len() {
                             v.e("10", "5.5", format!("{}: {} sizes for {} outputs", where_, sz, outs(n).len()));
@@ -318,6 +332,19 @@ fn semantic(doc: &Json, v: &mut V) {
                         }
                     }
                     "rope" => {
+                        if at(n, "attn_factor", a).map(|v| v.as_f64().map(|x| x > 0.0) != Some(true)).unwrap_or(false) { v.e("10", "5.14", format!("{}: attn_factor not positive", where_)); }
+                        if let Some(factors) = n.get("freq_factors") {
+                            let half = gi("n_rot").or(gi("head_dim")).unwrap_or(0) as usize / 2;
+                            let ok = match factors {
+                                Json::Str(_) => true,
+                                Json::Arr(values) => values.len() == half && values.iter().all(|v| v.as_f64().map(|x| x > 0.0).unwrap_or(false)),
+                                Json::Obj(m) => m.iter().all(|(k, _)| ["short", "long", "original_ctx"].contains(&k.as_str())) &&
+                                    factors.get("short").and_then(|v| v.as_str()).is_some() && factors.get("long").and_then(|v| v.as_str()).is_some() &&
+                                    factors.get("original_ctx").and_then(|v| v.as_i64()).map(|x| x >= 1).unwrap_or(false),
+                                _ => false,
+                            };
+                            if !ok { v.e("41", "5.14", format!("{}: invalid frequency factors", where_)); }
+                        }
                         let hd = gi("head_dim").unwrap_or(0);
                         if hd % 2 != 0 {
                             v.e("10", "5.14", format!("{}: head_dim {} is odd", where_, hd));
@@ -335,6 +362,7 @@ fn semantic(doc: &Json, v: &mut V) {
                         }
                     }
                     "attention" => {
+                        if at(n, "softcap", a).map(|v| v.as_f64().map(|x| x > 0.0) != Some(true)).unwrap_or(false) { v.e("10", "5.15", format!("{}: softcap not positive", where_)); }
                         let (h, kv) = (gi("heads").unwrap_or(0), gi("kv_heads").unwrap_or(0));
                         if kv < 1 || h % kv != 0 {
                             v.e("10", "5.15", format!("{}: heads {} is not a multiple of kv_heads {}", where_, h, kv));
@@ -346,6 +374,9 @@ fn semantic(doc: &Json, v: &mut V) {
                             v.e("14", "5.15", format!("{}: causal is not true", where_));
                         }
                     }
+                    "mla_attention" => {
+                        if at(n, "causal", a).and_then(|c| c.as_bool()) != Some(true) { v.e("14", "5.20", format!("{}: causal not true", where_)); }
+                    }
                     "linear_attention" => {
                         if at(n, "causal", a).and_then(|c| c.as_bool()) != Some(true) {
                             v.e("14", "6.4", format!("{}: causal is not true", where_));
@@ -353,6 +384,11 @@ fn semantic(doc: &Json, v: &mut V) {
                     }
                     "moe_ffn" => {
                         let (k, e) = (gi("top_k").unwrap_or(0), gi("n_experts").unwrap_or(0));
+                        if let Some(groups) = n.get("groups") {
+                            let gn = groups.get("n").and_then(|v| v.as_i64()).unwrap_or(0);
+                            let gt = groups.get("top").and_then(|v| v.as_i64()).unwrap_or(0);
+                            if gn < 1 || gt < 1 || gt > gn || e % gn != 0 || gt * (e / gn) < k { v.e("10", "5.16", format!("{}: invalid groups", where_)); }
+                        }
                         if k < 1 || k > e {
                             v.e("10", "5.16", format!("{}: top_k {} is not in 1 .. n_experts {}", where_, k, e));
                         }
@@ -413,7 +449,7 @@ fn semantic(doc: &Json, v: &mut V) {
             if s.get("kv_from").is_some() {
                 v.e("22", "7.6", format!("kv slot {} carries kv_from (reserved)", name));
             }
-            let att: Vec<&&Json> = readers.iter().map(|(_, n)| n).filter(|n| op(n) == "attention").collect();
+            let att: Vec<&&Json> = readers.iter().map(|(_, n)| n).filter(|n| op(n) == "attention" || op(n) == "mla_attention").collect();
             if att.len() > 1 {
                 v.e("17a", "6.1", format!("kv slot {} is read by {} attention nodes", name, att.len()));
             }
@@ -423,7 +459,9 @@ fn semantic(doc: &Json, v: &mut V) {
                 let ss = at(s, "sinks", a).and_then(|x| x.as_i64()).unwrap_or(0);
                 for n in &att {
                     for k in ["window", "sinks", "kv_heads", "head_dim"] {
-                        let nv = at(n, k, a).and_then(|x| x.as_i64());
+                        let nv = if op(n) == "mla_attention" {
+                            match k { "kv_heads" => Some(1), "head_dim" => Some(at(n, "kv_rank", a).and_then(|x| x.as_i64()).unwrap_or(0) + at(n, "qk_rope", a).and_then(|x| x.as_i64()).unwrap_or(0)), _ => at(n, k, a).and_then(|x| x.as_i64()) }
+                        } else { at(n, k, a).and_then(|x| x.as_i64()) };
                         let sv = at(s, k, a).and_then(|x| x.as_i64());
                         if nv != sv {
                             v.e("12", "5.15", format!("attention reading {}: {} {:?} differs from the slot's {:?} (application {})", name, k, nv, sv, a));
@@ -445,7 +483,7 @@ fn semantic(doc: &Json, v: &mut V) {
                 }
             }
             for (_, n) in &readers {
-                if op(n) != "attention" {
+                if op(n) != "attention" && op(n) != "mla_attention" {
                     v.e("11", "6.1", format!("{} names kv slot {}", op(n), name));
                 }
             }
@@ -484,7 +522,7 @@ fn semantic(doc: &Json, v: &mut V) {
             }
             for (_, n) in &readers {
                 let o = op(n);
-                if o == "attention" {
+                if o == "attention" || o == "mla_attention" {
                     v.e("11", "6.1", format!("attention names recurrent slot {}", name));
                     continue;
                 }
@@ -526,7 +564,7 @@ fn semantic(doc: &Json, v: &mut V) {
             None => v.e("11", "6.1", format!("block.nodes[{}] ({}) names no declared slot ({:?})", ni, o, sname)),
             Some(s) => {
                 let kind = s.get("kind").and_then(|x| x.as_str()).unwrap_or("");
-                let need = if o == "attention" { "kv" } else { "recurrent" };
+                let need = if o == "attention" || o == "mla_attention" { "kv" } else { "recurrent" };
                 if kind != need {
                     v.e("11", "6.1", format!("block.nodes[{}] ({}) names slot {} of kind {}", ni, o, sname, kind));
                 }
@@ -734,7 +772,11 @@ fn reads(doc: &Json, v: &mut V) {
         h.insert("x".into());
         walk("head", &head[..], &mut h, v);
     } else {
-        walk("block", &blk[..], &mut have, v);
+        let repeat = doc.get("block").and_then(|b| b.get("repeat")).and_then(|n| n.as_i64()).unwrap_or(0) as usize;
+        for a in 0..repeat {
+            let running: Vec<&Json> = blk.iter().copied().filter(|n| at(n, "apply", a).and_then(|v| v.as_bool()) != Some(false)).collect();
+            walk("block", &running, &mut have, v);
+        }
         walk("head", &head[..], &mut have, v);
     }
     if !head.iter().any(|n| outs(n).iter().any(|o| o == "logits")) {
@@ -851,6 +893,7 @@ fn container(doc: &Json, g: &Gguf, v: &mut V) {
     let mut lists: std::collections::HashMap<String, usize> = std::collections::HashMap::new();
     let check_node = |n: &Json, a: Option<usize>, lists: &mut std::collections::HashMap<String, usize>, v: &mut V| {
         let o = op(n);
+        if a.map(|a| at(n, "apply", a).and_then(|v| v.as_bool()) == Some(false)).unwrap_or(false) { return; }
         match o {
             "list" => {
                 lists.insert(outs(n).first().cloned().unwrap_or_default(), ins(n).len());
@@ -868,6 +911,27 @@ fn container(doc: &Json, g: &Gguf, v: &mut V) {
         } else {
             None
         };
+        for (key, dims, rule) in {
+            let app = a.unwrap_or(0);
+            let gi = |key: &str| at(n, key, app).and_then(|v| v.as_i64()).unwrap_or(0) as u64;
+            let mut checks: Vec<(String, Vec<u64>, &str)> = Vec::new();
+            if o == "mla_attention" {
+                checks.push(("k_b".into(), vec![gi("qk_nope"), gi("kv_rank"), gi("heads")], "42"));
+                checks.push(("v_b".into(), vec![gi("kv_rank"), gi("v_head_dim"), gi("heads")], "42"));
+            }
+            if o == "moe_ffn" && n.get("selection_bias").is_some() { checks.push(("selection_bias".into(), vec![gi("n_experts")], "44")); }
+            if o == "rope" { for (key, _) in tensor_names(n).into_iter().filter(|(key, _)| key.starts_with("freq_factors")) {
+                checks.push((key, vec![at(n, "n_rot", a.unwrap_or(0)).and_then(|v| v.as_i64()).map(|v| v as u64).unwrap_or(gi("head_dim")) / 2], "41"));
+            } }
+            checks
+        } {
+            if let Some((_, name)) = tensor_names(n).into_iter().find(|(k, _)| k == &key) {
+                let full = resolve(n, &name, a.unwrap_or(0));
+                if let Some(info) = g.tensors.iter().find(|t| t.name == full) {
+                    if info.ne != dims { v.e(rule, "5", format!("{}: {} has ne {:?}, expected {:?}", o, full, info.ne, dims)); }
+                }
+            }
+        }
         for (k, name) in tensor_names(n) {
             if k == "tied_to" {
                 continue;

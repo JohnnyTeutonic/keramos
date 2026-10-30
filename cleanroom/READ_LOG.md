@@ -76,3 +76,23 @@ the appendix alone, and the acceptance cases checked them. Nothing under `tools/
 `adapters/`, no per-engine receipt, no `.safetensors` or `mtstudio.json`, nothing of paperkiln or ember and
 not `LOCAL_LLM_STACK.md` was opened or searched (`git status` lists modified `tools/` files in the clone;
 their diffs were not opened).
+
+
+## Revision 1.6 catch-up (30 October 2026)
+
+This pass preserved independence from implementation and fixture sources. Opened only:
+- `IR_SPEC.md`: keyword matches and scoped sections 3.8, 5.5, 5.14-5.16, 5.20, the refusal rules,
+  D.1 and D.7-D.11. `ir.schema.json` is compiled through the existing include, not edited.
+- `cleanroom/READ_LOG.md`, `FINDINGS.md`, `rust/Cargo.toml`, and own Rust source files:
+  arch.rs, ops.rs, validate.rs, session.rs, main.rs, model.rs, schema.rs and digest.rs.
+- Own cleanroom directory listings and scoped Git status/diff/stat checks.
+- The conformance runner was executed only as a black box. Its stdout diagnostics and generated
+  revision16-first/second/final JSON receipts in `/home/jonat/cleanroom_build/` were examined;
+  no runner, fixture, expected-fail manifest, reference implementation or other engine source was read.
+
+The independent family-builder collaborator read only the spec scopes above, own arch.rs and the
+READ_LOG.md tail, plus own directory listings and scoped Git diffs/status. It committed arch.rs as f11ff3c.
+
+Build products were placed on WSL ext4 at `/home/jonat/cleanroom_build/target_codex_20261030`, from the
+Windows source manifest. Builds took under ten seconds and black-box suite runs under a minute.
+Installed rustfmt was unavailable; no formatter dependency was downloaded.
