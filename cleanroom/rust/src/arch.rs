@@ -1,12 +1,12 @@
-//! IR_SPEC Appendix D (v1.4.2): the third-party graphs a GGUF's metadata and tensor names build (D.1 to
+//! IR_SPEC Appendix D (revision 1.6): the third-party graphs a GGUF's metadata and tensor names build (D.1 to
 //! D.6), and D.7's normal form, which rule 38 compares (section 3.1). Written from the appendix's text.
 
 use crate::gguf::{Gguf, Val};
 use crate::json::{json_eq, Json, Number};
 use std::collections::HashMap;
 
-/// D.1: the eight architectures that build a graph (and, with "paperkiln", rule 38's labels).
-pub const ARCHS: [&str; 8] = ["llama", "mistral", "qwen2", "qwen3", "gpt2", "gptneox", "gemma3", "mamba"];
+/// D.1: the thirteen architectures that build a graph (and, with "paperkiln", rule 38's labels).
+pub const ARCHS: [&str; 13] = ["llama", "mistral", "qwen2", "qwen3", "gpt2", "gptneox", "gemma3", "mamba", "phi3", "gemma2", "qwen2moe", "qwen3moe", "deepseek2"];
 
 struct Meta<'a> {
     g: &'a Gguf,
@@ -257,6 +257,10 @@ pub fn build(g: &Gguf) -> Result<Json, String> {
     let v = vocab(g)?;
     match arch.as_str() {
         "llama" | "mistral" | "qwen2" | "qwen3" => d3(&m, v),
+        "qwen2moe" | "qwen3moe" => d3(&m, v),
+        "phi3" => d8(&m, v),
+        "gemma2" => d9(&m, v),
+        "deepseek2" => d11(&m, v),
         "gpt2" | "gptneox" => d4(&m, v),
         "gemma3" => d5(&m, v),
         _ => d6(&m, v),
@@ -270,7 +274,7 @@ fn d3(m: &Meta, v: i64) -> Result<Json, String> {
     let theta = m.real_or("rope.freq_base", 10000.0)?;
     let n_rot = m.int_or("rope.dimension_count", c.hd)?;
     m.no_rope_scaling()?;
-    let qwen = m.arch == "qwen2" || m.arch == "qwen3";
+    let qwen = m.arch.starts_with("qwen");
     let pairing = if qwen { "neox" } else { "interleaved" };
     let w = if qwen { 0 } else { m.int_or("attention.sliding_window", 0)? };
     let bias = m.has("blk.0.attn_q.bias");
@@ -291,8 +295,9 @@ fn d3(m: &Meta, v: i64) -> Result<Json, String> {
     nd.push(lin("a", &b("attn_output.weight"), None, "o"));
     nd.push(node("add", &["x", "o"], &["x"], vec![]));
     nd.push(rms("x", &b("ffn_norm.weight"), "h2", eps));
-    let ec = if m.arch == "llama" { m.int_or("expert_count", 0)? } else { 0 };
-    if m.arch == "llama" && ec != 0 && m.has("blk.0.ffn_gate_inp.weight") {
+    let qm = m.arch == "qwen2moe" || m.arch == "qwen3moe";
+    let ec = if qm { m.int("expert_count")? } else if m.arch == "llama" { m.int_or("expert_count", 0)? } else { 0 };
+    if qm || (m.arch == "llama" && ec != 0 && m.has("blk.0.ffn_gate_inp.weight")) {
         nd.push(node(
             "moe_ffn",
             &["h2"],
@@ -305,7 +310,7 @@ fn d3(m: &Meta, v: i64) -> Result<Json, String> {
                 ),
                 ("n_experts", i(ec)),
                 ("top_k", i(m.int("expert_used_count")?)),
-                ("gate_norm", s("renorm")),
+                ("gate_norm", s(if m.arch == "qwen2moe" { "raw" } else { "renorm" })),
                 ("activation", s("silu")),
             ],
         ));
@@ -315,6 +320,13 @@ fn d3(m: &Meta, v: i64) -> Result<Json, String> {
         nd.push(node("silu", &["g"], &["g"], vec![]));
         nd.push(node("mul", &["g", "u"], &["gu"], vec![]));
         nd.push(lin("gu", &b("ffn_down.weight"), None, "f"));
+    }
+    if m.arch == "qwen2moe" && m.has("blk.0.ffn_gate_inp_shexp.weight") {
+        nd.extend(shared_ffn(eps));
+        nd.push(lin("h2", &b("ffn_gate_inp_shexp.weight"), None, "sgate"));
+        nd.push(node("sigmoid", &["sgate"], &["sgate"], vec![]));
+        nd.push(node("mul_col", &["sf", "sgate"], &["sf"], vec![]));
+        nd.push(node("add", &["f", "sf"], &["f"], vec![]));
     }
     nd.push(node("add", &["x", "f"], &["x"], vec![]));
     let hd = vec![rms("x", "output_norm.weight", "h", eps), head_lin(m)];
@@ -422,6 +434,89 @@ fn d5(m: &Meta, v: i64) -> Result<Json, String> {
     ];
     let hd = vec![rms("x", "output_norm.weight", "h", eps), head_lin(m)];
     Ok(doc(m.arch, &c, e, vec![kv_slot(&c, windows)], nd, hd))
+}
+
+fn attr(j: &mut Json, key: &str, val: Json) { if let Json::Obj(m) = j { set(m, key, val); } }
+fn shared_ffn(_eps: f64) -> Vec<Json> {
+    vec![lin("h2", &b("ffn_gate_shexp.weight"), None, "sg"), lin("h2", &b("ffn_up_shexp.weight"), None, "su"), node("silu", &["sg"], &["sg"], vec![]), node("mul", &["sg", "su"], &["sgu"], vec![]), lin("sgu", &b("ffn_down_shexp.weight"), None, "sf")]
+}
+fn d8(m: &Meta, v: i64) -> Result<Json, String> {
+    let c = common(m,v)?; let eps=m.real("attention.layer_norm_rms_epsilon")?;
+    let theta=m.real_or("rope.freq_base",10000.0)?; let nr=m.int_or("rope.dimension_count",c.hd)?;
+    let ff=m.int("feed_forward_length")?; let w=m.int_or("attention.sliding_window",0)?;
+    m.no_rope_scaling()?; if m.has("blk.0.ffn_gate_inp.weight") { return Err("Phi3 MoE is not specified".into()); }
+    let short=m.has("rope_factors_short.weight"); let long=m.has("rope_factors_long.weight");
+    if short != long { return Err("LongRoPE requires both factor tensors".into()); }
+    let mut nd=vec![rms("x",&b("attn_norm.weight"),"h",eps)];
+    let optional_lin=|x:&str,t:&str,o:&str| { let bias=format!("{}.bias",t); let bias_name=b(&bias); lin(x,&b(&format!("{}.weight",t)),if m.has(&format!("blk.0.{}",bias)) {Some(&bias_name)} else {None},o) };
+    if m.has("blk.0.attn_qkv.weight") { nd.push(optional_lin("h","attn_qkv","qkv")); nd.push(node("split", &["qkv"], &["q","k","v"],vec![("sizes",Json::Arr(vec![i(c.h*c.hd),i(c.kv*c.hd),i(c.kv*c.hd)]))])); }
+    else { for (t,o) in [("attn_q","q"),("attn_k","k"),("attn_v","v")] { nd.push(optional_lin("h",t,o)); } }
+    let mut rp=rope(&c,n(theta),"neox",nr,None);
+    if short { attr(&mut rp,"freq_factors",Json::obj(vec![("short",s("rope_factors_short.weight")),("long",s("rope_factors_long.weight")),("original_ctx",i(m.int("rope.scaling.original_context_length")?))])); let a=m.real_or("rope.scaling.attn_factor",1.0)?; if a!=0.0 && a!=1.0 {attr(&mut rp,"attn_factor",n(a));} }
+    nd.extend(vec![rp,att(&c,1.0/(c.hd as f64).sqrt(),i(w)),optional_lin("a","attn_output","o"),node("add", &["x","o"], &["x"],vec![]),rms("x",&b("ffn_norm.weight"),"h2",eps),lin("h2",&b("ffn_up.weight"),None,"gu2"),node("split", &["gu2"], &["g","u"],vec![("sizes",Json::Arr(vec![i(ff),i(ff)]))]),node("silu", &["g"], &["g"],vec![]),node("mul", &["g","u"], &["gu"],vec![]),lin("gu",&b("ffn_down.weight"),None,"f"),node("add", &["x","f"], &["x"],vec![])]);
+    Ok(doc(m.arch,&c,vec![e0()],vec![kv_slot(&c,i(w))],nd,vec![rms("x","output_norm.weight","h",eps),head_lin(m)]))
+}
+// D.9 embeds Python repr's binary64 decimal, including its signed two-digit exponent.
+fn python_float_repr(x:f64)->String {
+    let raw=format!("{:?}",x);
+    if let Some((mant,exponent))=raw.split_once('e') {
+        if let Ok(exp)=exponent.parse::<i32>() {return format!("{}e{:+03}",mant,exp);}
+    }
+    raw
+}
+fn d9(m: &Meta, v:i64)->Result<Json,String> {
+    let c=common(m,v)?; let eps=m.real("attention.layer_norm_rms_epsilon")?; m.no_rope_scaling()?;
+    let nr=m.int_or("rope.dimension_count",c.hd)?; let theta=m.real_or("rope.freq_base",10000.0)?;
+    let sw=m.int_or("attention.sliding_window",4096)?; let sw=if sw==0 {4096}else{sw};
+    let cap=m.real_or("attn_logit_softcapping",50.0)?; let cap=if cap==0.0 {50.0}else{cap};
+    let fc=m.real_or("final_logit_softcapping",30.0)?; let fc=if fc==0.0 {30.0}else{fc};
+    let windows=per_layer((0..c.l.max(0)).map(|j|i(if j%2==0 {sw}else{0})).collect());
+    let scale=1.0/(if c.l==46 {c.d as f64/c.h as f64}else{c.hd as f64}).sqrt();
+    let mut at=att(&c,scale,windows.clone()); attr(&mut at,"softcap",n(cap));
+    let nd=vec![rms("x",&b("attn_norm.weight"),"h",eps),lin("h",&b("attn_q.weight"),None,"q"),lin("h",&b("attn_k.weight"),None,"k"),lin("h",&b("attn_v.weight"),None,"v"),rope(&c,n(theta),"neox",nr,None),at,lin("a",&b("attn_output.weight"),None,"o"),rms("o",&b("post_attention_norm.weight"),"o",eps),node("add", &["x","o"], &["x"],vec![]),rms("x",&b("ffn_norm.weight"),"h2",eps),lin("h2",&b("ffn_gate.weight"),None,"g"),lin("h2",&b("ffn_up.weight"),None,"u"),node("gelu", &["g"], &["g"],vec![("approx",s("tanh"))]),node("mul", &["g","u"], &["gu"],vec![]),lin("gu",&b("ffn_down.weight"),None,"f"),rms("f",&b("post_ffw_norm.weight"),"f",eps),node("add", &["x","f"], &["x"],vec![])];
+    let mut head=head_lin(m); attr(&mut head,"out",s("z")); let cstr=python_float_repr(fc as f32 as f64);
+    Ok(doc(m.arch,&c,vec![e0(),node("affine", &["x"], &["x"],vec![("scale",n((c.d as f64).sqrt())),("shift",i(0))])],vec![kv_slot(&c,windows)],nd,vec![rms("x","output_norm.weight","h",eps),head,node("expr", &["z"], &["logits"],vec![("expr",s(&format!("tanh(x / {}) * {}",cstr,cstr)))])]))
+}
+
+/// D.11: DeepSeek V2 and V3 share the deepseek2 GGUF architecture.
+fn d11(m:&Meta,v:i64)->Result<Json,String> {
+    let d=m.int("embedding_length")?; let l=m.int("block_count")?; let h=m.int("attention.head_count")?; if h==0 {return Err("a head count of 0".into());}
+    let ctx=m.int("context_length")?; let eps=m.real("attention.layer_norm_rms_epsilon")?;
+    let dr=m.int("rope.dimension_count")?; let dn=m.int("attention.key_length_mla")?-dr; let dv=m.int("attention.value_length_mla")?; let r=m.int("attention.kv_lora_rank")?;
+    let theta=m.real_or("rope.freq_base",10000.0)?;
+    if !m.has("blk.0.attn_k_b.weight") || m.has("rope_freqs.weight") {return Err("unsupported MLA tensor layout".into());}
+    let gating=m.int_or("expert_gating_func",1)?; let gating=if gating==0 {1}else{gating}; if gating!=1 && gating!=2 {return Err("unknown expert gating function".into());}
+    let k=m.int_or("leading_dense_block_count",0)?; if k>l {return Err("leading dense count exceeds layers".into());}
+    let c=Common {d,l,h,kv:1,hd:r+dr,ctx,v};
+    let mut rp=node("rope", &["qr","kr","pos"], &["qr","kr"],vec![("heads",i(h)),("kv_heads",i(1)),("head_dim",i(dr)),("n_rot",i(dr)),("theta",n(theta)),("rope_heads",s("all")),("pairing",s("interleaved"))]);
+    let mut temp=1.0;
+    match m.str_opt("rope.scaling.type")?.as_deref() {
+        None|Some("none")=>{},
+        Some("yarn")=> {
+            let factor=m.real("rope.scaling.factor")?; let orig=m.int("rope.scaling.original_context_length")? as f64;
+            let corr=|rot:f64| dr as f64*(orig/(rot*2.0*std::f64::consts::PI)).ln()/(2.0*theta.ln());
+            let low=corr(32.0).floor().max(0.0); let high=corr(1.0).ceil().min((dr-1) as f64);
+            let width=if high==low {0.001}else{high-low};
+            let factors=(0..(dr/2).max(0)).map(|j| {let ramp=((j as f64-low)/width).clamp(0.0,1.0); n((1.0/(ramp/factor+1.0-ramp)) as f32 as f64)}).collect();
+            attr(&mut rp,"freq_factors",Json::Arr(factors)); temp=1.0+m.real_or("rope.scaling.yarn_log_multiplier",0.0)?*factor.ln();
+        },Some(t)=>return Err(format!("RoPE scaling {:?}",t))
+    }
+    let mut nd=vec![rms("x",&b("attn_norm.weight"),"h",eps)];
+    if m.has("blk.0.attn_q_a.weight") {nd.extend(vec![lin("h",&b("attn_q_a.weight"),None,"qa"),rms("qa",&b("attn_q_a_norm.weight"),"qa",eps),lin("qa",&b("attn_q_b.weight"),None,"q")]);} else {nd.push(lin("h",&b("attn_q.weight"),None,"q"));}
+    nd.extend(vec![node("split", &["q"], &["qn","qr"],vec![("sizes",Json::Arr(vec![i(dn),i(dr)])),("groups",i(h))]),lin("h",&b("attn_kv_a_mqa.weight"),None,"ckr"),node("split", &["ckr"], &["c","kr"],vec![("sizes",Json::Arr(vec![i(r),i(dr)]))]),rms("c",&b("attn_kv_a_norm.weight"),"c",eps),rp,node("mla_attention", &["qn","qr","c","kr"], &["a"],vec![("state",s("kv")),("heads",i(h)),("kv_rank",i(r)),("qk_nope",i(dn)),("qk_rope",i(dr)),("v_head_dim",i(dv)),("k_b",s(&b("attn_k_b.weight"))),("v_b",s(&b("attn_v_b.weight"))),("scale",n(temp*temp/((dn+dr) as f64).sqrt())),("causal",Json::Bool(true)),("window",i(0)),("sinks",i(0))]),lin("a",&b("attn_output.weight"),None,"o"),node("add", &["x","o"], &["x"],vec![]),rms("x",&b("ffn_norm.weight"),"h2",eps)]);
+    let mask=|dense:bool|per_layer((0..l.max(0)).map(|j|Json::Bool(if dense {j<k}else{j>=k})).collect());
+    if k>0 {let mut dense=vec![lin("h2",&b("ffn_gate.weight"),None,"g"),lin("h2",&b("ffn_up.weight"),None,"u"),node("silu", &["g"], &["g"],vec![]),node("mul", &["g","u"], &["gu"],vec![]),lin("gu",&b("ffn_down.weight"),None,"f")]; if k<l {for n in &mut dense {attr(n,"apply",mask(true));}} nd.extend(dense);}
+    if k<l {
+        let mut moe=node("moe_ffn", &["h2"], &["f"],vec![("router",s(&b("ffn_gate_inp.weight"))),("experts",Json::obj(vec![("gate",s(&b("ffn_gate_exps.weight"))),("up",s(&b("ffn_up_exps.weight"))),("down",s(&b("ffn_down_exps.weight")))])),("n_experts",i(m.int("expert_count")?)),("top_k",i(m.int("expert_used_count")?)),("gate_norm",s(if m.truth_or("expert_weights_norm",false)? {"renorm"}else{"raw"})),("activation",s("silu"))]);
+        if gating==2 {attr(&mut moe,"scoring",s("sigmoid"));}
+        if m.has(&format!("blk.{}.exp_probs_b.bias",k)) {attr(&mut moe,"selection_bias",s(&b("exp_probs_b.bias")));}
+        let groups=m.int_or("expert_group_count",1)?; if groups>1 {attr(&mut moe,"groups",Json::obj(vec![("n",i(groups)),("top",i(m.int_or("expert_group_used_count",1)?))]));}
+        let mut mn=vec![moe]; let scale=m.real_or("expert_weights_scale",1.0)?; if scale!=0.0 && scale!=1.0 {mn.push(node("affine", &["f"], &["f"],vec![("scale",n(scale)),("shift",i(0))]));}
+        if m.has(&format!("blk.{}.ffn_gate_shexp.weight",k)) {mn.extend(shared_ffn(eps));mn.push(node("add", &["f","sf"], &["f"],vec![]));}
+        if k>0 {for n in &mut mn {attr(n,"apply",mask(false));}} nd.extend(mn);
+    }
+    nd.push(node("add", &["x","f"], &["x"],vec![]));
+    Ok(doc(m.arch,&c,vec![e0()],vec![kv_slot(&c,i(0))],nd,vec![rms("x","output_norm.weight","h",eps),head_lin(m)]))
 }
 
 /// D.6 mamba (Mamba-1).
@@ -566,8 +661,11 @@ impl Walk<'_> {
                 fill(&mut m, "tied_to", Json::Null);
             }
             "scale" => fill(&mut m, "bias", Json::Null),
+            "split" => fill(&mut m, "groups", i(1)),
+            "moe_ffn" => fill(&mut m, "scoring", s("softmax")),
             "rope" => {
                 fill(&mut m, "freq_scale", i(1));
+                fill(&mut m, "attn_factor", i(1));
                 if let Some(h) = member(&m, "heads") {
                     fill(&mut m, "kv_heads", h);
                 }
@@ -664,7 +762,7 @@ pub fn normal_form(doc: &Json, has: &dyn Fn(&str) -> bool) -> Json {
         };
         let mut so = so;
         if let Some(Json::Arr(nodes)) = member(&so, "nodes") {
-            let nn: Vec<Json> = nodes.iter().map(|x| w.node(x)).collect();
+            let nn: Vec<Json> = nodes.iter().map(|x| { let mut x=x.clone(); if sec=="block" {if let Json::Obj(ref mut m)=x { fill(m,"apply",Json::Bool(true)); }} w.node(&x) }).collect();
             set(&mut so, "nodes", Json::Arr(nn));
         }
         if sec == "block" {
