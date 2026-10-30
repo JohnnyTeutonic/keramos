@@ -1,14 +1,4 @@
 {
- "spec": {
-  "repository": "keramos",
-  "tag": "v1.6.0",
-  "commit": "6de4604dd5d85c6b6f3bf232cc2ddd2ddad44927"
- },
- "engine": {
-  "name": "keramos-cleanroom (Rust), kcr --conformance, built in place from v1.6.0's cleanroom/rust (unchanged since v1.4.2; rustc 1.98.1, release, no crates, WSL ext4; sha256 04ed50688838c5a8ac59d32f1a70b6cb821b5ab9b1e427c275a765cdfcf3d436)",
-  "environment": "the runner under CPython 3.12.3, numpy 2.3.3, WSL",
-  "run": "python3 tools/ir_conformance.py --adapter cmd:kcr --conformance, in a clean export of keramos at v1.6.0 (6de4604d) on ext4, 2026-10-28; the engine implements revision 1.4: 45 XFAIL as expected_fail.json lists (the 35 of revision 1.5; revision 1.6's 4 op cases, tp_deepseek3's 5 cases, and refuse/apply_with_depth_route, which it accepts because it ignores the attribute; that entry was added after this run, whose raw verdict was FAIL); the other 9 new refusals pass; skips: the 11 gradient cases; no XPASS; no verdict of its v1.5.0 receipt moves"
- },
  "adapter": {
   "engine": "keramos-cleanroom (Rust)",
   "backend": "cpu",
@@ -23,39 +13,39 @@
   ]
  },
  "counts": {
-  "PASS": 542,
+  "PASS": 587,
   "FAIL": 0,
   "SKIP": 11,
-  "XFAIL": 45,
+  "XFAIL": 0,
   "XPASS": 0
  },
  "by_kind": {
   "model": {
-   "PASS": 27,
+   "PASS": 33,
    "FAIL": 0,
    "SKIP": 0,
-   "XFAIL": 6,
+   "XFAIL": 0,
    "XPASS": 0
   },
   "trace": {
-   "PASS": 83,
+   "PASS": 99,
    "FAIL": 0,
    "SKIP": 0,
-   "XFAIL": 16,
+   "XFAIL": 0,
    "XPASS": 0
   },
   "op": {
-   "PASS": 68,
+   "PASS": 84,
    "FAIL": 0,
    "SKIP": 0,
-   "XFAIL": 16,
+   "XFAIL": 0,
    "XPASS": 0
   },
   "refuse": {
-   "PASS": 128,
+   "PASS": 129,
    "FAIL": 0,
    "SKIP": 0,
-   "XFAIL": 1,
+   "XFAIL": 0,
    "XPASS": 0
   },
   "digest": {
@@ -80,10 +70,10 @@
    "XPASS": 0
   },
   "accept": {
-   "PASS": 44,
+   "PASS": 50,
    "FAIL": 0,
    "SKIP": 0,
-   "XFAIL": 6,
+   "XFAIL": 0,
    "XPASS": 0
   },
   "chat": {
@@ -279,7 +269,7 @@
    "id": "model/pk_moe",
    "kind": "model",
    "verdict": "PASS",
-   "detail": "log-probs worst 9.77e-08; greedy 4/4"
+   "detail": "log-probs worst 9.68e-08; greedy 4/4"
   },
   {
    "id": "trace/pk_moe_decode",
@@ -392,50 +382,50 @@
   {
    "id": "model/tp_deepseek2",
    "kind": "model",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's deepseek2 (IR_SPEC 9.3, Appendix D.11): the clean-room engine (re]"
+   "verdict": "PASS",
+   "detail": "log-probs worst 7.89e-07; greedy 4/4"
   },
   {
    "id": "trace/tp_deepseek2_decode",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's deepseek2 (IR_SPEC 9.3, Appendix D.11): the clean-room engine (re]"
+   "verdict": "PASS",
+   "detail": "6 steps"
   },
   {
    "id": "trace/tp_deepseek2_truncate",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's deepseek2 (IR_SPEC 9.3, Appendix D.11): the clean-room engine (re]"
+   "verdict": "PASS",
+   "detail": "3 steps"
   },
   {
    "id": "model/tp_deepseek3",
    "kind": "model",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neither \"paperkiln\" nor one of Appendix D's eight; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_gate_inp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_gate_exps.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_up_exps.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_down_exps.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.0.ffn_gate_shexp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.0.ffn_up_shexp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.0.ffn_down_shexp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.1.ffn_gate.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.1.ffn_up.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.1.ffn_down.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.2.ffn_gate.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.2.ffn_up.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.2.ffn_down.weight is not a tensor of the file [expected to fail: revision 1.6's tp_deepseek3 (deepseek2 with apply, the sigmoid router and YaRN; ]"
+   "verdict": "PASS",
+   "detail": "log-probs worst 5.14e-07; greedy 4/4"
   },
   {
    "id": "trace/tp_deepseek3_decode",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neither \"paperkiln\" nor one of Appendix D's eight; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_gate_inp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_gate_exps.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_up_exps.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_down_exps.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.0.ffn_gate_shexp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.0.ffn_up_shexp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.0.ffn_down_shexp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.1.ffn_gate.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.1.ffn_up.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.1.ffn_down.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.2.ffn_gate.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.2.ffn_up.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.2.ffn_down.weight is not a tensor of the file [expected to fail: revision 1.6's tp_deepseek3 (deepseek2 with apply, the sigmoid router and YaRN; ]"
+   "verdict": "PASS",
+   "detail": "6 steps"
   },
   {
    "id": "trace/tp_deepseek3_truncate",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neither \"paperkiln\" nor one of Appendix D's eight; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_gate_inp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_gate_exps.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_up_exps.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_down_exps.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.0.ffn_gate_shexp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.0.ffn_up_shexp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.0.ffn_down_shexp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.1.ffn_gate.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.1.ffn_up.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.1.ffn_down.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.2.ffn_gate.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.2.ffn_up.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.2.ffn_down.weight is not a tensor of the file [expected to fail: revision 1.6's tp_deepseek3 (deepseek2 with apply, the sigmoid router and YaRN; ]"
+   "verdict": "PASS",
+   "detail": "3 steps"
   },
   {
    "id": "model/tp_gemma2",
    "kind": "model",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"gemma2\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's gemma2 (IR_SPEC 9.3, Appendix D.9): the clean-room engine (revisi]"
+   "verdict": "PASS",
+   "detail": "log-probs worst 3.26e-07; greedy 4/4"
   },
   {
    "id": "trace/tp_gemma2_decode",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"gemma2\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's gemma2 (IR_SPEC 9.3, Appendix D.9): the clean-room engine (revisi]"
+   "verdict": "PASS",
+   "detail": "6 steps"
   },
   {
    "id": "model/tp_gemma3",
@@ -524,32 +514,32 @@
   {
    "id": "model/tp_phi3",
    "kind": "model",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"phi3\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's phi3 (IR_SPEC 9.3, Appendix D.8): the clean-room engine (revision]"
+   "verdict": "PASS",
+   "detail": "log-probs worst 5.37e-07; greedy 4/4"
   },
   {
    "id": "trace/tp_phi3_decode",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"phi3\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's phi3 (IR_SPEC 9.3, Appendix D.8): the clean-room engine (revision]"
+   "verdict": "PASS",
+   "detail": "6 steps"
   },
   {
    "id": "trace/tp_phi3_truncate",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"phi3\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's phi3 (IR_SPEC 9.3, Appendix D.8): the clean-room engine (revision]"
+   "verdict": "PASS",
+   "detail": "3 steps"
   },
   {
    "id": "model/tp_qwen2moe",
    "kind": "model",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"qwen2moe\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's qwen2moe (IR_SPEC 9.3, Appendix D.10): the clean-room engine (rev]"
+   "verdict": "PASS",
+   "detail": "log-probs worst 3.32e-07; greedy 4/4"
   },
   {
    "id": "trace/tp_qwen2moe_decode",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"qwen2moe\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's qwen2moe (IR_SPEC 9.3, Appendix D.10): the clean-room engine (rev]"
+   "verdict": "PASS",
+   "detail": "6 steps"
   },
   {
    "id": "model/tp_qwen3",
@@ -590,14 +580,14 @@
   {
    "id": "model/tp_qwen3moe",
    "kind": "model",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"qwen3moe\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's qwen3moe (IR_SPEC 9.3, Appendix D.10): the clean-room engine (rev]"
+   "verdict": "PASS",
+   "detail": "log-probs worst 4.62e-07; greedy 4/4"
   },
   {
    "id": "trace/tp_qwen3moe_decode",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"qwen3moe\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's qwen3moe (IR_SPEC 9.3, Appendix D.10): the clean-room engine (rev]"
+   "verdict": "PASS",
+   "detail": "6 steps"
   },
   {
    "id": "op/embedding/rows",
@@ -656,8 +646,8 @@
   {
    "id": "op/split/groups",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: split: sizes [2, 1] do not cover width 6 [expected to fail: revision 1.5's split.groups (IR_SPEC 5.5): the clean-room engine implements revi]"
+   "verdict": "PASS",
+   "detail": "a 0 values differ in their bits; b 0 values differ in their bits"
   },
   {
    "id": "op/rmsnorm/row",
@@ -788,38 +778,38 @@
   {
    "id": "op/rope/freq_factors",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "q worst 1.45e+00 of max(1, |ref|); k worst 8.14e-01 of max(1, |ref|) [expected to fail: revision 1.5's rope.freq_factors and attn_factor (IR_SPEC 5.14): the clean-room ]"
+   "verdict": "PASS",
+   "detail": "q worst 2.68e-08 of max(1, |ref|); k worst 2.17e-08 of max(1, |ref|)"
   },
   {
    "id": "op/rope/freq_factors_short",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "q worst 1.81e+00 of max(1, |ref|); k worst 2.03e+00 of max(1, |ref|) [expected to fail: revision 1.5's rope.freq_factors and attn_factor (IR_SPEC 5.14): the clean-room ]"
+   "verdict": "PASS",
+   "detail": "q worst 5.92e-08 of max(1, |ref|); k worst 4.73e-08 of max(1, |ref|)"
   },
   {
    "id": "op/rope/freq_factors_long",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "q worst 1.45e+00 of max(1, |ref|); k worst 8.14e-01 of max(1, |ref|) [expected to fail: revision 1.5's rope.freq_factors and attn_factor (IR_SPEC 5.14): the clean-room ]"
+   "verdict": "PASS",
+   "detail": "q worst 2.68e-08 of max(1, |ref|); k worst 2.17e-08 of max(1, |ref|)"
   },
   {
    "id": "op/rope/attn_factor",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "q worst 2.00e-01 of max(1, |ref|); k worst 2.00e-01 of max(1, |ref|) [expected to fail: revision 1.5's rope.freq_factors and attn_factor (IR_SPEC 5.14): the clean-room ]"
+   "verdict": "PASS",
+   "detail": "q worst 4.35e-08 of max(1, |ref|); k worst 6.39e-08 of max(1, |ref|)"
   },
   {
    "id": "op/rope/freq_factors_partial_attn_factor",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "q worst 1.65e+00 of max(1, |ref|); k worst 1.00e+00 of max(1, |ref|) [expected to fail: revision 1.5's rope.freq_factors and attn_factor (IR_SPEC 5.14): the clean-room ]"
+   "verdict": "PASS",
+   "detail": "q worst 1.05e-07 of max(1, |ref|); k worst 1.38e-07 of max(1, |ref|)"
   },
   {
    "id": "op/rope/freq_factors_values",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "q worst 4.65e-02 of max(1, |ref|); k worst 3.22e-02 of max(1, |ref|) [expected to fail: revision 1.6's rope.freq_factors by value (IR_SPEC 5.14): the clean-room engine ]"
+   "verdict": "PASS",
+   "detail": "q worst 0.00e+00 of max(1, |ref|); k worst 1.25e-09 of max(1, |ref|)"
   },
   {
    "id": "op/attention/causal",
@@ -896,26 +886,26 @@
   {
    "id": "op/attention/softcap",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "a worst 7.39e-01 of max(1, |ref|) [expected to fail: revision 1.5's attention.softcap (IR_SPEC 5.15): the clean-room engine implement]"
+   "verdict": "PASS",
+   "detail": "a worst 1.19e-07 of max(1, |ref|)"
   },
   {
    "id": "op/attention/softcap_window_sinks",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "a worst 5.19e-01 of max(1, |ref|) [expected to fail: revision 1.5's attention.softcap (IR_SPEC 5.15): the clean-room engine implement]"
+   "verdict": "PASS",
+   "detail": "a worst 1.19e-07 of max(1, |ref|)"
   },
   {
    "id": "op/attention/softcap_position_bias",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "a worst 4.17e-01 of max(1, |ref|) [expected to fail: revision 1.5's attention.softcap (IR_SPEC 5.15): the clean-room engine implement]"
+   "verdict": "PASS",
+   "detail": "a worst 1.25e-07 of max(1, |ref|)"
   },
   {
    "id": "op/moe_ffn/renorm",
    "kind": "op",
    "verdict": "PASS",
-   "detail": "y worst 3.17e-07 of max(1, |ref|)"
+   "detail": "y worst 3.69e-07 of max(1, |ref|)"
   },
   {
    "id": "op/moe_ffn/raw",
@@ -926,20 +916,20 @@
   {
    "id": "op/moe_ffn/sigmoid_renorm",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "y worst 1.50e-01 of max(1, |ref|) [expected to fail: revision 1.6's moe_ffn scoring, selection_bias and groups (IR_SPEC 5.16): the cl]"
+   "verdict": "PASS",
+   "detail": "y worst 1.21e-07 of max(1, |ref|)"
   },
   {
    "id": "op/moe_ffn/sigmoid_bias_groups",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "y worst 6.70e-01 of max(1, |ref|) [expected to fail: revision 1.6's moe_ffn scoring, selection_bias and groups (IR_SPEC 5.16): the cl]"
+   "verdict": "PASS",
+   "detail": "y worst 1.26e-07 of max(1, |ref|)"
   },
   {
    "id": "op/moe_ffn/softmax_bias_raw",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "y worst 3.72e-01 of max(1, |ref|) [expected to fail: revision 1.6's moe_ffn scoring, selection_bias and groups (IR_SPEC 5.16): the cl]"
+   "verdict": "PASS",
+   "detail": "y worst 1.37e-07 of max(1, |ref|)"
   },
   {
    "id": "op/list/two",
@@ -1088,20 +1078,20 @@
   {
    "id": "op/mla_attention/two_heads",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: mla_attention has no slot [expected to fail: revision 1.5's op mla_attention (IR_SPEC 5.20): the clean-room engine implements]"
+   "verdict": "PASS",
+   "detail": "a worst 9.22e-08 of max(1, |ref|)"
   },
   {
    "id": "op/mla_attention/window_sinks",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: mla_attention has no slot [expected to fail: revision 1.5's op mla_attention (IR_SPEC 5.20): the clean-room engine implements]"
+   "verdict": "PASS",
+   "detail": "a worst 9.22e-08 of max(1, |ref|)"
   },
   {
    "id": "op/mla_attention/one_head",
    "kind": "op",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: mla_attention has no slot [expected to fail: revision 1.5's op mla_attention (IR_SPEC 5.20): the clean-room engine implements]"
+   "verdict": "PASS",
+   "detail": "a worst 6.80e-08 of max(1, |ref|)"
   },
   {
    "id": "refuse/unknown_op",
@@ -1521,7 +1511,7 @@
    "id": "refuse/reads_unwritten_value",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 3.5 (rule 36): block[7] add reads nowhere (its input 1), which no earlier node writes"
+   "detail": "refused: IR_SPEC 3.5 (rule 36): block[7] add reads nowhere (its input 1), which no earlier node writes; IR_SPEC 3.5 (rule 36): bl"
   },
   {
    "id": "refuse/embed_writes_no_x",
@@ -1653,13 +1643,13 @@
    "id": "refuse/softcap_not_positive",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 3.1 (rule 38): general.architecture \"gemma2\" is neither \"paperkiln\" nor one of Appendix D's eight"
+   "detail": "refused: IR_SPEC 5.15 (rule 10): block.nodes[5] (attention): softcap not positive; IR_SPEC 5.15 (rule 10): block.nodes[5] (attent"
   },
   {
    "id": "refuse/attn_factor_not_positive",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 3.1 (rule 38): general.architecture \"phi3\" is neither \"paperkiln\" nor one of Appendix D's eight"
+   "detail": "refused: IR_SPEC 5.14 (rule 10): block.nodes[3] (rope): attn_factor not positive; IR_SPEC 5.14 (rule 10): block.nodes[3] (rope): "
   },
   {
    "id": "refuse/freq_factors_without_original_ctx",
@@ -1677,7 +1667,7 @@
    "id": "refuse/freq_factors_tensor_shape",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 3.1 (rule 38): general.architecture \"phi3\" is neither \"paperkiln\" nor one of Appendix D's eight"
+   "detail": "refused: IR_SPEC 5 (rule 41): rope: output_norm.weight has ne [16], expected [2]; IR_SPEC 5 (rule 41): rope: output_norm.weight h"
   },
   {
    "id": "refuse/freq_factors_per_layer",
@@ -1689,79 +1679,79 @@
    "id": "refuse/split_groups_zero",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 10.1 (rule 1): $.block.nodes[4].groups: 0 is below 1; IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_"
+   "detail": "refused: IR_SPEC 10.1 (rule 1): $.block.nodes[4].groups: 0 is below 1; IR_SPEC 5.5 (rule 10): block.nodes[4] (split): groups not "
   },
   {
    "id": "refuse/mla_slot_head_dim",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neithe"
+   "detail": "refused: IR_SPEC 5.15 (rule 12): attention reading kv: head_dim Some(10) differs from the slot's Some(8) (application 0); IR_SPEC"
   },
   {
    "id": "refuse/mla_slot_kv_heads",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neithe"
+   "detail": "refused: IR_SPEC 5.15 (rule 12): attention reading kv: kv_heads Some(1) differs from the slot's Some(2) (application 0); IR_SPEC "
   },
   {
    "id": "refuse/mla_k_b_shape",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neithe"
+   "detail": "refused: IR_SPEC 5 (rule 42): mla_attention: blk.0.attn_v_b.weight has ne [6, 3, 2], expected [4, 6, 2]; IR_SPEC 5 (rule 42): mla"
   },
   {
    "id": "refuse/mla_reads_three",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neithe"
+   "detail": "refused: IR_SPEC 5 (rule 7): block.nodes[9] (mla_attention): reads 3 value(s)"
   },
   {
    "id": "refuse/mla_without_k_b",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 10.1 (rule 1): $.block.nodes[9]: required key k_b is missing; IR_SPEC 6.1 (rule 11): mla_attention names kv slot"
+   "detail": "refused: IR_SPEC 10.1 (rule 1): $.block.nodes[9]: required key k_b is missing"
   },
   {
    "id": "refuse/mla_not_causal",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neithe"
+   "detail": "refused: IR_SPEC 5.20 (rule 14): block.nodes[9] (mla_attention): causal not true; IR_SPEC 5.20 (rule 14): block.nodes[9] (mla_att"
   },
   {
    "id": "refuse/apply_entries_not_boolean",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neithe"
+   "detail": "refused: IR_SPEC 3.8 (rule 1): block.nodes[11] (linear): per_layer apply holds 1; IR_SPEC 3.8 (rule 1): block.nodes[11] (linear):"
   },
   {
    "id": "refuse/apply_outside_block",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neithe"
+   "detail": "refused: IR_SPEC 3.8 (rule 43): head.nodes[0] (rmsnorm): invalid apply"
   },
   {
    "id": "refuse/apply_on_attention",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 10.1 (rule 1): $.block.nodes[7]: key apply is not defined; IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv"
+   "detail": "refused: IR_SPEC 10.1 (rule 1): $.block.nodes[7]: key apply is not defined; IR_SPEC 3.8 (rule 4): block.nodes[7] (mla_attention):"
   },
   {
    "id": "refuse/apply_leaves_value_unwritten",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neithe"
+   "detail": "refused: IR_SPEC 3.5 (rule 36): block[11] add reads f (its input 1), which no earlier node writes"
   },
   {
    "id": "refuse/apply_with_depth_route",
    "kind": "refuse",
-   "verdict": "XFAIL",
-   "detail": "accepted [expected to fail: revision 1.6's rule 43; the engine (revision 1.4) ignores the attribute]"
+   "verdict": "PASS",
+   "detail": "refused: IR_SPEC 3.8 (rule 43): block.nodes[1] (rmsnorm): invalid apply"
   },
   {
    "id": "refuse/moe_groups_not_dividing",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neithe"
+   "detail": "refused: IR_SPEC 5.16 (rule 10): block.nodes[16] (moe_ffn): invalid groups; IR_SPEC 5.16 (rule 10): block.nodes[16] (moe_ffn): in"
   },
   {
    "id": "refuse/moe_scoring_unknown",
@@ -1773,19 +1763,19 @@
    "id": "refuse/moe_selection_bias_shape",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neithe"
+   "detail": "refused: IR_SPEC 5 (rule 44): moe_ffn: output_norm.weight has ne [16], expected [8]; IR_SPEC 5 (rule 44): moe_ffn: output_norm.we"
   },
   {
    "id": "refuse/freq_factors_values_length",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neithe"
+   "detail": "refused: IR_SPEC 5.14 (rule 41): block.nodes[6] (rope): invalid frequency factors; IR_SPEC 5.14 (rule 41): block.nodes[6] (rope):"
   },
   {
    "id": "refuse/freq_factors_values_not_positive",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neithe"
+   "detail": "refused: IR_SPEC 5.14 (rule 41): block.nodes[6] (rope): invalid frequency factors; IR_SPEC 5.14 (rule 41): block.nodes[6] (rope):"
   },
   {
    "id": "refuse/duplicate_member_top",
@@ -1869,7 +1859,7 @@
    "id": "refuse/architecture_gemma2_softcap_dropped",
    "kind": "refuse",
    "verdict": "PASS",
-   "detail": "refused: IR_SPEC 3.1 (rule 38): general.architecture \"gemma2\" is neither \"paperkiln\" nor one of Appendix D's eight"
+   "detail": "refused: IR_SPEC D.7 (rule 38): general.architecture \"gemma2\", but the embedded document is not the graph Appendix D builds from "
   },
   {
    "id": "refuse/architecture_substituted_document",
@@ -2642,8 +2632,8 @@
   {
    "id": "trace/tp_gemma2_rewind_window",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"gemma2\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's gemma2 (IR_SPEC 9.3, Appendix D.9): the clean-room engine (revisi]"
+   "verdict": "PASS",
+   "detail": "3 steps"
   },
   {
    "id": "trace/pk_attnres_chunks",
@@ -2762,20 +2752,20 @@
   {
    "id": "trace/tp_deepseek2_chunks",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's deepseek2 (IR_SPEC 9.3, Appendix D.11): the clean-room engine (re]"
+   "verdict": "PASS",
+   "detail": "4 steps"
   },
   {
    "id": "trace/tp_deepseek3_chunks",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neither \"paperkiln\" nor one of Appendix D's eight; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_gate_inp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_gate_exps.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_up_exps.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): moe_ffn: tensor blk.0.ffn_down_exps.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.0.ffn_gate_shexp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.0.ffn_up_shexp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.0.ffn_down_shexp.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.1.ffn_gate.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.1.ffn_up.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.1.ffn_down.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.2.ffn_gate.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.2.ffn_up.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tensor blk.2.ffn_down.weight is not a tensor of the file [expected to fail: revision 1.6's tp_deepseek3 (deepseek2 with apply, the sigmoid router and YaRN; ]"
+   "verdict": "PASS",
+   "detail": "4 steps"
   },
   {
    "id": "trace/tp_gemma2_chunks",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"gemma2\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's gemma2 (IR_SPEC 9.3, Appendix D.9): the clean-room engine (revisi]"
+   "verdict": "PASS",
+   "detail": "4 steps"
   },
   {
    "id": "trace/tp_gemma3_chunks",
@@ -2816,14 +2806,14 @@
   {
    "id": "trace/tp_phi3_chunks",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"phi3\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's phi3 (IR_SPEC 9.3, Appendix D.8): the clean-room engine (revision]"
+   "verdict": "PASS",
+   "detail": "4 steps"
   },
   {
    "id": "trace/tp_qwen2moe_chunks",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"qwen2moe\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's qwen2moe (IR_SPEC 9.3, Appendix D.10): the clean-room engine (rev]"
+   "verdict": "PASS",
+   "detail": "4 steps"
   },
   {
    "id": "trace/tp_qwen3_chunks",
@@ -2840,8 +2830,8 @@
   {
    "id": "trace/tp_qwen3moe_chunks",
    "kind": "trace",
-   "verdict": "XFAIL",
-   "detail": "RuntimeError: IR_SPEC 3.1 (rule 38): general.architecture \"qwen3moe\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's qwen3moe (IR_SPEC 9.3, Appendix D.10): the clean-room engine (rev]"
+   "verdict": "PASS",
+   "detail": "4 steps"
   },
   {
    "id": "trace/pk_llama_attnres_rec_untagged",
@@ -2984,20 +2974,20 @@
   {
    "id": "accept/documents/model_tp_deepseek2",
    "kind": "accept",
-   "verdict": "XFAIL",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neither \"paperkiln\" nor one of Appendix D's ei [expected to fail: revision 1.5's deepseek2 (IR_SPEC 9.3, Appendix D.11): the clean-room engine (re]"
+   "verdict": "PASS",
+   "detail": "accepted"
   },
   {
    "id": "accept/documents/model_tp_deepseek3",
    "kind": "accept",
-   "verdict": "XFAIL",
-   "detail": "refused: IR_SPEC 6.1 (rule 11): mla_attention names kv slot kv; IR_SPEC 3.1 (rule 38): general.architecture \"deepseek2\" is neither \"paperkiln\" nor one of Appendix D's ei [expected to fail: revision 1.6's tp_deepseek3 (deepseek2 with apply, the sigmoid router and YaRN; ]"
+   "verdict": "PASS",
+   "detail": "accepted"
   },
   {
    "id": "accept/documents/model_tp_gemma2",
    "kind": "accept",
-   "verdict": "XFAIL",
-   "detail": "refused: IR_SPEC 3.1 (rule 38): general.architecture \"gemma2\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's gemma2 (IR_SPEC 9.3, Appendix D.9): the clean-room engine (revisi]"
+   "verdict": "PASS",
+   "detail": "accepted"
   },
   {
    "id": "accept/documents/model_tp_gemma3",
@@ -3038,14 +3028,14 @@
   {
    "id": "accept/documents/model_tp_phi3",
    "kind": "accept",
-   "verdict": "XFAIL",
-   "detail": "refused: IR_SPEC 3.1 (rule 38): general.architecture \"phi3\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's phi3 (IR_SPEC 9.3, Appendix D.8): the clean-room engine (revision]"
+   "verdict": "PASS",
+   "detail": "accepted"
   },
   {
    "id": "accept/documents/model_tp_qwen2moe",
    "kind": "accept",
-   "verdict": "XFAIL",
-   "detail": "refused: IR_SPEC 3.1 (rule 38): general.architecture \"qwen2moe\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's qwen2moe (IR_SPEC 9.3, Appendix D.10): the clean-room engine (rev]"
+   "verdict": "PASS",
+   "detail": "accepted"
   },
   {
    "id": "accept/documents/model_tp_qwen3",
@@ -3062,8 +3052,8 @@
   {
    "id": "accept/documents/model_tp_qwen3moe",
    "kind": "accept",
-   "verdict": "XFAIL",
-   "detail": "refused: IR_SPEC 3.1 (rule 38): general.architecture \"qwen3moe\" is neither \"paperkiln\" nor one of Appendix D's eight [expected to fail: revision 1.5's qwen3moe (IR_SPEC 9.3, Appendix D.10): the clean-room engine (rev]"
+   "verdict": "PASS",
+   "detail": "accepted"
   },
   {
    "id": "accept/documents/rewritten_pk_kimi",
@@ -3683,5 +3673,41 @@
    "verdict": "PASS",
    "detail": "content and calls equal"
   }
- ]
+ ],
+ "spec": {
+  "repository": "keramos",
+  "tag": "v1.6.1",
+  "commit": "0962a4fa7b84267e75f6db9cfdd67f927580e301"
+ },
+ "engine": {
+  "name": "keramos-cleanroom (Rust), kcr --conformance, revision 1.6; rustc 1.98.1 (48a229cea 2026-09-01), release, no crates, WSL ext4",
+  "environment": "CPython 3.12.3, numpy 2.3.3, WSL Ubuntu",
+  "run": "2026-10-30; full suite with current command-adapter protocol checks; 45 obsolete expected-failure entries removed after each passed; 11 skips are gradient capability only; independently reviewed routed LongRoPE fix and handcrafted cargo regression pass",
+  "source_commit": "1fd77ed6f58979493c86bffe8a06df8c165d2814",
+  "binary_sha256": "d1f88b8ff5dc5587f388b8a55f06d32d7a02aa21f18894dfc0bbc4cda033d41a"
+ },
+ "provenance": {
+  "runner_sha256": "877bd770cc799104a39a18e07f0afcc4ecce1a1c6483190bcc2b10b051e0acbf",
+  "manifest_sha256": "ed0d29666bf667d65fbc0a2d453d6fcb7183d2c3cb8f092abbf188d0cd8f75e0",
+  "expected_fail_sha256": "f569634cab06908df6bef818bd839621d798542ef4ff73188ac4418207969315",
+  "source_sha256": {
+   "cleanroom/rust/src/arch.rs": "599e433c2001d07444e5ff9844896d8166d5927132942a591925423ade8efe21",
+   "cleanroom/rust/src/chat.rs": "e43736ada7754e0afd774b079f5957964b73f95f8206e252168be58d42b2996f",
+   "cleanroom/rust/src/digest.rs": "b939130451f33154aec01eb7c113649e17586e9180378e42fb72d3203869670f",
+   "cleanroom/rust/src/expr.rs": "958c76e7a44efdb99ff07f57b0411b31d29d2b06db8db16c6602f1d7fb995f0c",
+   "cleanroom/rust/src/gguf.rs": "37d7b908875abc83c08db77e8a68ce795c32d2492f52baaf1a780a90e1a3d948",
+   "cleanroom/rust/src/json.rs": "e9e834d84e7bbd3e58fc4718ed2b1083b7c9eab296db7ff1255bb4db5b9ac27f",
+   "cleanroom/rust/src/main.rs": "264514a19350b4900f450f2637e5918ddca718f3d31a55cfad2e6b31c7daa141",
+   "cleanroom/rust/src/model.rs": "64baaf47e9874a27033f4445bfcc994374d58fafeed2f524a4e03a35a59f3950",
+   "cleanroom/rust/src/ops.rs": "d30ad0b7816dca3173f84a7e56ce5ed997bdff63298c5370f8c4a7ebb1c7a0cd",
+   "cleanroom/rust/src/quant.rs": "30a58139650b4565f640f54b153e0ae0d1a5f3ab8c0e1d08dd56d83430f2067e",
+   "cleanroom/rust/src/recurrence.rs": "8c3a6585b3e3182cebff6a4c52731d542ac177ddea3c38dae77d1aabe086cdfa",
+   "cleanroom/rust/src/rope_regression.rs": "63682b3124453fae974af557702436288df5574dc38d51d1b1c8da7be3802aca",
+   "cleanroom/rust/src/schema.rs": "fdabce290167bfbfd7f100ef398c5fddb0714963762f2623777907fad172d40e",
+   "cleanroom/rust/src/session.rs": "6db92458b5d4734b55adbdc41532a8b5dff1099adc12b93a60aa53abc02d3b44",
+   "cleanroom/rust/src/sha256.rs": "493a27dfe3d5c178d55f75e8fdd700d50216e797a792ffe1596a383043b13cce",
+   "cleanroom/rust/src/tensor.rs": "35ee1956c2f528527476fc9849dc34a100fac6b3149a1a85078df17bb56bd688",
+   "cleanroom/rust/src/validate.rs": "6a69db59ef8d0b8aa9923dac681ec0e879d0bc4380d4ccad4aec1d755493217e"
+  }
+ }
 }

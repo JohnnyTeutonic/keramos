@@ -67,6 +67,16 @@ any FAIL. `conformance/expected_fail.json` lists, per engine, the cases it is kn
 A Python engine can instead subclass `ir_conformance.Adapter` and call
 `ir_conformance.main(argv, adapters={"name": factory})`.
 
+## Independent Rust implementation
+
+The clean-room Rust interpreter in `cleanroom/rust/` implements revision 1.6 from the specification.
+Its 30 October receipt passes **587 cases**, with **zero failures or expected failures**; the remaining
+11 cases require gradients, which this inference engine does not implement. The source/read log and
+findings remain under `cleanroom/`. The current full receipt is
+[`conformance/receipts/cleanroom.json`](conformance/receipts/cleanroom.json); `cleanroom/receipt.json`
+is the preserved historical first receipt, not the current result. This closes the revision catch-up;
+it does not claim hardware/backend conformance for another engine.
+
 ## Versions
 
 A document carries `ir_version` (now 1). The specification has revisions within a version (1.0,
