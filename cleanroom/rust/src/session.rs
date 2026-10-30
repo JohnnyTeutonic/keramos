@@ -86,7 +86,7 @@ impl Session {
         let mut all = self.ids.clone();
         all.extend_from_slice(ids);
         let codes = self.codes(m, &all);
-        let rows = Rows { pos: (base..base + n).collect() };
+        let rows = Rows { pos: (base..base + n).collect(), sequence_len: base + n };
         let mut env: Env = HashMap::new();
         env.insert("tokens".into(), Val::I(ids.to_vec()));
         env.insert("pos".into(), Val::I(rows.pos.iter().map(|&p| p as i64).collect()));
@@ -307,7 +307,7 @@ fn run_block(m: &Model, env: &mut Env, rows: &Rows, codes: Option<&Codes>, slots
             continue; // (d) a step with no active token is skipped
         }
         let mut sub = gather_env(env, &active, full);
-        let sub_rows = Rows { pos: active.iter().map(|&t| rows.pos[t]).collect() };
+        let sub_rows = Rows { pos: active.iter().map(|&t| rows.pos[t]).collect(), sequence_len: rows.sequence_len };
         for (ni, node) in m.block.iter().enumerate().skip(1) {
             let ctx = Ctx { model: m, app: Some(a), rows: &sub_rows, codes, section: 1, node_index: ni };
             ops::exec(&ctx, node, &mut sub, slots)?;

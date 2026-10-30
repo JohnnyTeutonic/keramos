@@ -90,6 +90,8 @@ impl Codes {
 #[derive(Clone, Debug)]
 pub struct Rows {
     pub pos: Vec<usize>,
+    /// Final session length, retained when depth routing gathers only active rows.
+    pub sequence_len: usize,
 }
 
 pub struct Ctx<'a> {
@@ -502,7 +504,7 @@ pub fn exec(ctx: &Ctx, node: &Json, env: &mut Env, slots: &mut Slots) -> Result<
                 Some(Json::Arr(values)) => values.iter().map(|v| v.as_f64().unwrap_or(0.0) as f32).collect(),
                 Some(v) => {
                     let name = if let Some(name) = v.as_str() { name } else {
-                        let length = pos.iter().max().copied().unwrap_or(-1) + 1;
+                        let length = ctx.rows.sequence_len as i64;
                         v.get(if length > v.get("original_ctx").and_then(|n| n.as_i64()).unwrap_or(0) { "long" } else { "short" })
                             .and_then(|n| n.as_str()).ok_or("rope: frequency factor name")?
                     };

@@ -440,7 +440,8 @@ fn run_node(p: &Json) -> Result<Reply, String> {
             pre.rec.insert((sn.clone(), 0), v);
         }
     }
-    let rows = ops::Rows { pos };
+    let sequence_len = pos.iter().max().copied().map(|p| p + 1).unwrap_or(0);
+    let rows = ops::Rows { pos, sequence_len };
     let ctx = ops::Ctx { model: &model, app: Some(0), rows: &rows, codes: None, section: 1, node_index: 0 };
     ops::exec(&ctx, &node, &mut env, &mut pre)?;
     let mut outj = Vec::new();
@@ -619,3 +620,6 @@ fn main() {
         }
     }
 }
+
+#[cfg(test)]
+mod rope_regression;
