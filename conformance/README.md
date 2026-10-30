@@ -37,6 +37,11 @@ in paperkiln, which vendors this repository at `spec/` (`spec/IR_SPEC.md` is `IR
 Each case prints PASS, FAIL or SKIP; a case an engine cannot run is a SKIP, never a PASS. The exit
 status is 1 on any FAIL.
 
+The command adapter checks section 11.3's reply envelope before interpreting a method's result:
+the reply must echo the request's integer ID and contain exactly one correctly typed `result`,
+`error` or `skip`. A stale or malformed reply fails the case; an `error` cannot be hidden by also
+including `skip`.
+
 ## Adding an engine
 
 Write a program that reads one JSON request per line on stdin and writes one JSON reply per line on

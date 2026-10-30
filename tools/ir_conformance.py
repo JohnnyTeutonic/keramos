@@ -401,6 +401,19 @@ class CmdAdapter(Adapter):
         if not line:
             raise RuntimeError(f"the engine closed its output during {method}")
         r = json.loads(line)
+        # Section 11.3: one reply for this request, with exactly one outcome.
+        # Otherwise a stale result can pass the next case, or an ambiguous
+        # error/skip reply can hide an engine failure as a missing capability.
+        if not isinstance(r, dict):
+            raise RuntimeError(f"invalid reply during {method}: expected an object")
+        if type(r.get("id")) is not int or r["id"] != self.n:
+            raise RuntimeError(f"invalid reply during {method}: expected id {self.n}, got {r.get('id')!r}")
+        outcomes = [key for key in ("result", "error", "skip") if key in r]
+        if len(outcomes) != 1:
+            raise RuntimeError(f"invalid reply during {method}: expected exactly one of result, error, skip")
+        outcome = outcomes[0]
+        if not isinstance(r[outcome], dict if outcome == "result" else str):
+            raise RuntimeError(f"invalid reply during {method}: {outcome} has the wrong type")
         if "skip" in r:
             raise NotImplementedError(r["skip"])
         if "error" in r:
