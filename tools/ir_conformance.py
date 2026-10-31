@@ -684,7 +684,9 @@ def run_trace(adapter, case, model_dir, tol):
         # An engine without a score path: report the session's own skip reason, not the base class's empty one.
         raise (e if str(e) else first) from None
     ref = np.array(sf["logprobs"])
-    worst = float(np.max(np.abs(np.array(res["logprobs"]) - ref))) / max(1.0, float(np.max(np.abs(ref))))
+    worst, reason = _rounding_error(np.asarray(res["logprobs"], dtype=np.float64), ref)
+    if reason is not None:
+        return False, f"decode by kv cache, token by token: log-probs {reason} (via the adapter's score)"
     ok, msgs = worst <= tol and res["argmax"] == sf["argmax"], [f"decode by kv cache, token by token: log-probs "
                                                                    f"worst {worst:.2e}, greedy "
                                                                    f"{'same' if res['argmax'] == sf['argmax'] else 'DIFFERS'}"]

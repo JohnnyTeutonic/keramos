@@ -84,6 +84,7 @@ scalar expression is not endorsed as an implemented or validated correction.
 |---|---|---|
 | External adapters lacked the runner's `tools` argument, aborting chat cases before SKIP | [197b6ac](https://github.com/JohnnyTeutonic/keramos/commit/197b6ac); both adapter signatures repaired | [Full pinned reruns](adapters/receipts/chat_signature_20261031/): all 598 cases complete per engine, all 437 historical verdicts preserved, 86 chat SKIPs each; four crash regressions pass |
 | Two-set LongRoPE's length-dependent denotation was not explicitly named non-causal | [197b6ac](https://github.com/JohnnyTeutonic/keramos/commit/197b6ac), informative clarification in §§3.9/4.5 | Existing factor-selection and recomputation rules preserved; earlier rows across a factor crossing are not a chunk-invariance guarantee |
+| Cached-score trace comparison broadcast shortened or wrongly shaped score arrays, allowing a false PASS | Use the existing shape-aware ROUNDING comparison before crediting a trace | [Regression and validation](adapters/receipts/trace_score_shape_20261031/): two old false passes reproduced; eight new controls and the complete test suite pass; external engine receipts not rerun |
 
 These are internal tooling/wording repairs. They are separate from upstream engine
 fixes and are not counted as additional external defects.

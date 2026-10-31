@@ -194,3 +194,28 @@ def test_model_score_keeps_float64_comparison(tmp_path):
     case = {"prompts": [{"ids": [1], "continuation": [2], "logprobs": [-1.0], "argmax": [2]}]}
     ok, _ = conf.run_model_case(ScoredModelAdapter([-1.0 - 1e-8]), case, model, 1e-9)
     assert not ok
+
+
+class ScoredTraceAdapter(conf.Adapter):
+    def __init__(self, lp):
+        self.lp = lp
+
+    def score(self, model_dir, ids, continuation, **kwargs):
+        return {"logprobs": self.lp, "argmax": [2, 2]}
+
+
+@pytest.mark.parametrize("lp, expected", [
+    ([-1.0, -1.0], True), ([-1.000005, -1.0], True),
+    ([-1.00002, -1.0], False), ([-1.0], False),
+    ([[-1.0], [-1.0]], False), ([np.nan, -1.0], False),
+    ([np.inf, -1.0], False), ([-np.inf, -1.0], False),
+])
+def test_trace_score_fallback_requires_complete_finite_score_vector(tmp_path, lp, expected):
+    model = tmp_path / "stub"
+    model.mkdir()
+    (model / "stub.gguf").touch()
+    case = {"steps": [], "expect": [], "score_form": {
+        "prompt": [1], "continuation": [2, 2], "evict": False,
+        "logprobs": [-1.0, -1.0], "argmax": [2, 2]}}
+    ok, detail = conf.run_trace(ScoredTraceAdapter(lp), case, model, 1e-5)
+    assert ok == expected, detail
