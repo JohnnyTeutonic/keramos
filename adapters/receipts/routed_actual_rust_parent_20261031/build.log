@@ -1,0 +1,8 @@
+   Compiling keramos-cleanroom v0.4.0 (/home/jonat/keramos_routed_actual_parent_20261031/old/cleanroom/rust)
+error: couldn't read `/home/jonat/keramos_routed_actual_parent_20261031/old/cleanroom/rust/../../ir.schema.json`: No such file or directory (os error 2)
+  --> src/schema.rs:13:20
+   |
+13 |         let text = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/../../ir.schema.json"));
+   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: could not compile `keramos-cleanroom` (bin "kcr") due to 1 previous error

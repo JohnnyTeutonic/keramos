@@ -1,0 +1,3 @@
+adapter keramos-cleanroom (Rust) (backend cpu, exact True); 301 cases
+FAIL trace/routed_longrope_session_length: 1 steps; step 0 logits worst 2.03e-04 of max(1, |ref|)
+summary keramos-cleanroom (Rust): 0 pass, 1 fail, 0 skip, 0 xfail, 0 xpass; by kind trace 0/1/0 (pass/fail/skip)

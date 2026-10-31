@@ -1,0 +1,151 @@
+{
+ "old_source_commit": "9c69143c8e33b10a4d442543b31d7a14ff9baf46",
+ "current_runner_fixture_commit": "a4a4409928e81234d01f7d3257be6fbcfef5b15f",
+ "ops_fix_commit": "1fd77ed6f58979493c86bffe8a06df8c165d2814",
+ "build": {
+  "offline": true,
+  "jobs": 1,
+  "rustflags": "-C codegen-units=1",
+  "address_space_limit_bytes": 1610612736,
+  "budget_session": "keramos",
+  "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "note": "First archive-only build failed: schema.rs requires ../../ir.schema.json. Added unmodified schema from SAME old commit; successful retry retained all resource caps."
+ },
+ "old_source_sha256": {
+  "cleanroom/rust/Cargo.lock": "fac123042c777c9e459dea0cdc47519c89a5bc6913bb44f273506d33969f3b96",
+  "cleanroom/rust/Cargo.toml": "4cc9977ee5dd96aa42c211b72b7dbd2ca3c1d3c965e217ebfefe662fb50914b4",
+  "cleanroom/rust/src/arch.rs": "dd8b3c285f7bbb267b0af2d441fee05b10e2ffbafa0cc25339c4a982e65995f5",
+  "cleanroom/rust/src/chat.rs": "53ff8d774aee5243a79b5f5d3057dbdceabc73e070d22f430749326e5fc0c2c3",
+  "cleanroom/rust/src/digest.rs": "b939130451f33154aec01eb7c113649e17586e9180378e42fb72d3203869670f",
+  "cleanroom/rust/src/expr.rs": "958c76e7a44efdb99ff07f57b0411b31d29d2b06db8db16c6602f1d7fb995f0c",
+  "cleanroom/rust/src/gguf.rs": "37d7b908875abc83c08db77e8a68ce795c32d2492f52baaf1a780a90e1a3d948",
+  "cleanroom/rust/src/json.rs": "87613b9b67c01e2cf9cce934d2e50f6cea3fd68b5ee4bfee43479cacd99bb9ee",
+  "cleanroom/rust/src/main.rs": "82746e8f39cef541d344caabc5ff7386736b824542295d9281681a0c57a27a83",
+  "cleanroom/rust/src/model.rs": "aa0f82ae468efd07c34ef527ae503bb73f2204b4636d8335f6c345f5d47b7ca3",
+  "cleanroom/rust/src/ops.rs": "662e31d05c93b271d8baf4513fce2ea543e3dccee9c0a83c88bac1f444ddbdd2",
+  "cleanroom/rust/src/quant.rs": "30a58139650b4565f640f54b153e0ae0d1a5f3ab8c0e1d08dd56d83430f2067e",
+  "cleanroom/rust/src/recurrence.rs": "8c3a6585b3e3182cebff6a4c52731d542ac177ddea3c38dae77d1aabe086cdfa",
+  "cleanroom/rust/src/schema.rs": "fdabce290167bfbfd7f100ef398c5fddb0714963762f2623777907fad172d40e",
+  "cleanroom/rust/src/session.rs": "247ca263bd0dd898a26e427ccc4a3a4307488f6a23f04ad9e7cea8ffb204154d",
+  "cleanroom/rust/src/sha256.rs": "493a27dfe3d5c178d55f75e8fdd700d50216e797a792ffe1596a383043b13cce",
+  "cleanroom/rust/src/tensor.rs": "35ee1956c2f528527476fc9849dc34a100fac6b3149a1a85078df17bb56bd688",
+  "cleanroom/rust/src/validate.rs": "4fdec56999e68299704a5a13a78636905869050a094225d1e26acdbfe7eb1a7c",
+  "ir.schema.json": "41c6e76bdc494657fd444081d2b224d83f34c29c84dc8a889973e6d4f8b1e285"
+ },
+ "current_runner_modules_sha256": {
+  "tools/gguf_ir.py": "bebf01e8db932c471e3028f59ca31987cd4e15ab48a5ea0ee6404dca07400d78",
+  "tools/gguf_relabel.py": "564b0738c38a64c9a3b15d4d049c3177ecc8698486c35ec1efa98df591a11de0",
+  "tools/ir_chat.py": "d4101c2968510d1721fedb0c0e7fa5165194a92603f44bb9b0d4bee16bcb35e5",
+  "tools/ir_check.py": "384a99810d5b675b212da1b2ab6a05f79ecc6bd6bb746e07c90eea7f748ec878",
+  "tools/ir_conformance.py": "4520263cd20151a2f2cdcf64809f08569540fcf2677ab7d75b08b97653ec5d92",
+  "tools/ir_conformance_gen.py": "009d69ac368ed5f2438be95f4581ef289482aca82c06461d4bb4e29961a1f287",
+  "tools/ir_expr.py": "0a7428aec67a439c92ac10d5a7d39293afa942811b849a66c73185368efb2be3",
+  "tools/ir_numpy.py": "52fb2e8ad1c87b837f90416cf67fefa58d820230248c2891ca8c4b92f445e868",
+  "tools/ir_quant.py": "e484a5773da6e10d94a2c55ab41fa6344dfae5e4d6ddb46890f57e9e61670a3f",
+  "tools/ir_recurrence.py": "01f351a8c9c99c8122ec06ebcd79120f56a68fa30c332499b742273250ee4cb4",
+  "tools/ir_routed_longrope_coverage.py": "dbb866d2c61cbeab530bdf78aaa8044d8566f3bd8da7fee027f34b8eb1a560ac",
+  "tools/ir_validate.py": "4bebada698c88c5f5b972908cab6b4ea90ae399fdd7443c0d1f52da4c65a5ab4",
+  "tools/ir_window_rewind_coverage.py": "df5a451725e6a34a2f1d2a84c461189ead9babeb2e8a21f813b54bd20cc6f2cb"
+ },
+ "fixtures": {
+  "conformance/state/routed_longrope_session_length.json": "0ad0f08533ef23a082a377b13832a4fbe841bb516d8f165e6c481c45d503068e",
+  "conformance/regressions/routed_longrope/routed_longrope.gguf": "18fc9429fe28f2732cfb258cea9469043d650d1fe84e07586aa0e7ebed42e06c",
+  "conformance/manifest.json": "442e386370d07fab69dcfaaf19531b156f98d2b4b806881530510d3bb499676c"
+ },
+ "binaries": {
+  "old": {
+   "path": "/home/jonat/keramos_routed_actual_parent_20261031/target/release/kcr",
+   "sha256": "b0b3713d3f381c946b4808d56ac3077762de62250dc3f88e6bc3cf845054d3b0"
+  },
+  "corrected": {
+   "path": "/home/jonat/cleanroom_build/target_codex_20261030/release/kcr",
+   "sha256": "d1f88b8ff5dc5587f388b8a55f06d32d7a02aa21f18894dfc0bbc4cda033d41a",
+   "provenance_limit": "Pre-existing corrected binary supplied by parent. Hash pinned here; not rebuilt for this paired check."
+  }
+ },
+ "results": {
+  "old": {
+   "adapter": {
+    "engine": "keramos-cleanroom (Rust)",
+    "backend": "cpu",
+    "exact": true,
+    "profiles": [
+     "chat",
+     "core",
+     "recurrence",
+     "recursion",
+     "state",
+     "thirdparty"
+    ]
+   },
+   "counts": {
+    "PASS": 0,
+    "FAIL": 1,
+    "SKIP": 0,
+    "XFAIL": 0,
+    "XPASS": 0
+   },
+   "by_kind": {
+    "trace": {
+     "PASS": 0,
+     "FAIL": 1,
+     "SKIP": 0,
+     "XFAIL": 0,
+     "XPASS": 0
+    }
+   },
+   "results": [
+    {
+     "id": "trace/routed_longrope_session_length",
+     "kind": "trace",
+     "verdict": "FAIL",
+     "detail": "1 steps; step 0 logits worst 2.03e-04 of max(1, |ref|)"
+    }
+   ]
+  },
+  "corrected": {
+   "adapter": {
+    "engine": "keramos-cleanroom (Rust)",
+    "backend": "cpu",
+    "exact": true,
+    "profiles": [
+     "chat",
+     "core",
+     "recurrence",
+     "recursion",
+     "state",
+     "thirdparty"
+    ]
+   },
+   "counts": {
+    "PASS": 1,
+    "FAIL": 0,
+    "SKIP": 0,
+    "XFAIL": 0,
+    "XPASS": 0
+   },
+   "by_kind": {
+    "trace": {
+     "PASS": 1,
+     "FAIL": 0,
+     "SKIP": 0,
+     "XFAIL": 0,
+     "XPASS": 0
+    }
+   },
+   "results": [
+    {
+     "id": "trace/routed_longrope_session_length",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "1 steps"
+    }
+   ]
+  }
+ },
+ "exit_codes": {
+  "old": 1,
+  "corrected": 0
+ }
+}

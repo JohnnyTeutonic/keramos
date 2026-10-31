@@ -1,0 +1,39 @@
+{
+ "adapter": {
+  "engine": "keramos-cleanroom (Rust)",
+  "backend": "cpu",
+  "exact": true,
+  "profiles": [
+   "chat",
+   "core",
+   "recurrence",
+   "recursion",
+   "state",
+   "thirdparty"
+  ]
+ },
+ "counts": {
+  "PASS": 0,
+  "FAIL": 1,
+  "SKIP": 0,
+  "XFAIL": 0,
+  "XPASS": 0
+ },
+ "by_kind": {
+  "trace": {
+   "PASS": 0,
+   "FAIL": 1,
+   "SKIP": 0,
+   "XFAIL": 0,
+   "XPASS": 0
+  }
+ },
+ "results": [
+  {
+   "id": "trace/routed_longrope_session_length",
+   "kind": "trace",
+   "verdict": "FAIL",
+   "detail": "1 steps; step 0 logits worst 2.03e-04 of max(1, |ref|)"
+  }
+ ]
+}
