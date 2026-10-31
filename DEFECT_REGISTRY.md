@@ -5,7 +5,7 @@ Each entry connects the execution contract, a reproduction, the evidence and the
 upstream disposition. These external engines do not claim to implement Keramos;
 the contract supplies an explicit oracle for investigating their native behaviour.
 
-Last published upstream observation: **31 October 2026**.
+Last published upstream observation: **1 November 2026 (Sydney)**.
 [Machine-readable issue observations](defects/upstream_status.json).
 There are eight filed upstream issues; one contains three distinct mapping findings.
 Contributor activity is recorded below. No merged or released fix is established
@@ -56,7 +56,15 @@ unattributed discrepancies remain in the adapter findings, outside the issue cou
 - Scope: llama.cpp b6000, CPU, synthetic Gemma 3, `swa_full=false`; fresh-prefill,
   retained-window and `swa_full=true` controls distinguish the lost-history case.
 - Upstream: [llama.cpp #31457](https://github.com/ggml-org/llama.cpp/issues/31457).
-- Status: **reported, open**. No maintainer confirmation or verified fix recorded.
+- Status: **independently reproduced; candidate PR submitted, open**.
+  [kukirin-ui's Gemma 3 reproduction and proposed guard](https://github.com/ggml-org/llama.cpp/issues/31457#issuecomment-6544365998)
+  and [author handoff](https://github.com/ggml-org/llama.cpp/issues/31457#issuecomment-6544470364)
+  supersede the earlier reported-only observation.
+  [PR #31483](https://github.com/ggml-org/llama.cpp/pull/31483), head
+  `35e2854b272498ef79d503206782ba8aa7cc4450`, proposes refusing the cut before
+  touching either cache. Its author reports a before/after regression and existing
+  context tests passing; Keramos has not rerun them. A bot flags the new-contributor
+  open-PR limit. A requested reviewer is not assignment or maintainer confirmation.
 - Resolution / retest: none recorded; the server's existing guard is a control,
   not evidence that the library API was fixed.
 
@@ -65,10 +73,10 @@ unattributed discrepancies remain in the adapter findings, outside the issue cou
 | ID / finding | Contract used for diagnosis | Reproduction and evidence | Upstream / current status |
 |---|---|---|---|
 | HF-GEMMA3-CONFIG: GGUF loading loses global RoPE scaling and the attention scalar | [RoPE §5.14](IR_SPEC.md#514-rope), [attention §5.15](IR_SPEC.md#515-attention), metadata-derived graph (Appendix D) | [GGUF probe](adapters/hf/repro/gguf_gemma3.py), [findings](adapters/hf/FINDINGS.txt); transformers 5.20.2, synthetic Gemma 3, same-tensor config substitution controls | [#50196](https://github.com/huggingface/transformers/issues/50196), **proposed fix; contributor volunteering**. [Proposal](https://github.com/huggingface/transformers/issues/50196#issuecomment-6541734739). No independent reproduction or merged fix established by that comment. |
-| HF-MIXTRAL-GRAPH: llama-with-experts GGUF becomes a dense Llama with newly initialised MLPs | Metadata-derived graph and [closed-set refusal](IR_SPEC.md#10-validation): preserve expert/router semantics or explicitly refuse unsupported input | [Mixtral probe](adapters/hf/repro/gguf_mixtral.py), [findings](adapters/hf/FINDINGS.txt); synthetic GGUF, direct Mixtral construction as control | [#50197](https://github.com/huggingface/transformers/issues/50197), **reported, open**, part 1 |
-| HF-QWEN3-HEAD: GGUF key length does not determine the loaded head dimension | Metadata-derived projection/head geometry and [attention](IR_SPEC.md#515-attention) | [mapping-gap probe](adapters/hf/repro/gguf_gaps.py), [findings](adapters/hf/FINDINGS.txt); non-default synthetic head size, first-forward shape error | [#50197](https://github.com/huggingface/transformers/issues/50197), **reported, open**, part 2 |
-| HF-MISTRAL-DETECTION: model-name detection loses Mistral's window | [Attention window](IR_SPEC.md#515-attention), metadata-derived graph | [mapping-gap probe](adapters/hf/repro/gguf_gaps.py), [findings](adapters/hf/FINDINGS.txt); GGUF reader and name/detection controls | [#50197](https://github.com/huggingface/transformers/issues/50197), **reported, open**, part 3 |
-| LC-NEOX-GELU: GPT-NeoX uses tanh GELU where the checkpoint declares erf GELU | [GELU §5.8](IR_SPEC.md#58-gelu), GPT-NeoX graph in Appendix D | [Pythia comparison](adapters/llamacpp/repro/pythia_compare.py), [b6000 probe](adapters/llamacpp/probe_b6000.json), [findings](adapters/llamacpp/FINDINGS.txt); synthetic model and activation/table controls | [llama.cpp #31456](https://github.com/ggml-org/llama.cpp/issues/31456), **reported, open** |
+| HF-MIXTRAL-GRAPH: llama-with-experts GGUF becomes a dense Llama with newly initialised MLPs | Metadata-derived graph and [closed-set refusal](IR_SPEC.md#10-validation): preserve expert/router semantics or explicitly refuse unsupported input | [Mixtral probe](adapters/hf/repro/gguf_mixtral.py), [findings](adapters/hf/FINDINGS.txt); synthetic GGUF, direct Mixtral construction as control | [#50197](https://github.com/huggingface/transformers/issues/50197), **candidate PR submitted, open**, part 1: [#50206](https://github.com/huggingface/transformers/pull/50206) |
+| HF-QWEN3-HEAD: GGUF key length does not determine the loaded head dimension | Metadata-derived projection/head geometry and [attention](IR_SPEC.md#515-attention) | [mapping-gap probe](adapters/hf/repro/gguf_gaps.py), [findings](adapters/hf/FINDINGS.txt); non-default synthetic head size, first-forward shape error | [#50197](https://github.com/huggingface/transformers/issues/50197), **candidate PR submitted, open**, part 2: [#50206](https://github.com/huggingface/transformers/pull/50206) |
+| HF-MISTRAL-DETECTION: model-name detection loses Mistral's window | [Attention window](IR_SPEC.md#515-attention), metadata-derived graph | [mapping-gap probe](adapters/hf/repro/gguf_gaps.py), [findings](adapters/hf/FINDINGS.txt); GGUF reader and name/detection controls | [#50197](https://github.com/huggingface/transformers/issues/50197), **candidate PR submitted, open**, part 3: [#50206](https://github.com/huggingface/transformers/pull/50206) |
+| LC-NEOX-GELU: GPT-NeoX uses tanh GELU where the checkpoint declares erf GELU | [GELU §5.8](IR_SPEC.md#58-gelu), GPT-NeoX graph in Appendix D | [Pythia comparison](adapters/llamacpp/repro/pythia_compare.py), [b6000 probe](adapters/llamacpp/probe_b6000.json), [findings](adapters/llamacpp/FINDINGS.txt); synthetic model and activation/table controls | [llama.cpp #31456](https://github.com/ggml-org/llama.cpp/issues/31456), **contributor proposal; activation scope clarified**, open; details below |
 | ORT-GEMMA3-LOCAL-ROPE: local rotary caches inherit global scaling | [RoPE §5.14](IR_SPEC.md#514-rope), Gemma 3 per-layer graph | [reproduction](adapters/ortgenai/repro/gemma3.py), [local-only diagnostic correction](adapters/ortgenai/repro/builder_local_rope_fix.py), [findings](adapters/ortgenai/FINDINGS.txt); synthetic model, documented config/head-size workarounds | [ORT GenAI #2831](https://github.com/microsoft/onnxruntime-genai/issues/2831), **reported, open** |
 | ORT-MISTRAL-WINDOW: builder omits sliding attention when layer_types is absent | [Attention window §5.15](IR_SPEC.md#515-attention) | [reproduction](adapters/ortgenai/repro/mistral.py), [findings](adapters/ortgenai/FINDINGS.txt); builder 0.18.0, synthetic model, no-window reference control | [ORT GenAI #2832](https://github.com/microsoft/onnxruntime-genai/issues/2832), **reported, open** |
 | ORT-GQA-SHAPE: emitted CPU fused-rotary GQA cannot execute the configured head size | [Explicit capability refusal §10.3](IR_SPEC.md#103-engine-capability-refusals) and attention geometry; a native builder/kernel compatibility finding | [head-size matrix](adapters/ortgenai/repro/head_size.py), [unfused control](adapters/ortgenai/repro/builder_unfused_rope.py), [findings](adapters/ortgenai/FINDINGS.txt); CPU kernel constraints differ with fused rotary | [ORT GenAI #2833](https://github.com/microsoft/onnxruntime-genai/issues/2833), **reported, open** |
@@ -77,6 +85,23 @@ For the table's open reports, **no verified fix, fixed release or post-fix retes
 is recorded yet**. This describes the linked observations, not a claim that no
 unlinked work exists. The Gemma 3 proposal is recorded as a proposal; its attention
 scalar expression is not endorsed as an implemented or validated correction.
+
+For #50197, RohanQ17's [PR #50206](https://github.com/huggingface/transformers/pull/50206)
+at head `632906fb2a33eb1045f2ce0e3585e0ad32ecf14f` proposes all three mapping
+corrections and reports six CPU tests passing. Its CI security gate is waiting
+for maintainer approval; no human confirmation, merge, release or original-probe
+retest is established. A separate contributor-fork
+[test commit](https://github.com/anishpentyala/transformers/commit/67eb3ee8b236d2ec6264aa5d5f5671503a2ba05a)
+references the issue; it is test work, not an upstream merged fix.
+
+For #31456, [kukirin-ui points out](https://github.com/ggml-org/llama.cpp/issues/31456#issuecomment-6544370718)
+that GPT-NeoX-20B uses `gelu_fast` (tanh), so replacing every GPT-NeoX activation
+with erf would be wrong. The proposal carries `hidden_act` through conversion and
+selects the graph activation from it; the contributor reports improved Pythia-14m
+logits. [The reporter agrees with this scope correction](https://github.com/ggml-org/llama.cpp/issues/31456#issuecomment-6544470630).
+This preserves the original erf-checkpoint finding, rather than generalising it
+to every GPT-NeoX checkpoint. No corresponding submitted PR or Keramos retest was
+verified in this check.
 
 ## Keramos-side repairs and specification clarifications
 
