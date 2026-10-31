@@ -1,0 +1,112 @@
+{
+  "source": "GitHub issue and all-comment reads through GitHub connector; open issues and comments alone do not establish resolution.",
+  "issues": [
+    {
+      "issue_number": 50195,
+      "url": "https://github.com/huggingface/transformers/issues/50195",
+      "title": "Mamba (Mamba-1): forward of several tokens over a primed cache restarts the selective scan from zero and returns wrong logits",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-10-31T10:25:54Z",
+      "closed_at": null,
+      "assignees": null,
+      "comments": [
+        {
+          "url": "https://github.com/huggingface/transformers/issues/50195#issuecomment-6540811484",
+          "login": "ps-abhi",
+          "id": 6540811484
+        },
+        {
+          "url": "https://github.com/huggingface/transformers/issues/50195#issuecomment-6542210716",
+          "login": "JohnnyTeutonic",
+          "id": 6542210716
+        }
+      ]
+    },
+    {
+      "issue_number": 50196,
+      "url": "https://github.com/huggingface/transformers/issues/50196",
+      "title": "GGUF: Gemma 3 loses global-layer RoPE linear scaling and query_pre_attn_scalar when loaded from a llama.cpp GGUF",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-10-31T09:32:35Z",
+      "closed_at": null,
+      "assignees": null,
+      "comments": [
+        {
+          "url": "https://github.com/huggingface/transformers/issues/50196#issuecomment-6541734739",
+          "login": "mohitdixit02",
+          "id": 6541734739
+        }
+      ]
+    },
+    {
+      "issue_number": 50197,
+      "url": "https://github.com/huggingface/transformers/issues/50197",
+      "title": "GGUF reader: llama.cpp Mixtral loads as dense Llama with random MLPs; Qwen3 head_dim and Mistral detection not mapped",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-10-31T04:21:54Z",
+      "closed_at": null,
+      "assignees": null,
+      "comments": []
+    },
+    {
+      "issue_number": 31456,
+      "url": "https://github.com/ggml-org/llama.cpp/issues/31456",
+      "title": "gptneox: FFN uses tanh GELU (LLM_FFN_GELU) but GPT-NeoX/Pythia are trained with exact erf GELU",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-10-31T04:21:01Z",
+      "closed_at": null,
+      "assignees": null,
+      "comments": []
+    },
+    {
+      "issue_number": 31457,
+      "url": "https://github.com/ggml-org/llama.cpp/issues/31457",
+      "title": "iSWA: llama_memory_seq_rm returns true after a cut into overwritten SWA rows (swa_full=false), next decode silently wrong",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-10-31T04:22:22Z",
+      "closed_at": null,
+      "assignees": null,
+      "comments": []
+    },
+    {
+      "issue_number": 2831,
+      "url": "https://github.com/microsoft/onnxruntime-genai/issues/2831",
+      "title": "Model builder: Gemma 3 sliding layers inherit the global layers RoPE linear scaling (rescale_factors)",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-10-31T04:23:04Z",
+      "closed_at": null,
+      "assignees": null,
+      "comments": []
+    },
+    {
+      "issue_number": 2832,
+      "url": "https://github.com/microsoft/onnxruntime-genai/issues/2832",
+      "title": "Model builder: Mistral sliding_window dropped (no layer_types, every layer full attention), regression since 0.15.2",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-10-31T04:23:05Z",
+      "closed_at": null,
+      "assignees": null,
+      "comments": []
+    },
+    {
+      "issue_number": 2833,
+      "url": "https://github.com/microsoft/onnxruntime-genai/issues/2833",
+      "title": "Model builder emits CPU GroupQueryAttention with fused rotary for head sizes the CPU kernel refuses",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-10-31T04:23:14Z",
+      "closed_at": null,
+      "assignees": null,
+      "comments": []
+    }
+  ],
+  "checked_on": "2026-10-31",
+  "maintained_by": "Daily scheduled review, with publication on meaningful verified changes"
+}
