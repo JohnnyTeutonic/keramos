@@ -365,7 +365,7 @@ class HFAdapter(rc.Adapter):
     def digest(self, text, prose=False):
         raise NotImplementedError("transformers has no IR digest")
 
-    def render_chat(self, record, messages, generation_prompt=False, thinking=None):
+    def render_chat(self, record, messages, generation_prompt=False, thinking=None, tools=None):
         raise NotImplementedError("transformers renders Jinja chat templates, not IR template records")
 
     def dequantize(self, type_name, n, raw):
