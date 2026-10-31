@@ -1,0 +1,3794 @@
+{
+ "audit_harness_sha256": "4b759dc3b0786d4dfe39e71c85ad2b91e2382086d6df7ce640cfaf0b25b5f794",
+ "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+ "numpy": "2.3.3",
+ "runner": {
+  "path": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/tools/ir_conformance.py",
+  "sha256": "aae39563ff1fcdc0b9f00fa353e149deafa703693ee07df244ada48ba053b452"
+ },
+ "runner_modules": {
+  "gguf_ir.py": "1b5b022e07fb1e81d7ffe024e35937218f4e83a55e9a1660a41798f9b8960228",
+  "gguf_relabel.py": "564b0738c38a64c9a3b15d4d049c3177ecc8698486c35ec1efa98df591a11de0",
+  "ir_chat.py": "d4101c2968510d1721fedb0c0e7fa5165194a92603f44bb9b0d4bee16bcb35e5",
+  "ir_check.py": "384a99810d5b675b212da1b2ab6a05f79ecc6bd6bb746e07c90eea7f748ec878",
+  "ir_conformance.py": "aae39563ff1fcdc0b9f00fa353e149deafa703693ee07df244ada48ba053b452",
+  "ir_conformance_gen.py": "390afae234bcb24a23d6658dc622ec8541343e149ee756e52502b9db3c902136",
+  "ir_expr.py": "0a7428aec67a439c92ac10d5a7d39293afa942811b849a66c73185368efb2be3",
+  "ir_numpy.py": "bae4346a68ffb310d4ceb310134aaa90c1dd305f1325a9542080da2e4c9ed0bd",
+  "ir_quant.py": "e484a5773da6e10d94a2c55ab41fa6344dfae5e4d6ddb46890f57e9e61670a3f",
+  "ir_recurrence.py": "01f351a8c9c99c8122ec06ebcd79120f56a68fa30c332499b742273250ee4cb4",
+  "ir_validate.py": "479b4ad6026a75dbcac756543eb5b8ad3a2d9245458cd68cf493bacf1934c24e"
+ },
+ "adapter": {
+  "path": "/home/jonat/keramos_trace_receipt_audit_20261031/paperkiln/tools/ir_conformance_mtstudio.py",
+  "sha256": "c8736448d3f713cca4b02276cde235fd34fcbc41ba457775231a13253de9bd52"
+ },
+ "binary": {
+  "path": "/home/jonat/keramos_trace_receipt_audit_20261031/build/mtstudio",
+  "sha256": "2ab8b5a6711dee9a8155846312a701cd7df5698693473ee7d584df7fee959ea5"
+ },
+ "helper_binaries": {
+  "ir_eval": "6a14753ad6f4076d8176007df19e78a2d4997f6ce5db80eab066737ba8f398e9",
+  "expr_eval": "d1fc6577e15cc847603d97aff2f56846c6028e13d4880c822f0cf1202f506547"
+ },
+ "fixtures": {
+  "README.md": "1de6fb1a165a2c5fe523aacdc99b159bc354e82dad7475931eedbbd42031cbc1",
+  "accept/documents.json": "6d0e4eba64a6d3b35881b22f1d24b4afd518a6cd3bc1c271911d7fd389c2ad58",
+  "accept/pk_flex_shaw_weight_index.ir.json": "42186d9dc81b0cd9ce2b4d662cf957bdba708ab8b31c8158a8c9d9e956d12250",
+  "accept/pk_llama.ir.json": "72e15407a4d9577711d7fa5ccbcfc22b1f20e61a5fa13115df2b8b1c55c6c4b1",
+  "accept/pk_llama_attnres_rec_untagged.ir.json": "c787012dafbb53bc82fb85e55eb9c4cf9f9c110847d66b55639c1fe0c61be42e",
+  "accept/pk_mor_window.ir.json": "0ea4e39fb9e2fbeea0a43c712db0e48172a42debfca897f72df09485510a10c4",
+  "chat/parse_reply.json": "30722c81ba8a33db47bb1a35a4388f0fd701c534b2b777e3d65dbbde6205e76a",
+  "chat/render.json": "2b78c3ebd68832a6c615440fb7e38b7b981ccf92101d9544c4c9fc2f97b17722",
+  "digest/vectors.json": "7b04e1e4dea0ec792d361021902d8f8ac7a5d4bdb096b3c8a279dc30912692ad",
+  "expected_fail.json": "acd65f521123f23f101ba40b1bb593656dab77a9fc2f9eae10d6b6c4404f0f05",
+  "grad/attention.json": "7a4d35303e98cff6666d3b5cdfadfed6b4389cf2bc5a83b464f8536fdc828ff3",
+  "grad/recurrence.json": "94b0217fdd45980d1066808b8017cc06d9c720f47864cffe2c2e052d88fc1a25",
+  "manifest.json": "6e4841893b7afae41def2ac443e69ff64677aafd0b49e53e824429e8ccf7ec0a",
+  "models/pk_attnres/case.json": "4ed04a81f4935ca449614a532beb25f3fe767f85370b1d36827849dfc5ce6c1b",
+  "models/pk_attnres/mtstudio.json": "550965dd30f548bcee85b96893aed346e803c76fcc96cb96ba0d6be430c2e813",
+  "models/pk_attnres/pk_attnres.gguf": "d26f613980b3624fc763aec56980a36ad7c46a3caaca41dd90c759f8a6e4b43d",
+  "models/pk_attnres/pk_attnres.safetensors": "889804e09e4f1a8470e2ac2e712416dbf162073123eec2a346985175f74915b2",
+  "models/pk_flex_expr/case.json": "669ceade4d944c37df29c38fb4ecdee00c41b0e4cf2212eb36c48e5e48094e60",
+  "models/pk_flex_expr/mtstudio.json": "10848aa602f4b1e6204ddb4fda0951151b40601bdd9ac9972ece1923a058e976",
+  "models/pk_flex_expr/pk_flex_expr.gguf": "2c3ab77e9f0e4dbc8452c2d43f961c66e99e1b02468a7c0434d2167acc41b173",
+  "models/pk_flex_expr/pk_flex_expr.safetensors": "701031c117412f652c4a0a62c0fc65f99a659bbe54aca9b25c5c670bd0e82b45",
+  "models/pk_flex_highway/case.json": "58d4936037cc56845f1d1d316ab3de9dc679004fd1c29b680dd8ab9805ba389b",
+  "models/pk_flex_highway/mtstudio.json": "6b4bab930c514e79cf9255a1a3760646e989d1a415916473f54431ae884cf341",
+  "models/pk_flex_highway/pk_flex_highway.gguf": "9842db5db1af2b9d1f6fb6c356e152bb696b862d0bdd3eff1b4d0d20ecd24056",
+  "models/pk_flex_highway/pk_flex_highway.safetensors": "de8255710c76c47f70375f4153aa328849c3f107cea9a0937e47d57b0075cfc5",
+  "models/pk_flex_mdha/case.json": "e2a63581043b47a79644e18f028af1c1dfc3a69f2238e4f207104a9dc9cb49ad",
+  "models/pk_flex_mdha/mtstudio.json": "554a33f54e4091f122f4317cdb6c7537fcc661bda3a9392d9546b43b17405e79",
+  "models/pk_flex_mdha/pk_flex_mdha.gguf": "b416408cba6f462fb33ec8af836a93b1265f2b4e8069831c2334c826a4dab576",
+  "models/pk_flex_mdha/pk_flex_mdha.safetensors": "0bb7e276601e9c2672b742886e68a4c2c49569e37c15d45cfdc5c13b9016cead",
+  "models/pk_flex_shaw/case.json": "dbf5c8b4bff0ba09a8e32c27a3e39b78418f70e979fbf91f6fe30e0335e09c30",
+  "models/pk_flex_shaw/mtstudio.json": "991bdbc7d70197e791fac010ed4ab4e837300458281fe9a5765922ab86cdb80c",
+  "models/pk_flex_shaw/pk_flex_shaw.gguf": "bad61d86929850015163ac033564865cd810c40973e35bd83847f893154e170d",
+  "models/pk_flex_shaw/pk_flex_shaw.safetensors": "5fed98ceff090200fde7bb1a03aced358dd6b04d8a5ae903d08cc86058d2f862",
+  "models/pk_flex_t5/case.json": "64c976e5908574ed10c248a4326b8fbdd1c7ee1e0d93b17830dc50123d4a071e",
+  "models/pk_flex_t5/mtstudio.json": "fde4406f5d78a4528bfd8e739f2ed7b40a111b4ff19664bdfb4cffdbdc150729",
+  "models/pk_flex_t5/pk_flex_t5.gguf": "dbda91dd580470c20aeaaa3f8f328b31654332ad03448efe1e434f92b60ddc1d",
+  "models/pk_flex_t5/pk_flex_t5.safetensors": "cce3a70eca96490b03f4ec506ecbc151388f8111cd284be7627f156840e9657e",
+  "models/pk_gpt2/case.json": "eefdf7b15936458358ce508f1a505428e8eda3a1e07970feaffba8ecd33f0b69",
+  "models/pk_gpt2/mtstudio.json": "c35714708606b40eb46e473f57f3a1f2b14102223d01ca7e705a89d85a667913",
+  "models/pk_gpt2/pk_gpt2.gguf": "bc45be2d4e20cca578cb7e378b75d5eb724477ce5fdcf0439ac55fbce04280d2",
+  "models/pk_gpt2/pk_gpt2.safetensors": "fb008959a32fb40346fc34abfbda5bf8d0b6bad23054933080a5cda20f022516",
+  "models/pk_gpt2_swa/case.json": "986d4fa6291b40dcf8b502b89f908d75f24a51960f50d9d228846406724fa1d6",
+  "models/pk_gpt2_swa/mtstudio.json": "9d0073628c9db4342120cfec02365bebf6c20d1c0111904c5c527710a210b4d3",
+  "models/pk_gpt2_swa/pk_gpt2_swa.gguf": "15cbd38701466e38ab8543e419b80dd7c45f4e7286d22561d91f7fd06b743b6b",
+  "models/pk_gpt2_swa/pk_gpt2_swa.safetensors": "d762766a4dd325d572a13f97d544b106aa77bc6b0a6328a7fcbaf5c631d73149",
+  "models/pk_kimi/case.json": "aae66d297b25db6e5fe0727b7f4d7326281f6911cafe967be747407d2dc2abfd",
+  "models/pk_kimi/mtstudio.json": "e667b8c1db577acee8865569bcfce2f73708d70bb8d5539cbdfe2aca4513f0d9",
+  "models/pk_kimi/pk_kimi.gguf": "ccbefa86e2c745e570d807fd7a277cf75e877b0daa4c7ab46dfa398ee2e70725",
+  "models/pk_kimi/pk_kimi.safetensors": "8f652e587b29db1817220163638a0dd34ba640ba917310745837b885343467cd",
+  "models/pk_llama/case.json": "a2379cf2c9c6217f122ce32c2d27988e5dc59910bf2b48521a0170383000d96e",
+  "models/pk_llama/mtstudio.json": "382f028e1dbbfa455c9e02ba51b716001efbf2c4582cdf213dde77d8bff290df",
+  "models/pk_llama/pk_llama.gguf": "10cdebfb68fed998b95d89a341223a647296832c38ff475960d1e64e3bb793cf",
+  "models/pk_llama/pk_llama.safetensors": "9fe98ba5484af094ef3bc6e9d7281f16e4bbed373dc9b175f0bff304f0aeae8a",
+  "models/pk_llama_attnres/case.json": "526e7a07a9d40e96bd713aebced2e72ebf3f31550371f728b58649c3ebe1c16d",
+  "models/pk_llama_attnres/mtstudio.json": "f6aa0e99d8c2b9238f7207d4a6fad867d228dc2b13719200b5cc3226a82b6f48",
+  "models/pk_llama_attnres/pk_llama_attnres.gguf": "ddca395378c2c05b418de858e41bb7a0629ab16af7398e382d1f87949c429a17",
+  "models/pk_llama_attnres/pk_llama_attnres.safetensors": "0086df6417b9673da60836dd1fbc9269fcd161aa1204695cd2cd81c4d6f1f650",
+  "models/pk_llama_attnres_rec/case.json": "73966c1ed42851b78875fcd592af325d3730ec59bf572f9b13f29be272eb6d8e",
+  "models/pk_llama_attnres_rec/mtstudio.json": "78f32d56adaf5806efee5abc3ae58369a2c2f87310510a8ea079e758a4172ddb",
+  "models/pk_llama_attnres_rec/pk_llama_attnres_rec.gguf": "576f35aa30a2f1d09526b8a30e07811316c0e762bd10703821ad79b34df1349b",
+  "models/pk_llama_attnres_rec/pk_llama_attnres_rec.safetensors": "8889189e9be1c3132d74c648dad7bf8ac208b3a9329fb2ed243dfa6ccfeb901a",
+  "models/pk_mamba/case.json": "86693c417b6b74e4439c0a2b4ed16cc8c2d94a5baed052f6421ed6d0b209417d",
+  "models/pk_mamba/mtstudio.json": "c574a6143916e847e4d5c5e78c96755d900ca693dafb5b655bb222d0a117101f",
+  "models/pk_mamba/pk_mamba.gguf": "1a83cd1c4b54e42f7f7d4897a8ed7d992accd08c09f8ac1e85a3d146f8e89a5a",
+  "models/pk_mamba/pk_mamba.safetensors": "842cc26aeee87e34d374b42c6b7ef51a142c706f1a3c91fb0d03620ed559f1c1",
+  "models/pk_moe/case.json": "08914a372b8d781b783e3d05da42df70f8c82431a024ff7097c0ae9fa4a291a3",
+  "models/pk_moe/mtstudio.json": "6abe94a8ebf84a50a64def8399e45a064fc7806a5eca879ad3a0eb5380604acc",
+  "models/pk_moe/pk_moe.gguf": "177eff620a11df12a0c685e5257e3012dd92470294e4db9a812d56b70e9a7ba3",
+  "models/pk_moe/pk_moe.safetensors": "1d46a8a2db2473b7dc0d3bb520a684c36768b27d92b25cfea65e2a73b350f84f",
+  "models/pk_mor/case.json": "856c3945f66ad73546bd12d15a811c3f1cadaa3081a924731f0c683a87c03e2f",
+  "models/pk_mor/mtstudio.json": "ae47841c93ca4984370d9e445a50814e93935ebcf3484c6f27613d44e01d3637",
+  "models/pk_mor/pk_mor.gguf": "19995334356554efff540668e402d85957d5fa2be3d28ace226f5c03e0c3a4f1",
+  "models/pk_mor/pk_mor.safetensors": "ae1d033c64e5b8e3310bff0c901d3aa04b5c93dfce93b9d9046374962e7b3007",
+  "models/pk_recurrence/case.json": "2023003a7d9a2247b385d828b9bcee6a54631be6b25c85ca003fef16214f6eb0",
+  "models/pk_recurrence/mtstudio.json": "45c2e965b7c36d1d92b666d32af95bd38843e97ce1281168254961480c60ecd6",
+  "models/pk_recurrence/pk_recurrence.gguf": "f9839059581c58820a1397995456c987414dddc8b47101595b4aca634a864455",
+  "models/pk_recurrence/pk_recurrence.safetensors": "fedb423eb0ad32b12147793ab2335ca42a7ea33ffa5411fdfc74e67e6d6ee94f",
+  "models/pk_recursive/case.json": "0a2ab0d05dfb1de64f74170c080c32e1351af2824ed72e023495711345d93cd6",
+  "models/pk_recursive/mtstudio.json": "010a4f9e017c5038db970eca9910ddfc70ee705b6465108375b044d2e8edcde9",
+  "models/pk_recursive/pk_recursive.gguf": "4dd27f85fe7db01204047c0c065bd2df93af60a42951cb937f8232c21d1bc6cd",
+  "models/pk_recursive/pk_recursive.safetensors": "d350b29849ee5893f289c671604c57f15d436878c5eff1359ae809c1bfd9cedc",
+  "models/pk_srd/case.json": "a9e8bbb75f48ac2da85caa30e45892c72ef04d2be041808df02c90302e3a3abf",
+  "models/pk_srd/mtstudio.json": "3d5bdb01b05045f3fee562b80a668eafee75312d8f8ab38272e717577e1b3928",
+  "models/pk_srd/pk_srd.gguf": "825106c8bd7c56a5787a27939c7f50bdf3dc1190070b52dc00a9e8b1fecc7484",
+  "models/pk_srd/pk_srd.safetensors": "125db62ef4daee960b91fe7dc17c06b4e4ade7d9c6dde901ededa1618444835d",
+  "models/pk_state/case.json": "a5c7f1e49285f15f9b71ab4ef21c52011eceb364640fbfc672e1cb189b23739a",
+  "models/pk_state/mtstudio.json": "30c66de4df0de2aaf50afc70ba37ce33f2bf69882e2f0dbfd8e3fe96bcab4d4d",
+  "models/pk_state/pk_state.gguf": "fe60dab7d944353e30af3b293bfed7478dd0ba3657190d4ac12318e60599a3d1",
+  "models/pk_state/pk_state.safetensors": "0b12936b1beedf3a41ee25a60b60525420c45f9832230fe612453aed5faea656",
+  "models/tp_gemma3/case.json": "1c17caf3b872fbe8c3e02201d535157db82aa36aa3877134c8cb46dcf495176f",
+  "models/tp_gemma3/tp_gemma3.gguf": "6cd151997a94373d97c683163a1ea9ce54caddc4a8e1b58f95296b6e5717f4f4",
+  "models/tp_gptneox/case.json": "27d84be756f104657307abf48846e9a2fb4d5d129b58f586260b08ccaa67b833",
+  "models/tp_gptneox/tp_gptneox.gguf": "533433e47b1944f47e9aa56e1c39419900ccdcadf288deb310ad6b60c295cd53",
+  "models/tp_llama_hd16/case.json": "4dc40fe9e91e36a7ab24f3f37f78bc2c6b18458cd4a3f6b5e96b863c0811c955",
+  "models/tp_llama_hd16/tp_llama_hd16.gguf": "f3988fb43d880d2c3cf3dfb6f4c20c179f77415f4ad06108ef888bb010bf8db0",
+  "models/tp_mamba1/case.json": "b6a0aed2c1e38cda1af137b8ad025533f119386b9f6ea7ae99f24622f16eee12",
+  "models/tp_mamba1/tp_mamba1.gguf": "d36359e0eed1f3e57dea713fc5f5e4b5543a2c585e54e5c00bc4f40bd182d8e2",
+  "models/tp_mistral/case.json": "89d59eb159c3bc1ea224efecbde7571c90608ce011303f38e5247fab4d7bdd7d",
+  "models/tp_mistral/tp_mistral.gguf": "71bee4488b6d6ab05f3d9b2c866001ce1df0bd64d63a05f4271c40fbfd27561e",
+  "models/tp_mistral_hd16/case.json": "fa0607083373cc09e6bb3cb251afa5a7df7a19451fc031faa2b38d4b220ff417",
+  "models/tp_mistral_hd16/tp_mistral_hd16.gguf": "6f8b699c62e952c551d798101168a951688b17ccb37c8b2d95f19499064cf064",
+  "models/tp_qwen3/case.json": "d6b5c1b26c1885e8fb435bcb1ce65292d867fb8ba198ae5bd7634d7764aae884",
+  "models/tp_qwen3/tp_qwen3.gguf": "8bc9956efef1533f264ad8a62270c171fc0b4e957bf77ffd2889ab6bb2f98eae",
+  "models/tp_qwen3_hd16/case.json": "e5861c25d722658d38662014250ee7d6cf3b2a65ff34a3011a17300f47a8b4da",
+  "models/tp_qwen3_hd16/tp_qwen3_hd16.gguf": "1fcd625c77546e7d7e0ae621d681568727df701d16202abdb8408f71404069d9",
+  "ops/add.json": "d26f1be5a8171750f2d4b21a8d7530f5b71d778bcd2af60f5c7cc5cc89a44dde",
+  "ops/affine.json": "c2911f18f6457bae09a31fa4362cad25629f45a92d9a3d09e1777eaa12c9400b",
+  "ops/append.json": "17caf7e82b6c799850555b84ac153b0def11063f4e57fe2699797120335cdaed",
+  "ops/attention.json": "59822fe2bfb6739b61da49e5237ca2ecda5adbbf4049e343ba5e312899b5e12f",
+  "ops/conv1d_causal.json": "4a5f2eb96d0b5bdfbd5308819f72c11dc62d0566310e578d0ea903781f376803",
+  "ops/depth_attend.json": "2f7010a2480182064b10d8e20b8d565729b8369e3deb5be2fe2ca3cde59b7781",
+  "ops/embedding.json": "909706c2e4092d3e46b1ccac3bc42e6cf5e7cabebd44aec3ab4ea9410afb019c",
+  "ops/expr.json": "ca258e8d7bd2c163464954d74a845dbd834ca7b137c50adc190c31d1f1abebc6",
+  "ops/gelu.json": "092f3afd8abed6de54084ef762ed7226cd41abdac17c19a3b34692b812ed2158",
+  "ops/layernorm.json": "5720e6b6fb484685ab85afb09bcfe51581895030add8eb3ea0c703054d62b57e",
+  "ops/linear.json": "548398888a9bda014560952b72e5d55c4aab2b74e3aaa3e70c1191eb006c7300",
+  "ops/linear_attention.json": "0aa8bd635257bb7fa0fb849baa70c8e2f8ad9ea3151c528e5baa46c28c89d80c",
+  "ops/list.json": "9a830592f0f3fbd18d49bc7cdc87c17a5dbf4f8159b9696e0f69ef8c78ded2fd",
+  "ops/moe_ffn.json": "e201023ab6a1f67f6c6eec8ee6a4ee4fa8d22203469d1bfed0dd07fa63b77032",
+  "ops/mul.json": "7351f05ffc2bc39ce8e00a33db7a83b3a22d2339f4a60a3d7e2b41687ef69fb3",
+  "ops/mul_col.json": "3d4019af7900deee271e1ca417bddaba66ac8f93910b93221224f8736cbb80e5",
+  "ops/pos_embedding.json": "63a2f769b04357cca7c74d5aa72eb039196e7bd4fde9b6843b294f6e0a7f1d47",
+  "ops/recurrence.json": "e90490e72459d73355abd15465b0c2286b803cafa5b3161798862422891f4f3d",
+  "ops/relu.json": "5183071d6ad8a1cbc0dfa4506fc141939f21deab07e43b935dc134b4a616c46d",
+  "ops/rms_row.json": "90278e2eca6bc54bad7fc6e7b948055429f35b080d57957fe1d449305b4e1589",
+  "ops/rmsnorm.json": "d9697482409421f14550f3aeb9dd00f53790e1fa27b95b1145cd2a5b11a6bb89",
+  "ops/rope.json": "9021e7c97cbf2601da98290587c65fccb821e163c02a7e575974b6f98f24ebbc",
+  "ops/scale.json": "1f9812c3b47474b2d364c5c0a3a50ea694c01d2eca3b4e291bc6cae75a2944b1",
+  "ops/selective_scan.json": "c2bdfe6c33bcfdfea5e7c4cf2d4c9110ce461e2f607e8af6931b5be6cb4d1249",
+  "ops/sigmoid.json": "23e6143bcb40df4480a11f2e414f06a59af0dfbb7db61bfd9db3fd306ca08090",
+  "ops/silu.json": "0b4652433ead31eff206312b36e675f147aba4679023ac92c8796e00eeedffda",
+  "ops/split.json": "991951b8a081f3467a3082197d9350dba5165c072b4f31168ad9ac9fe091b15e",
+  "ops/ssm_scan.json": "6d0ab58cee8b05d354348e543932868fc616a0f7c5ad3d21dcff0ed3be346652",
+  "ops/sub.json": "edb685698fc6fbb0cd1afa366f0ab60adb62a162875bed2fbd024ea87c451bb3",
+  "quant/blocks.json": "ff028f3cace63512957ba071d476f31475cef71ae45971fdfa6b78ec1d0b3476",
+  "receipts/cleanroom.json": "18a77831d3f1c3d71a05943f4db051c2dafb8e07f910fe39115e106127fdbbc4",
+  "receipts/ember_cpu.json": "bbad4165ed02d3669c50ad4495df5ffada1d3df8713df2fb7ac57ace666303e3",
+  "receipts/hf_cpu.json": "5e8f8ee5b3215f14d660174225defefc8b5344c0a34c23f9be9280f844b213ec",
+  "receipts/index.json": "3553c32da8d6b5b65194f77b3743aaed69af0a3c3e4b87bcfafa10296e6878d0",
+  "receipts/ir_numpy.json": "6354330c0da9592eed9d06f91da0194031f73dee01357b622a459302bb1ab5d7",
+  "receipts/llamacpp_cpu.json": "16694b7936a55311b31191b072d0d53a070fe2d79f75fbd3c1692c20ac3be0f9",
+  "receipts/mtstudio.json": "dcb906a44b9e3fb25362b388e5754b5d105b1d202ee8089e54e0120a70b68552",
+  "receipts/ortgenai_cpu.json": "d11fc7adb98b84122ff91fcf262d2804374c379f3ce99492cd39b9725e011d83",
+  "receipts/reference_environment.json": "59f042d8ac469d55fa489ecdc5902d46d7bc299f4f3421cd4e91f59c377efb6f",
+  "recurrence/pk_kimi.ir.json": "3388c41a242195f9a8c39fe2f1f5b265cb4475db19f2bd26c0aae31a95558df7",
+  "recurrence/pk_mamba.ir.json": "9245ba71f68ad74d64201bab3e1035d5b102abe018bce5143781ff4d808dddf8",
+  "recurrence/pk_srd.ir.json": "e9be3d175458f12bce649668d423e3050d130aed2fb57621c8e8c096644eac87",
+  "recurrence/tp_mamba1.ir.json": "bba33d14b162e473655a137118c2f1bfa4eb006cdb995d4b5be9801fff90eba2",
+  "refuse/add_one_input.json": "2ae32f86a701db7045a5fe8e4097cbb3e9e1cddf5795fbb90d8394bad5384d34",
+  "refuse/architecture_kimi_as_gpt2.gguf": "552d66a5c05fc94b27f652cad6916a86d48f53eeb0ab728b7e9735194d331b30",
+  "refuse/architecture_kimi_as_gpt2.json": "a8378b606fdb86b1d01c48597689cebf80fcc7ca5962eb118f0b27bb517e94df",
+  "refuse/architecture_metadata_disagrees.gguf": "ab97a37c3a955e27ee7bb6ec3fd6d3d5df6afa14a2ee2b71c40eb594ace67970",
+  "refuse/architecture_metadata_disagrees.json": "715ec4b5b5ff3f866af80f08acb8e8cddaa44623d2f7aed4ef462af9ebd1c1b1",
+  "refuse/architecture_substituted_document.json": "6d4ed7ebded08454fdb03ed8ea473dc04ec9b569d3082f2f74388871c71ab67a",
+  "refuse/architecture_swa_as_gpt2.gguf": "fedd6ce9c7a93310c0648a86afa78bd1084430ffc5a82317cacee12eb34bb75b",
+  "refuse/architecture_swa_as_gpt2.json": "22bf70e48e6a98bf77bfd4fc42a3366cf527898d1a051398a5f14fd7c51ed6ea",
+  "refuse/architecture_without_graph.gguf": "71a22659ea25db79b785d4cd665bc30806c0b65e90d0e40fa3731e18539571fe",
+  "refuse/architecture_without_graph.json": "0a294e7a4288cd08733e6f98324da6c6a1a14f160a3eac6f3e3922017b7f41fb",
+  "refuse/attention_heads_not_multiple.json": "0821b0248aa512d581c249e84b8dfb38be53f0960477592314f80394a360dba7",
+  "refuse/attention_no_slot.json": "dff0e2cc51c9d4eb756484f8d679d0895c9e4a988cc5cd08e35d7340068d3eb2",
+  "refuse/attention_not_causal.json": "bfe9331543279de06fe13d210f67c6bd3f214521cbb415eaca54020434cbd9e5",
+  "refuse/attention_window_differs.json": "5845961f2f639ef5fa4f04b447d1677d526038ec0c124d0f382a107502ea3855",
+  "refuse/conv_kernel_one.json": "1ccd479db22c9546a8e00e5d3e8bb035c1d8a46f2e9381a457beade6d9867376",
+  "refuse/duplicate_member_embedded.gguf": "cf81cee9d2cad4ac75653f1690eeca04c5adf1e933528e32d159fa89dbc6d51b",
+  "refuse/duplicate_member_embedded.json": "bfe637d6b9bac41e4d5ef6126b2c66f9a7660b08d7203498c657cd884530ca87",
+  "refuse/duplicate_member_node.json": "da19ed602090e890a6caa12d859bc811026bc1580c318e8c41f759795ad811b9",
+  "refuse/duplicate_member_prose.json": "c95aad3b4c0ca1625b6d107a9575fb4c9b9eb4eeecf687bdb846864fccb7836d",
+  "refuse/duplicate_member_top.json": "7af228c878c3414cf16f639e755a336700ce1e19d2c9b3bc109609ab3b5fc207",
+  "refuse/embed_writes_no_x.json": "248eb1ea55c4bd19190b7c0e4f9fdda083a6c4130bc1ef523f5071d7086f624c",
+  "refuse/evict_on_causal.json": "f460ec9f2409d9bacb8f19274266c8ced5cc7fe9b91c26f3cada595b73c65c39",
+  "refuse/evict_unknown.json": "26353c553f4085f93bc3ea26c6c6ffd9db3b9ed14db6c915250763a4b9c9aa3a",
+  "refuse/evict_without_mask.json": "5249ee5d468f6000e7794a355bea51c6c464309ce1ac44592579eb5262e20b98",
+  "refuse/expr_does_not_parse.json": "6a82dbdc153fb86d24ab5bf82605495d63bbe6783b9eab8334a1912abbb76c6d",
+  "refuse/gelu_approx_unknown.json": "9b40d66a2fd2b83e31a97dfb07484d5e130403634bfdedfd40d3085e2f312d74",
+  "refuse/head_writes_no_logits.json": "35825c4f700d661830704ec9b387c8b753f79877f4af8576287aa5ae057e8cfe",
+  "refuse/kv_slot_field_missing.json": "5b8d85434584c9a82e669bdb7fd1d8eb3c349855fd88f30a5087eda19c124835",
+  "refuse/linear_attention_not_causal.json": "807b5f944035a38d9c4228436bc526115211ce46cd72938db2228bfd0d12ac87",
+  "refuse/mask_unknown.json": "cc15bd545f48375f810cea2925501cfd0d3cddabefbc74cb39f2623c173f4e01",
+  "refuse/missing_tensor.json": "e1c7ac5c7793e45a01d34eb88753ed1dc04accce0effe749b728d06c6f543cfb",
+  "refuse/model_ctx_missing.json": "a3ef2eb4a8bc2227980a2adee33ed3b5a68323adc8050706419880a7513012aa",
+  "refuse/moe_gate_norm_unknown.json": "7a4493694187a3ac29ac383bbe1d0413afe7ed62d889abc09bc3710e740eea0a",
+  "refuse/moe_top_k_too_large.json": "dfcf988eddfa5871e80d9926b5511e7c00a7cc2db71849f187540515ccb7d1c6",
+  "refuse/mor_expert_choice.json": "fbae3254b6fb0f36cd325505b202a9a440c839b36cc33d974121d075193b1edf",
+  "refuse/mor_gate_unknown.json": "53af17d4367673ce002cd7b927acf51bfd7aa09f88333c07346bad63f161ed0c",
+  "refuse/mor_kv_from.json": "0cb73645bbd67854a007bc329337f659e33a0658db3d245f6c5cb3010b0ca4af",
+  "refuse/mor_kv_rows_shared.json": "5957d2e64c3c8b503314e9a14b8ff796d920c5d244f0787ed09b25048995e183",
+  "refuse/mor_no_kv_rows_active.json": "92b0ce7c2365d4cabbf03b92fe8d6d9fcb311d5ef5a5b574e2ccdb05ac413017",
+  "refuse/mor_reads_outside_value.json": "220807be4a36375ddf60840fc26af0b94212e396e3e97f22c398cccf7858a621",
+  "refuse/mor_reads_route_out.json": "32eea2541a8f426d4a7ddb51284397e3244ff9f4feb2e51362e62c5a21b55231",
+  "refuse/mor_reads_tokens.json": "8f08f8c0fc3eb65255314a5ba38c8a567da278a206bcc68d7048b4f61521897a",
+  "refuse/mor_route_in_head.json": "728477fd8dc67d935c176f8bdac091504faa30a8510badad634ee7096c3d55a6",
+  "refuse/mor_route_not_first.json": "b5a1de3bf001047e0d1a41519319089508506d2ea78de487050ffe2ddb8d7044",
+  "refuse/mor_router_with_i.json": "d4895fd514f03bab39637f7a23b0ddfc4d0a5bf3390491601028221b056b0db1",
+  "refuse/mor_step_gap.json": "be181dfae837f89c6723ea2fe7aeb615484b838a3567af4615280fb35d37f6af",
+  "refuse/mor_step_length_wrong.json": "272969ef6259e7a237ef133707a6a77da28befc4f417c2df24b24199b7aaad0e",
+  "refuse/mor_steps_descending.json": "b089e8ff56a42662d61d95ff3fcdb6bfd6f1ba452b27009b310427460d6545c4",
+  "refuse/mor_unequal_steps.json": "bb4bff0b7d99d20b78648b6bbeda84e361ba046d8f79a28343a7d8ae42ca947a",
+  "refuse/name_with_i_outside_block.json": "160ecae6a9d2bccf6125d300cdd46a850c4d22e44afcb8552b8d34708a61a84e",
+  "refuse/per_layer_in_head.json": "14a6e41236d046f2c97ed5756e9ed1c8594af037b9b290ade8d2c057a7426a5d",
+  "refuse/per_layer_wrong_length.json": "b1b0fa43f54336740d9dc79b4c638175589aba4b1debc4b211e20410673acf37",
+  "refuse/position_bias_bucket_negative.json": "bd02c996f9b011dc75fb8ad703a44afd5672bb4f077986383bb4f8b08fc007b7",
+  "refuse/position_bias_buckets_empty.json": "24b20b3af2c4e2c471ac3ffc04ebd4824225079b7b15a16e8a3ba43751e3356a",
+  "refuse/position_bias_per_layer.json": "36e7f4fdeb86abfd7acf9f847707807e752e2a5b2f434e04bff3462b28d586a9",
+  "refuse/position_bias_table_shape.json": "7c75f772fe4273b92e78356f920242d160b5da59dbaf3ed230c6c94843a21fea",
+  "refuse/reads_unwritten_value.json": "edd50c97170ab06cc214ddf997fa1a6bb8292575ba5fc5b8d39fcf9dd539cf3e",
+  "refuse/recurrence_assignment_repeats_index.json": "8ec0eae6b00497ce7939084d71060748929cacc97f7da89f15841d0299951b50",
+  "refuse/recurrence_bare_undeclared_name.json": "bbddef24a0402313c86934408bb9291e282354389f0bdcb3b7ed2b4e8024b292",
+  "refuse/recurrence_body_does_not_parse.json": "50872d4f469a1031416bca969b97d4d93c58500342ecac7f7480ac35b5171ca0",
+  "refuse/recurrence_index_out_of_scope.json": "9eb5aad1f5be54d5748fcee06cc442acde8bca799108cc954e18d76267165e49",
+  "refuse/recurrence_index_size_zero.json": "564ae3dee01a736c237a249eb8b48d6c4dd3213b7f9e349fb02e257bf34ad9be",
+  "refuse/recurrence_index_undeclared.json": "c4acaaaf4bc6c163e4ff288f316f20a6ad21c613387ee55b6baaebfc50f9a2cd",
+  "refuse/recurrence_init_flag.json": "f68bab770721326d4d04341c784b83ed4f7c1efa6426bda32ea3e7cbb6c3cb56",
+  "refuse/recurrence_init_reads_input.json": "400734f35d53abcd59af1a9ed15979d1cd704ff4d3217c7a59eb4f92ac226da1",
+  "refuse/recurrence_name_twice.json": "385b0627e6947f672a913dd77bdde746e4b2684845ce1fab0c73c2c9ed01d5d5",
+  "refuse/recurrence_rank_mismatch.json": "2a0aa21343b7f077c841706e5a67d3d866047ee8429d4d1dc5a8c76d2759ef5e",
+  "refuse/recurrence_rowsum.json": "4f7a4b37b3111a0685f6e071424ff33f62a2b0aa6d124faa78539a8692a2812d",
+  "refuse/recurrence_slot_missing_tensor.json": "771bccacdf05de22dd4a6d1c3c583ddaafab4fa8e6544ef02e19ae69b53ef3fe",
+  "refuse/recurrence_slot_shape.json": "0d01f64b789f6a0d4803350c0a8c12f454d8a9306150c2b5f97d3a7817885e74",
+  "refuse/recurrence_weight_size.json": "37fe130a291e37f7c6c7b5f5e15944cc8ffaf6ca094dba25c13152e55064c25e",
+  "refuse/recurrent_dtype_f16.json": "4b7a44d8fd57d2bb2dc30a85e1dbc693765f89f620f142dddfbc09a856c6f862",
+  "refuse/recurrent_op_mismatch.json": "a45183968b3268604853c8f7b954ac5e89ab504311f0a3d184319b707f625642",
+  "refuse/recurrent_shape_mismatch.json": "a1542c125cef83c45947417ba2df116655b8e31fdab926ab4a49ab5be7531768",
+  "refuse/relative_kv_distance_negative.json": "07320af7b4b659039bad4af06d669cd18f96d1153e9e3ddf255f8e7d270c9c2f",
+  "refuse/relative_kv_key_shape.json": "0f8be191b6760ebdb94e8c33ba56f4cbb261479ffde2463ca5c4ecd5a455ac38",
+  "refuse/relative_kv_per_layer.json": "45a71b1c29904918504895755ae5e1958efed6225ad7d21451723e4175429f9d",
+  "refuse/relative_kv_unknown_field.json": "230deefb3476edc7edec68fe9a273f8d977590420609685111ccc30a4fb6760b",
+  "refuse/relative_kv_value_shape.json": "b098a5e58fc0a5423130c51d1ce4199cd5a25e54bcb3b11640f181f19c3b8013",
+  "refuse/relative_kv_with_position_bias.json": "3bf125dc543cafc7cfee5dacce842c60ee09fa28827879e1b071ffebe945c6fb",
+  "refuse/relative_kv_without_key.json": "6cab0f8f311cb6d9cf77e6428bbd6a5565d6b76e6e172297d2f51e1a07286f1f",
+  "refuse/repeat_ne_n_layers.json": "1efc7ba4185ea28d1a9ea3140c708ab93c4b2e45fc5d09f079e0930f6e5dae08",
+  "refuse/rope_n_rot_odd.json": "97a5d2f7af29d680c9be29ee144d3ef55e7b29a8e3e4660cc982e54ef4a35dc7",
+  "refuse/rope_pairing_unknown.json": "d32a23bd44e843a021408aba71d9f7c0c76d9f1f372e4faa397b26bad94fd276",
+  "refuse/slot_declared_twice.json": "a17dfdeb0e99e4b86c9f669bd7d983a54ab8c695b4d677045eeaf43360a4f48b",
+  "refuse/slot_unknown_kind.json": "7c13a4f8ebc59b46c5ebcf5d473d095b7fe2819ed5be129dbc2df27692755ef8",
+  "refuse/slot_unread.json": "3ca7d0d26f364b399dc599241c247ea20e7ec1ea755c9cd8efca41f1ca90c817",
+  "refuse/split_count.json": "de65bfdbec649a8041a3679f0cdcc7a8a30576f712d6149dce986756e049ebae",
+  "refuse/state_template_not_v1.gguf": "fce2d56d570edfdf4e6d34c00d38d05393145cef5b93f11aec23ae9d2c46c3fe",
+  "refuse/state_template_not_v1.json": "5e90986c629ba14c5f4ce4b243dafd88d627a08b5c35ab0de8cae88254bd862d",
+  "refuse/state_tokens_arch_llama.gguf": "886e6a0d20341e590ce45633b93f2907857cbc7cd4f484e15af41300cf027f1a",
+  "refuse/state_tokens_arch_llama.json": "350b8290a446ce06f69db25d04c5c201a1b04a97db92a881f26cdaf1f7606f66",
+  "refuse/state_tokens_k_mismatch.gguf": "cafcd70219c2a9855c55abf787bf9c8332daeac627f11462ae7bef41ab8b3ce7",
+  "refuse/state_tokens_k_mismatch.json": "de78c059350884ac1172ac19ac5be53b4ba940046906480cb94ceae6f2711949",
+  "refuse/state_weight_with_i.json": "686a44e7dde6b83fefe26515535dd188203f6bbb483ff92406b25d847183442d",
+  "refuse/state_weight_wrong_name.json": "791399a4d31356f296b518110a463bf499370234e3c56db88755c00067bf429f",
+  "refuse/tensor_index_absent_application_tensor.json": "a61ab169bcdd53e081f778da4175e004f677578b5ebf3b6e31b69f2c255f435f",
+  "refuse/tensor_index_in_head.json": "bd9d3962dabc6d6a1e9c198b4456a773ea81da892b4897cfca9ee968ef413029",
+  "refuse/tensor_index_on_affine.json": "e645f836b3fc9e93633c8b43f4d117af47e075b68dd5204eeade5457d52039c2",
+  "refuse/tensor_index_value_unknown.json": "a37aa27460684fc33a8622a21d81ed69c8bf216ec5cb5a1a611493163ea68c46",
+  "refuse/tensor_index_without_weight_index.json": "2e7be6934c36a5ba13f23d046d83edb50382f969dff2f983916a33fa51831b76",
+  "refuse/turn_state_with_window.json": "2661ce15f2a9bf2934ecf53519a5932f859244b7efe36988f22dc8299c326c17",
+  "refuse/turn_state_without_state_weight.json": "90cf7369ba3d032c8f6a3c071047e9d14c2b93ba074099455de7340d13484a90",
+  "refuse/two_state_weights.json": "a30ae2ead9876c7a71279c1b893d8cc272ef0c35413163c2c059a90e810b6305",
+  "refuse/unknown_attribute.json": "2977e2d7e6e30048748ba68be62a868314cd3bdbbdc214463932becad0e4244d",
+  "refuse/unknown_op.json": "32ca2771f6df23d8beeca082747171dea24efd27b9c95159cfd09113ce9e4354",
+  "refuse/unknown_top_key.json": "c7c0c67f0630ee8177352693841ebb4f5d26acf1c5f32e5f680d2ccc6bab8f4d",
+  "refuse/version_2.json": "b1fb808cb01e15d7ebca2218883dcd23efce18f3b61b89845753939fbce39cd0",
+  "refuse/version_key_mismatch.gguf": "da08f4944618ffdb8a00f7f5a301c80b22de7d56a2e0b631faacb6bfed30ad53",
+  "refuse/version_key_mismatch.json": "8d6eefc4e49165aa2833ffd7d4ae1b7e57b203893a9dba6fae84dfe526972571",
+  "refuse/weight_index_block_count.gguf": "a35344cea66e2963ce138c84c63811b823fa9e7782abd780b2003e11f785c3e3",
+  "refuse/weight_index_block_count.json": "aa2ff06fd5971f8d20d3c3de22a354c41e4fe46b3f26822029b78ee9884ff162",
+  "refuse/weight_index_negative.json": "6529ef7d537c8e381f6b067bca11ce4947ff39106525b270f301f2ed5dcb68ca",
+  "refuse/weight_index_unused_layer.json": "5fff64af25b0cf30ec60df7ee7c9c977bd60ac5b0e82b023aa44fa62307e2b8e",
+  "refuse/weight_index_wrong_length.json": "be54d95314bc58098b1680dc635b8120627d2a7fb7e8b29c5874dd54c1213df7",
+  "state/pk_attnres_chunks.json": "419eeb54b1d0ba9d150e1dc04f3049683fe03aa8c54acf68f36aaa5a45523a6c",
+  "state/pk_attnres_decode.json": "7b1cd0dcafa754543ad591e8fd7c5294e11094dd90811bbf59de64edc4ed2e90",
+  "state/pk_flex_expr_chunks.json": "2487a9366de0de42c1247fc6c09a7783e32dee02d21789cfe6fbb3e7be035b06",
+  "state/pk_flex_expr_decode.json": "d8bd7187e8ccf744c5d1b6acba8110cbd0effa126b95d2eb6d37be1de214f915",
+  "state/pk_flex_highway_chunks.json": "30ef9cd354f25224beeff4071169c6c523b36b83d1556d4a4affdce35f58e672",
+  "state/pk_flex_highway_decode.json": "b01dc5e5e2dc71c1c86bba7125b9408167afb15056fbfffc5fffe3c738b1a259",
+  "state/pk_flex_mdha_chunks.json": "d90bdf7808121a3b773a8b40db4cd79636e23f6a8da72d71b769b580a92e6522",
+  "state/pk_flex_mdha_decode.json": "fdfa727e1f5f8dbe92a206269784b5c56cb90fe8a2f325c97c54759e9ba834d7",
+  "state/pk_flex_mdha_snapshot.json": "e04ab091cb85b7a58256f64710c493485f87a23adaec19fba08d6150f5915665",
+  "state/pk_flex_mdha_truncate.json": "c525e96aad5ba6e4de9530c4f29999d32731368c895cd9a9a2a4361a037b3a1d",
+  "state/pk_flex_shaw_chunks.json": "76594b56b0ecec24de9eb6601489fa29be596f10883c58373151b1858b87407f",
+  "state/pk_flex_shaw_decode.json": "3972c5de76d7c0a8781aeddd3c872007db3f131a444dd193685d6d7acf947a41",
+  "state/pk_flex_shaw_weight_index.json": "e54e06bcc24ae900a1e10b9b13af61eb68869a33e97c089a01391646b45d7a29",
+  "state/pk_flex_t5_chunks.json": "079b94417a5105a3b3e2f318ba71d66ae70a4ba48ee5c4674baf185d3292d383",
+  "state/pk_flex_t5_decode.json": "2cb63c61e40422517c89b9a56ad3a525bad20cb073977eb8421249ce00ff8814",
+  "state/pk_gpt2_chunks.json": "60895f21ebee1848a8d6531e4d3abe62a78eee3fcf66abc7921b66808879a134",
+  "state/pk_gpt2_decode.json": "31c7922171f1f9a33363c5299fbb335fe637b4fd49974be85c03ce7e0698a8d8",
+  "state/pk_gpt2_swa_chunks.json": "86d7fae8a525d24023f97f7a12998607766a607ac9800b8d1973a7beea83385c",
+  "state/pk_gpt2_swa_decode.json": "31e0a59dd70bc166cab1ecae316b5ed71c05739c092881812c7e15d3db94f393",
+  "state/pk_gpt2_swa_rewind_window.json": "c9973d441d4f68718734f32383caa6a35d44d8149657c82c6ab8de22f7b3bad2",
+  "state/pk_kimi_chunks.json": "7c80826308f1362c173455a40d8b3bcc1c03a4f7460be2573ace715814f4604f",
+  "state/pk_kimi_decode.json": "7a40e5bdc58b5258cdccc5754e0ae79e05f13d25cdfaa91bedbd3ed77d233259",
+  "state/pk_kimi_recurrence.json": "c0d8a98b97dfa5b649c79f229e43e970bc326e5cb2ccf45738cc4ad66533cd8a",
+  "state/pk_kimi_snapshot.json": "e4dd1aeb08b05f914e7a7585fee937d4f07935f5c17c9f5a23e1f433305441c7",
+  "state/pk_llama_attnres_chunks.json": "f501a3835ab4f4f0c2771369a9aeb5bf8ab1397a430200de5d8008cde7bb7964",
+  "state/pk_llama_attnres_decode.json": "09899b786c32057b4abbb286a4619156e5d0dc79f5a7bef4c31b4bc4db9e33aa",
+  "state/pk_llama_attnres_rec_chunks.json": "f805e8c7ffb9bbe79f5896f1d7f20f6e930d3fbe8eb0136bdf0cf6dcf59237f3",
+  "state/pk_llama_attnres_rec_decode.json": "b3e9c812eeee1bd8840a85e66eb7f797ab8c46aca3fe9c103d785afbe2033d3f",
+  "state/pk_llama_attnres_rec_untagged.json": "4b6fb3f829da8a821f50e08c3e3800b6b36b5db22d6dd5057e66c2c3f721a0ae",
+  "state/pk_llama_chunks.json": "ebaa8392b5bbe69c4d592f2158d9a9f79859e6f20f512ef65a30484c9b89e67b",
+  "state/pk_llama_decode.json": "c8c5dfc6fdece80b762520f1d76ec8e53958cbcf14b0e1a3cfaf191f8d78640d",
+  "state/pk_llama_truncate.json": "ab57467a2f0f992dcb2400f61e4cd820d3537ac585465302563d767dfb269178",
+  "state/pk_mamba_chunks.json": "aad751e52464d7eb9157fa7aad82d24833df407f6d0fa23be011964af7752c0f",
+  "state/pk_mamba_decode.json": "7a743fe826134e7d7cf3d668d8abff6f70f35e3a1eb6a7962e233f05f8f1cd76",
+  "state/pk_mamba_recurrence.json": "bf5320d8599edd6ad5e500e861c7008f194f925f8ccfa82c5931bd05775d7e72",
+  "state/pk_mamba_snapshot.json": "64261f07877762bfa81ddc5084858adb5474fc20e719ede88b332fb0748d8707",
+  "state/pk_moe_chunks.json": "6c7df786095de8451321c415c14b335d27b82d202a57199eba89208cae561b4c",
+  "state/pk_moe_decode.json": "ffc67bb0852827be4a7ecfbd5b47be90aa23f69993985abed8cd12d4d20d9102",
+  "state/pk_mor_chunks.json": "b747113104c66875a3f4bb9811ba5ac1e636f5b898ba8220914b3b9b3a1e8c94",
+  "state/pk_mor_decode.json": "bf35da4f791411208fcd46d97d496db3a5180ce7f9be416e1a2d822090f83e04",
+  "state/pk_mor_truncate.json": "a1c1a9e78e81e3666d68410bff52999d3d4fbb36b303ffbe3bb6a7d59d49ef78",
+  "state/pk_mor_window.json": "05269be803e9d3f1802f36d748dca94c8b4048a38c538b5795efb59979e393f2",
+  "state/pk_mor_window_rewind.json": "de0d0da3341bbaad246a5f4cf75dcf3a41a6140d95518ed4ab295b510468c1ce",
+  "state/pk_recurrence_chunks.json": "7d84ea917aa97492ddca691ff32b2ebb31e665c8da0e08dd82fbd88ba9c765b6",
+  "state/pk_recurrence_decode.json": "44a0dad95c7fe8e07bfe8ddeac5dbafa52de14dcc7be18bb1a9268706079cae1",
+  "state/pk_recurrence_snapshot.json": "930a0bea6bda3dfd58a5a62edb50435eb49b8e984cacbafa0d6914ae629e68b5",
+  "state/pk_recursive_chunks.json": "dfcab5fd75ab4ef15863e731d81b7ad0fc2828a0a3e4a091a6b2ec6aa0e1f933",
+  "state/pk_recursive_decode.json": "f3e74f89861da8c22bfab9bc72a094dfcf51a5a423f61d084004d6082feb0e48",
+  "state/pk_srd_chunks.json": "b8e7066eba287aa84fe3af0c672c6e34bd231ff10165e4cb97e38f5b95fe9be2",
+  "state/pk_srd_decode.json": "d4a24f87bdb78c58c1559fbe6f421f677d45cdfdec60fe1d1e40c24467da8339",
+  "state/pk_srd_recurrence.json": "753d30f41607f707311ce909dcecf02377c39b5ac84f53ea7638cda02f4d5579",
+  "state/pk_srd_snapshot.json": "49d321c7e0bb6364d84d1150d4f173e5a5f2423cfb6f73f8ab4bb3903bdd7d03",
+  "state/pk_srd_truncate.json": "a9456b4b769347a0de80cef4e61c36609622927630c216127eeb9788aa863dc3",
+  "state/pk_state_chunks.json": "2d27f634b56ca3837feba5898e03f0d5b4956a00f684516e26a51ba764d36ac9",
+  "state/pk_state_evict_off.json": "e27ec48e3d8771f437219a5bcbdfe85ca1c7733b54a240dbf339be26d9c4d7ea",
+  "state/pk_state_evict_on.json": "a8b223a82734dfd863416b6ad7c55e540d58eb8d01efd02c8508a827a4dc7343",
+  "state/pk_state_rewind_at_block.json": "8af68e59175b07538fb7021f92688b65efab7e443e71c85a63ed33a1fc333ad9",
+  "state/pk_state_rewind_current.json": "9083c8d140f56834415dd0894a13e010737c54938568a3ef7e0fdbd28bd5eacb",
+  "state/pk_state_rewind_evicted.json": "fcb9e222a953581bb469d8e820556dfa7547192463b01651642a294aecd8f464",
+  "state/tp_gemma3_chunks.json": "4ed12a4bf09d71f55f3a46190679b6aa534ab2e33325c46fc242084696deca7a",
+  "state/tp_gemma3_decode.json": "1794b3c5f4e04b33ce206c7c78f82d34f3dcdfcac41950764a52c73965cf508d",
+  "state/tp_gemma3_rewind_window.json": "c3efbadc77ca902fca6980c1be309204f222e4cd99e77778e816d0bfe3f16f86",
+  "state/tp_gptneox_chunks.json": "b758f6a2bebe80e03020d2c0ba7ead55f5959c5c3907e35ade97f5e0b3bb750e",
+  "state/tp_gptneox_decode.json": "1d3cd823257d408589995b715bd11ee6931f2f650ea68a2b3123298097af131b",
+  "state/tp_llama_hd16_chunks.json": "290a16d20fe67ab3ce3361ceee7d0594349d4ab7d95f9a12d1976263e97128ee",
+  "state/tp_llama_hd16_decode.json": "3fce148390c7fed52abed13d98953cb7b82434760608de964a3dcc02ae459b11",
+  "state/tp_llama_hd16_truncate.json": "2289990b5b4a0cf7e749afd645a146e63ffb6beaf1e0d7e0faa7c99855668db7",
+  "state/tp_mamba1_chunks.json": "bd887636ebc2f7f54535b20b5fe379f63498e1e11a852c5078ff51a34e59b80d",
+  "state/tp_mamba1_decode.json": "9d0c4098b5b60e75fb50daf0ecdef4075f0454ad04b6bdb0bd260cf56d39b3ab",
+  "state/tp_mamba1_recurrence.json": "33530b6ef8da8364b11a5383eb8f724311a36b74d53d1b38381a826c9a67ec18",
+  "state/tp_mamba1_snapshot.json": "64b76906cc16cf7097fe85ef4f5504c34b7d5af2aa92209569df9504c3f6f664",
+  "state/tp_mamba1_truncate.json": "10cdc038d1d18866b41004274fd562d7e49f3358fb306d83bc977a17db4fa7f7",
+  "state/tp_mistral_chunks.json": "c3c8c6b20d0cf205e4734519f964203bcaeb38a5771e3d2ae7fc44fbabd7c866",
+  "state/tp_mistral_decode.json": "2692e3c78c2020b95eec51dd98cee891b7040ac9fa2efc545c14774490b94fc2",
+  "state/tp_mistral_hd16_chunks.json": "5aa20bd63c3808cce55c71e34441743bd284bea5f890c9cee12c31c2bdbcf2da",
+  "state/tp_mistral_hd16_decode.json": "24c1e1c9de75cf0727a5526458e6a045e3ac359f792f86b5097272e7307ff45a",
+  "state/tp_mistral_hd16_rewind_window.json": "42414872bd7ed3a58d8eef775c04948a0e05f41e4101812557b611bea5f7bc04",
+  "state/tp_qwen3_chunks.json": "759065801f652194ce2ec56b9bbfef09dc192d79ebed08f9f739210f2c4b0803",
+  "state/tp_qwen3_decode.json": "ef9bca4a93e314abcd3bed481bd1bfd56b6dd40f9bddf07649371864781bdee3",
+  "state/tp_qwen3_hd16_chunks.json": "df4ae673709c1cbf953f72bdfe6047f4e560f0824227f352e70b2a63a102a12d",
+  "state/tp_qwen3_hd16_decode.json": "3e66508c265f8e4f743cb5214b32bab0766423840e579799dd44d6392661c91e",
+  "state/tp_qwen3_hd16_truncate.json": "cd612ee4d9fb939fae4762b490530d2fbbae6c042fcc1355f090c80d3da7253d",
+  "state/tp_qwen3_truncate.json": "43eb4cf926df7d92eeff1011630fff5d5f66ab575353c1abfb49b5a345983d0c"
+ },
+ "counts": {
+  "PASS": 158,
+  "FAIL": 0,
+  "SKIP": 366,
+  "XFAIL": 0,
+  "XPASS": 0
+ },
+ "score_calls": [
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_attnres",
+   "prompt": [
+    2,
+    2,
+    12
+   ],
+   "continuation": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.8327420860984642,
+     -1.6211562452684296,
+     -1.2276539516692058,
+     -1.2570366111844615,
+     -1.7358997200161508,
+     -1.1955096286298363
+    ],
+    "argmax": [
+     3,
+     5,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_attnres",
+   "prompt": [
+    7,
+    9,
+    9,
+    10
+   ],
+   "continuation": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.822512399723281,
+     -1.6025592350543418,
+     -1.2278999329348295,
+     -1.2627834175198926,
+     -1.734742694381723,
+     -1.1879668751157826
+    ],
+    "argmax": [
+     3,
+     5,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_attnres",
+   "prompt": [
+    1,
+    7,
+    3,
+    6,
+    13
+   ],
+   "continuation": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.8262381562717258,
+     -1.6146179489212802,
+     -1.2190960794965313,
+     -1.2517940658687787,
+     -1.735799598430743,
+     -1.1884721170568446
+    ],
+    "argmax": [
+     3,
+     5,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_attnres",
+   "prompt": [
+    8,
+    1,
+    8,
+    2,
+    11,
+    14
+   ],
+   "continuation": [
+    1,
+    10,
+    3,
+    5,
+    6,
+    9
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.2767068070541918,
+     -1.9921758310159126,
+     -1.8327134324711436,
+     -1.6056468856683634,
+     -1.2249604390204554,
+     -1.257030652704657
+    ],
+    "argmax": [
+     1,
+     10,
+     3,
+     5,
+     6,
+     9
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_expr",
+   "prompt": [
+    4,
+    12,
+    2
+   ],
+   "continuation": [
+    4,
+    6,
+    9,
+    8,
+    14,
+    1
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.54418272576587,
+     -1.131681041502913,
+     -1.1796784773370512,
+     -1.5739137320235945,
+     -1.1221429050892753,
+     -1.2847532386792675
+    ],
+    "argmax": [
+     4,
+     6,
+     9,
+     8,
+     14,
+     1
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_expr",
+   "prompt": [
+    5,
+    12,
+    4,
+    10
+   ],
+   "continuation": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.7618286473390568,
+     -1.4799675314357736,
+     -1.130589738440901,
+     -1.180908836686809,
+     -1.5751109314987224,
+     -1.121976414727903
+    ],
+    "argmax": [
+     3,
+     5,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_expr",
+   "prompt": [
+    7,
+    8,
+    14,
+    12,
+    12
+   ],
+   "continuation": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.7610452861789117,
+     -1.480124098083294,
+     -1.1314493609394485,
+     -1.1840947877152204,
+     -1.5756433174637678,
+     -1.1214974966912532
+    ],
+    "argmax": [
+     3,
+     5,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_expr",
+   "prompt": [
+    8,
+    14,
+    14,
+    2,
+    3,
+    5
+   ],
+   "continuation": [
+    6,
+    9,
+    8,
+    14,
+    1,
+    12
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.1316185701010226,
+     -1.179644430691271,
+     -1.5721458736448866,
+     -1.1219550997060723,
+     -1.2840550097394536,
+     -2.0044044803290273
+    ],
+    "argmax": [
+     6,
+     9,
+     8,
+     14,
+     1,
+     12
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_highway",
+   "prompt": [
+    9,
+    12,
+    13
+   ],
+   "continuation": [
+    2,
+    4,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.8529711725551894,
+     -1.7134105175915921,
+     -1.2243763465797484,
+     -1.2891747182332955,
+     -1.686515868114697,
+     -1.2069101658327992
+    ],
+    "argmax": [
+     2,
+     4,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_highway",
+   "prompt": [
+    13,
+    14,
+    2,
+    11
+   ],
+   "continuation": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.8410543658415097,
+     -1.5487034506864836,
+     -1.2247777169741525,
+     -1.2966533364875479,
+     -1.6864630230704276,
+     -1.213840608740497
+    ],
+    "argmax": [
+     3,
+     5,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_highway",
+   "prompt": [
+    7,
+    10,
+    4,
+    1,
+    2
+   ],
+   "continuation": [
+    4,
+    6,
+    9,
+    8,
+    14,
+    1
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.7214607803490987,
+     -1.2244626428990826,
+     -1.2927260373864355,
+     -1.6903837215103579,
+     -1.2124806194080302,
+     -1.347528868911799
+    ],
+    "argmax": [
+     4,
+     6,
+     9,
+     8,
+     14,
+     1
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_highway",
+   "prompt": [
+    14,
+    13,
+    5,
+    7,
+    4,
+    3
+   ],
+   "continuation": [
+    5,
+    6,
+    9,
+    8,
+    14,
+    1
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.5464652631109561,
+     -1.2269609973170263,
+     -1.2955664525630215,
+     -1.682049232240128,
+     -1.208222869802285,
+     -1.3332245875282474
+    ],
+    "argmax": [
+     5,
+     6,
+     9,
+     8,
+     14,
+     1
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_mdha",
+   "prompt": [
+    9,
+    10,
+    14
+   ],
+   "continuation": [
+    1,
+    12,
+    3,
+    5,
+    6,
+    9
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.3316516454327358,
+     -1.9469822661424516,
+     -1.7482611200544214,
+     -1.4377788206338193,
+     -1.145500318300401,
+     -1.2340596028531585
+    ],
+    "argmax": [
+     1,
+     12,
+     3,
+     5,
+     6,
+     9
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_mdha",
+   "prompt": [
+    14,
+    9,
+    1,
+    10
+   ],
+   "continuation": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.7542636217336702,
+     -1.4390676607400996,
+     -1.1455155800628385,
+     -1.2331689003009567,
+     -1.571951318146309,
+     -1.0907408450758738
+    ],
+    "argmax": [
+     3,
+     5,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_mdha",
+   "prompt": [
+    10,
+    9,
+    9,
+    4,
+    5
+   ],
+   "continuation": [
+    6,
+    9,
+    8,
+    14,
+    1,
+    12
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.1461789779745772,
+     -1.2332573663625999,
+     -1.571686949821744,
+     -1.0909438656648296,
+     -1.3313785521499764,
+     -1.9459190891420752
+    ],
+    "argmax": [
+     6,
+     9,
+     8,
+     14,
+     1,
+     12
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_mdha",
+   "prompt": [
+    7,
+    11,
+    2,
+    5,
+    9,
+    6
+   ],
+   "continuation": [
+    9,
+    8,
+    14,
+    1,
+    12,
+    3
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.2329659501238355,
+     -1.5711028483658989,
+     -1.091095922192726,
+     -1.3309070652071189,
+     -1.9471654112657983,
+     -1.7471832987983826
+    ],
+    "argmax": [
+     9,
+     8,
+     14,
+     1,
+     12,
+     3
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_shaw",
+   "prompt": [
+    6,
+    2,
+    13
+   ],
+   "continuation": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.6616044956456308,
+     -1.5275938001494138,
+     -1.222739571885754,
+     -1.2153031880320002,
+     -1.6299679331903651,
+     -1.1593512775135444
+    ],
+    "argmax": [
+     3,
+     5,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_shaw",
+   "prompt": [
+    9,
+    13,
+    5,
+    14
+   ],
+   "continuation": [
+    1,
+    12,
+    3,
+    5,
+    6,
+    9
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.2312939031836208,
+     -1.9213404609904305,
+     -1.6607605957442673,
+     -1.5274374656794973,
+     -1.2220446945894823,
+     -1.2142334345381403
+    ],
+    "argmax": [
+     1,
+     12,
+     3,
+     5,
+     6,
+     9
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_shaw",
+   "prompt": [
+    14,
+    10,
+    12,
+    2,
+    5
+   ],
+   "continuation": [
+    6,
+    9,
+    8,
+    14,
+    1,
+    12
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.2218191561477962,
+     -1.2147035386793563,
+     -1.6305609592997958,
+     -1.1580728122374047,
+     -1.230725603333558,
+     -1.921461375693597
+    ],
+    "argmax": [
+     6,
+     9,
+     8,
+     14,
+     1,
+     12
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_shaw",
+   "prompt": [
+    13,
+    1,
+    10,
+    14,
+    5,
+    1
+   ],
+   "continuation": [
+    12,
+    3,
+    5,
+    6,
+    9,
+    8
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.9213197423324455,
+     -1.6610494271744214,
+     -1.5262751172186213,
+     -1.221766850384258,
+     -1.214321845494062,
+     -1.6310602534154275
+    ],
+    "argmax": [
+     12,
+     3,
+     5,
+     6,
+     9,
+     8
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_t5",
+   "prompt": [
+    11,
+    1,
+    9
+   ],
+   "continuation": [
+    8,
+    14,
+    1,
+    12,
+    3,
+    5
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.6260569429342868,
+     -1.1459433920706092,
+     -1.2259338347153999,
+     -1.9147788595043145,
+     -1.6598838731574952,
+     -1.5212091775351273
+    ],
+    "argmax": [
+     8,
+     14,
+     1,
+     12,
+     3,
+     5
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_t5",
+   "prompt": [
+    5,
+    4,
+    1,
+    9
+   ],
+   "continuation": [
+    8,
+    14,
+    1,
+    12,
+    3,
+    5
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.6271370642531322,
+     -1.1475636964297895,
+     -1.226067445648293,
+     -1.912956028980948,
+     -1.6602276887372065,
+     -1.5238186566485827
+    ],
+    "argmax": [
+     8,
+     14,
+     1,
+     12,
+     3,
+     5
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_t5",
+   "prompt": [
+    4,
+    12,
+    12,
+    9,
+    9
+   ],
+   "continuation": [
+    8,
+    14,
+    1,
+    12,
+    3,
+    5
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.626710848379686,
+     -1.1480394638478941,
+     -1.226785802994685,
+     -1.9131619298243163,
+     -1.6595491131199742,
+     -1.5222923731488762
+    ],
+    "argmax": [
+     8,
+     14,
+     1,
+     12,
+     3,
+     5
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_flex_t5",
+   "prompt": [
+    12,
+    8,
+    4,
+    7,
+    5,
+    1
+   ],
+   "continuation": [
+    12,
+    3,
+    5,
+    6,
+    9,
+    8
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.9123683024521219,
+     -1.6579409895877124,
+     -1.5257283992229025,
+     -1.2163964688597229,
+     -1.2076921702851628,
+     -1.6257326024686107
+    ],
+    "argmax": [
+     12,
+     3,
+     5,
+     6,
+     9,
+     8
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_gpt2",
+   "prompt": [
+    1,
+    3,
+    3
+   ],
+   "continuation": [
+    5,
+    6,
+    9,
+    8,
+    14,
+    1
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.605171436391586,
+     -1.2336653772426684,
+     -1.258964463589515,
+     -1.7442974888553402,
+     -1.200269279510099,
+     -1.2775008294202599
+    ],
+    "argmax": [
+     5,
+     6,
+     9,
+     8,
+     14,
+     1
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_gpt2",
+   "prompt": [
+    7,
+    5,
+    11,
+    7
+   ],
+   "continuation": [
+    14,
+    1,
+    10,
+    3,
+    5,
+    6
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.207713230728107,
+     -1.2711903877159856,
+     -2.0090842031185785,
+     -1.8314304103102539,
+     -1.6136226668188156,
+     -1.2275983774693655
+    ],
+    "argmax": [
+     14,
+     1,
+     10,
+     3,
+     5,
+     6
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_gpt2",
+   "prompt": [
+    5,
+    13,
+    9,
+    10,
+    11
+   ],
+   "continuation": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.808497552933097,
+     -1.6325637768069607,
+     -1.219967859441633,
+     -1.265772286279976,
+     -1.7264475438869682,
+     -1.202184224325416
+    ],
+    "argmax": [
+     3,
+     5,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_gpt2",
+   "prompt": [
+    5,
+    13,
+    1,
+    5,
+    3,
+    1
+   ],
+   "continuation": [
+    10,
+    2,
+    4,
+    6,
+    9,
+    8
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -2.003816151787069,
+     -1.8314434270608184,
+     -1.7086428957962452,
+     -1.2269906388509384,
+     -1.2595517535358876,
+     -1.7315100714332072
+    ],
+    "argmax": [
+     10,
+     2,
+     4,
+     6,
+     9,
+     8
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_gpt2_swa",
+   "prompt": [
+    3,
+    12,
+    2
+   ],
+   "continuation": [
+    4,
+    6,
+    9,
+    8,
+    14,
+    1
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.722038880984955,
+     -1.238677360211101,
+     -1.252324795457868,
+     -1.7549974455818433,
+     -1.2077986446181923,
+     -1.3133329422601192
+    ],
+    "argmax": [
+     4,
+     6,
+     9,
+     8,
+     14,
+     1
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_gpt2_swa",
+   "prompt": [
+    9,
+    1,
+    5,
+    14
+   ],
+   "continuation": [
+    1,
+    10,
+    3,
+    5,
+    6,
+    9
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.3107624294922897,
+     -2.0308274895904668,
+     -1.8310731685606652,
+     -1.6315655497860941,
+     -1.2404053961276271,
+     -1.248014263507806
+    ],
+    "argmax": [
+     1,
+     10,
+     3,
+     5,
+     6,
+     9
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_gpt2_swa",
+   "prompt": [
+    5,
+    5,
+    2,
+    11,
+    3
+   ],
+   "continuation": [
+    5,
+    6,
+    9,
+    8,
+    14,
+    1
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.6739751884104617,
+     -1.249132784152284,
+     -1.250983772109131,
+     -1.7512973042071749,
+     -1.2070245846647814,
+     -1.33367926749888
+    ],
+    "argmax": [
+     5,
+     6,
+     9,
+     8,
+     14,
+     1
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_gpt2_swa",
+   "prompt": [
+    7,
+    1,
+    1,
+    12,
+    1,
+    7
+   ],
+   "continuation": [
+    14,
+    1,
+    10,
+    3,
+    5,
+    6
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.226216778393452,
+     -1.3071739334198527,
+     -2.0263951117493813,
+     -1.849337873866713,
+     -1.6419427495615784,
+     -1.2299989702916
+    ],
+    "argmax": [
+     14,
+     1,
+     10,
+     3,
+     5,
+     6
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_kimi",
+   "prompt": [
+    9,
+    13,
+    13
+   ],
+   "continuation": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.8112245897465808,
+     -1.623973409476869,
+     -1.2158001434124215,
+     -1.2669986448679125,
+     -1.7372421997848362,
+     -1.2059393372324803
+    ],
+    "argmax": [
+     3,
+     5,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_kimi",
+   "prompt": [
+    11,
+    1,
+    6,
+    12
+   ],
+   "continuation": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.816708448208906,
+     -1.6064126325333679,
+     -1.2241684998529025,
+     -1.265171841768765,
+     -1.7305159078266874,
+     -1.2025910635318755
+    ],
+    "argmax": [
+     3,
+     5,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_kimi",
+   "prompt": [
+    8,
+    3,
+    10,
+    2,
+    10
+   ],
+   "continuation": [
+    2,
+    4,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.8281882678974555,
+     -1.7109177600339065,
+     -1.216272678304069,
+     -1.2558293298232759,
+     -1.7355258099075939,
+     -1.2011540008817967
+    ],
+    "argmax": [
+     2,
+     4,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_kimi",
+   "prompt": [
+    1,
+    6,
+    5,
+    14,
+    11,
+    10
+   ],
+   "continuation": [
+    2,
+    4,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.82974077877404,
+     -1.7060196869899815,
+     -1.2222798909968824,
+     -1.2562240685020036,
+     -1.7466344775236051,
+     -1.2019980677415723
+    ],
+    "argmax": [
+     2,
+     4,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama",
+   "prompt": [
+    14,
+    8,
+    5
+   ],
+   "continuation": [
+    6,
+    9,
+    8,
+    14,
+    14,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.7412957574611365,
+     -1.4215006465149147,
+     -1.857012614387755,
+     -1.4126012878278378,
+     -1.6980700008366894,
+     -1.7060918370833622
+    ],
+    "argmax": [
+     6,
+     9,
+     8,
+     14,
+     14,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama",
+   "prompt": [
+    14,
+    7,
+    11,
+    5
+   ],
+   "continuation": [
+    6,
+    9,
+    8,
+    14,
+    14,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.7218066609559008,
+     -1.4215002620515385,
+     -1.8574140671393027,
+     -1.4127884752654782,
+     -1.6951641985276196,
+     -1.704481230787512
+    ],
+    "argmax": [
+     6,
+     9,
+     8,
+     14,
+     14,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama",
+   "prompt": [
+    14,
+    11,
+    13,
+    1,
+    2
+   ],
+   "continuation": [
+    4,
+    6,
+    9,
+    8,
+    14,
+    1
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.8343816579743117,
+     -1.7275977543563334,
+     -1.4156853977609427,
+     -1.8565693883946717,
+     -1.415537990288215,
+     -1.7227747472608035
+    ],
+    "argmax": [
+     4,
+     6,
+     9,
+     8,
+     14,
+     1
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama",
+   "prompt": [
+    1,
+    8,
+    6,
+    14,
+    4,
+    3
+   ],
+   "continuation": [
+    5,
+    6,
+    9,
+    8,
+    14,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.7958966822530316,
+     -1.7319605674111642,
+     -1.419610782293565,
+     -1.8579965024258533,
+     -1.413648689644999,
+     -1.707163174636855
+    ],
+    "argmax": [
+     5,
+     6,
+     9,
+     8,
+     14,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama",
+   "prompt": [
+    12
+   ],
+   "continuation": [
+    5,
+    11,
+    5,
+    8,
+    2,
+    10,
+    13,
+    10
+   ],
+   "kwargs": {
+    "kv_cache": true,
+    "evict": false,
+    "kv_step": 1
+   },
+   "result": {
+    "logprobs": [
+     -2.4395298965483745,
+     -3.2121891951050334,
+     -2.5984262019167828,
+     -2.83573742639444,
+     -3.491828766181877,
+     -3.132257400476113,
+     -2.5145424820749938,
+     -2.3537339369593804
+    ],
+    "argmax": [
+     2,
+     6,
+     2,
+     6,
+     14,
+     4,
+     2,
+     2
+    ],
+    "kv_rows": 8
+   },
+   "logprobs_shape": [
+    8
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama_attnres",
+   "prompt": [
+    8,
+    13,
+    7
+   ],
+   "continuation": [
+    14,
+    14,
+    14,
+    1,
+    10,
+    2
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.4260012624127623,
+     -1.7031995310031005,
+     -1.7212147004099854,
+     -1.7288163994567485,
+     -2.0302476568971652,
+     -1.930680733821333
+    ],
+    "argmax": [
+     14,
+     14,
+     14,
+     1,
+     10,
+     2
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama_attnres",
+   "prompt": [
+    3,
+    8,
+    9,
+    3
+   ],
+   "continuation": [
+    5,
+    6,
+    9,
+    8,
+    14,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.8291582196745029,
+     -1.7235151868017617,
+     -1.3973578871517467,
+     -1.8418971073214268,
+     -1.428531546561937,
+     -1.7048449529422387
+    ],
+    "argmax": [
+     5,
+     6,
+     9,
+     8,
+     14,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama_attnres",
+   "prompt": [
+    3,
+    10,
+    7,
+    7,
+    12
+   ],
+   "continuation": [
+    2,
+    4,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.945928789647619,
+     -1.8538023032106212,
+     -1.7234664304646614,
+     -1.3954621441469832,
+     -1.8422947803307932,
+     -1.424265991119574
+    ],
+    "argmax": [
+     2,
+     4,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama_attnres",
+   "prompt": [
+    10,
+    13,
+    3,
+    11,
+    8,
+    1
+   ],
+   "continuation": [
+    10,
+    2,
+    4,
+    6,
+    9,
+    8
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -2.031694943977724,
+     -1.9404805787219281,
+     -1.839815175855118,
+     -1.7416379866176583,
+     -1.3982710407947199,
+     -1.8411103475118442
+    ],
+    "argmax": [
+     10,
+     2,
+     4,
+     6,
+     9,
+     8
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama_attnres_rec",
+   "prompt": [
+    4,
+    13,
+    6
+   ],
+   "continuation": [
+    9,
+    8,
+    14,
+    1,
+    10,
+    2
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.359452468600528,
+     -1.8129430488898446,
+     -1.3798368795605722,
+     -1.6765577171993913,
+     -2.06720635880782,
+     -1.8788111054665972
+    ],
+    "argmax": [
+     9,
+     8,
+     14,
+     1,
+     10,
+     2
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama_attnres_rec",
+   "prompt": [
+    11,
+    1,
+    9,
+    13
+   ],
+   "continuation": [
+    2,
+    4,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.880224201462803,
+     -1.8333754966522595,
+     -1.626288417250158,
+     -1.3550686911675682,
+     -1.81162881304508,
+     -1.3784191947343718
+    ],
+    "argmax": [
+     2,
+     4,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama_attnres_rec",
+   "prompt": [
+    5,
+    9,
+    4,
+    3,
+    1
+   ],
+   "continuation": [
+    10,
+    2,
+    5,
+    6,
+    9,
+    8
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -2.0751369577967527,
+     -1.8824200466125083,
+     -1.8393505736274818,
+     -1.6213724221232066,
+     -1.3552417189844923,
+     -1.8136032417364167
+    ],
+    "argmax": [
+     10,
+     2,
+     5,
+     6,
+     9,
+     8
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama_attnres_rec",
+   "prompt": [
+    7,
+    8,
+    2,
+    4,
+    9,
+    6
+   ],
+   "continuation": [
+    9,
+    8,
+    14,
+    1,
+    10,
+    2
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.3563458968007485,
+     -1.8140836054084712,
+     -1.3788174659211356,
+     -1.6773408095034712,
+     -2.0733277061861,
+     -1.8809308809248282
+    ],
+    "argmax": [
+     9,
+     8,
+     14,
+     1,
+     10,
+     2
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_mamba",
+   "prompt": [
+    3,
+    5,
+    7
+   ],
+   "continuation": [
+    14,
+    1,
+    10,
+    2,
+    4,
+    6
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.0938241619953597,
+     -1.076079168054145,
+     -1.9270926878252914,
+     -1.8164602218169439,
+     -1.3883500678990734,
+     -1.3993633253986983
+    ],
+    "argmax": [
+     14,
+     1,
+     10,
+     2,
+     4,
+     6
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_mamba",
+   "prompt": [
+    10,
+    2,
+    5,
+    2
+   ],
+   "continuation": [
+    4,
+    6,
+    9,
+    7,
+    14,
+    1
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.3883498880133034,
+     -1.3993633249413604,
+     -1.259080719927122,
+     -1.5591286348139817,
+     -1.0938241911816597,
+     -1.0760790861505405
+    ],
+    "argmax": [
+     4,
+     6,
+     9,
+     7,
+     14,
+     1
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_mamba",
+   "prompt": [
+    2,
+    4,
+    5,
+    13,
+    6
+   ],
+   "continuation": [
+    9,
+    7,
+    14,
+    1,
+    10,
+    2
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.2590806316406224,
+     -1.559128589611443,
+     -1.0938241842326322,
+     -1.0760789108089734,
+     -1.9270926104407777,
+     -1.8164600229312422
+    ],
+    "argmax": [
+     9,
+     7,
+     14,
+     1,
+     10,
+     2
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_mamba",
+   "prompt": [
+    2,
+    13,
+    8,
+    2,
+    2,
+    2
+   ],
+   "continuation": [
+    4,
+    6,
+    9,
+    7,
+    14,
+    1
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.388349621355604,
+     -1.3993635856845807,
+     -1.259080624407645,
+     -1.559128637733862,
+     -1.0938241964355992,
+     -1.0760790861505405
+    ],
+    "argmax": [
+     4,
+     6,
+     9,
+     7,
+     14,
+     1
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_moe",
+   "prompt": [
+    14,
+    10,
+    7
+   ],
+   "continuation": [
+    14,
+    1,
+    10,
+    2,
+    4,
+    6
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.4160948992499196,
+     -1.689177732658365,
+     -2.0849133281517105,
+     -1.918513967687488,
+     -1.8055745817956463,
+     -1.6981940559130184
+    ],
+    "argmax": [
+     14,
+     1,
+     10,
+     2,
+     4,
+     6
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_moe",
+   "prompt": [
+    3,
+    11,
+    7,
+    12
+   ],
+   "continuation": [
+    2,
+    4,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.9425972537902452,
+     -1.820182631631618,
+     -1.6976394913745663,
+     -1.405229855699031,
+     -1.8369747790177704,
+     -1.4148415706188917
+    ],
+    "argmax": [
+     2,
+     4,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_moe",
+   "prompt": [
+    1,
+    5,
+    12,
+    9,
+    11
+   ],
+   "continuation": [
+    2,
+    4,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.9339755886276964,
+     -1.8138402471108417,
+     -1.6958341913182853,
+     -1.4005682171676137,
+     -1.8372704200977776,
+     -1.4145022878951572
+    ],
+    "argmax": [
+     2,
+     4,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_moe",
+   "prompt": [
+    9,
+    12,
+    12,
+    11,
+    10,
+    4
+   ],
+   "continuation": [
+    6,
+    9,
+    14,
+    1,
+    10,
+    2
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.7029326906866677,
+     -1.4020754314377306,
+     -1.836869653328997,
+     -1.6902125969203778,
+     -2.0585807198469186,
+     -1.9288640498009757
+    ],
+    "argmax": [
+     6,
+     9,
+     14,
+     1,
+     10,
+     2
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_moe",
+   "prompt": [
+    2
+   ],
+   "continuation": [
+    12,
+    5,
+    4,
+    1,
+    2,
+    1,
+    6,
+    5
+   ],
+   "kwargs": {
+    "kv_cache": true,
+    "evict": false,
+    "kv_step": 1
+   },
+   "result": {
+    "logprobs": [
+     -3.1344318218315115,
+     -2.285105472919896,
+     -2.0769700978993098,
+     -3.8334221086025537,
+     -2.584123608402937,
+     -4.020040476754948,
+     -3.619612509535448,
+     -2.7802855244714246
+    ],
+    "argmax": [
+     4,
+     2,
+     6,
+     6,
+     10,
+     4,
+     10,
+     9
+    ],
+    "kv_rows": 8
+   },
+   "logprobs_shape": [
+    8
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_mor",
+   "prompt": [
+    7,
+    9,
+    5
+   ],
+   "continuation": [
+    6,
+    9,
+    8,
+    14,
+    1,
+    13
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.3521540500611904,
+     -1.050619512759571,
+     -1.5670741944631736,
+     -1.060484208085112,
+     -1.366891087948268,
+     -1.8582707378080028
+    ],
+    "argmax": [
+     6,
+     9,
+     8,
+     14,
+     1,
+     13
+    ],
+    "depth": [
+     2,
+     1,
+     3,
+     1,
+     1,
+     1,
+     2,
+     2
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_mor",
+   "prompt": [
+    8,
+    9,
+    10,
+    9
+   ],
+   "continuation": [
+    8,
+    14,
+    1,
+    13,
+    2,
+    4
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.5700527562146327,
+     -1.0590732172000241,
+     -1.3671040368990663,
+     -1.8559768653811526,
+     -1.6633055503771557,
+     -1.5524930147785219
+    ],
+    "argmax": [
+     8,
+     14,
+     1,
+     13,
+     2,
+     4
+    ],
+    "depth": [
+     1,
+     1,
+     3,
+     1,
+     1,
+     2,
+     2,
+     3,
+     3
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_mor",
+   "prompt": [
+    1,
+    4,
+    12,
+    9,
+    5
+   ],
+   "continuation": [
+    6,
+    9,
+    8,
+    14,
+    1,
+    13
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.3516840629516271,
+     -1.0522954515700946,
+     -1.5667188344897442,
+     -1.0611570305322537,
+     -1.3698903372599358,
+     -1.859193732927513
+    ],
+    "argmax": [
+     6,
+     9,
+     8,
+     14,
+     1,
+     13
+    ],
+    "depth": [
+     2,
+     3,
+     3,
+     1,
+     3,
+     1,
+     1,
+     1,
+     2,
+     2
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_mor",
+   "prompt": [
+    6,
+    14,
+    11,
+    6,
+    5,
+    2
+   ],
+   "continuation": [
+    4,
+    6,
+    9,
+    8,
+    14,
+    1
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.566290269609427,
+     -1.3483088239972034,
+     -1.0519883590389354,
+     -1.5668149392351252,
+     -1.0622552215965444,
+     -1.367946555285243
+    ],
+    "argmax": [
+     4,
+     6,
+     9,
+     8,
+     14,
+     1
+    ],
+    "depth": [
+     1,
+     2,
+     3,
+     1,
+     3,
+     3,
+     3,
+     1,
+     1,
+     1,
+     2
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_mor",
+   "prompt": [
+    12
+   ],
+   "continuation": [
+    9,
+    6,
+    10,
+    8,
+    8,
+    10,
+    11,
+    8
+   ],
+   "kwargs": {
+    "kv_cache": true,
+    "evict": false,
+    "kv_step": 1
+   },
+   "result": {
+    "logprobs": [
+     -4.417597020647282,
+     -3.087626682290116,
+     -3.822512805988513,
+     -3.688106222934664,
+     -2.2729150662124127,
+     -3.359762166320814,
+     -2.8047327771808748,
+     -3.7392079093534694
+    ],
+    "argmax": [
+     2,
+     8,
+     9,
+     2,
+     14,
+     14,
+     2,
+     2
+    ],
+    "depth": [
+     3
+    ],
+    "kv_rows": 8
+   },
+   "logprobs_shape": [
+    8
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_recurrence",
+   "prompt": [
+    14,
+    5,
+    4
+   ],
+   "continuation": [
+    6,
+    9,
+    8,
+    14,
+    1,
+    10
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.242059835989083,
+     -1.2616964719112358,
+     -1.7314284923362826,
+     -1.2005868994572102,
+     -1.2796552943152961,
+     -2.014339281621408
+    ],
+    "argmax": [
+     6,
+     9,
+     8,
+     14,
+     1,
+     10
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_recurrence",
+   "prompt": [
+    11,
+    12,
+    4,
+    13
+   ],
+   "continuation": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.8068449375947149,
+     -1.6095008308296384,
+     -1.2215581519026435,
+     -1.263540506064232,
+     -1.7238113254303942,
+     -1.2003527153487703
+    ],
+    "argmax": [
+     3,
+     5,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_recurrence",
+   "prompt": [
+    12,
+    3,
+    6,
+    14,
+    5
+   ],
+   "continuation": [
+    6,
+    9,
+    8,
+    14,
+    1,
+    10
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.2197381993432077,
+     -1.253470872836622,
+     -1.730359379707651,
+     -1.1990687391245691,
+     -1.2682853420658484,
+     -2.0145721034074597
+    ],
+    "argmax": [
+     6,
+     9,
+     8,
+     14,
+     1,
+     10
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_recurrence",
+   "prompt": [
+    3,
+    14,
+    9,
+    7,
+    3,
+    7
+   ],
+   "continuation": [
+    14,
+    1,
+    10,
+    2,
+    4,
+    6
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.2002478250247892,
+     -1.2767962729903852,
+     -2.0098060526414523,
+     -1.816359834077984,
+     -1.7211177825308779,
+     -1.2161081736551387
+    ],
+    "argmax": [
+     14,
+     1,
+     10,
+     2,
+     4,
+     6
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_recursive",
+   "prompt": [
+    5,
+    14,
+    3
+   ],
+   "continuation": [
+    5,
+    6,
+    9,
+    9,
+    9,
+    9
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.8053383265115002,
+     -1.732317763881427,
+     -1.4347919429867517,
+     -1.786594167039561,
+     -1.7869651721833881,
+     -1.785778399631608
+    ],
+    "argmax": [
+     5,
+     6,
+     9,
+     9,
+     9,
+     9
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_recursive",
+   "prompt": [
+    2,
+    9,
+    5,
+    2
+   ],
+   "continuation": [
+    5,
+    6,
+    9,
+    9,
+    9,
+    9
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.8571058981812019,
+     -1.7342862033913056,
+     -1.4348428416756032,
+     -1.776515203866728,
+     -1.7793426159357186,
+     -1.779312938556776
+    ],
+    "argmax": [
+     5,
+     6,
+     9,
+     9,
+     9,
+     9
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_recursive",
+   "prompt": [
+    8,
+    11,
+    1,
+    7,
+    3
+   ],
+   "continuation": [
+    5,
+    6,
+    9,
+    9,
+    9,
+    9
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.815064101191015,
+     -1.7328953857259781,
+     -1.4309357716402646,
+     -1.7872275569524876,
+     -1.7884608004106706,
+     -1.7877468915679453
+    ],
+    "argmax": [
+     5,
+     6,
+     9,
+     9,
+     9,
+     9
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_recursive",
+   "prompt": [
+    9,
+    12,
+    12,
+    11,
+    5,
+    9
+   ],
+   "continuation": [
+    9,
+    9,
+    9,
+    9,
+    9,
+    9
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.8086498574684782,
+     -1.808837368663599,
+     -1.8063285751707026,
+     -1.8029674371306414,
+     -1.7994672303659356,
+     -1.7962047455526111
+    ],
+    "argmax": [
+     9,
+     9,
+     9,
+     9,
+     9,
+     9
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_recursive",
+   "prompt": [
+    10
+   ],
+   "continuation": [
+    13,
+    10,
+    11,
+    2,
+    5,
+    6,
+    10,
+    13
+   ],
+   "kwargs": {
+    "kv_cache": true,
+    "evict": false,
+    "kv_step": 1
+   },
+   "result": {
+    "logprobs": [
+     -2.6867576003763816,
+     -2.4202524371264738,
+     -2.7260265017624348,
+     -1.9781801822984304,
+     -1.8837159476992735,
+     -1.77160467898811,
+     -3.657248791219944,
+     -2.660539135103349
+    ],
+    "argmax": [
+     2,
+     2,
+     2,
+     2,
+     4,
+     6,
+     9,
+     2
+    ],
+    "kv_rows": 8
+   },
+   "logprobs_shape": [
+    8
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_srd",
+   "prompt": [
+    5,
+    7,
+    11
+   ],
+   "continuation": [
+    3,
+    5,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.8136145526765604,
+     -1.6163611443214205,
+     -1.2231188529299113,
+     -1.2568409070771769,
+     -1.7321193975890525,
+     -1.20330938217959
+    ],
+    "argmax": [
+     3,
+     5,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_srd",
+   "prompt": [
+    3,
+    6,
+    3,
+    3
+   ],
+   "continuation": [
+    5,
+    6,
+    9,
+    8,
+    14,
+    1
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.6128289024246771,
+     -1.2298000857766676,
+     -1.25466222305593,
+     -1.7401139196815327,
+     -1.202061966717631,
+     -1.272726314729102
+    ],
+    "argmax": [
+     5,
+     6,
+     9,
+     8,
+     14,
+     1
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_srd",
+   "prompt": [
+    10,
+    13,
+    3,
+    10,
+    10
+   ],
+   "continuation": [
+    2,
+    4,
+    6,
+    9,
+    8,
+    14
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.827625483530911,
+     -1.7155767930984722,
+     -1.2263630443573001,
+     -1.2649073748892887,
+     -1.7306076115221058,
+     -1.1994273012580845
+    ],
+    "argmax": [
+     2,
+     4,
+     6,
+     9,
+     8,
+     14
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_srd",
+   "prompt": [
+    11,
+    10,
+    8,
+    2,
+    11,
+    3
+   ],
+   "continuation": [
+    5,
+    6,
+    9,
+    8,
+    14,
+    1
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -1.6419816530760931,
+     -1.2176464208853115,
+     -1.2658394941874218,
+     -1.7273537040143585,
+     -1.1994572467948996,
+     -1.2777967456102977
+    ],
+    "argmax": [
+     5,
+     6,
+     9,
+     8,
+     14,
+     1
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_state",
+   "prompt": [
+    2,
+    322,
+    201,
+    3,
+    200,
+    170,
+    1,
+    400,
+    401,
+    2,
+    353,
+    211,
+    3
+   ],
+   "continuation": [
+    50,
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -3.7742520519300093,
+     -3.7196991654138003,
+     -3.7172869037106557,
+     -3.7159385749870726,
+     -3.715156744652217,
+     -3.7147406357851582
+    ],
+    "argmax": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_state",
+   "prompt": [
+    2,
+    46,
+    203,
+    3,
+    350,
+    335,
+    1,
+    400,
+    401,
+    2,
+    151,
+    353,
+    3,
+    40,
+    300,
+    1,
+    400,
+    401,
+    2,
+    249,
+    7,
+    3
+   ],
+   "continuation": [
+    50,
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -3.773924342897078,
+     -3.7228862674611656,
+     -3.72010482584613,
+     -3.718351175272232,
+     -3.7172410207783484,
+     -3.716515062891389
+    ],
+    "argmax": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_state",
+   "prompt": [
+    2,
+    184,
+    154,
+    3,
+    173,
+    106,
+    1,
+    400,
+    401,
+    2,
+    341,
+    331,
+    3
+   ],
+   "continuation": [
+    50,
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -3.7523890354018796,
+     -3.716372929105927,
+     -3.7155925957985136,
+     -3.7151410179731466,
+     -3.714889764442347,
+     -3.714806209009887
+    ],
+    "argmax": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_state",
+   "prompt": [
+    2,
+    58,
+    306,
+    3,
+    248,
+    77,
+    1,
+    400,
+    401,
+    2,
+    167,
+    114,
+    3,
+    213,
+    55,
+    1,
+    400,
+    401,
+    2,
+    201,
+    50,
+    3
+   ],
+   "continuation": [
+    50,
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "kwargs": {},
+   "result": {
+    "logprobs": [
+     -3.756237114647848,
+     -3.718941437591881,
+     -3.717640721705618,
+     -3.716809541126705,
+     -3.7162861331839836,
+     -3.715962250205196
+    ],
+    "argmax": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ]
+   },
+   "logprobs_shape": [
+    6
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_state",
+   "prompt": [
+    2,
+    57,
+    340,
+    3,
+    206,
+    118,
+    1,
+    400,
+    401,
+    2,
+    345,
+    136,
+    3,
+    71,
+    360,
+    8,
+    1,
+    400,
+    401
+   ],
+   "continuation": [
+    2,
+    377,
+    30,
+    3,
+    323
+   ],
+   "kwargs": {
+    "kv_cache": true,
+    "evict": true,
+    "kv_step": 1
+   },
+   "result": {
+    "logprobs": [
+     -4.513516407667458,
+     -6.925483120104587,
+     -6.775506533695551,
+     -4.048963935781604,
+     -4.713826287650478
+    ],
+    "argmax": [
+     50,
+     50,
+     50,
+     3,
+     50
+    ],
+    "kv_rows": 8
+   },
+   "logprobs_shape": [
+    5
+   ]
+  },
+  {
+   "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_state",
+   "prompt": [
+    2,
+    57,
+    340,
+    3,
+    206,
+    118,
+    1,
+    400,
+    401,
+    2,
+    345,
+    136,
+    3,
+    71,
+    360,
+    8,
+    1,
+    400,
+    401
+   ],
+   "continuation": [
+    2,
+    377,
+    30,
+    3,
+    323
+   ],
+   "kwargs": {
+    "kv_cache": true,
+    "evict": false,
+    "kv_step": 1
+   },
+   "result": {
+    "logprobs": [
+     -4.513516407667458,
+     -6.925483120104587,
+     -6.775506533695551,
+     -4.048963935781604,
+     -4.713826287650478
+    ],
+    "argmax": [
+     50,
+     50,
+     50,
+     3,
+     50
+    ],
+    "kv_rows": 23
+   },
+   "logprobs_shape": [
+    5
+   ]
+  }
+ ]
+}

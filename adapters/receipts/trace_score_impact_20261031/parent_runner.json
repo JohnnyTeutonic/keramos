@@ -1,0 +1,386 @@
+{
+ "adapter": {
+  "engine": "mtstudio",
+  "backend": "cpu",
+  "exact": true,
+  "profiles": [
+   "chat",
+   "core",
+   "recurrence",
+   "recursion",
+   "state"
+  ]
+ },
+ "counts": {
+  "PASS": 6,
+  "FAIL": 0,
+  "SKIP": 53,
+  "XFAIL": 0,
+  "XPASS": 0
+ },
+ "by_kind": {
+  "trace": {
+   "PASS": 6,
+   "FAIL": 0,
+   "SKIP": 53,
+   "XFAIL": 0,
+   "XPASS": 0
+  }
+ },
+ "results": [
+  {
+   "id": "trace/pk_attnres_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_flex_expr_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_flex_highway_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_flex_mdha_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_flex_mdha_snapshot",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_flex_shaw_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_flex_t5_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_gpt2_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_gpt2_swa_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_kimi_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_kimi_snapshot",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_llama_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "decode by kv cache, token by token: log-probs worst 2.67e-08, greedy same (via the adapter's score)"
+  },
+  {
+   "id": "trace/pk_llama_truncate",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_llama_attnres_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_llama_attnres_rec_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_mamba_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_mamba_snapshot",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_moe_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "decode by kv cache, token by token: log-probs worst 2.71e-08, greedy same (via the adapter's score)"
+  },
+  {
+   "id": "trace/pk_mor_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "decode by kv cache, token by token: log-probs worst 3.55e-08, greedy same; depths of the last 1 decoded token(s) same (via the adapter's score)"
+  },
+  {
+   "id": "trace/pk_mor_truncate",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_recurrence_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_recurrence_snapshot",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_recursive_decode",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "decode by kv cache, token by token: log-probs worst 4.81e-08, greedy same (via the adapter's score)"
+  },
+  {
+   "id": "trace/pk_srd_decode",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_srd_snapshot",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_state_evict_on",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "decode by kv cache, token by token: log-probs worst 2.01e-08, greedy same; kv rows 8 legal (via the adapter's score)"
+  },
+  {
+   "id": "trace/pk_state_evict_off",
+   "kind": "trace",
+   "verdict": "PASS",
+   "detail": "decode by kv cache, token by token: log-probs worst 2.01e-08, greedy same (via the adapter's score)"
+  },
+  {
+   "id": "trace/pk_state_rewind_evicted",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_state_rewind_current",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_state_rewind_at_block",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_kimi_recurrence",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_srd_recurrence",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_mamba_recurrence",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_srd_truncate",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_flex_mdha_truncate",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_gpt2_swa_rewind_window",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_attnres_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_flex_expr_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_flex_highway_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_flex_mdha_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_flex_shaw_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_flex_t5_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_gpt2_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_gpt2_swa_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_kimi_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_llama_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_llama_attnres_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_llama_attnres_rec_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_mamba_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_moe_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_mor_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_recurrence_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_recursive_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_srd_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_state_chunks",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_llama_attnres_rec_untagged",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_flex_shaw_weight_index",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_mor_window",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  },
+  {
+   "id": "trace/pk_mor_window_rewind",
+   "kind": "trace",
+   "verdict": "SKIP",
+   "detail": "not implemented"
+  }
+ ]
+}

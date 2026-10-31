@@ -1,0 +1,1640 @@
+{
+ "affected_cases": {
+  "trace/pk_llama_decode": {
+   "file": "state/pk_llama_decode.json",
+   "sha256": "7b60d244e81262618df106b6f648c9dd1e29121bea21051d385be93359cc9016",
+   "expected_shape": [
+    8
+   ]
+  },
+  "trace/pk_moe_decode": {
+   "file": "state/pk_moe_decode.json",
+   "sha256": "5cbb3733501378162dd9ac5de1ce00bf02fa4f5a43716be5aa804b71e1adfc38",
+   "expected_shape": [
+    8
+   ]
+  },
+  "trace/pk_mor_decode": {
+   "file": "state/pk_mor_decode.json",
+   "sha256": "b1e76cf0b03968949b0a4a39361e65c6e524e337fe25e61f046d6216e51af662",
+   "expected_shape": [
+    8
+   ]
+  },
+  "trace/pk_recursive_decode": {
+   "file": "state/pk_recursive_decode.json",
+   "sha256": "d0b8864f5a9a720c20074a436eed2e9c304360eaa654cac6e787495f8f3cc5fb",
+   "expected_shape": [
+    8
+   ]
+  },
+  "trace/pk_state_evict_on": {
+   "file": "state/pk_state_evict_on.json",
+   "sha256": "50a51a14affdf98a9d21f0dc7cf55bc9112fb0e931f5d4cb4909ae232ed671ba",
+   "expected_shape": [
+    5
+   ]
+  },
+  "trace/pk_state_evict_off": {
+   "file": "state/pk_state_evict_off.json",
+   "sha256": "a56873d9ff91b872af6f2e3be72ba01b79b617803d802a01fa4b1aac775d181c",
+   "expected_shape": [
+    5
+   ]
+  }
+ },
+ "receipt_inventory": [
+  {
+   "path": "keramos/conformance/receipts/cleanroom.json",
+   "sha256": "3d7ec80935ea350fcace2be08ef5fe5c9a32640ca3d99524ba7f6155aa0c04de",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    }
+   ]
+  },
+  {
+   "path": "keramos/conformance/receipts/ember_cpu.json",
+   "sha256": "a5384fca5c7d9c3ec4c3fad3747c08922c98f763d601ab25342387d5e4678d94",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    }
+   ]
+  },
+  {
+   "path": "keramos/conformance/receipts/hf_cpu.json",
+   "sha256": "4756510a859ed031e5a3ee2615ea35088f9765ac86c1725297d8ab0b15e9cde4",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    }
+   ]
+  },
+  {
+   "path": "keramos/conformance/receipts/ir_numpy.json",
+   "sha256": "55d6667320f6a90b29d3600918e9708d074f15ef6b0d1025298eaa484adc26b8",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    }
+   ]
+  },
+  {
+   "path": "keramos/conformance/receipts/llamacpp_cpu.json",
+   "sha256": "e104bcdf4af6c717c380b6618110aac030d92e547753960f4f50f7a84e0a2400",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "llama.cpp has no graph for general.architecture 'paperkiln'"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "llama.cpp has no graph for general.architecture 'paperkiln'"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "llama.cpp has no graph for general.architecture 'paperkiln'"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "llama.cpp has no graph for general.architecture 'paperkiln'"
+    }
+   ]
+  },
+  {
+   "path": "keramos/conformance/receipts/mtstudio.json",
+   "sha256": "05cde159e9c5eaaa1d7f99669e21b7097ddb1c3d6e4c5313969b703eb8fcae3e",
+   "affected_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.67e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.71e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 3.55e-08, greedy same; depths of the last 1 decoded token(s) same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 4.81e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.01e-08, greedy same; kv rows 8 legal (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.01e-08, greedy same (via the adapter's score)"
+    }
+   ],
+   "same_case_other_path_rows": []
+  },
+  {
+   "path": "keramos/conformance/receipts/ortgenai_cpu.json",
+   "sha256": "88e2f8e381c2419707f943d6093c4af1ecc39a533f756a0bbe814a16c1b6f4e5",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "onnxruntime's CPU kernel refuses the built graph: head_size shall be a multiple of 16. Got head_size % 16 == 8 (head_size 8)"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "the builder declines MixtralForCausalLM (export input): The <export> model is not currently supported."
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    }
+   ]
+  },
+  {
+   "path": "keramos/conformance/receipts/tooling_guardrails_20261031/cleanroom_after.json",
+   "sha256": "36a726a2656679c3a2130c788614563f3c85036889ad172dc864a22ca8b23cfe",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    }
+   ]
+  },
+  {
+   "path": "keramos/conformance/receipts/tooling_guardrails_20261031/reference_after.json",
+   "sha256": "154daf9cebe93e4e0dc71734fde40a7bd18966629b5117ff3f038d0f17613774",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    }
+   ]
+  },
+  {
+   "path": "keramos/adapters/receipts/chat_signature_20261031/hf.json",
+   "sha256": "fb7425fe6043d566282e6be99532bb6c95257c23ddbb6d1cc00a54b15f786788",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    }
+   ]
+  },
+  {
+   "path": "keramos/adapters/receipts/chat_signature_20261031/ortgenai.json",
+   "sha256": "63cf211d71cbd4fda6eb0ee155a88ba752f8394eb4920090d91ead93b32b203f",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "onnxruntime's CPU kernel refuses the built graph: head_size shall be a multiple of 16. Got head_size % 16 == 8 (head_size 8)"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "the builder declines MixtralForCausalLM (export input): The <export> model is not currently supported."
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    }
+   ]
+  },
+  {
+   "path": "AI_ML/keramos_paper/analysis/e2/cleanroom.json",
+   "sha256": "d69899f2a6709369efef30d5a57bbf2fd4edd93fcbdb164b3cb0aac44b900890",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    }
+   ]
+  },
+  {
+   "path": "AI_ML/keramos_paper/analysis/e2/ember_cpu.json",
+   "sha256": "62784813d6c4239e76257ff84c7130a658100c90761e568130b86ef331757a1a",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    }
+   ]
+  },
+  {
+   "path": "AI_ML/keramos_paper/analysis/e2/hf_model.json",
+   "sha256": "f24a045a736e802e489658686c889f8020fc858f5264c0afbfabfea93a7be800",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": []
+  },
+  {
+   "path": "AI_ML/keramos_paper/analysis/e2/hf_trace.json",
+   "sha256": "3807e6a3209eb21e4fb8fd9a82638b0ea98f18590bb2227430ec96069b508469",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    }
+   ]
+  },
+  {
+   "path": "AI_ML/keramos_paper/analysis/e2/llamacpp.json",
+   "sha256": "41c302fb0d065041be38813b9848d90fafd304f0fc6b7eecc2c0a1012caa5918",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "llama.cpp has no graph for general.architecture 'paperkiln'"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "llama.cpp has no graph for general.architecture 'paperkiln'"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "llama.cpp has no graph for general.architecture 'paperkiln'"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "llama.cpp has no graph for general.architecture 'paperkiln'"
+    }
+   ]
+  },
+  {
+   "path": "AI_ML/keramos_paper/analysis/e2/numpy.json",
+   "sha256": "596ca6be24c186daf975dee6b5fc90456b3673d2633c48c858d1d0c130537117",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "6 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "9 steps"
+    }
+   ]
+  },
+  {
+   "path": "AI_ML/keramos_paper/analysis/e2/ortgenai_model.json",
+   "sha256": "e65657c19ba984789a6b25437fa945dcca7605122faa2d4eccf133c0a4176f33",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": []
+  },
+  {
+   "path": "AI_ML/keramos_paper/analysis/e2/ortgenai_trace.json",
+   "sha256": "b375d31fcba79f58380426d1adda5a8a0557b1d5faa76d442849760793e37486",
+   "affected_path_rows": [],
+   "same_case_other_path_rows": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "onnxruntime's CPU kernel refuses the built graph: head_size shall be a multiple of 16. Got head_size % 16 == 8 (head_size 8)"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "the builder declines MixtralForCausalLM (export input): The <export> model is not currently supported."
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "SKIP",
+     "detail": "general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)"
+    }
+   ]
+  }
+ ],
+ "historical_baseline_sha256": "05cde159e9c5eaaa1d7f99669e21b7097ddb1c3d6e4c5313969b703eb8fcae3e",
+ "comparisons": {
+  "historical_runner": {
+   "receipt_sha256": "b299469d5fbde46f44458f3bb72096d7c76f0d2fcaec2441bd1d3b0b78904fbf",
+   "raw_sha256": "672a11b05120686e9dc099779712ad5279a008842790b262c352e735d3fc4ad3",
+   "counts": {
+    "PASS": 158,
+    "FAIL": 0,
+    "SKIP": 366,
+    "XFAIL": 0,
+    "XPASS": 0
+   },
+   "case_count": 524,
+   "missing_historical_ids": [],
+   "new_ids": [],
+   "historical_verdict_movements": [],
+   "historical_detail_changes": [
+    {
+     "id": "model/pk_recurrence",
+     "before": "log-probs worst 1.26e-07; greedy 4/4",
+     "after": "log-probs worst 1.34e-07; greedy 4/4"
+    }
+   ],
+   "six_affected_results": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.67e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.71e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 3.55e-08, greedy same; depths of the last 1 decoded token(s) same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 4.81e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.01e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.01e-08, greedy same; kv rows 8 legal (via the adapter's score)"
+    }
+   ],
+   "raw_score_shapes": [
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama",
+     "shape": [
+      8
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_moe",
+     "shape": [
+      8
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_mor",
+     "shape": [
+      8
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_recursive",
+     "shape": [
+      8
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_state",
+     "shape": [
+      5
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": true,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_state",
+     "shape": [
+      5
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    }
+   ]
+  },
+  "parent_runner": {
+   "receipt_sha256": "d0c74d19cd6c3b8e55051f47e7d0f05add6e939bb0cc961ed200a7e3c4c1e7e9",
+   "raw_sha256": "52929962f49a1edaf99848d7dc6f866312df5eb2ff490b319d8872fa9eb075b4",
+   "counts": {
+    "PASS": 6,
+    "FAIL": 0,
+    "SKIP": 53,
+    "XFAIL": 0,
+    "XPASS": 0
+   },
+   "case_count": 59,
+   "missing_historical_ids": [
+    "accept/documents/example_attnres_tiny",
+    "accept/documents/example_chat_sftfinal",
+    "accept/documents/example_flex_highway_tiny",
+    "accept/documents/example_gpt2_tiny",
+    "accept/documents/example_kimi_tiny",
+    "accept/documents/example_mamba_tiny",
+    "accept/documents/example_moe_tiny",
+    "accept/documents/example_srd_tiny",
+    "accept/documents/example_swa_tiny",
+    "accept/documents/model_pk_attnres",
+    "accept/documents/model_pk_flex_expr",
+    "accept/documents/model_pk_flex_highway",
+    "accept/documents/model_pk_flex_mdha",
+    "accept/documents/model_pk_flex_shaw",
+    "accept/documents/model_pk_flex_t5",
+    "accept/documents/model_pk_gpt2",
+    "accept/documents/model_pk_gpt2_swa",
+    "accept/documents/model_pk_kimi",
+    "accept/documents/model_pk_llama",
+    "accept/documents/model_pk_llama_attnres",
+    "accept/documents/model_pk_llama_attnres_rec",
+    "accept/documents/model_pk_mamba",
+    "accept/documents/model_pk_moe",
+    "accept/documents/model_pk_mor",
+    "accept/documents/model_pk_recurrence",
+    "accept/documents/model_pk_recursive",
+    "accept/documents/model_pk_srd",
+    "accept/documents/model_pk_state",
+    "accept/documents/model_tp_gemma3",
+    "accept/documents/model_tp_gptneox",
+    "accept/documents/model_tp_llama_hd16",
+    "accept/documents/model_tp_mamba1",
+    "accept/documents/model_tp_mistral",
+    "accept/documents/model_tp_mistral_hd16",
+    "accept/documents/model_tp_qwen3",
+    "accept/documents/model_tp_qwen3_hd16",
+    "accept/documents/mor_window",
+    "accept/documents/relative_kv_weight_index",
+    "accept/documents/rewritten_pk_kimi",
+    "accept/documents/rewritten_pk_mamba",
+    "accept/documents/rewritten_pk_srd",
+    "accept/documents/rewritten_tp_mamba1",
+    "accept/documents/substituted_over_duplicate_embedded",
+    "accept/documents/untagged_application_queries",
+    "chat/parse_reply/a call alone",
+    "chat/parse_reply/a call without a newline",
+    "chat/parse_reply/an empty call",
+    "chat/parse_reply/an empty name",
+    "chat/parse_reply/arguments holding a newline",
+    "chat/parse_reply/content then a call",
+    "chat/parse_reply/empty arguments",
+    "chat/parse_reply/no call",
+    "chat/parse_reply/no ids",
+    "chat/parse_reply/one good call and one bad",
+    "chat/parse_reply/the call's text as BPE pieces is content",
+    "chat/parse_reply/two calls",
+    "chat/render/<unk> text is ordinary content",
+    "chat/render/a lone system message",
+    "chat/render/a prompt ending on an assistant message",
+    "chat/render/a system message mid-conversation",
+    "chat/render/a system message with no user message",
+    "chat/render/a training conversation ending on a user message",
+    "chat/render/a training conversation with a system message",
+    "chat/render/an unknown role",
+    "chat/render/assistant content holding a marker",
+    "chat/render/gemma3 keeps inner unicode whitespace and zero-width space",
+    "chat/render/gemma3 trims and folds",
+    "chat/render/gemma3 trims unicode edge whitespace",
+    "chat/render/gemma3 trims unicode whitespace in system and history",
+    "chat/render/legacy word-level prompt",
+    "chat/render/loss on a user message",
+    "chat/render/newline-only and empty replies in the history",
+    "chat/render/newline-only user content",
+    "chat/render/one user prompt",
+    "chat/render/qwen2.5 writes its default system turn",
+    "chat/render/qwen3 strips past reasoning",
+    "chat/render/qwen3 thinking off",
+    "chat/render/system content holding end-of-text",
+    "chat/render/system folds into the first user turn",
+    "chat/render/system mode none refuses a system message",
+    "chat/render/system mode none without one",
+    "chat/render/the assistant first",
+    "chat/render/the tool role is reserved",
+    "chat/render/three exchanges with a system message",
+    "chat/render/two system messages",
+    "chat/render/two user messages in a row",
+    "chat/render/unicode content",
+    "chat/render/user content holding a role marker",
+    "chat/render/v1 refuses tool definitions",
+    "chat/render/v1 refuses tool_calls",
+    "chat/render/v2 a call answered: the prompt ends on the tool message",
+    "chat/render/v2 a call name with a newline",
+    "chat/render/v2 a call type other than function",
+    "chat/render/v2 a call, its result and the reply",
+    "chat/render/v2 a prompt ending while a call has no result",
+    "chat/render/v2 a reply without its results",
+    "chat/render/v2 a system message mid-conversation",
+    "chat/render/v2 a tool definition holding a control token",
+    "chat/render/v2 a tool definition that is not an object",
+    "chat/render/v2 a tool definition with a non-integer number",
+    "chat/render/v2 a tool message first",
+    "chat/render/v2 a tool message without a call",
+    "chat/render/v2 a training conversation ending on a call",
+    "chat/render/v2 an empty call name",
+    "chat/render/v2 an empty tool_calls list",
+    "chat/render/v2 arguments holding a control token",
+    "chat/render/v2 arguments that are not a string",
+    "chat/render/v2 content before a call",
+    "chat/render/v2 empty arguments",
+    "chat/render/v2 empty system message",
+    "chat/render/v2 fewer results than calls",
+    "chat/render/v2 loss on a tool message",
+    "chat/render/v2 newline-only and empty contents",
+    "chat/render/v2 one user prompt (v1's text)",
+    "chat/render/v2 system and tool definitions",
+    "chat/render/v2 system content holding <|tool|>",
+    "chat/render/v2 system turn",
+    "chat/render/v2 system turn and history",
+    "chat/render/v2 tool content holding a spare token",
+    "chat/render/v2 tool definitions with an empty system message",
+    "chat/render/v2 tool definitions without a system message",
+    "chat/render/v2 tool_call_id matching the call's id",
+    "chat/render/v2 tool_call_id not the call's id",
+    "chat/render/v2 tool_call_id when the call has no id",
+    "chat/render/v2 tool_calls on a user message",
+    "chat/render/v2 training conversation with a system turn",
+    "chat/render/v2 two calls, two results, a reply, then a user message",
+    "chat/render/v2 unicode tool definition",
+    "chat/render/v2 user and assistant only (v1's text)",
+    "chat/render/v2 user content holding <|system|>",
+    "dequant/blocks/bf16",
+    "dequant/blocks/f16",
+    "dequant/blocks/f32",
+    "dequant/blocks/q4_0",
+    "dequant/blocks/q4_k",
+    "dequant/blocks/q5_0",
+    "dequant/blocks/q5_1",
+    "dequant/blocks/q5_k",
+    "dequant/blocks/q6_k",
+    "dequant/blocks/q8_0",
+    "digest/vectors/document_pk_attnres",
+    "digest/vectors/document_pk_flex_expr",
+    "digest/vectors/document_pk_flex_highway",
+    "digest/vectors/document_pk_flex_mdha",
+    "digest/vectors/document_pk_flex_shaw",
+    "digest/vectors/document_pk_flex_t5",
+    "digest/vectors/document_pk_gpt2",
+    "digest/vectors/document_pk_gpt2_swa",
+    "digest/vectors/document_pk_kimi",
+    "digest/vectors/document_pk_llama",
+    "digest/vectors/document_pk_llama_attnres",
+    "digest/vectors/document_pk_llama_attnres_rec",
+    "digest/vectors/document_pk_mamba",
+    "digest/vectors/document_pk_moe",
+    "digest/vectors/document_pk_mor",
+    "digest/vectors/document_pk_recurrence",
+    "digest/vectors/document_pk_recursive",
+    "digest/vectors/document_pk_srd",
+    "digest/vectors/document_pk_state",
+    "digest/vectors/document_tp_gemma3",
+    "digest/vectors/document_tp_gptneox",
+    "digest/vectors/document_tp_llama_hd16",
+    "digest/vectors/document_tp_mamba1",
+    "digest/vectors/document_tp_mistral",
+    "digest/vectors/document_tp_mistral_hd16",
+    "digest/vectors/document_tp_qwen3",
+    "digest/vectors/document_tp_qwen3_hd16",
+    "digest/vectors/duplicate_key",
+    "digest/vectors/exponent_form",
+    "digest/vectors/exponent_form_1e300",
+    "digest/vectors/f32_den_floor",
+    "digest/vectors/f32_eps",
+    "digest/vectors/f32_rope_theta",
+    "digest/vectors/f32_scale",
+    "digest/vectors/fraction_form_beyond_2p53",
+    "digest/vectors/integer_2p53",
+    "digest/vectors/integer_beyond_2p53",
+    "digest/vectors/key_order_utf16",
+    "digest/vectors/lone_surrogate",
+    "digest/vectors/minus_zero_integer_form",
+    "digest/vectors/nan_literal",
+    "digest/vectors/negative_integer",
+    "digest/vectors/negative_integer_2p53",
+    "digest/vectors/negative_integer_beyond_2p53",
+    "digest/vectors/negative_zero",
+    "digest/vectors/nesting",
+    "digest/vectors/overflow",
+    "digest/vectors/prose_duplicate_key",
+    "digest/vectors/prose_integer_beyond_2p53",
+    "digest/vectors/prose_kept_in_serialiser_test",
+    "digest/vectors/prose_key_lone_surrogate",
+    "digest/vectors/prose_lone_surrogate",
+    "digest/vectors/prose_negative_zero",
+    "digest/vectors/prose_overflow",
+    "digest/vectors/prose_removed",
+    "digest/vectors/rfc8785_number_0000000000000000",
+    "digest/vectors/rfc8785_number_0000000000000001",
+    "digest/vectors/rfc8785_number_3eb0c6f7a0b5ed8c",
+    "digest/vectors/rfc8785_number_3eb0c6f7a0b5ed8d",
+    "digest/vectors/rfc8785_number_41b3de4355555553",
+    "digest/vectors/rfc8785_number_41b3de4355555554",
+    "digest/vectors/rfc8785_number_41b3de4355555555",
+    "digest/vectors/rfc8785_number_41b3de4355555556",
+    "digest/vectors/rfc8785_number_41b3de4355555557",
+    "digest/vectors/rfc8785_number_43143ff3c1cb0959",
+    "digest/vectors/rfc8785_number_4340000000000000",
+    "digest/vectors/rfc8785_number_4430000000000000",
+    "digest/vectors/rfc8785_number_444b1ae4d6e2ef4e",
+    "digest/vectors/rfc8785_number_444b1ae4d6e2ef4f",
+    "digest/vectors/rfc8785_number_444b1ae4d6e2ef50",
+    "digest/vectors/rfc8785_number_44b52d02c7e14af5",
+    "digest/vectors/rfc8785_number_44b52d02c7e14af6",
+    "digest/vectors/rfc8785_number_44b52d02c7e14af7",
+    "digest/vectors/rfc8785_number_7fefffffffffffff",
+    "digest/vectors/rfc8785_number_8000000000000001",
+    "digest/vectors/rfc8785_number_becbf647612f3696",
+    "digest/vectors/rfc8785_number_c340000000000000",
+    "digest/vectors/rfc8785_number_ffefffffffffffff",
+    "digest/vectors/string_accents",
+    "digest/vectors/string_accents_escaped",
+    "digest/vectors/string_astral",
+    "digest/vectors/string_astral_escaped",
+    "digest/vectors/string_controls",
+    "digest/vectors/string_controls_escaped",
+    "digest/vectors/string_escapes",
+    "digest/vectors/string_escapes_escaped",
+    "digest/vectors/string_line_separators",
+    "digest/vectors/string_line_separators_escaped",
+    "digest/vectors/string_names",
+    "digest/vectors/string_names_escaped",
+    "grad/attention/relative_kv",
+    "grad/attention/relative_kv_keys_only",
+    "grad/attention/relative_kv_per_head_grouped_query",
+    "grad/recurrence/conv1d_causal_body",
+    "grad/recurrence/ema_bias_corrected",
+    "grad/recurrence/ema_exact",
+    "grad/recurrence/linear_attention_body",
+    "grad/recurrence/rnn_init_offset",
+    "grad/recurrence/selective_scan_body",
+    "grad/recurrence/square_weight_declaration",
+    "grad/recurrence/ssm_scan_body",
+    "model/pk_attnres",
+    "model/pk_flex_expr",
+    "model/pk_flex_highway",
+    "model/pk_flex_mdha",
+    "model/pk_flex_shaw",
+    "model/pk_flex_t5",
+    "model/pk_gpt2",
+    "model/pk_gpt2_swa",
+    "model/pk_kimi",
+    "model/pk_llama",
+    "model/pk_llama_attnres",
+    "model/pk_llama_attnres_rec",
+    "model/pk_mamba",
+    "model/pk_moe",
+    "model/pk_mor",
+    "model/pk_recurrence",
+    "model/pk_recursive",
+    "model/pk_srd",
+    "model/pk_state",
+    "model/tp_gemma3",
+    "model/tp_gptneox",
+    "model/tp_llama_hd16",
+    "model/tp_mamba1",
+    "model/tp_mistral",
+    "model/tp_mistral_hd16",
+    "model/tp_qwen3",
+    "model/tp_qwen3_hd16",
+    "op/add/ab",
+    "op/affine/scale_shift",
+    "op/append/one",
+    "op/attention/causal",
+    "op/attention/grouped_query",
+    "op/attention/position_bias",
+    "op/attention/position_bias_grouped_query",
+    "op/attention/position_bias_window_sinks",
+    "op/attention/relative_kv",
+    "op/attention/relative_kv_distance_zero",
+    "op/attention/relative_kv_grouped_query",
+    "op/attention/relative_kv_keys_only",
+    "op/attention/relative_kv_per_head",
+    "op/attention/relative_kv_window_sinks",
+    "op/attention/window_sinks",
+    "op/conv1d_causal/k4",
+    "op/depth_attend/eps_default",
+    "op/depth_attend/one_source",
+    "op/depth_attend/three_sources",
+    "op/embedding/rows",
+    "op/embedding/state_weight",
+    "op/expr/depth_200",
+    "op/expr/gelu_sigmoid",
+    "op/expr/layer_norm",
+    "op/expr/relu_squared",
+    "op/expr/rowsum_constant",
+    "op/expr/where_rowmean",
+    "op/gelu/none",
+    "op/gelu/tanh",
+    "op/layernorm/row",
+    "op/linear/bias",
+    "op/linear/no_bias",
+    "op/linear/tied_to",
+    "op/linear_attention/two_heads",
+    "op/list/two",
+    "op/moe_ffn/raw",
+    "op/moe_ffn/renorm",
+    "op/mul/ab",
+    "op/mul_col/x_c",
+    "op/pos_embedding/rows",
+    "op/recurrence/conv1d_causal_body",
+    "op/recurrence/ema_bias_corrected",
+    "op/recurrence/ema_exact",
+    "op/recurrence/linear_attention_body",
+    "op/recurrence/read_beyond_declaration",
+    "op/recurrence/rnn_init_offset",
+    "op/recurrence/selective_scan_body",
+    "op/recurrence/square_weight_declaration",
+    "op/recurrence/ssm_scan_body",
+    "op/relu/x",
+    "op/rms_row/eps",
+    "op/rmsnorm/group",
+    "op/rmsnorm/row",
+    "op/rmsnorm/weight_offset",
+    "op/rope/first_head",
+    "op/rope/freq_scale",
+    "op/rope/grouped_query",
+    "op/rope/interleaved",
+    "op/rope/neox",
+    "op/rope/neox_partial",
+    "op/scale/bias",
+    "op/scale/no_bias",
+    "op/selective_scan/d3n2",
+    "op/sigmoid/x",
+    "op/silu/x",
+    "op/split/three",
+    "op/ssm_scan/n4",
+    "op/sub/ab",
+    "refuse/add_one_input",
+    "refuse/architecture_kimi_as_gpt2",
+    "refuse/architecture_metadata_disagrees",
+    "refuse/architecture_substituted_document",
+    "refuse/architecture_swa_as_gpt2",
+    "refuse/architecture_without_graph",
+    "refuse/attention_heads_not_multiple",
+    "refuse/attention_no_slot",
+    "refuse/attention_not_causal",
+    "refuse/attention_window_differs",
+    "refuse/conv_kernel_one",
+    "refuse/duplicate_member_embedded",
+    "refuse/duplicate_member_node",
+    "refuse/duplicate_member_prose",
+    "refuse/duplicate_member_top",
+    "refuse/embed_writes_no_x",
+    "refuse/evict_on_causal",
+    "refuse/evict_unknown",
+    "refuse/evict_without_mask",
+    "refuse/expr_does_not_parse",
+    "refuse/gelu_approx_unknown",
+    "refuse/head_writes_no_logits",
+    "refuse/kv_slot_field_missing",
+    "refuse/linear_attention_not_causal",
+    "refuse/mask_unknown",
+    "refuse/missing_tensor",
+    "refuse/model_ctx_missing",
+    "refuse/moe_gate_norm_unknown",
+    "refuse/moe_top_k_too_large",
+    "refuse/mor_expert_choice",
+    "refuse/mor_gate_unknown",
+    "refuse/mor_kv_from",
+    "refuse/mor_kv_rows_shared",
+    "refuse/mor_no_kv_rows_active",
+    "refuse/mor_reads_outside_value",
+    "refuse/mor_reads_route_out",
+    "refuse/mor_reads_tokens",
+    "refuse/mor_route_in_head",
+    "refuse/mor_route_not_first",
+    "refuse/mor_router_with_i",
+    "refuse/mor_step_gap",
+    "refuse/mor_step_length_wrong",
+    "refuse/mor_steps_descending",
+    "refuse/mor_unequal_steps",
+    "refuse/name_with_i_outside_block",
+    "refuse/per_layer_in_head",
+    "refuse/per_layer_wrong_length",
+    "refuse/position_bias_bucket_negative",
+    "refuse/position_bias_buckets_empty",
+    "refuse/position_bias_per_layer",
+    "refuse/position_bias_table_shape",
+    "refuse/reads_unwritten_value",
+    "refuse/recurrence_assignment_repeats_index",
+    "refuse/recurrence_bare_undeclared_name",
+    "refuse/recurrence_body_does_not_parse",
+    "refuse/recurrence_index_out_of_scope",
+    "refuse/recurrence_index_size_zero",
+    "refuse/recurrence_index_undeclared",
+    "refuse/recurrence_init_flag",
+    "refuse/recurrence_init_reads_input",
+    "refuse/recurrence_name_twice",
+    "refuse/recurrence_rank_mismatch",
+    "refuse/recurrence_rowsum",
+    "refuse/recurrence_slot_missing_tensor",
+    "refuse/recurrence_slot_shape",
+    "refuse/recurrence_weight_size",
+    "refuse/recurrent_dtype_f16",
+    "refuse/recurrent_op_mismatch",
+    "refuse/recurrent_shape_mismatch",
+    "refuse/relative_kv_distance_negative",
+    "refuse/relative_kv_key_shape",
+    "refuse/relative_kv_per_layer",
+    "refuse/relative_kv_unknown_field",
+    "refuse/relative_kv_value_shape",
+    "refuse/relative_kv_with_position_bias",
+    "refuse/relative_kv_without_key",
+    "refuse/repeat_ne_n_layers",
+    "refuse/rope_n_rot_odd",
+    "refuse/rope_pairing_unknown",
+    "refuse/slot_declared_twice",
+    "refuse/slot_unknown_kind",
+    "refuse/slot_unread",
+    "refuse/split_count",
+    "refuse/state_template_not_v1",
+    "refuse/state_tokens_arch_llama",
+    "refuse/state_tokens_k_mismatch",
+    "refuse/state_weight_with_i",
+    "refuse/state_weight_wrong_name",
+    "refuse/tensor_index_absent_application_tensor",
+    "refuse/tensor_index_in_head",
+    "refuse/tensor_index_on_affine",
+    "refuse/tensor_index_value_unknown",
+    "refuse/tensor_index_without_weight_index",
+    "refuse/turn_state_with_window",
+    "refuse/turn_state_without_state_weight",
+    "refuse/two_state_weights",
+    "refuse/unknown_attribute",
+    "refuse/unknown_op",
+    "refuse/unknown_top_key",
+    "refuse/version_2",
+    "refuse/version_key_mismatch",
+    "refuse/weight_index_block_count",
+    "refuse/weight_index_negative",
+    "refuse/weight_index_unused_layer",
+    "refuse/weight_index_wrong_length",
+    "trace/tp_gemma3_chunks",
+    "trace/tp_gemma3_decode",
+    "trace/tp_gemma3_rewind_window",
+    "trace/tp_gptneox_chunks",
+    "trace/tp_gptneox_decode",
+    "trace/tp_llama_hd16_chunks",
+    "trace/tp_llama_hd16_decode",
+    "trace/tp_llama_hd16_truncate",
+    "trace/tp_mamba1_chunks",
+    "trace/tp_mamba1_decode",
+    "trace/tp_mamba1_recurrence",
+    "trace/tp_mamba1_snapshot",
+    "trace/tp_mamba1_truncate",
+    "trace/tp_mistral_chunks",
+    "trace/tp_mistral_decode",
+    "trace/tp_mistral_hd16_chunks",
+    "trace/tp_mistral_hd16_decode",
+    "trace/tp_mistral_hd16_rewind_window",
+    "trace/tp_qwen3_chunks",
+    "trace/tp_qwen3_decode",
+    "trace/tp_qwen3_hd16_chunks",
+    "trace/tp_qwen3_hd16_decode",
+    "trace/tp_qwen3_hd16_truncate",
+    "trace/tp_qwen3_truncate"
+   ],
+   "new_ids": [],
+   "historical_verdict_movements": [],
+   "historical_detail_changes": [],
+   "six_affected_results": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.67e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.71e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 3.55e-08, greedy same; depths of the last 1 decoded token(s) same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 4.81e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.01e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.01e-08, greedy same; kv rows 8 legal (via the adapter's score)"
+    }
+   ],
+   "raw_score_shapes": [
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama",
+     "shape": [
+      8
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_moe",
+     "shape": [
+      8
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_mor",
+     "shape": [
+      8
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_recursive",
+     "shape": [
+      8
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_state",
+     "shape": [
+      5
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": true,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_state",
+     "shape": [
+      5
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    }
+   ]
+  },
+  "fixed_runner": {
+   "receipt_sha256": "b299469d5fbde46f44458f3bb72096d7c76f0d2fcaec2441bd1d3b0b78904fbf",
+   "raw_sha256": "9e669ee79f76cd4d00b83ffe5df068021bf1a4778b9eec57cda285975c8863c6",
+   "counts": {
+    "PASS": 158,
+    "FAIL": 0,
+    "SKIP": 366,
+    "XFAIL": 0,
+    "XPASS": 0
+   },
+   "case_count": 524,
+   "missing_historical_ids": [],
+   "new_ids": [],
+   "historical_verdict_movements": [],
+   "historical_detail_changes": [
+    {
+     "id": "model/pk_recurrence",
+     "before": "log-probs worst 1.26e-07; greedy 4/4",
+     "after": "log-probs worst 1.34e-07; greedy 4/4"
+    }
+   ],
+   "six_affected_results": [
+    {
+     "id": "trace/pk_llama_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.67e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_moe_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.71e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_mor_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 3.55e-08, greedy same; depths of the last 1 decoded token(s) same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_recursive_decode",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 4.81e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_state_evict_off",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.01e-08, greedy same (via the adapter's score)"
+    },
+    {
+     "id": "trace/pk_state_evict_on",
+     "kind": "trace",
+     "verdict": "PASS",
+     "detail": "decode by kv cache, token by token: log-probs worst 2.01e-08, greedy same; kv rows 8 legal (via the adapter's score)"
+    }
+   ],
+   "raw_score_shapes": [
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_llama",
+     "shape": [
+      8
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_moe",
+     "shape": [
+      8
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_mor",
+     "shape": [
+      8
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_recursive",
+     "shape": [
+      8
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_state",
+     "shape": [
+      5
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": true,
+      "kv_step": 1
+     }
+    },
+    {
+     "model": "/home/jonat/keramos_trace_receipt_audit_20261031/fixtures/conformance/models/pk_state",
+     "shape": [
+      5
+     ],
+     "kwargs": {
+      "kv_cache": true,
+      "evict": false,
+      "kv_step": 1
+     }
+    }
+   ]
+  }
+ },
+ "cached_score_calls_identical_across_runners": true,
+ "limitation": "Source-pinned reconstruction. Original executable and raw arrays unavailable; new arrays cannot prove the shapes returned in the historical run."
+}

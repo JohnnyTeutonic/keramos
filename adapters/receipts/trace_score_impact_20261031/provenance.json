@@ -1,0 +1,29 @@
+{
+ "paperkiln_commit": "968b49261281ec01379265a8fb1d1c48da8bbd25",
+ "historical_fixture_commit": "6bbfe01cc7459abc2bd47c42e1f0376438705e6b",
+ "fixed_runner_commit": "7a9264879095de3bc5a3d185ced7a47d5bb438f4",
+ "parent_runner_commit": "f7cc616a76807ed22b71a04e2fa5d07a82c10011",
+ "configure": [
+  "cmake",
+  "-S",
+  "/home/jonat/keramos_trace_receipt_audit_20261031/paperkiln",
+  "-B",
+  "/home/jonat/keramos_trace_receipt_audit_20261031/build",
+  "-DCMAKE_BUILD_TYPE=Release",
+  "-DCMAKE_CXX_FLAGS=-ffp-contract=off"
+ ],
+ "build": [
+  "cmake",
+  "--build",
+  "/home/jonat/keramos_trace_receipt_audit_20261031/build",
+  "--target",
+  "mtstudio",
+  "ir_eval",
+  "expr_eval",
+  "-j1"
+ ],
+ "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+ "memory_limit_bytes": 1610612736,
+ "memory_limit_note": "RLIMIT_AS applied to active build process tree from transformer_core components.cpp onwards; inherited by subsequent compiler processes. Earlier small compilation units ran before explicit memory cap. One core budget applied throughout.",
+ "original_artifacts": "Original ~/e7/pk_build deleted; no matching eeba7b5b-prefix mtstudio in bounded /home/jonat maxdepth3 executable inventory. Original receipt contains only scaled errors, no raw score arrays; historical adapter score uses TemporaryDirectory and no persistent cache."
+}
