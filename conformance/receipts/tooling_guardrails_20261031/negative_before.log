@@ -1,0 +1,505 @@
+FFFF.FFFFFFFFFFFFFF..FFFFFF....F....F.                                   [100%]
+=================================== FAILURES ===================================
+_ test_rounding_rejects_one_sided_nan_even_beside_equal_finite_values[nan-1.0] _
+
+got = nan, ref = 1.0
+
+    @pytest.mark.parametrize("got, ref", [(np.nan, 1.0), (1.0, np.nan), (np.inf, np.nan),
+                                          (np.nan, -np.inf)])
+    def test_rounding_rejects_one_sided_nan_even_beside_equal_finite_values(got, ref):
+        with np.errstate(all="raise"):
+>           assert not conf.close([got, 2.0], [ref, 2.0], "ROUNDING", 1e-5)[0]
+E           assert not True
+
+tests/test_ir_conformance.py:89: AssertionError
+_ test_rounding_rejects_one_sided_nan_even_beside_equal_finite_values[1.0-nan] _
+
+got = 1.0, ref = nan
+
+    @pytest.mark.parametrize("got, ref", [(np.nan, 1.0), (1.0, np.nan), (np.inf, np.nan),
+                                          (np.nan, -np.inf)])
+    def test_rounding_rejects_one_sided_nan_even_beside_equal_finite_values(got, ref):
+        with np.errstate(all="raise"):
+>           assert not conf.close([got, 2.0], [ref, 2.0], "ROUNDING", 1e-5)[0]
+E           assert not True
+
+tests/test_ir_conformance.py:89: AssertionError
+_ test_rounding_rejects_one_sided_nan_even_beside_equal_finite_values[inf-nan] _
+
+got = inf, ref = nan
+
+    @pytest.mark.parametrize("got, ref", [(np.nan, 1.0), (1.0, np.nan), (np.inf, np.nan),
+                                          (np.nan, -np.inf)])
+    def test_rounding_rejects_one_sided_nan_even_beside_equal_finite_values(got, ref):
+        with np.errstate(all="raise"):
+>           assert not conf.close([got, 2.0], [ref, 2.0], "ROUNDING", 1e-5)[0]
+E           assert not True
+
+tests/test_ir_conformance.py:89: AssertionError
+_ test_rounding_rejects_one_sided_nan_even_beside_equal_finite_values[nan--inf] _
+
+got = nan, ref = -inf
+
+    @pytest.mark.parametrize("got, ref", [(np.nan, 1.0), (1.0, np.nan), (np.inf, np.nan),
+                                          (np.nan, -np.inf)])
+    def test_rounding_rejects_one_sided_nan_even_beside_equal_finite_values(got, ref):
+        with np.errstate(all="raise"):
+>           assert not conf.close([got, 2.0], [ref, 2.0], "ROUNDING", 1e-5)[0]
+E           assert not True
+
+tests/test_ir_conformance.py:89: AssertionError
+__________________ test_nonfinite_comparison_matrix[nan-inf] ___________________
+
+got = inf, ref = nan
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+            rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+            exact, _ = conf.close([got, 0.0], [ref, 0.0], "EXACT", 0)
+        same_nan = np.isnan(got) and np.isnan(ref)
+        same_finite = np.isfinite(got) and np.isfinite(ref) and got == ref
+>       assert rounding == (same_nan or same_finite)
+E       assert True == ((np.False_ or np.False_))
+
+tests/test_ir_conformance.py:100: AssertionError
+__________________ test_nonfinite_comparison_matrix[nan--inf] __________________
+
+got = -inf, ref = nan
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+            rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+            exact, _ = conf.close([got, 0.0], [ref, 0.0], "EXACT", 0)
+        same_nan = np.isnan(got) and np.isnan(ref)
+        same_finite = np.isfinite(got) and np.isfinite(ref) and got == ref
+>       assert rounding == (same_nan or same_finite)
+E       assert True == ((np.False_ or np.False_))
+
+tests/test_ir_conformance.py:100: AssertionError
+__________________ test_nonfinite_comparison_matrix[nan-1.0] ___________________
+
+got = 1.0, ref = nan
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+            rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+            exact, _ = conf.close([got, 0.0], [ref, 0.0], "EXACT", 0)
+        same_nan = np.isnan(got) and np.isnan(ref)
+        same_finite = np.isfinite(got) and np.isfinite(ref) and got == ref
+>       assert rounding == (same_nan or same_finite)
+E       assert True == ((np.False_ or np.False_))
+
+tests/test_ir_conformance.py:100: AssertionError
+__________________ test_nonfinite_comparison_matrix[inf-nan] ___________________
+
+got = nan, ref = inf
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+            rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+            exact, _ = conf.close([got, 0.0], [ref, 0.0], "EXACT", 0)
+        same_nan = np.isnan(got) and np.isnan(ref)
+        same_finite = np.isfinite(got) and np.isfinite(ref) and got == ref
+>       assert rounding == (same_nan or same_finite)
+E       assert True == ((np.False_ or np.False_))
+
+tests/test_ir_conformance.py:100: AssertionError
+__________________ test_nonfinite_comparison_matrix[inf-inf] ___________________
+
+got = inf, ref = inf
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+>           rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_ir_conformance.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+got = array([inf,  0.], dtype=float32), ref = array([inf,  0.], dtype=float32)
+cls = 'ROUNDING', tol = 1e-05
+
+    def close(got, ref, cls, tol):
+        """(ok, worst): EXACT is bit equality, ROUNDING |a - b| <= tol * max(1, max|ref|)."""
+        got, ref = np.asarray(got, dtype=np.float32), np.asarray(ref, dtype=np.float32)
+        if got.shape != ref.shape:
+            return False, f"shape {list(got.shape)} != {list(ref.shape)}"
+        if cls == "EXACT":  # bits, the sign of zero included; any NaN matches any NaN (IR_SPEC 4.2)
+            diff = (got.view(np.uint32) != ref.view(np.uint32)) & ~(np.isnan(got) & np.isnan(ref))
+            bad = int(np.sum(diff))
+            return bad == 0, f"{bad} values differ in their bits"
+        both_nan = np.isnan(got) & np.isnan(ref)
+>       d = np.where(both_nan, 0.0, np.abs(got.astype(np.float64) - ref.astype(np.float64)))
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FloatingPointError: invalid value encountered in subtract
+
+tools/ir_conformance.py:64: FloatingPointError
+__________________ test_nonfinite_comparison_matrix[inf--inf] __________________
+
+got = -inf, ref = inf
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+            rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+            exact, _ = conf.close([got, 0.0], [ref, 0.0], "EXACT", 0)
+        same_nan = np.isnan(got) and np.isnan(ref)
+        same_finite = np.isfinite(got) and np.isfinite(ref) and got == ref
+        assert rounding == (same_nan or same_finite)
+        assert exact == (same_nan or got == ref)
+        if not (np.isnan(got) or np.isnan(ref)) and (np.isinf(got) or np.isinf(ref)):
+>           assert "infinity" in message
+E           AssertionError: assert 'infinity' in 'worst nan of max(1, |ref|)'
+
+tests/test_ir_conformance.py:103: AssertionError
+__________________ test_nonfinite_comparison_matrix[inf-1.0] ___________________
+
+got = 1.0, ref = inf
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+            rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+            exact, _ = conf.close([got, 0.0], [ref, 0.0], "EXACT", 0)
+        same_nan = np.isnan(got) and np.isnan(ref)
+        same_finite = np.isfinite(got) and np.isfinite(ref) and got == ref
+        assert rounding == (same_nan or same_finite)
+        assert exact == (same_nan or got == ref)
+        if not (np.isnan(got) or np.isnan(ref)) and (np.isinf(got) or np.isinf(ref)):
+>           assert "infinity" in message
+E           AssertionError: assert 'infinity' in 'worst nan of max(1, |ref|)'
+
+tests/test_ir_conformance.py:103: AssertionError
+__________________ test_nonfinite_comparison_matrix[-inf-nan] __________________
+
+got = nan, ref = -inf
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+            rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+            exact, _ = conf.close([got, 0.0], [ref, 0.0], "EXACT", 0)
+        same_nan = np.isnan(got) and np.isnan(ref)
+        same_finite = np.isfinite(got) and np.isfinite(ref) and got == ref
+>       assert rounding == (same_nan or same_finite)
+E       assert True == ((np.False_ or np.False_))
+
+tests/test_ir_conformance.py:100: AssertionError
+__________________ test_nonfinite_comparison_matrix[-inf-inf] __________________
+
+got = inf, ref = -inf
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+            rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+            exact, _ = conf.close([got, 0.0], [ref, 0.0], "EXACT", 0)
+        same_nan = np.isnan(got) and np.isnan(ref)
+        same_finite = np.isfinite(got) and np.isfinite(ref) and got == ref
+        assert rounding == (same_nan or same_finite)
+        assert exact == (same_nan or got == ref)
+        if not (np.isnan(got) or np.isnan(ref)) and (np.isinf(got) or np.isinf(ref)):
+>           assert "infinity" in message
+E           AssertionError: assert 'infinity' in 'worst nan of max(1, |ref|)'
+
+tests/test_ir_conformance.py:103: AssertionError
+_________________ test_nonfinite_comparison_matrix[-inf--inf] __________________
+
+got = -inf, ref = -inf
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+>           rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_ir_conformance.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+got = array([-inf,   0.], dtype=float32)
+ref = array([-inf,   0.], dtype=float32), cls = 'ROUNDING', tol = 1e-05
+
+    def close(got, ref, cls, tol):
+        """(ok, worst): EXACT is bit equality, ROUNDING |a - b| <= tol * max(1, max|ref|)."""
+        got, ref = np.asarray(got, dtype=np.float32), np.asarray(ref, dtype=np.float32)
+        if got.shape != ref.shape:
+            return False, f"shape {list(got.shape)} != {list(ref.shape)}"
+        if cls == "EXACT":  # bits, the sign of zero included; any NaN matches any NaN (IR_SPEC 4.2)
+            diff = (got.view(np.uint32) != ref.view(np.uint32)) & ~(np.isnan(got) & np.isnan(ref))
+            bad = int(np.sum(diff))
+            return bad == 0, f"{bad} values differ in their bits"
+        both_nan = np.isnan(got) & np.isnan(ref)
+>       d = np.where(both_nan, 0.0, np.abs(got.astype(np.float64) - ref.astype(np.float64)))
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FloatingPointError: invalid value encountered in subtract
+
+tools/ir_conformance.py:64: FloatingPointError
+__________________ test_nonfinite_comparison_matrix[-inf-1.0] __________________
+
+got = 1.0, ref = -inf
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+            rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+            exact, _ = conf.close([got, 0.0], [ref, 0.0], "EXACT", 0)
+        same_nan = np.isnan(got) and np.isnan(ref)
+        same_finite = np.isfinite(got) and np.isfinite(ref) and got == ref
+        assert rounding == (same_nan or same_finite)
+        assert exact == (same_nan or got == ref)
+        if not (np.isnan(got) or np.isnan(ref)) and (np.isinf(got) or np.isinf(ref)):
+>           assert "infinity" in message
+E           AssertionError: assert 'infinity' in 'worst nan of max(1, |ref|)'
+
+tests/test_ir_conformance.py:103: AssertionError
+__________________ test_nonfinite_comparison_matrix[1.0-nan] ___________________
+
+got = nan, ref = 1.0
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+            rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+            exact, _ = conf.close([got, 0.0], [ref, 0.0], "EXACT", 0)
+        same_nan = np.isnan(got) and np.isnan(ref)
+        same_finite = np.isfinite(got) and np.isfinite(ref) and got == ref
+>       assert rounding == (same_nan or same_finite)
+E       assert True == ((np.False_ or np.False_))
+
+tests/test_ir_conformance.py:100: AssertionError
+__________________ test_nonfinite_comparison_matrix[1.0-inf] ___________________
+
+got = inf, ref = 1.0
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+            rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+            exact, _ = conf.close([got, 0.0], [ref, 0.0], "EXACT", 0)
+        same_nan = np.isnan(got) and np.isnan(ref)
+        same_finite = np.isfinite(got) and np.isfinite(ref) and got == ref
+        assert rounding == (same_nan or same_finite)
+        assert exact == (same_nan or got == ref)
+        if not (np.isnan(got) or np.isnan(ref)) and (np.isinf(got) or np.isinf(ref)):
+>           assert "infinity" in message
+E           AssertionError: assert 'infinity' in 'worst inf of max(1, |ref|)'
+
+tests/test_ir_conformance.py:103: AssertionError
+__________________ test_nonfinite_comparison_matrix[1.0--inf] __________________
+
+got = -inf, ref = 1.0
+
+    @pytest.mark.parametrize("got", [np.nan, np.inf, -np.inf, 1.0])
+    @pytest.mark.parametrize("ref", [np.nan, np.inf, -np.inf, 1.0])
+    def test_nonfinite_comparison_matrix(got, ref):
+        with np.errstate(all="raise"):
+            rounding, message = conf.close([got, 0.0], [ref, 0.0], "ROUNDING", 1e-5)
+            exact, _ = conf.close([got, 0.0], [ref, 0.0], "EXACT", 0)
+        same_nan = np.isnan(got) and np.isnan(ref)
+        same_finite = np.isfinite(got) and np.isfinite(ref) and got == ref
+        assert rounding == (same_nan or same_finite)
+        assert exact == (same_nan or got == ref)
+        if not (np.isnan(got) or np.isnan(ref)) and (np.isinf(got) or np.isinf(ref)):
+>           assert "infinity" in message
+E           AssertionError: assert 'infinity' in 'worst inf of max(1, |ref|)'
+
+tests/test_ir_conformance.py:103: AssertionError
+_____ test_matching_infinity_cannot_hide_bad_finite_values_under_rounding ______
+
+    def test_matching_infinity_cannot_hide_bad_finite_values_under_rounding():
+>       assert not conf.close([np.inf, 999.0], [np.inf, 0.0], "ROUNDING", 1e-5)[0]
+E       assert not True
+
+tests/test_ir_conformance.py:116: AssertionError
+________ test_op_case_fails_when_expected_state_is_not_reported[state0] ________
+
+state = Ellipsis
+
+    @pytest.mark.parametrize("state", [..., None, {}, {"other": {"x": np.array([[1.0]], np.float32)}},
+                                      {"history": {}}])
+    def test_op_case_fails_when_expected_state_is_not_reported(state):
+        ok, detail = conf.run_op_case(ReportedStateAdapter(state), recurrent_op_case(), 1e-5)
+>       assert not ok and "not reported" in detail
+E       assert (not True)
+
+tests/test_ir_conformance.py:147: AssertionError
+_________ test_op_case_fails_when_expected_state_is_not_reported[None] _________
+
+state = None
+
+    @pytest.mark.parametrize("state", [..., None, {}, {"other": {"x": np.array([[1.0]], np.float32)}},
+                                      {"history": {}}])
+    def test_op_case_fails_when_expected_state_is_not_reported(state):
+        ok, detail = conf.run_op_case(ReportedStateAdapter(state), recurrent_op_case(), 1e-5)
+>       assert not ok and "not reported" in detail
+E       assert (not True)
+
+tests/test_ir_conformance.py:147: AssertionError
+________ test_op_case_fails_when_expected_state_is_not_reported[state2] ________
+
+state = {}
+
+    @pytest.mark.parametrize("state", [..., None, {}, {"other": {"x": np.array([[1.0]], np.float32)}},
+                                      {"history": {}}])
+    def test_op_case_fails_when_expected_state_is_not_reported(state):
+        ok, detail = conf.run_op_case(ReportedStateAdapter(state), recurrent_op_case(), 1e-5)
+>       assert not ok and "not reported" in detail
+E       assert (not True)
+
+tests/test_ir_conformance.py:147: AssertionError
+________ test_op_case_fails_when_expected_state_is_not_reported[state3] ________
+
+state = {'other': {'x': array([[1.]], dtype=float32)}}
+
+    @pytest.mark.parametrize("state", [..., None, {}, {"other": {"x": np.array([[1.0]], np.float32)}},
+                                      {"history": {}}])
+    def test_op_case_fails_when_expected_state_is_not_reported(state):
+        ok, detail = conf.run_op_case(ReportedStateAdapter(state), recurrent_op_case(), 1e-5)
+>       assert not ok and "not reported" in detail
+E       assert (not True)
+
+tests/test_ir_conformance.py:147: AssertionError
+________ test_op_case_fails_when_expected_state_is_not_reported[state4] ________
+
+state = {'history': {}}
+
+    @pytest.mark.parametrize("state", [..., None, {}, {"other": {"x": np.array([[1.0]], np.float32)}},
+                                      {"history": {}}])
+    def test_op_case_fails_when_expected_state_is_not_reported(state):
+>       ok, detail = conf.run_op_case(ReportedStateAdapter(state), recurrent_op_case(), 1e-5)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_ir_conformance.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+adapter = <test_ir_conformance.ReportedStateAdapter object at 0x7acc45578830>
+case = {'class': 'ROUNDING', 'expect': {'y': {'f32': '40000000', 'shape': [1, 1]}}, 'expect_state': {'history': {'x': {'f32': '3f800000', 'shape': [1, 1]}}}, 'inputs': {'x': {'f32': '3f800000', 'shape': [1, 1]}}, ...}
+tol = 1e-05
+
+    def run_op_case(adapter, case, tol):
+        weights = {k: dec(v) for k, v in case.get("weights", {}).items()}
+        inputs = {k: (v if k in ("tokens", "pos") else dec(v)) for k, v in case["inputs"].items()}
+        res = adapter.run_node(case["node"], inputs, weights, None)
+        msgs, ok = [], True
+        cls = case["class"] if adapter.exact else "ROUNDING"
+        for name, want in case["expect"].items():
+            got = res["outputs"].get(name)
+            if got is None:
+                return False, f"no output {name}"
+            if isinstance(want, list):
+                if not isinstance(got, list) or len(got) != len(want):
+                    return False, f"{name}: a list of {len(want)} tensors expected"
+                pairs = list(zip(got, want))
+            else:
+                pairs = [(got, want)]
+            for g, w in pairs:
+                o, m = close(g, dec(w), cls, tol)
+                ok &= o
+                msgs.append(f"{name} {m}")
+        for slot, want in case.get("expect_state", {}).items():
+            got = (res.get("state") or {}).get(slot)
+            if got is None:
+                msgs.append(f"state {slot} not reported")
+                continue
+            for t, w in want.items():
+>               o, m = close(got[t], dec(w), case["class"] if adapter.exact else "ROUNDING", tol)
+                             ^^^^^^
+E               KeyError: 'x'
+
+tools/ir_conformance.py:551: KeyError
+___ test_model_case_never_credits_nonfinite_or_wrong_shape_scores[lp0-False] ___
+
+tmp_path = PosixPath('/tmp/pytest-of-jonat/pytest-223/test_model_case_never_credits_0')
+lp = [nan], expected = False
+
+    @pytest.mark.parametrize("lp, expected", [
+        ([np.nan], False), ([np.inf], False), ([-np.inf], False),
+        ([-1.000005], True), ([-1.00002], False), ([[-1.0]], False),
+    ])
+    def test_model_case_never_credits_nonfinite_or_wrong_shape_scores(tmp_path, lp, expected):
+        model = tmp_path / "stub"
+        model.mkdir()
+        (model / "stub.gguf").touch()  # score-only stub does not open the file
+        case = {"prompts": [{"ids": [1], "continuation": [2], "logprobs": [-1.0], "argmax": [2]}]}
+        ok, detail = conf.run_model_case(ScoredModelAdapter(lp), case, model, 1e-5)
+>       assert ok == expected, detail
+E       AssertionError: log-probs worst 0.00e+00; greedy 1/1
+E       assert True == False
+
+tests/test_ir_conformance.py:186: AssertionError
+___ test_model_case_never_credits_nonfinite_or_wrong_shape_scores[lp5-False] ___
+
+tmp_path = PosixPath('/tmp/pytest-of-jonat/pytest-223/test_model_case_never_credits_5')
+lp = [[-1.0]], expected = False
+
+    @pytest.mark.parametrize("lp, expected", [
+        ([np.nan], False), ([np.inf], False), ([-np.inf], False),
+        ([-1.000005], True), ([-1.00002], False), ([[-1.0]], False),
+    ])
+    def test_model_case_never_credits_nonfinite_or_wrong_shape_scores(tmp_path, lp, expected):
+        model = tmp_path / "stub"
+        model.mkdir()
+        (model / "stub.gguf").touch()  # score-only stub does not open the file
+        case = {"prompts": [{"ids": [1], "continuation": [2], "logprobs": [-1.0], "argmax": [2]}]}
+        ok, detail = conf.run_model_case(ScoredModelAdapter(lp), case, model, 1e-5)
+>       assert ok == expected, detail
+E       AssertionError: log-probs worst 0.00e+00; greedy 1/1
+E       assert True == False
+
+tests/test_ir_conformance.py:186: AssertionError
+=============================== warnings summary ===============================
+tests/test_ir_conformance.py::test_rounding_matching_nan_does_not_disable_finite_tolerance
+  /home/jonat/codex_worktrees/keramos-conformance-20261031/tools/ir_conformance.py:65: RuntimeWarning: All-NaN slice encountered
+    scale = max(1.0, float(np.nanmax(np.abs(ref))) if ref.size else 1.0)
+
+tests/test_ir_conformance.py::test_matching_infinity_cannot_hide_bad_finite_values_under_rounding
+  /home/jonat/codex_worktrees/keramos-conformance-20261031/tools/ir_conformance.py:64: RuntimeWarning: invalid value encountered in subtract
+    d = np.where(both_nan, 0.0, np.abs(got.astype(np.float64) - ref.astype(np.float64)))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_ir_conformance.py::test_rounding_rejects_one_sided_nan_even_beside_equal_finite_values[nan-1.0]
+FAILED tests/test_ir_conformance.py::test_rounding_rejects_one_sided_nan_even_beside_equal_finite_values[1.0-nan]
+FAILED tests/test_ir_conformance.py::test_rounding_rejects_one_sided_nan_even_beside_equal_finite_values[inf-nan]
+FAILED tests/test_ir_conformance.py::test_rounding_rejects_one_sided_nan_even_beside_equal_finite_values[nan--inf]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[nan-inf]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[nan--inf]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[nan-1.0]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[inf-nan]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[inf-inf]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[inf--inf]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[inf-1.0]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[-inf-nan]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[-inf-inf]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[-inf--inf]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[-inf-1.0]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[1.0-nan]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[1.0-inf]
+FAILED tests/test_ir_conformance.py::test_nonfinite_comparison_matrix[1.0--inf]
+FAILED tests/test_ir_conformance.py::test_matching_infinity_cannot_hide_bad_finite_values_under_rounding
+FAILED tests/test_ir_conformance.py::test_op_case_fails_when_expected_state_is_not_reported[state0]
+FAILED tests/test_ir_conformance.py::test_op_case_fails_when_expected_state_is_not_reported[None]
+FAILED tests/test_ir_conformance.py::test_op_case_fails_when_expected_state_is_not_reported[state2]
+FAILED tests/test_ir_conformance.py::test_op_case_fails_when_expected_state_is_not_reported[state3]
+FAILED tests/test_ir_conformance.py::test_op_case_fails_when_expected_state_is_not_reported[state4]
+FAILED tests/test_ir_conformance.py::test_model_case_never_credits_nonfinite_or_wrong_shape_scores[lp0-False]
+FAILED tests/test_ir_conformance.py::test_model_case_never_credits_nonfinite_or_wrong_shape_scores[lp5-False]
+26 failed, 12 passed, 6 deselected, 2 warnings in 0.39s

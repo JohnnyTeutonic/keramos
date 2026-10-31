@@ -60,11 +60,38 @@ def close(got, ref, cls, tol):
         diff = (got.view(np.uint32) != ref.view(np.uint32)) & ~(np.isnan(got) & np.isnan(ref))
         bad = int(np.sum(diff))
         return bad == 0, f"{bad} values differ in their bits"
-    both_nan = np.isnan(got) & np.isnan(ref)
-    d = np.where(both_nan, 0.0, np.abs(got.astype(np.float64) - ref.astype(np.float64)))
-    scale = max(1.0, float(np.nanmax(np.abs(ref))) if ref.size else 1.0)
-    worst = float(np.nanmax(d)) / scale if d.size else 0.0
-    return bool(worst <= tol and not np.isnan(worst)), f"worst {worst:.2e} of max(1, |ref|)"
+    worst, reason = _rounding_error(got, ref)
+    if reason is not None:
+        return False, reason
+    return bool(worst <= tol), f"worst {worst:.2e} of max(1, |ref|)"
+
+
+def _rounding_error(got, ref):
+    """Relative error over matching tensors, or a reason no bound is established.
+
+    Op tensors reach here as f32; scored log-probabilities retain their existing
+    f64 comparison. No NaN reduction may discard an unmatched coordinate.
+    """
+    if got.shape != ref.shape:
+        return None, f"shape {list(got.shape)} != {list(ref.shape)}"
+    got_nan, ref_nan = np.isnan(got), np.isnan(ref)
+    mismatch = int(np.count_nonzero(got_nan != ref_nan))
+    if mismatch:
+        return None, f"{mismatch} values have a NaN in only one tensor"
+    # Section 4.2 matches NaNs only to NaNs. Exclude those coordinates before
+    # computing either the finite error or the reference scale; nanmax would
+    # silently discard a one-sided NaN and can turn a bad result into PASS.
+    finite = ~ref_nan
+    a, b = got[finite].astype(np.float64), ref[finite].astype(np.float64)
+    # Section 4.3 has no matching-infinity convention. Do not infer a pass
+    # from inf-inf, or let an infinite scale hide errors in other positions.
+    # EXACT above still compares signed infinities by their ordinary bits.
+    if np.isinf(a).any() or np.isinf(b).any():
+        return None, "ROUNDING tolerance is undefined with infinity; cannot establish a pass"
+    scale = max(1.0, float(np.max(np.abs(b))) if b.size else 1.0)
+    worst = float(np.max(np.abs(a - b))) / scale if a.size else 0.0
+    return worst, None
+
 
 
 # ---------------------------------------------------------------- GGUF (F32 tensors)
@@ -545,9 +572,14 @@ def run_op_case(adapter, case, tol):
     for slot, want in case.get("expect_state", {}).items():
         got = (res.get("state") or {}).get(slot)
         if got is None:
+            ok = False
             msgs.append(f"state {slot} not reported")
             continue
         for t, w in want.items():
+            if t not in got:
+                ok = False
+                msgs.append(f"state {slot}.{t} not reported")
+                continue
             o, m = close(got[t], dec(w), case["class"] if adapter.exact else "ROUNDING", tol)
             ok &= o
             msgs.append(f"state {slot}.{t} {m}")
@@ -611,7 +643,10 @@ def run_model_case(adapter, case, model_dir, tol):
             lp, am = logprobs_of(r["logits"][len(ids) - 1:], cont, banned)
             dep = r.get("depth")
         ref = np.array(pr["logprobs"])
-        worst = max(worst, float(np.max(np.abs(np.array(lp) - ref))) / max(1.0, float(np.max(np.abs(ref)))))
+        error, reason = _rounding_error(np.asarray(lp, dtype=np.float64), ref)
+        if reason is not None:
+            return False, f"log-probs {reason}"
+        worst = max(worst, error)
         agree += am == pr["argmax"]
         if "depth" in pr:
             depth_same += dep == pr["depth"]
