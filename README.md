@@ -97,10 +97,20 @@ A Python engine can instead subclass `ir_conformance.Adapter` and call
 The clean-room Rust interpreter in `cleanroom/rust/` implements revision 1.6 from the specification.
 Its 30 October receipt passes **587 cases**, with **zero failures or expected failures**; the remaining
 11 cases require gradients, which this inference engine does not implement. The source/read log and
-findings remain under `cleanroom/`. The current full receipt is
+findings remain under `cleanroom/`. The preserved 598-case full receipt is
 [`conformance/receipts/cleanroom.json`](conformance/receipts/cleanroom.json); `cleanroom/receipt.json`
 is the preserved historical first receipt, not the current result. This closes the revision catch-up;
 it does not claim hardware/backend conformance for another engine.
+
+The 31 October coverage extension adds three traces: routed LongRoPE's full-session
+length and discarded-window rewind with a fresh-prefix control. The corrected Rust
+engine passes **590/601 cases**, with zero failures and eleven gradient skips;
+every original verdict is unchanged. [New full receipt and coverage controls](adapters/receipts/state_coverage_20261031/).
+The actual pre-fix Rust engine fails the new LongRoPE case, while the corrected
+engine passes identical inputs. [Old/fixed implementation proof](adapters/receipts/routed_actual_rust_parent_20261031/).
+The separate [trainer runner-impact audit](adapters/receipts/trace_score_impact_20261031/)
+reproduces its historical counts and six cached-score trace passes under the fixed
+runner, with the missing original executable/arrays explicitly noted.
 
 To build and run the Rust adapter on Linux/WSL, with Cargo installed (build outputs stay outside
 the checkout):
@@ -125,7 +135,7 @@ receipt in `conformance/receipts/`.
 
 The **v1.6.2 tooling patch (30 October 2026)** closes the independent Rust implementation's
 revision-1.6 catch-up and validates command-adapter reply envelopes. It changes no normative
-statement, schema or numerical expected value. The current Rust receipt passes all 587 supported
+statement, schema or numerical expected value. That historical Rust receipt passes all 587 supported
 cases with 11 gradient-only skips; the tool tests pass 206 with 10 optional skips. CUDA/backend
 conformance of other engines remains separate from this specification release.
 
