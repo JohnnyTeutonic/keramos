@@ -1,0 +1,603 @@
+[1;31m2026-10-31 21:31:10.522024504 [E:onnxruntime:onnxruntime-genai, sequential_executor.cc:677 ExecuteKernel] Non-zero status code returned while running GroupQueryAttention node. Name:'/model/layers.0/attn/GroupQueryAttention' Status Message: head_size shall be a multiple of 16. Got head_size % 16 == 8[m
+adapter onnxruntime-genai (backend cpu, exact False); 298 cases
+SKIP model/pk_attnres: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_attnres_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_flex_expr: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_expr_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_flex_highway: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_highway_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_flex_mdha: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_mdha_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_mdha_snapshot: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_flex_shaw: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_shaw_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_flex_t5: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_t5_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_gpt2: the builder declines GPT2LMHeadModel (export input): The <export> model is not currently supported.
+SKIP trace/pk_gpt2_decode: the builder declines GPT2LMHeadModel (export input): The <export> model is not currently supported.
+SKIP model/pk_gpt2_swa: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_gpt2_swa_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_kimi: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_kimi_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_kimi_snapshot: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_llama: onnxruntime's CPU kernel refuses the built graph: head_size shall be a multiple of 16. Got head_size % 16 == 8 (head_size 8)
+SKIP trace/pk_llama_decode: onnxruntime's CPU kernel refuses the built graph: head_size shall be a multiple of 16. Got head_size % 16 == 8 (head_size 8)
+SKIP trace/pk_llama_truncate: onnxruntime's CPU kernel refuses the built graph: head_size shall be a multiple of 16. Got head_size % 16 == 8 (head_size 8)
+SKIP model/pk_llama_attnres: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_llama_attnres_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_llama_attnres_rec: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_llama_attnres_rec_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_mamba: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_mamba_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_mamba_snapshot: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_moe: the builder declines MixtralForCausalLM (export input): The <export> model is not currently supported.
+SKIP trace/pk_moe_decode: the builder declines MixtralForCausalLM (export input): The <export> model is not currently supported.
+SKIP model/pk_mor: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_mor_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_mor_truncate: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_recurrence: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_recurrence_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_recurrence_snapshot: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_recursive: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_recursive_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_srd: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_srd_decode: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_srd_snapshot: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_state: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_state_evict_on: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_state_evict_off: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_state_rewind_evicted: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_state_rewind_current: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_state_rewind_at_block: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/tp_deepseek2: general.architecture 'deepseek2': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_deepseek2_decode: general.architecture 'deepseek2': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_deepseek2_truncate: general.architecture 'deepseek2': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/tp_deepseek3: general.architecture 'deepseek2': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)[1;31m2026-10-31 21:31:10.681891916 [E:onnxruntime:onnxruntime-genai, sequential_executor.cc:677 ExecuteKernel] Non-zero status code returned while running GroupQueryAttention node. Name:'/model/layers.0/attn/GroupQueryAttention' Status Message: head_size must be a multiple of 8. Got head_size % 8 == 4[m
+[1;31m2026-10-31 21:31:10.748874967 [E:onnxruntime:onnxruntime-genai, sequential_executor.cc:677 ExecuteKernel] Non-zero status code returned while running GroupQueryAttention node. Name:'/model/layers.0/attn/GroupQueryAttention' Status Message: head_size must be a multiple of 8. Got head_size % 8 == 4[m
+
+SKIP trace/tp_deepseek3_decode: general.architecture 'deepseek2': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_deepseek3_truncate: general.architecture 'deepseek2': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/tp_gemma2: general.architecture 'gemma2': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_gemma2_decode: general.architecture 'gemma2': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+FAIL model/tp_gemma3: RuntimeError: the builder fails on Gemma3ForCausalLM (export input): KeyError: 'rope_type'
+FAIL trace/tp_gemma3_decode: RuntimeError: the builder fails on Gemma3ForCausalLM (export input): KeyError: 'rope_type'
+SKIP model/tp_gptneox: the builder declines GPTNeoXForCausalLM (export input): The <export> model is not currently supported.
+SKIP trace/tp_gptneox_decode: the builder declines GPTNeoXForCausalLM (export input): The <export> model is not currently supported.
+PASS model/tp_llama_hd16: log-probs worst 5.10e-07; greedy 4/4
+PASS trace/tp_llama_hd16_decode: 6 steps
+PASS trace/tp_llama_hd16_truncate: 3 steps
+SKIP model/tp_mamba1: the builder declines MambaForCausalLM (export input): The <export> model is not currently supported.
+SKIP trace/tp_mamba1_decode: the builder declines MambaForCausalLM (export input): The <export> model is not currently supported.
+SKIP trace/tp_mamba1_snapshot: the builder declines MambaForCausalLM (export input): The <export> model is not currently supported.
+SKIP model/tp_mistral: onnxruntime's CPU kernel refuses the built graph: head_size must be a multiple of 8. Got head_size % 8 == 4 (head_size 4)
+SKIP trace/tp_mistral_decode: onnxruntime's CPU kernel refuses the built graph: head_size must be a multiple of 8. Got head_size % 8 == 4 (head_size 4)
+FAIL model/tp_mistral_hd16: log-probs worst 5.63e-01; greedy 2/4
+FAIL trace/tp_mistral_hd16_decode: 6 steps; step 1 logits worst 4.46e-01 of max(1, |ref|); step 2 logits worst 3.55e-01 of max(1, |ref|); step 3 logits worst 3.84e-01 of max(1, |ref|); step 4 logits worst 1.08e+00 of max(1, |ref|); step 5 logits worst 1.15e+00 of max(1, |ref|)
+SKIP model/tp_phi3: general.architecture 'phi3': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_phi3_decode: general.architecture 'phi3': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_phi3_truncate: general.architecture 'phi3': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/tp_qwen2moe: general.architecture 'qwen2moe': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_qwen2moe_decode: general.architecture 'qwen2moe': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/tp_qwen3: onnxruntime's CPU kernel refuses the built graph: head_size must be a multiple of 8. Got head_size % 8 == 4 (head_size 4)
+SKIP trace/tp_qwen3_decode: onnxruntime's CPU kernel refuses the built graph: head_size must be a multiple of 8. Got head_size % 8 == 4 (head_size 4)
+SKIP trace/tp_qwen3_truncate: onnxruntime's CPU kernel refuses the built graph: head_size must be a multiple of 8. Got head_size % 8 == 4 (head_size 4)
+PASS model/tp_qwen3_hd16: log-probs worst 6.68e-07; greedy 4/4
+PASS trace/tp_qwen3_hd16_decode: 6 steps
+PASS trace/tp_qwen3_hd16_truncate: 3 steps
+SKIP model/tp_qwen3moe: general.architecture 'qwen3moe': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_qwen3moe_decode: general.architecture 'qwen3moe': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP op/embedding/rows: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/embedding/state_weight: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/pos_embedding/rows: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/linear/bias: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/linear/no_bias: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/linear/tied_to: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/scale/bias: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/scale/no_bias: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/split/three: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/split/groups: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rmsnorm/row: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rmsnorm/group: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rmsnorm/weight_offset: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/layernorm/row: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/gelu/tanh: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/gelu/none: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/silu/x: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/sigmoid/x: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/relu/x: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/add/ab: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/mul/ab: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/sub/ab: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/affine/scale_shift: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/mul_col/x_c: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rms_row/eps: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rope/interleaved: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rope/neox: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rope/neox_partial: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rope/freq_scale: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rope/grouped_query: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rope/first_head: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rope/freq_factors: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rope/freq_factors_short: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rope/freq_factors_long: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rope/attn_factor: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rope/freq_factors_partial_attn_factor: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/rope/freq_factors_values: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/causal: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/window_sinks: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/grouped_query: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/position_bias: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/position_bias_window_sinks: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/position_bias_grouped_query: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/relative_kv: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/relative_kv_per_head: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/relative_kv_keys_only: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/relative_kv_window_sinks: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/relative_kv_grouped_query: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/relative_kv_distance_zero: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/softcap: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/softcap_window_sinks: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/attention/softcap_position_bias: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/moe_ffn/renorm: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/moe_ffn/raw: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/moe_ffn/sigmoid_renorm: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/moe_ffn/sigmoid_bias_groups: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/moe_ffn/softmax_bias_raw: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/list/two: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/append/one: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/depth_attend/one_source: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/depth_attend/three_sources: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/depth_attend/eps_default: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/expr/gelu_sigmoid: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/expr/relu_squared: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/expr/where_rowmean: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/expr/layer_norm: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/expr/rowsum_constant: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/expr/depth_200: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/linear_attention/two_heads: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/ssm_scan/n4: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/conv1d_causal/k4: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/selective_scan/d3n2: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/recurrence/linear_attention_body: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/recurrence/ssm_scan_body: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/recurrence/conv1d_causal_body: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/recurrence/selective_scan_body: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/recurrence/rnn_init_offset: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/recurrence/ema_bias_corrected: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/recurrence/ema_exact: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/recurrence/square_weight_declaration: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/recurrence/read_beyond_declaration: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/mla_attention/two_heads: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/mla_attention/window_sinks: onnxruntime-genai runs whole models, not single IR nodes
+SKIP op/mla_attention/one_head: onnxruntime-genai runs whole models, not single IR nodes
+SKIP refuse/unknown_op: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/unknown_attribute: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/unknown_top_key: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/version_2: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/repeat_ne_n_layers: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/model_ctx_missing: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/per_layer_wrong_length: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/per_layer_in_head: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/add_one_input: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/rope_pairing_unknown: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/rope_n_rot_odd: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/attention_not_causal: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/attention_heads_not_multiple: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/attention_window_differs: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/slot_declared_twice: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/slot_unread: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/slot_unknown_kind: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/attention_no_slot: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/kv_slot_field_missing: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/tensor_index_without_weight_index: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/name_with_i_outside_block: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/evict_on_causal: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/missing_tensor: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/gelu_approx_unknown: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/split_count: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/expr_does_not_parse: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/moe_top_k_too_large: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/moe_gate_norm_unknown: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrent_dtype_f16: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrent_shape_mismatch: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrent_op_mismatch: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/linear_attention_not_causal: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/conv_kernel_one: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/weight_index_wrong_length: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/weight_index_unused_layer: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/weight_index_negative: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_route_not_first: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_expert_choice: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_unequal_steps: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_steps_descending: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_step_length_wrong: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_no_kv_rows_active: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_kv_from: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_gate_unknown: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_router_with_i: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_kv_rows_shared: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_route_in_head: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/turn_state_with_window: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/turn_state_without_state_weight: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/evict_without_mask: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/evict_unknown: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mask_unknown: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/state_weight_with_i: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/two_state_weights: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/state_weight_wrong_name: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_body_does_not_parse: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_name_twice: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_rowsum: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_index_size_zero: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_index_out_of_scope: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_init_reads_input: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_rank_mismatch: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_index_undeclared: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_slot_shape: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_slot_missing_tensor: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_init_flag: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_weight_size: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_assignment_repeats_index: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/recurrence_bare_undeclared_name: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/reads_unwritten_value: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/embed_writes_no_x: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/head_writes_no_logits: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_reads_outside_value: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_step_gap: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_reads_tokens: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mor_reads_route_out: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/position_bias_bucket_negative: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/position_bias_buckets_empty: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/position_bias_table_shape: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/position_bias_per_layer: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/tensor_index_in_head: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/tensor_index_value_unknown: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/tensor_index_on_affine: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/tensor_index_absent_application_tensor: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_distance_negative: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_without_key: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_unknown_field: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_key_shape: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_value_shape: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_with_position_bias: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_per_layer: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/softcap_not_positive: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/attn_factor_not_positive: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/freq_factors_without_original_ctx: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/freq_factors_unknown_field: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/freq_factors_tensor_shape: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/freq_factors_per_layer: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/split_groups_zero: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mla_slot_head_dim: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mla_slot_kv_heads: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mla_k_b_shape: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mla_reads_three: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mla_without_k_b: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/mla_not_causal: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/apply_entries_not_boolean: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/apply_outside_block: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/apply_on_attention: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/apply_leaves_value_unwritten: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/apply_with_depth_route: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/moe_groups_not_dividing: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/moe_scoring_unknown: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/moe_selection_bias_shape: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/freq_factors_values_length: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/freq_factors_values_not_positive: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/duplicate_member_top: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/duplicate_member_node: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/duplicate_member_prose: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/version_key_mismatch: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/state_tokens_k_mismatch: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/state_template_not_v1: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/weight_index_block_count: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/state_tokens_arch_llama: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/duplicate_member_embedded: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/architecture_kimi_as_gpt2: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/architecture_swa_as_gpt2: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/architecture_metadata_disagrees: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/architecture_without_graph: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/architecture_gemma2_softcap_dropped: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP refuse/architecture_substituted_document: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP digest/vectors/rfc8785_number_0000000000000000: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_0000000000000001: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_8000000000000001: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_7fefffffffffffff: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_ffefffffffffffff: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_4340000000000000: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_c340000000000000: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_4430000000000000: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_44b52d02c7e14af5: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_44b52d02c7e14af6: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_44b52d02c7e14af7: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_444b1ae4d6e2ef4e: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_444b1ae4d6e2ef4f: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_444b1ae4d6e2ef50: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_3eb0c6f7a0b5ed8c: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_3eb0c6f7a0b5ed8d: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_41b3de4355555553: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_41b3de4355555554: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_41b3de4355555555: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_41b3de4355555556: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_41b3de4355555557: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_becbf647612f3696: onnxruntime-genai has no IR digest
+SKIP digest/vectors/rfc8785_number_43143ff3c1cb0959: onnxruntime-genai has no IR digest
+SKIP digest/vectors/f32_eps: onnxruntime-genai has no IR digest
+SKIP digest/vectors/f32_rope_theta: onnxruntime-genai has no IR digest
+SKIP digest/vectors/f32_scale: onnxruntime-genai has no IR digest
+SKIP digest/vectors/f32_den_floor: onnxruntime-genai has no IR digest
+SKIP digest/vectors/integer_2p53: onnxruntime-genai has no IR digest
+SKIP digest/vectors/negative_integer: onnxruntime-genai has no IR digest
+SKIP digest/vectors/minus_zero_integer_form: onnxruntime-genai has no IR digest
+SKIP digest/vectors/exponent_form: onnxruntime-genai has no IR digest
+SKIP digest/vectors/string_controls: onnxruntime-genai has no IR digest
+SKIP digest/vectors/string_controls_escaped: onnxruntime-genai has no IR digest
+SKIP digest/vectors/string_escapes: onnxruntime-genai has no IR digest
+SKIP digest/vectors/string_escapes_escaped: onnxruntime-genai has no IR digest
+SKIP digest/vectors/string_line_separators: onnxruntime-genai has no IR digest
+SKIP digest/vectors/string_line_separators_escaped: onnxruntime-genai has no IR digest
+SKIP digest/vectors/string_astral: onnxruntime-genai has no IR digest
+SKIP digest/vectors/string_astral_escaped: onnxruntime-genai has no IR digest
+SKIP digest/vectors/string_accents: onnxruntime-genai has no IR digest
+SKIP digest/vectors/string_accents_escaped: onnxruntime-genai has no IR digest
+SKIP digest/vectors/string_names: onnxruntime-genai has no IR digest
+SKIP digest/vectors/string_names_escaped: onnxruntime-genai has no IR digest
+SKIP digest/vectors/key_order_utf16: onnxruntime-genai has no IR digest
+SKIP digest/vectors/nesting: onnxruntime-genai has no IR digest
+SKIP digest/vectors/prose_removed: onnxruntime-genai has no IR digest
+SKIP digest/vectors/prose_kept_in_serialiser_test: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_attnres: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_flex_expr: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_flex_highway: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_flex_mdha: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_flex_shaw: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_flex_t5: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_gpt2: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_gpt2_swa: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_kimi: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_llama: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_llama_attnres: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_llama_attnres_rec: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_mamba: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_moe: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_mor: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_recurrence: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_recursive: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_srd: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_pk_state: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_deepseek2: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_deepseek3: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_gemma2: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_gemma3: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_gptneox: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_llama_hd16: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_mamba1: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_mistral: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_mistral_hd16: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_phi3: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_qwen2moe: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_qwen3: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_qwen3_hd16: onnxruntime-genai has no IR digest
+SKIP digest/vectors/document_tp_qwen3moe: onnxruntime-genai has no IR digest
+SKIP digest/vectors/negative_zero: onnxruntime-genai has no IR digest
+SKIP digest/vectors/integer_beyond_2p53: onnxruntime-genai has no IR digest
+SKIP digest/vectors/overflow: onnxruntime-genai has no IR digest
+SKIP digest/vectors/duplicate_key: onnxruntime-genai has no IR digest
+SKIP digest/vectors/lone_surrogate: onnxruntime-genai has no IR digest
+SKIP digest/vectors/nan_literal: onnxruntime-genai has no IR digest
+SKIP digest/vectors/prose_overflow: onnxruntime-genai has no IR digest
+SKIP digest/vectors/prose_negative_zero: onnxruntime-genai has no IR digest
+SKIP digest/vectors/prose_integer_beyond_2p53: onnxruntime-genai has no IR digest
+SKIP digest/vectors/prose_lone_surrogate: onnxruntime-genai has no IR digest
+SKIP digest/vectors/prose_key_lone_surrogate: onnxruntime-genai has no IR digest
+SKIP digest/vectors/prose_duplicate_key: onnxruntime-genai has no IR digest
+SKIP digest/vectors/fraction_form_beyond_2p53: onnxruntime-genai has no IR digest
+SKIP digest/vectors/exponent_form_1e300: onnxruntime-genai has no IR digest
+SKIP digest/vectors/negative_integer_2p53: onnxruntime-genai has no IR digest
+SKIP digest/vectors/negative_integer_beyond_2p53: onnxruntime-genai has no IR digest
+SKIP dequant/blocks/f32: onnxruntime-genai reads ONNX initialisers; GGUF dequantisation is gguf-py's
+SKIP dequant/blocks/f16: onnxruntime-genai reads ONNX initialisers; GGUF dequantisation is gguf-py's
+SKIP dequant/blocks/q4_0: onnxruntime-genai reads ONNX initialisers; GGUF dequantisation is gguf-py's
+SKIP dequant/blocks/q5_0: onnxruntime-genai reads ONNX initialisers; GGUF dequantisation is gguf-py's
+SKIP dequant/blocks/q5_1: onnxruntime-genai reads ONNX initialisers; GGUF dequantisation is gguf-py's
+SKIP dequant/blocks/q8_0: onnxruntime-genai reads ONNX initialisers; GGUF dequantisation is gguf-py's
+SKIP dequant/blocks/q4_k: onnxruntime-genai reads ONNX initialisers; GGUF dequantisation is gguf-py's
+SKIP dequant/blocks/q5_k: onnxruntime-genai reads ONNX initialisers; GGUF dequantisation is gguf-py's
+SKIP dequant/blocks/q6_k: onnxruntime-genai reads ONNX initialisers; GGUF dequantisation is gguf-py's
+SKIP dequant/blocks/bf16: onnxruntime-genai reads ONNX initialisers; GGUF dequantisation is gguf-py's
+SKIP grad/recurrence/linear_attention_body: onnxruntime-genai runs whole models, not single IR nodes
+SKIP grad/recurrence/ssm_scan_body: onnxruntime-genai runs whole models, not single IR nodes
+SKIP grad/recurrence/conv1d_causal_body: onnxruntime-genai runs whole models, not single IR nodes
+SKIP grad/recurrence/selective_scan_body: onnxruntime-genai runs whole models, not single IR nodes
+SKIP grad/recurrence/rnn_init_offset: onnxruntime-genai runs whole models, not single IR nodes
+SKIP grad/recurrence/ema_bias_corrected: onnxruntime-genai runs whole models, not single IR nodes
+SKIP grad/recurrence/ema_exact: onnxruntime-genai runs whole models, not single IR nodes
+SKIP grad/recurrence/square_weight_declaration: onnxruntime-genai runs whole models, not single IR nodes
+SKIP grad/attention/relative_kv: onnxruntime-genai runs whole models, not single IR nodes
+SKIP grad/attention/relative_kv_per_head_grouped_query: onnxruntime-genai runs whole models, not single IR nodes
+SKIP grad/attention/relative_kv_keys_only: onnxruntime-genai runs whole models, not single IR nodes
+SKIP trace/pk_kimi_recurrence: a replacement document: the builder runs the HF config, never a document
+SKIP trace/pk_srd_recurrence: a replacement document: the builder runs the HF config, never a document
+SKIP trace/pk_mamba_recurrence: a replacement document: the builder runs the HF config, never a document
+SKIP trace/tp_mamba1_recurrence: a replacement document: the builder runs the HF config, never a document
+SKIP trace/pk_srd_truncate: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_mamba1_truncate: the builder declines MambaForCausalLM (export input): The <export> model is not currently supported.
+SKIP trace/pk_flex_mdha_truncate: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_gpt2_swa_rewind_window: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+FAIL trace/tp_gemma3_rewind_window: RuntimeError: the builder fails on Gemma3ForCausalLM (export input): KeyError: 'rope_type'
+FAIL trace/tp_mistral_hd16_rewind_window: 3 steps; step 0 logits worst 1.12e+00 of max(1, |ref|); step 2 logits worst 1.01e+00 of max(1, |ref|)
+SKIP trace/tp_gemma2_rewind_window: general.architecture 'gemma2': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_attnres_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_expr_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_highway_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_mdha_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_shaw_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_t5_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_gpt2_chunks: the builder declines GPT2LMHeadModel (export input): The <export> model is not currently supported.
+SKIP trace/pk_gpt2_swa_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_kimi_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_llama_chunks: onnxruntime's CPU kernel refuses the built graph: head_size shall be a multiple of 16. Got head_size % 16 == 8 (head_size 8)
+SKIP trace/pk_llama_attnres_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_llama_attnres_rec_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_mamba_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_moe_chunks: the builder declines MixtralForCausalLM (export input): The <export> model is not currently supported.
+SKIP trace/pk_mor_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_recurrence_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_recursive_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_srd_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_state_chunks: general.architecture 'paperkiln': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_deepseek2_chunks: general.architecture 'deepseek2': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_deepseek3_chunks: general.architecture 'deepseek2': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_gemma2_chunks: general.architecture 'gemma2': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+FAIL trace/tp_gemma3_chunks: RuntimeError: the builder fails on Gemma3ForCausalLM (export input): KeyError: 'rope_type'
+SKIP trace/tp_gptneox_chunks: the builder declines GPTNeoXForCausalLM (export input): The <export> model is not currently supported.
+PASS trace/tp_llama_hd16_chunks: 4 steps
+SKIP trace/tp_mamba1_chunks: the builder declines MambaForCausalLM (export input): The <export> model is not currently supported.
+SKIP trace/tp_mistral_chunks: onnxruntime's CPU kernel refuses the built graph: head_size must be a multiple of 8. Got head_size % 8 == 4 (head_size 4)
+FAIL trace/tp_mistral_hd16_chunks: 4 steps; step 1 logits worst 1.34e+00 of max(1, |ref|); step 2 logits worst 1.28e+00 of max(1, |ref|); step 3 logits worst 9.63e-01 of max(1, |ref|)
+SKIP trace/tp_phi3_chunks: general.architecture 'phi3': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_qwen2moe_chunks: general.architecture 'qwen2moe': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_qwen3_chunks: onnxruntime's CPU kernel refuses the built graph: head_size must be a multiple of 8. Got head_size % 8 == 4 (head_size 4)
+PASS trace/tp_qwen3_hd16_chunks: 4 steps
+SKIP trace/tp_qwen3moe_chunks: general.architecture 'qwen3moe': no HF checkpoint for the builder (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_llama_attnres_rec_untagged: a replacement document: the builder runs the HF config, never a document
+SKIP trace/pk_flex_shaw_weight_index: a replacement document: the builder runs the HF config, never a document
+SKIP trace/pk_mor_window: a replacement document: the builder runs the HF config, never a document
+SKIP trace/pk_mor_window_rewind: a replacement document: the builder runs the HF config, never a document
+SKIP accept/documents/model_pk_attnres: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_flex_expr: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_flex_highway: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_flex_mdha: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_flex_shaw: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_flex_t5: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_gpt2: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_gpt2_swa: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_kimi: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_llama: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_llama_attnres: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_llama_attnres_rec: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_mamba: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_moe: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_mor: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_recurrence: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_recursive: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_srd: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_state: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_deepseek2: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_deepseek3: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_gemma2: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_gemma3: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_gptneox: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_llama_hd16: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_mamba1: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_mistral: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_mistral_hd16: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_phi3: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_qwen2moe: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_qwen3: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_qwen3_hd16: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_qwen3moe: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/rewritten_pk_kimi: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/rewritten_pk_srd: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/rewritten_pk_mamba: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/rewritten_tp_mamba1: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/example_attnres_tiny: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/example_chat_sftfinal: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/example_flex_highway_tiny: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/example_gpt2_tiny: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/example_kimi_tiny: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/example_mamba_tiny: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/example_moe_tiny: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/example_srd_tiny: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/example_swa_tiny: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/substituted_over_duplicate_embedded: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/untagged_application_queries: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/relative_kv_weight_index: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP accept/documents/mor_window: onnxruntime-genai has no IR validation (it never reads the document)
+SKIP chat/render/one user prompt: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/system folds into the first user turn: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/a lone system message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/a system message with no user message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/two system messages: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/a system message mid-conversation: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/the assistant first: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/two user messages in a row: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/a training conversation ending on a user message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/a prompt ending on an assistant message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/user content holding a role marker: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/system content holding end-of-text: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/assistant content holding a marker: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/<unk> text is ordinary content: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/newline-only user content: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/newline-only and empty replies in the history: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/the tool role is reserved: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/an unknown role: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/three exchanges with a system message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/a training conversation with a system message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/loss on a user message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/unicode content: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/system mode none refuses a system message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/system mode none without one: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/legacy word-level prompt: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/gemma3 trims and folds: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/gemma3 trims unicode edge whitespace: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/gemma3 trims unicode whitespace in system and history: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/gemma3 keeps inner unicode whitespace and zero-width space: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/qwen3 strips past reasoning: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/qwen2.5 writes its default system turn: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/qwen3 thinking off: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 one user prompt (v1's text): onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 user and assistant only (v1's text): onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 system turn: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 empty system message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 system turn and history: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 training conversation with a system turn: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 system and tool definitions: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 tool definitions without a system message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 tool definitions with an empty system message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 unicode tool definition: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 a call answered: the prompt ends on the tool message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 a call, its result and the reply: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 content before a call: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 two calls, two results, a reply, then a user message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 tool_call_id matching the call's id: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 a training conversation ending on a call: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 empty arguments: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 newline-only and empty contents: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 a tool message without a call: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 a tool message first: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 fewer results than calls: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 a prompt ending while a call has no result: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 a reply without its results: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 tool_call_id not the call's id: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 tool_call_id when the call has no id: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 a call name with a newline: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 an empty call name: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 arguments holding a control token: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 arguments that are not a string: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 a call type other than function: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 an empty tool_calls list: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 tool_calls on a user message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 user content holding <|system|>: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 tool content holding a spare token: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 system content holding <|tool|>: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 a tool definition holding a control token: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 a tool definition with a non-integer number: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 a tool definition that is not an object: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 a system message mid-conversation: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v2 loss on a tool message: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v1 refuses tool definitions: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/render/v1 refuses tool_calls: onnxruntime-genai renders the tokenizer's Jinja template, not IR template records
+SKIP chat/parse_reply/no call: not implemented
+SKIP chat/parse_reply/content then a call: not implemented
+SKIP chat/parse_reply/a call alone: not implemented
+SKIP chat/parse_reply/two calls: not implemented
+SKIP chat/parse_reply/empty arguments: not implemented
+SKIP chat/parse_reply/arguments holding a newline: not implemented
+SKIP chat/parse_reply/the call's text as BPE pieces is content: not implemented
+SKIP chat/parse_reply/a call without a newline: not implemented
+SKIP chat/parse_reply/an empty name: not implemented
+SKIP chat/parse_reply/an empty call: not implemented
+SKIP chat/parse_reply/one good call and one bad: not implemented
+SKIP chat/parse_reply/no ids: not implemented
+summary onnxruntime-genai: 8 pass, 8 fail, 582 skip, 0 xfail, 0 xpass; by kind model 2/2/29, trace 6/6/87, op 0/0/84, refuse 0/0/129, digest 0/0/96, dequant 0/0/10, grad 0/0/11, accept 0/0/50, chat 0/0/86 (pass/fail/skip)

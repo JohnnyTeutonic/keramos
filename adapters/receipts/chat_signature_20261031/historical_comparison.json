@@ -1,0 +1,16 @@
+[
+  {
+    "adapter": "hf",
+    "historical_cases_unchanged": 437,
+    "new_cases_all_skipped": 161,
+    "baseline_sha256": "4756510a859ed031e5a3ee2615ea35088f9765ac86c1725297d8ab0b15e9cde4",
+    "current_sha256": "fb7425fe6043d566282e6be99532bb6c95257c23ddbb6d1cc00a54b15f786788"
+  },
+  {
+    "adapter": "ortgenai",
+    "historical_cases_unchanged": 437,
+    "new_cases_all_skipped": 161,
+    "baseline_sha256": "88e2f8e381c2419707f943d6093c4af1ecc39a533f756a0bbe814a16c1b6f4e5",
+    "current_sha256": "63cf211d71cbd4fda6eb0ee155a88ba752f8394eb4920090d91ead93b32b203f"
+  }
+]

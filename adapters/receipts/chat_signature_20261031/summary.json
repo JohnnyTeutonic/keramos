@@ -1,0 +1,46 @@
+{
+  "source_commit": "197b6ace0a9dcd37906a91e9cc2916b01f08b236",
+  "scope": "Actual pinned external adapters under the current full runner; existing model failures remain evidence, unsupported chat remains SKIP.",
+  "runs": [
+    {
+      "adapter": "hf",
+      "exit_code": 1,
+      "report_present": true,
+      "counts": {
+        "PASS": 38,
+        "FAIL": 3,
+        "SKIP": 557,
+        "XFAIL": 0,
+        "XPASS": 0
+      },
+      "chat": {
+        "PASS": 0,
+        "FAIL": 0,
+        "SKIP": 86,
+        "XFAIL": 0,
+        "XPASS": 0
+      },
+      "report_sha256": "fb7425fe6043d566282e6be99532bb6c95257c23ddbb6d1cc00a54b15f786788"
+    },
+    {
+      "adapter": "ortgenai",
+      "exit_code": 1,
+      "report_present": true,
+      "counts": {
+        "PASS": 8,
+        "FAIL": 8,
+        "SKIP": 582,
+        "XFAIL": 0,
+        "XPASS": 0
+      },
+      "chat": {
+        "PASS": 0,
+        "FAIL": 0,
+        "SKIP": 86,
+        "XFAIL": 0,
+        "XPASS": 0
+      },
+      "report_sha256": "63cf211d71cbd4fda6eb0ee155a88ba752f8394eb4920090d91ead93b32b203f"
+    }
+  ]
+}
