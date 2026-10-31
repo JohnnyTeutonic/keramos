@@ -53,8 +53,12 @@ python -m pytest tests -q
 
 The bundled models are tiny conformance fixtures, not ready-made chat models. Validation checks
 the document's contract; running the reference suite checks the reference implementation. Test
-counts depend on optional dependencies: on 30 October the WSL environment passed 214 tests with
-2 skips; the release's original environment passed 206 with 10 optional skips.
+counts depend on optional dependencies: the 31 October tooling check passed 252 tests with
+2 optional skips. Both NumPy and the independent Rust implementation retained 587 conformance
+passes and 11 gradient skips after stricter nonfinite-value and required-state checks.
+[Source-bound tooling evidence](conformance/receipts/tooling_guardrails_20261031/README.md).
+The specification and historical expected values are unchanged; the original release environment
+passed 206 Python tests with 10 optional skips.
 
 ## Validating a document
 
