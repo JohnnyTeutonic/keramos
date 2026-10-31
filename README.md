@@ -17,6 +17,9 @@ operations and profiles; a specification-level feature is not proof of support o
 
 ## Contents
 
+[Defect registry](DEFECT_REGISTRY.md): execution invariants, reproductions, upstream
+issues and verified resolution status, maintained as the reports progress.
+
 | Path | What it is |
 |---|---|
 | `IR_SPEC.md` | the normative specification: the document, numerics and classes, ops, state, recursion and chat profiles, refusal rules, the conformance adapter contract |
