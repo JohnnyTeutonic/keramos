@@ -790,6 +790,11 @@ Attributes `heads`, `kv_heads`, `head_dim`, `scale`, `causal`, `window` (0 = unb
 (section 12, Q6). `in [q, k, v]`, q [T, heads * head_dim]; head h at columns h * head_dim ... ROUNDING.
 
 - **Masking.** Masked keys contribute exactly 0, and the row maximum is taken over visible keys only.
+- **Order of reductions** (v1.6.3, clarification). Because the op is ROUNDING, the text fixes no order and no
+  accumulation width for the dot products q . k, the softmax normaliser or the weighted sum of v: any order, in
+  binary32 or wider, conforms, and the tolerance of section 4.3 alone judges the result. The orders this section
+  names (paperkiln's below, and `relative_kv`'s) describe those engines, not requirements. An engine that wants
+  bit-identical prefill and decode must use one order on both paths (section 4.5).
 - **Sliding window with sinks** (`ops::swa_attention`; window >= 1). With p the query's position and
   j a key's (both counted from the first token of the slot, 0-based), j is visible iff
 
@@ -2815,7 +2820,8 @@ The first primitive drafted under the workspace's path for new primitives (`LOCA
   7.1's "every tensor name it holds". Stated in 3.7, 7.1 and 7.2 as the reference, ember and the validator
   already behave: m_i, never the application (attention carries no `tensor_index`). Case: the trace
   `pk_flex_shaw_weight_index` and the acceptance case `relative_kv_weight_index`, pk_flex_shaw's file under
-  its document with `weight_index` [1, 0], whose logits are 1.4e-1 of max(1, max |ref|) from the unpermuted document's over 8 ids (the argmax agrees everywhere), against the ROUNDING tolerance 1e-5.
+  its document with `weight_index` [1, 0], whose logits are 1.3e-1 of max(1, max |ref|) from the unpermuted document's over 8 ids (1.27e-1 by the reference;
+v1.6.3 corrects the 1.4e-1 stated before, found by the blind implementation of the paper's experiment E1b) (the argmax agrees everywhere), against the ROUNDING tolerance 1e-5.
 - **Q16. Windows under Mixture-of-Recursions** (v1.4.2). Section 5.15 defined a window over positions,
   while the reference counted it in a recursion step's active rows (`tools/ir_numpy.py` built the mask
   from row indices 0 .. T-1 of the step's rows). Settled as positions, the text's reading: the reference
@@ -3028,6 +3034,12 @@ Nothing in this audit changes a computed value: the tiny-chat precision gate (HE
 equal to dc29b5e6 bit for bit) and the pinned commits of the RunPod campaigns are unaffected.
 
 ## Appendix B. Changelog
+
+- **v1.6.3** (unreleased; revision 1.6). Documentation only, from the findings of a blind implementation written
+  without access to expected values: section 5.15 states that plain attention's reduction order and accumulation
+  width are free (it is ROUNDING), and section 12.6's measured distance for `pk_flex_shaw` under `weight_index`
+  [1, 0] is corrected from 1.4e-1 to 1.3e-1 (the reference gives 1.27e-1). No document, schema or expected value
+  changes.
 
 - **v1.6.1** (tag, 28 October 2026; revision 1.6). Documentation only: Appendix E, one table of the class
   required, the result measured and its receipt, per op group and per engine and backend, with what is and is not
