@@ -1,0 +1,600 @@
+adapter keramos-cleanroom (Rust) (backend cpu, exact True); 298 cases
+PASS model/pk_attnres: log-probs worst 1.02e-07; greedy 4/4
+PASS trace/pk_attnres_decode: 6 steps
+PASS model/pk_flex_expr: log-probs worst 1.39e-07; greedy 4/4
+PASS trace/pk_flex_expr_decode: 6 steps
+PASS model/pk_flex_highway: log-probs worst 1.13e-07; greedy 4/4
+PASS trace/pk_flex_highway_decode: 6 steps
+PASS model/pk_flex_mdha: log-probs worst 1.10e-07; greedy 4/4
+PASS trace/pk_flex_mdha_decode: 6 steps
+PASS trace/pk_flex_mdha_snapshot: 5 steps
+PASS model/pk_flex_shaw: log-probs worst 1.01e-07; greedy 4/4
+PASS trace/pk_flex_shaw_decode: 6 steps
+PASS model/pk_flex_t5: log-probs worst 9.47e-08; greedy 4/4
+PASS trace/pk_flex_t5_decode: 6 steps
+PASS model/pk_gpt2: log-probs worst 1.09e-07; greedy 4/4
+PASS trace/pk_gpt2_decode: 6 steps
+PASS model/pk_gpt2_swa: log-probs worst 1.05e-07; greedy 4/4
+PASS trace/pk_gpt2_swa_decode: 6 steps
+PASS model/pk_kimi: log-probs worst 7.79e-08; greedy 4/4
+PASS trace/pk_kimi_decode: 6 steps
+PASS trace/pk_kimi_snapshot: 5 steps
+PASS model/pk_llama: log-probs worst 5.97e-08; greedy 4/4
+PASS trace/pk_llama_decode: 6 steps
+PASS trace/pk_llama_truncate: 3 steps
+PASS model/pk_llama_attnres: log-probs worst 1.03e-07; greedy 4/4
+PASS trace/pk_llama_attnres_decode: 6 steps
+PASS model/pk_llama_attnres_rec: log-probs worst 8.27e-08; greedy 4/4
+PASS trace/pk_llama_attnres_rec_decode: 6 steps
+PASS model/pk_mamba: log-probs worst 1.68e-07; greedy 4/4
+PASS trace/pk_mamba_decode: 6 steps
+PASS trace/pk_mamba_snapshot: 5 steps
+PASS model/pk_moe: log-probs worst 9.68e-08; greedy 4/4
+PASS trace/pk_moe_decode: 6 steps
+PASS model/pk_mor: log-probs worst 1.53e-07; greedy 4/4; depth traces 4/4
+PASS trace/pk_mor_decode: 6 steps
+PASS trace/pk_mor_truncate: 3 steps
+PASS model/pk_recurrence: log-probs worst 9.12e-08; greedy 4/4
+PASS trace/pk_recurrence_decode: 6 steps
+PASS trace/pk_recurrence_snapshot: 5 steps
+PASS model/pk_recursive: log-probs worst 7.39e-08; greedy 4/4
+PASS trace/pk_recursive_decode: 6 steps
+PASS model/pk_srd: log-probs worst 1.15e-07; greedy 4/4
+PASS trace/pk_srd_decode: 6 steps
+PASS trace/pk_srd_snapshot: 5 steps
+PASS model/pk_state: log-probs worst 9.72e-08; greedy 4/4
+PASS trace/pk_state_evict_on: 9 steps
+PASS trace/pk_state_evict_off: 9 steps
+PASS trace/pk_state_rewind_evicted: 3 steps
+PASS trace/pk_state_rewind_current: 3 steps
+PASS trace/pk_state_rewind_at_block: 3 steps
+PASS model/tp_deepseek2: log-probs worst 7.89e-07; greedy 4/4
+PASS trace/tp_deepseek2_decode: 6 steps
+PASS trace/tp_deepseek2_truncate: 3 steps
+PASS model/tp_deepseek3: log-probs worst 5.14e-07; greedy 4/4
+PASS trace/tp_deepseek3_decode: 6 steps
+PASS trace/tp_deepseek3_truncate: 3 steps
+PASS model/tp_gemma2: log-probs worst 3.26e-07; greedy 4/4
+PASS trace/tp_gemma2_decode: 6 steps
+PASS model/tp_gemma3: log-probs worst 1.30e-06; greedy 4/4
+PASS trace/tp_gemma3_decode: 6 steps
+PASS model/tp_gptneox: log-probs worst 4.52e-07; greedy 4/4
+PASS trace/tp_gptneox_decode: 6 steps
+PASS model/tp_llama_hd16: log-probs worst 6.28e-07; greedy 4/4
+PASS trace/tp_llama_hd16_decode: 6 steps
+PASS trace/tp_llama_hd16_truncate: 3 steps
+PASS model/tp_mamba1: log-probs worst 4.77e-07; greedy 4/4
+PASS trace/tp_mamba1_decode: 6 steps
+PASS trace/tp_mamba1_snapshot: 5 steps
+PASS model/tp_mistral: log-probs worst 3.73e-07; greedy 4/4
+PASS trace/tp_mistral_decode: 6 steps
+PASS model/tp_mistral_hd16: log-probs worst 7.61e-07; greedy 4/4
+PASS trace/tp_mistral_hd16_decode: 6 steps
+PASS model/tp_phi3: log-probs worst 5.37e-07; greedy 4/4
+PASS trace/tp_phi3_decode: 6 steps
+PASS trace/tp_phi3_truncate: 3 steps
+PASS model/tp_qwen2moe: log-probs worst 3.32e-07; greedy 4/4
+PASS trace/tp_qwen2moe_decode: 6 steps
+PASS model/tp_qwen3: log-probs worst 3.45e-07; greedy 4/4
+PASS trace/tp_qwen3_decode: 6 steps
+PASS trace/tp_qwen3_truncate: 3 steps
+PASS model/tp_qwen3_hd16: log-probs worst 4.72e-07; greedy 4/4
+PASS trace/tp_qwen3_hd16_decode: 6 steps
+PASS trace/tp_qwen3_hd16_truncate: 3 steps
+PASS model/tp_qwen3moe: log-probs worst 4.62e-07; greedy 4/4
+PASS trace/tp_qwen3moe_decode: 6 steps
+PASS op/embedding/rows: x 0 values differ in their bits
+PASS op/embedding/state_weight: x 0 values differ in their bits
+PASS op/pos_embedding/rows: y 0 values differ in their bits
+PASS op/linear/bias: y worst 3.98e-08 of max(1, |ref|)
+PASS op/linear/no_bias: y worst 4.84e-08 of max(1, |ref|)
+PASS op/linear/tied_to: y worst 5.04e-08 of max(1, |ref|)
+PASS op/scale/bias: y 0 values differ in their bits
+PASS op/scale/no_bias: y 0 values differ in their bits
+PASS op/split/three: a 0 values differ in their bits; b 0 values differ in their bits; c 0 values differ in their bits
+PASS op/split/groups: a 0 values differ in their bits; b 0 values differ in their bits
+PASS op/rmsnorm/row: y worst 0.00e+00 of max(1, |ref|)
+PASS op/rmsnorm/group: y worst 0.00e+00 of max(1, |ref|)
+PASS op/rmsnorm/weight_offset: y worst 0.00e+00 of max(1, |ref|)
+PASS op/layernorm/row: y worst 0.00e+00 of max(1, |ref|)
+PASS op/gelu/tanh: y worst 6.06e-09 of max(1, |ref|)
+PASS op/gelu/none: y worst 0.00e+00 of max(1, |ref|)
+PASS op/silu/x: y worst 7.45e-10 of max(1, |ref|)
+PASS op/sigmoid/x: y worst 5.96e-08 of max(1, |ref|)
+PASS op/relu/x: y 0 values differ in their bits
+PASS op/add/ab: y 0 values differ in their bits
+PASS op/mul/ab: y 0 values differ in their bits
+PASS op/sub/ab: y 0 values differ in their bits
+PASS op/affine/scale_shift: y 0 values differ in their bits
+PASS op/mul_col/x_c: y 0 values differ in their bits
+PASS op/rms_row/eps: y worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/interleaved: q worst 1.36e-08 of max(1, |ref|); k worst 1.25e-09 of max(1, |ref|)
+PASS op/rope/neox: q worst 3.17e-09 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/neox_partial: q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/freq_scale: q worst 1.73e-09 of max(1, |ref|); k worst 2.66e-09 of max(1, |ref|)
+PASS op/rope/grouped_query: q worst 1.36e-08 of max(1, |ref|); k worst 4.88e-09 of max(1, |ref|)
+PASS op/rope/first_head: q worst 8.75e-10 of max(1, |ref|); k worst 1.25e-09 of max(1, |ref|)
+PASS op/rope/freq_factors: q worst 2.68e-08 of max(1, |ref|); k worst 2.17e-08 of max(1, |ref|)
+PASS op/rope/freq_factors_short: q worst 5.92e-08 of max(1, |ref|); k worst 4.73e-08 of max(1, |ref|)
+PASS op/rope/freq_factors_long: q worst 2.68e-08 of max(1, |ref|); k worst 2.17e-08 of max(1, |ref|)
+PASS op/rope/attn_factor: q worst 4.35e-08 of max(1, |ref|); k worst 6.39e-08 of max(1, |ref|)
+PASS op/rope/freq_factors_partial_attn_factor: q worst 1.05e-07 of max(1, |ref|); k worst 1.38e-07 of max(1, |ref|)
+PASS op/rope/freq_factors_values: q worst 0.00e+00 of max(1, |ref|); k worst 1.25e-09 of max(1, |ref|)
+PASS op/attention/causal: a worst 7.04e-08 of max(1, |ref|)
+PASS op/attention/window_sinks: a worst 7.04e-08 of max(1, |ref|)
+PASS op/attention/grouped_query: a worst 9.89e-08 of max(1, |ref|)
+PASS op/attention/position_bias: a worst 8.01e-08 of max(1, |ref|)
+PASS op/attention/position_bias_window_sinks: a worst 7.93e-08 of max(1, |ref|)
+PASS op/attention/position_bias_grouped_query: a worst 1.10e-07 of max(1, |ref|)
+PASS op/attention/relative_kv: a worst 7.38e-08 of max(1, |ref|)
+PASS op/attention/relative_kv_per_head: a worst 4.19e-08 of max(1, |ref|)
+PASS op/attention/relative_kv_keys_only: a worst 1.27e-07 of max(1, |ref|)
+PASS op/attention/relative_kv_window_sinks: a worst 7.38e-08 of max(1, |ref|)
+PASS op/attention/relative_kv_grouped_query: a worst 1.14e-07 of max(1, |ref|)
+PASS op/attention/relative_kv_distance_zero: a worst 1.19e-07 of max(1, |ref|)
+PASS op/attention/softcap: a worst 1.19e-07 of max(1, |ref|)
+PASS op/attention/softcap_window_sinks: a worst 1.19e-07 of max(1, |ref|)
+PASS op/attention/softcap_position_bias: a worst 1.25e-07 of max(1, |ref|)
+PASS op/moe_ffn/renorm: y worst 3.69e-07 of max(1, |ref|)
+PASS op/moe_ffn/raw: y worst 3.17e-07 of max(1, |ref|)
+PASS op/moe_ffn/sigmoid_renorm: y worst 1.21e-07 of max(1, |ref|)
+PASS op/moe_ffn/sigmoid_bias_groups: y worst 1.26e-07 of max(1, |ref|)
+PASS op/moe_ffn/softmax_bias_raw: y worst 1.37e-07 of max(1, |ref|)
+PASS op/list/two: L 0 values differ in their bits; L 0 values differ in their bits
+PASS op/append/one: L2 0 values differ in their bits; L2 0 values differ in their bits
+PASS op/depth_attend/one_source: h 0 values differ in their bits
+PASS op/depth_attend/three_sources: h worst 6.71e-08 of max(1, |ref|)
+PASS op/depth_attend/eps_default: h worst 0.00e+00 of max(1, |ref|)
+PASS op/expr/gelu_sigmoid: y worst 1.61e-08 of max(1, |ref|)
+PASS op/expr/relu_squared: y worst 0.00e+00 of max(1, |ref|)
+PASS op/expr/where_rowmean: y worst 0.00e+00 of max(1, |ref|)
+PASS op/expr/layer_norm: y worst 0.00e+00 of max(1, |ref|)
+PASS op/expr/rowsum_constant: y worst 0.00e+00 of max(1, |ref|)
+PASS op/expr/depth_200: y worst 0.00e+00 of max(1, |ref|)
+PASS op/linear_attention/two_heads: y worst 4.89e-08 of max(1, |ref|); state lin.num worst 2.90e-08 of max(1, |ref|); state lin.den worst 5.87e-08 of max(1, |ref|)
+PASS op/ssm_scan/n4: y worst 0.00e+00 of max(1, |ref|); state ssm.s worst 0.00e+00 of max(1, |ref|)
+PASS op/conv1d_causal/k4: y worst 0.00e+00 of max(1, |ref|); state conv.x worst 0.00e+00 of max(1, |ref|)
+PASS op/selective_scan/d3n2: y worst 1.36e-07 of max(1, |ref|); state ssm.s worst 7.40e-08 of max(1, |ref|)
+PASS op/recurrence/linear_attention_body: y worst 4.89e-08 of max(1, |ref|); state lin.num worst 2.90e-08 of max(1, |ref|); state lin.den worst 5.87e-08 of max(1, |ref|)
+PASS op/recurrence/ssm_scan_body: y 0 values differ in their bits; state ssm.s 0 values differ in their bits
+PASS op/recurrence/conv1d_causal_body: y 0 values differ in their bits; state conv.x 0 values differ in their bits
+PASS op/recurrence/selective_scan_body: y worst 1.81e-07 of max(1, |ref|); state ssm.s worst 2.47e-08 of max(1, |ref|)
+PASS op/recurrence/rnn_init_offset: y worst 8.28e-08 of max(1, |ref|); state rnn.h worst 5.96e-08 of max(1, |ref|)
+PASS op/recurrence/ema_bias_corrected: y worst 0.00e+00 of max(1, |ref|); state avg.m worst 0.00e+00 of max(1, |ref|); state avg.n worst 0.00e+00 of max(1, |ref|)
+PASS op/recurrence/ema_exact: y 0 values differ in their bits; state avg.m 0 values differ in their bits; state avg.n 0 values differ in their bits
+PASS op/recurrence/square_weight_declaration: y 0 values differ in their bits; state sq.h 0 values differ in their bits
+PASS op/recurrence/read_beyond_declaration: y 0 values differ in their bits; state pad.h 0 values differ in their bits
+PASS op/mla_attention/two_heads: a worst 9.22e-08 of max(1, |ref|)
+PASS op/mla_attention/window_sinks: a worst 9.22e-08 of max(1, |ref|)
+PASS op/mla_attention/one_head: a worst 6.80e-08 of max(1, |ref|)
+PASS refuse/unknown_op: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[15].op: "warp" is not one of ["embedding","pos_embedding","linear","scale","split",
+PASS refuse/unknown_attribute: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[5]: key temperature is not defined
+PASS refuse/unknown_top_key: refused: IR_SPEC 10.1 (rule 1): $: key profiles is not defined
+PASS refuse/version_2: refused: IR_SPEC 2.3 (rule 2): ir_version Some(2) is not a version this engine reads (it reads 0 and 1)
+PASS refuse/repeat_ne_n_layers: refused: IR_SPEC 3.3 (rule 3): block.repeat 3 != model.n_layers Some(2); IR_SPEC 3.7 (rule 25): rmsnorm: tensor blk.2.attn_norm.w
+PASS refuse/model_ctx_missing: refused: IR_SPEC 10.1 (rule 1): $.model: required key ctx is missing; IR_SPEC 3.3 (rule 3): model.ctx is not a positive integer
+PASS refuse/per_layer_wrong_length: refused: IR_SPEC 3.8 (rule 6): block.nodes[4] (rope): per_layer theta has 1 entries, block.repeat is 2
+PASS refuse/per_layer_in_head: refused: IR_SPEC 3.8 (rule 6): head.nodes[0] (rmsnorm): per_layer eps outside the block
+PASS refuse/add_one_input: refused: IR_SPEC 5 (rule 7): block.nodes[7] (add): reads 1 value(s)
+PASS refuse/rope_pairing_unknown: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[4].pairing: "halves" matches no allowed form ($.block.nodes[4].pairing: "halves" is
+PASS refuse/rope_n_rot_odd: refused: IR_SPEC 5.14 (rule 10): block.nodes[4] (rope): n_rot 3 is not even and in 1 .. head_dim; IR_SPEC 5.14 (rule 10): block.n
+PASS refuse/attention_not_causal: refused: IR_SPEC 5.15 (rule 14): block.nodes[5] (attention): causal is not true; IR_SPEC 5.15 (rule 14): block.nodes[5] (attentio
+PASS refuse/attention_heads_not_multiple: refused: IR_SPEC 5.15 (rule 10): block.nodes[5] (attention): heads 3 is not a multiple of kv_heads 2; IR_SPEC 5.15 (rule 10): blo
+PASS refuse/attention_window_differs: refused: IR_SPEC 5.15 (rule 12): attention reading kv: window Some(4) differs from the slot's Some(0) (application 0); IR_SPEC 5.
+PASS refuse/slot_declared_twice: refused: IR_SPEC 6.1 (rule 11): slot kv is declared twice
+PASS refuse/slot_unread: refused: IR_SPEC 6.1 (rule 11): slot kv2 is read by no node
+PASS refuse/slot_unknown_kind: refused: IR_SPEC 10.1 (rule 1): $.block.state[0].kind: "paged" is not one of ["kv","recurrent"]; IR_SPEC 6.1 (rule 11): slot kv: 
+PASS refuse/attention_no_slot: refused: IR_SPEC 6.1 (rule 11): slot kv is read by no node; IR_SPEC 6.1 (rule 11): block.nodes[5] (attention) names no declared s
+PASS refuse/kv_slot_field_missing: refused: IR_SPEC 10.1 (rule 1): $.block.state[0]: required key max_len is missing; IR_SPEC 6.2 (rule 12): kv slot kv lacks max_le
+PASS refuse/tensor_index_without_weight_index: refused: IR_SPEC 7.2 (rule 19): block.nodes[1] (linear): tensor_index in a block without weight_index
+PASS refuse/name_with_i_outside_block: refused: IR_SPEC 3.7 (rule 17a): head.nodes[0] (rmsnorm): weight "blk.{i}.output_norm.weight" holds {i} outside the block; IR_SPE
+PASS refuse/evict_on_causal: refused: IR_SPEC 6.8.3 (rule 16): evict turn_state on kv with an attention node whose mask is causal; IR_SPEC 6.8.3 (rule 16): ev
+PASS refuse/missing_tensor: refused: IR_SPEC 3.7 (rule 25): linear: tensor blk.0.nope.weight is not a tensor of the file; IR_SPEC 3.7 (rule 25): linear: tens
+PASS refuse/gelu_approx_unknown: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[8].approx: "sigmoid" matches no allowed form ($.block.nodes[8].approx: "sigmoid" is
+PASS refuse/split_count: refused: IR_SPEC 5.5 (rule 10): block.nodes[2] (split): 2 sizes for 3 outputs; IR_SPEC 5.5 (rule 10): block.nodes[2] (split): 2 s
+PASS refuse/expr_does_not_parse: refused: IR_SPEC 5.19 (rule 9): block.nodes[0] (expr): the expression does not parse: column 7: unexpected end of expression
+PASS refuse/moe_top_k_too_large: refused: IR_SPEC 5.16 (rule 10): block.nodes[9] (moe_ffn): top_k 5 is not in 1 .. n_experts 4; IR_SPEC 5.16 (rule 10): block.node
+PASS refuse/moe_gate_norm_unknown: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[9].gate_norm: "topk" matches no allowed form ($.block.nodes[9].gate_norm: "topk" is
+PASS refuse/recurrent_dtype_f16: refused: IR_SPEC 10.1 (rule 1): $.block.state[0].dtype: "f16" is not one of ["f32"]; IR_SPEC 6.3 (rule 13): recurrent slot lin: d
+PASS refuse/recurrent_shape_mismatch: refused: IR_SPEC 6.3 (rule 13): recurrent slot lin: tensors [("num", [3, 8]), ("den", [2, 8])] do not fit linear_attention ([("nu
+PASS refuse/recurrent_op_mismatch: refused: IR_SPEC 6.1 (rule 13): recurrent slot lin has op ssm_scan but is read by linear_attention
+PASS refuse/linear_attention_not_causal: refused: IR_SPEC 6.4 (rule 14): block.nodes[3] (linear_attention): causal is not true; IR_SPEC 6.4 (rule 14): block.nodes[3] (lin
+PASS refuse/conv_kernel_one: refused: IR_SPEC 6.6 (rule 10): block.nodes[3] (conv1d_causal): channels < 1 or kernel < 2; IR_SPEC 6.6 (rule 10): block.nodes[3]
+PASS refuse/weight_index_wrong_length: refused: IR_SPEC 7.1 (rule 18): weight_index is not per_layer of block.repeat integers >= 0; IR_SPEC 3.7 (rule 25): rmsnorm: tens
+PASS refuse/weight_index_unused_layer: refused: IR_SPEC 7.1 (rule 18): weight_index leaves stored layer 1 unused; IR_SPEC 3.7 (rule 25): rmsnorm: tensor blk.3.attn_norm
+PASS refuse/weight_index_negative: refused: IR_SPEC 7.1 (rule 18): weight_index is not per_layer of block.repeat integers >= 0
+PASS refuse/mor_route_not_first: refused: IR_SPEC 7.4 (rule 20): block.nodes[1] (depth_route): depth_route must be the block's first node
+PASS refuse/mor_expert_choice: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[0].route: "expert_choice" is not one of ["token_choice"]; IR_SPEC 7.7 (rule 20): ro
+PASS refuse/mor_unequal_steps: refused: IR_SPEC 7.4 (rule 20): step [-1, 0, 0, 1, -1] does not form the consecutive, ascending, equal steps 0 .. 2
+PASS refuse/mor_steps_descending: refused: IR_SPEC 7.4 (rule 20): step [-1, 2, 1, 0, -1] does not form the consecutive, ascending, equal steps 0 .. 2
+PASS refuse/mor_step_length_wrong: refused: IR_SPEC 3.8 (rule 6): block.nodes[0] (depth_route): per_layer step has 4 entries, block.repeat is 5; IR_SPEC 7.4 (rule 2
+PASS refuse/mor_no_kv_rows_active: refused: IR_SPEC 7.5 (rule 21): depth_route with a kv slot whose kv_rows is not active
+PASS refuse/mor_kv_from: refused: IR_SPEC 7.6 (rule 22): kv slot kv carries kv_from (reserved)
+PASS refuse/mor_gate_unknown: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[0].gate: "sigmoid" is not one of ["score","none"]; IR_SPEC 7.4 (rule 20): gate is n
+PASS refuse/mor_router_with_i: refused: IR_SPEC 7.7 (rule 20): the router's weight name holds '{'; IR_SPEC 3.7 (rule 25): depth_route: tensor rec.1.router.weigh
+PASS refuse/mor_kv_rows_shared: refused: IR_SPEC 10.1 (rule 1): $.block.state[0].kv_rows: "shared" is not one of ["active"]; IR_SPEC 7.5 (rule 21): depth_route w
+PASS refuse/mor_route_in_head: refused: IR_SPEC 3.8 (rule 6): head.nodes[0] (depth_route): per_layer step outside the block; IR_SPEC 7.4 (rule 20): head.nodes[0
+PASS refuse/turn_state_with_window: refused: IR_SPEC 6.8.2 (rule 15): mask turn_state with a window or sinks (application 0); IR_SPEC 6.8.2 (rule 15): mask turn_stat
+PASS refuse/turn_state_without_state_weight: refused: IR_SPEC 6.8.2 (rule 15): mask turn_state without an embedding state_weight; IR_SPEC 6.8.2 (rule 15): mask turn_state wit
+PASS refuse/evict_without_mask: refused: IR_SPEC 6.8.3 (rule 16): evict turn_state on kv with an attention node whose mask is causal; IR_SPEC 6.8.3 (rule 16): ev
+PASS refuse/evict_unknown: refused: IR_SPEC 10.1 (rule 1): $.block.state[0].evict: "oldest" is not one of ["turn_state"]
+PASS refuse/mask_unknown: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[5].mask: "sliding" matches no allowed form ($.block.nodes[5].mask: "sliding" is not
+PASS refuse/state_weight_with_i: refused: IR_SPEC 3.7 (rule 17a): embed.nodes[0] (embedding): state_weight "state_{i}.weight" holds {i} outside the block; IR_SPEC
+PASS refuse/two_state_weights: refused: IR_SPEC 6.8.1 (rule 17): state_weight on more than one embedding
+PASS refuse/state_weight_wrong_name: refused: IR_SPEC 3.7 (rule 25): embedding: tensor nope.weight is not a tensor of the file; IR_SPEC 6.8.1 (rule 28): state_weight 
+PASS refuse/recurrence_body_does_not_parse: refused: IR_SPEC 6.10 (rule 31): update body "den[h,e] = den[h,e] +" does not parse: column 22: unexpected end of expression
+PASS refuse/recurrence_name_twice: refused: IR_SPEC 6.10 (rule 31): num is declared twice
+PASS refuse/recurrence_rowsum: refused: IR_SPEC 6.10 (rule 31): readout "y[h,e] = rowsum(num[h,e])" does not parse: column 10: rowsum is not part of the recurre
+PASS refuse/recurrence_index_size_zero: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[3].index.e: 0 is below 1; IR_SPEC 6.10 (rule 31): index e has size 0, not a positiv
+PASS refuse/recurrence_index_out_of_scope: refused: IR_SPEC 6.10 (rule 32): "y[h,e] = sum(h, num[h,e])": column 10: sum over h, already in scope
+PASS refuse/recurrence_init_reads_input: refused: IR_SPEC 6.10 (rule 32): "num[h,e] = q[h,e]": column 12: this body cannot read q
+PASS refuse/recurrence_rank_mismatch: refused: IR_SPEC 6.10 (rule 32): "den[h,e] = den[h] + 1": column 12: den has 2 dimension(s), read with 1 index(es)
+PASS refuse/recurrence_index_undeclared: refused: IR_SPEC 6.10 (rule 32): "y[h,e] = num[h,f]": column 10: index f is not declared
+PASS refuse/recurrence_slot_shape: refused: IR_SPEC 6.10 (rule 33): block.nodes[3]: slot lin's tensors are not the update's [("num", [2, 8], false), ("den", [2, 8],
+PASS refuse/recurrence_slot_missing_tensor: refused: IR_SPEC 6.10 (rule 33): block.nodes[3]: slot lin's tensors are not the update's [("num", [2, 8], false), ("den", [2, 8],
+PASS refuse/recurrence_init_flag: refused: IR_SPEC 6.10 (rule 33): block.nodes[3]: slot lin's tensors are not the update's [("num", [2, 8], false), ("den", [2, 8],
+PASS refuse/recurrence_weight_size: refused: IR_SPEC 6.10 (rule 34): weight blk.0.ssm_b.weight holds 8 elements, its declaration 64; IR_SPEC 6.10 (rule 34): weight b
+PASS refuse/recurrence_assignment_repeats_index: refused: IR_SPEC 6.10 (rule 32): y[h,h] = num[h,h]: the assignment repeats index h
+PASS refuse/recurrence_bare_undeclared_name: refused: IR_SPEC 6.10 (rule 32): "y[h,e] = num[h,e] + foo": column 21: bare name foo is not an index in scope (a tensor is read w
+PASS refuse/reads_unwritten_value: refused: IR_SPEC 3.5 (rule 36): block[7] add reads nowhere (its input 1), which no earlier node writes; IR_SPEC 3.5 (rule 36): bl
+PASS refuse/embed_writes_no_x: refused: IR_SPEC 3.5 (rule 36): the embed section writes no x; IR_SPEC 3.5 (rule 36): block[0] rmsnorm reads x (its input 0), whi
+PASS refuse/head_writes_no_logits: refused: IR_SPEC 3.4 (rule 36): the head writes no logits
+PASS refuse/mor_reads_outside_value: refused: IR_SPEC 7.4 (rule 36): block[0] add reads e (its input 1), which no earlier node writes
+PASS refuse/mor_step_gap: refused: IR_SPEC 7.4 (rule 20): step [-1, 0, -1, 1, 2] does not form the consecutive, ascending, equal steps 0 .. 2
+PASS refuse/mor_reads_tokens: refused: IR_SPEC 7.4 (rule 36): block[0] add reads tokens (its input 1), which no earlier node writes; IR_SPEC 3.5 (rule 17a): bl
+PASS refuse/mor_reads_route_out: refused: IR_SPEC 7.4 (rule 36): block[0] add reads rec_depth (its input 1), which no earlier node writes; IR_SPEC 7.4 (rule 17a):
+PASS refuse/position_bias_bucket_negative: refused: IR_SPEC 5.15 (rule 39): block.nodes[5] (attention): position_bias {"weight":"token_embd.weight","buckets":[0,-1]} is not
+PASS refuse/position_bias_buckets_empty: refused: IR_SPEC 5.15 (rule 39): block.nodes[5] (attention): position_bias {"weight":"token_embd.weight","buckets":[]} is not {we
+PASS refuse/position_bias_table_shape: refused: IR_SPEC 5.15 (rule 39): position_bias table token_embd.weight has ne [16, 15], not {heads = 2, B} with B > 2 (applicatio
+PASS refuse/position_bias_per_layer: refused: IR_SPEC 3.8 (rule 6): block.nodes[5] (attention): position_bias is structural and cannot be per_layer
+PASS refuse/tensor_index_in_head: refused: IR_SPEC 7.2 (rule 19): head.nodes[0] (depth_attend): tensor_index in a block without weight_index
+PASS refuse/tensor_index_value_unknown: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[0].tensor_index: "stored" is not one of ["application"]
+PASS refuse/tensor_index_on_affine: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[1]: key tensor_index is not defined
+PASS refuse/tensor_index_absent_application_tensor: refused: IR_SPEC 3.7 (rule 25): rmsnorm: tensor blk.3.attn_norm.weight is not a tensor of the file
+PASS refuse/relative_kv_distance_negative: refused: IR_SPEC 5.15 (rule 40): block.nodes[5] (attention): relative_kv {"key":"token_embd.weight","max_distance":-1} is not {ke
+PASS refuse/relative_kv_without_key: refused: IR_SPEC 5.15 (rule 40): block.nodes[5] (attention): relative_kv {"value":"token_embd.weight","max_distance":2} is not {k
+PASS refuse/relative_kv_unknown_field: refused: IR_SPEC 5.15 (rule 40): block.nodes[5] (attention): relative_kv {"key":"token_embd.weight","max_distance":2,"buckets":[0
+PASS refuse/relative_kv_key_shape: refused: IR_SPEC 5.15 (rule 40): relative_kv.key token_embd.weight has ne [16, 15], not {8 or 16, max_distance + 1 = 4} (applicat
+PASS refuse/relative_kv_value_shape: refused: IR_SPEC 5.15 (rule 40): relative_kv.value output_norm.weight has ne [16], not {8 or 16, max_distance + 1 = 15} (applicat
+PASS refuse/relative_kv_with_position_bias: refused: IR_SPEC 5.15 (rule 40): block.nodes[5] (attention): relative_kv and position_bias on one node; IR_SPEC 5.15 (rule 39): p
+PASS refuse/relative_kv_per_layer: refused: IR_SPEC 3.8 (rule 6): block.nodes[5] (attention): relative_kv is structural and cannot be per_layer
+PASS refuse/softcap_not_positive: refused: IR_SPEC 5.15 (rule 10): block.nodes[5] (attention): softcap not positive; IR_SPEC 5.15 (rule 10): block.nodes[5] (attent
+PASS refuse/attn_factor_not_positive: refused: IR_SPEC 5.14 (rule 10): block.nodes[3] (rope): attn_factor not positive; IR_SPEC 5.14 (rule 10): block.nodes[3] (rope): 
+PASS refuse/freq_factors_without_original_ctx: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[3].freq_factors: {"short":"rope_factors_short.weight","long":"rope_factors_long.wei
+PASS refuse/freq_factors_unknown_field: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[3].freq_factors: {"short":"rope_factors_short.weight","long":"rope_factors_long.wei
+PASS refuse/freq_factors_tensor_shape: refused: IR_SPEC 5 (rule 41): rope: output_norm.weight has ne [16], expected [2]; IR_SPEC 5 (rule 41): rope: output_norm.weight h
+PASS refuse/freq_factors_per_layer: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[3].freq_factors: {"per_layer":["rope_factors_short.weight","rope_factors_short.weig
+PASS refuse/split_groups_zero: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[4].groups: 0 is below 1; IR_SPEC 5.5 (rule 10): block.nodes[4] (split): groups not 
+PASS refuse/mla_slot_head_dim: refused: IR_SPEC 5.15 (rule 12): attention reading kv: head_dim Some(10) differs from the slot's Some(8) (application 0); IR_SPEC
+PASS refuse/mla_slot_kv_heads: refused: IR_SPEC 5.15 (rule 12): attention reading kv: kv_heads Some(1) differs from the slot's Some(2) (application 0); IR_SPEC 
+PASS refuse/mla_k_b_shape: refused: IR_SPEC 5 (rule 42): mla_attention: blk.0.attn_v_b.weight has ne [6, 3, 2], expected [4, 6, 2]; IR_SPEC 5 (rule 42): mla
+PASS refuse/mla_reads_three: refused: IR_SPEC 5 (rule 7): block.nodes[9] (mla_attention): reads 3 value(s)
+PASS refuse/mla_without_k_b: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[9]: required key k_b is missing
+PASS refuse/mla_not_causal: refused: IR_SPEC 5.20 (rule 14): block.nodes[9] (mla_attention): causal not true; IR_SPEC 5.20 (rule 14): block.nodes[9] (mla_att
+PASS refuse/apply_entries_not_boolean: refused: IR_SPEC 3.8 (rule 1): block.nodes[11] (linear): per_layer apply holds 1; IR_SPEC 3.8 (rule 1): block.nodes[11] (linear):
+PASS refuse/apply_outside_block: refused: IR_SPEC 3.8 (rule 43): head.nodes[0] (rmsnorm): invalid apply
+PASS refuse/apply_on_attention: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[7]: key apply is not defined; IR_SPEC 3.8 (rule 4): block.nodes[7] (mla_attention):
+PASS refuse/apply_leaves_value_unwritten: refused: IR_SPEC 3.5 (rule 36): block[11] add reads f (its input 1), which no earlier node writes
+PASS refuse/apply_with_depth_route: refused: IR_SPEC 3.8 (rule 43): block.nodes[1] (rmsnorm): invalid apply
+PASS refuse/moe_groups_not_dividing: refused: IR_SPEC 5.16 (rule 10): block.nodes[16] (moe_ffn): invalid groups; IR_SPEC 5.16 (rule 10): block.nodes[16] (moe_ffn): in
+PASS refuse/moe_scoring_unknown: refused: IR_SPEC 10.1 (rule 1): $.block.nodes[16].scoring: "relu" matches no allowed form ($.block.nodes[16].scoring: "relu" is n
+PASS refuse/moe_selection_bias_shape: refused: IR_SPEC 5 (rule 44): moe_ffn: output_norm.weight has ne [16], expected [8]; IR_SPEC 5 (rule 44): moe_ffn: output_norm.we
+PASS refuse/freq_factors_values_length: refused: IR_SPEC 5.14 (rule 41): block.nodes[6] (rope): invalid frequency factors; IR_SPEC 5.14 (rule 41): block.nodes[6] (rope):
+PASS refuse/freq_factors_values_not_positive: refused: IR_SPEC 5.14 (rule 41): block.nodes[6] (rope): invalid frequency factors; IR_SPEC 5.14 (rule 41): block.nodes[6] (rope):
+PASS refuse/duplicate_member_top: refused: IR_SPEC 3.2 (rule 35): duplicate member name "family_hint"
+PASS refuse/duplicate_member_node: refused: IR_SPEC 3.2 (rule 35): duplicate member name "causal"
+PASS refuse/duplicate_member_prose: refused: IR_SPEC 3.2 (rule 35): duplicate member name "a"
+PASS refuse/version_key_mismatch: refused: IR_SPEC 3.1 (rule 24): paperkiln.ir_version U32(7) is not a uint32 equal to the embedded document's ir_version Some(1)
+PASS refuse/state_tokens_k_mismatch: refused: IR_SPEC 6.8.1 (rule 28): state_weight's ne [16, 2] is not {d, k} = [16, 3]
+PASS refuse/state_template_not_v1: refused: IR_SPEC 8.2 (rule 28): a declared paperkiln.chat_template other than paperkiln/1 with state tokens
+PASS refuse/weight_index_block_count: refused: IR_SPEC 7.1 (rule 27): paperkiln.block_count 9 differs from the 3 stored layers
+PASS refuse/state_tokens_arch_llama: refused: IR_SPEC D.1 (rule 38): general.architecture "llama": the metadata builds no graph (llama.embedding_length is missing); I
+PASS refuse/duplicate_member_embedded: refused: IR_SPEC 3.2 (rule 35): duplicate member name "ctx"
+PASS refuse/architecture_kimi_as_gpt2: refused: IR_SPEC D.7 (rule 38): general.architecture "gpt2", but the embedded document is not the graph Appendix D builds from th
+PASS refuse/architecture_swa_as_gpt2: refused: IR_SPEC D.7 (rule 38): general.architecture "gpt2", but the embedded document is not the graph Appendix D builds from th
+PASS refuse/architecture_metadata_disagrees: refused: IR_SPEC D.7 (rule 38): general.architecture "llama", but the embedded document is not the graph Appendix D builds from t
+PASS refuse/architecture_without_graph: refused: IR_SPEC 3.1 (rule 38): general.architecture "falcon" is neither "paperkiln" nor one of Appendix D's eight
+PASS refuse/architecture_gemma2_softcap_dropped: refused: IR_SPEC D.7 (rule 38): general.architecture "gemma2", but the embedded document is not the graph Appendix D builds from 
+PASS refuse/architecture_substituted_document: refused: IR_SPEC D.7 (rule 38): general.architecture "gpt2", but the embedded document is not the graph Appendix D builds from th
+PASS digest/vectors/rfc8785_number_0000000000000000: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_0000000000000001: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_8000000000000001: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_7fefffffffffffff: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_ffefffffffffffff: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_4340000000000000: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_c340000000000000: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_4430000000000000: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_44b52d02c7e14af5: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_44b52d02c7e14af6: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_44b52d02c7e14af7: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_444b1ae4d6e2ef4e: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_444b1ae4d6e2ef4f: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_444b1ae4d6e2ef50: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_3eb0c6f7a0b5ed8c: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_3eb0c6f7a0b5ed8d: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_41b3de4355555553: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_41b3de4355555554: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_41b3de4355555555: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_41b3de4355555556: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_41b3de4355555557: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_becbf647612f3696: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_43143ff3c1cb0959: sha256 equal; canonical equal
+PASS digest/vectors/f32_eps: sha256 equal; canonical equal
+PASS digest/vectors/f32_rope_theta: sha256 equal; canonical equal
+PASS digest/vectors/f32_scale: sha256 equal; canonical equal
+PASS digest/vectors/f32_den_floor: sha256 equal; canonical equal
+PASS digest/vectors/integer_2p53: sha256 equal; canonical equal
+PASS digest/vectors/negative_integer: sha256 equal; canonical equal
+PASS digest/vectors/minus_zero_integer_form: sha256 equal; canonical equal
+PASS digest/vectors/exponent_form: sha256 equal; canonical equal
+PASS digest/vectors/string_controls: sha256 equal; canonical equal
+PASS digest/vectors/string_controls_escaped: sha256 equal; canonical equal
+PASS digest/vectors/string_escapes: sha256 equal; canonical equal
+PASS digest/vectors/string_escapes_escaped: sha256 equal; canonical equal
+PASS digest/vectors/string_line_separators: sha256 equal; canonical equal
+PASS digest/vectors/string_line_separators_escaped: sha256 equal; canonical equal
+PASS digest/vectors/string_astral: sha256 equal; canonical equal
+PASS digest/vectors/string_astral_escaped: sha256 equal; canonical equal
+PASS digest/vectors/string_accents: sha256 equal; canonical equal
+PASS digest/vectors/string_accents_escaped: sha256 equal; canonical equal
+PASS digest/vectors/string_names: sha256 equal; canonical equal
+PASS digest/vectors/string_names_escaped: sha256 equal; canonical equal
+PASS digest/vectors/key_order_utf16: sha256 equal; canonical equal
+PASS digest/vectors/nesting: sha256 equal; canonical equal
+PASS digest/vectors/prose_removed: sha256 equal; canonical equal
+PASS digest/vectors/prose_kept_in_serialiser_test: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_attnres: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_flex_expr: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_flex_highway: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_flex_mdha: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_flex_shaw: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_flex_t5: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_gpt2: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_gpt2_swa: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_kimi: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_llama: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_llama_attnres: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_llama_attnres_rec: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_mamba: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_moe: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_mor: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_recurrence: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_recursive: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_srd: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_state: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_deepseek2: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_deepseek3: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_gemma2: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_gemma3: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_gptneox: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_llama_hd16: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_mamba1: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_mistral: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_mistral_hd16: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_phi3: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_qwen2moe: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_qwen3: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_qwen3_hd16: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_qwen3moe: sha256 equal; canonical equal
+PASS digest/vectors/negative_zero: refused
+PASS digest/vectors/integer_beyond_2p53: refused
+PASS digest/vectors/overflow: refused
+PASS digest/vectors/duplicate_key: refused
+PASS digest/vectors/lone_surrogate: refused
+PASS digest/vectors/nan_literal: refused
+PASS digest/vectors/prose_overflow: refused
+PASS digest/vectors/prose_negative_zero: refused
+PASS digest/vectors/prose_integer_beyond_2p53: refused
+PASS digest/vectors/prose_lone_surrogate: refused
+PASS digest/vectors/prose_key_lone_surrogate: refused
+PASS digest/vectors/prose_duplicate_key: refused
+PASS digest/vectors/fraction_form_beyond_2p53: sha256 equal; canonical equal
+PASS digest/vectors/exponent_form_1e300: sha256 equal; canonical equal
+PASS digest/vectors/negative_integer_2p53: sha256 equal; canonical equal
+PASS digest/vectors/negative_integer_beyond_2p53: refused
+PASS dequant/blocks/f32: 0 values differ in their bits
+PASS dequant/blocks/f16: 0 values differ in their bits
+PASS dequant/blocks/q4_0: 0 values differ in their bits
+PASS dequant/blocks/q5_0: 0 values differ in their bits
+PASS dequant/blocks/q5_1: 0 values differ in their bits
+PASS dequant/blocks/q8_0: 0 values differ in their bits
+PASS dequant/blocks/q4_k: 0 values differ in their bits
+PASS dequant/blocks/q5_k: 0 values differ in their bits
+PASS dequant/blocks/q6_k: 0 values differ in their bits
+PASS dequant/blocks/bf16: 0 values differ in their bits
+SKIP grad/recurrence/linear_attention_body: gradients are not implemented (this engine does not train)
+SKIP grad/recurrence/ssm_scan_body: gradients are not implemented (this engine does not train)
+SKIP grad/recurrence/conv1d_causal_body: gradients are not implemented (this engine does not train)
+SKIP grad/recurrence/selective_scan_body: gradients are not implemented (this engine does not train)
+SKIP grad/recurrence/rnn_init_offset: gradients are not implemented (this engine does not train)
+SKIP grad/recurrence/ema_bias_corrected: gradients are not implemented (this engine does not train)
+SKIP grad/recurrence/ema_exact: gradients are not implemented (this engine does not train)
+SKIP grad/recurrence/square_weight_declaration: gradients are not implemented (this engine does not train)
+SKIP grad/attention/relative_kv: gradients are not implemented (this engine does not train)
+SKIP grad/attention/relative_kv_per_head_grouped_query: gradients are not implemented (this engine does not train)
+SKIP grad/attention/relative_kv_keys_only: gradients are not implemented (this engine does not train)
+PASS trace/pk_kimi_recurrence: 9 steps
+PASS trace/pk_srd_recurrence: 9 steps
+PASS trace/pk_mamba_recurrence: 9 steps
+PASS trace/tp_mamba1_recurrence: 9 steps
+PASS trace/pk_srd_truncate: 3 steps
+PASS trace/tp_mamba1_truncate: 3 steps
+PASS trace/pk_flex_mdha_truncate: 3 steps
+PASS trace/pk_gpt2_swa_rewind_window: 3 steps
+PASS trace/tp_gemma3_rewind_window: 3 steps
+PASS trace/tp_mistral_hd16_rewind_window: 3 steps
+PASS trace/tp_gemma2_rewind_window: 3 steps
+PASS trace/pk_attnres_chunks: 4 steps
+PASS trace/pk_flex_expr_chunks: 4 steps
+PASS trace/pk_flex_highway_chunks: 4 steps
+PASS trace/pk_flex_mdha_chunks: 4 steps
+PASS trace/pk_flex_shaw_chunks: 4 steps
+PASS trace/pk_flex_t5_chunks: 4 steps
+PASS trace/pk_gpt2_chunks: 4 steps
+PASS trace/pk_gpt2_swa_chunks: 4 steps
+PASS trace/pk_kimi_chunks: 4 steps
+PASS trace/pk_llama_chunks: 4 steps
+PASS trace/pk_llama_attnres_chunks: 4 steps
+PASS trace/pk_llama_attnres_rec_chunks: 4 steps
+PASS trace/pk_mamba_chunks: 4 steps
+PASS trace/pk_moe_chunks: 4 steps
+PASS trace/pk_mor_chunks: 4 steps
+PASS trace/pk_recurrence_chunks: 4 steps
+PASS trace/pk_recursive_chunks: 4 steps
+PASS trace/pk_srd_chunks: 4 steps
+PASS trace/pk_state_chunks: 4 steps
+PASS trace/tp_deepseek2_chunks: 4 steps
+PASS trace/tp_deepseek3_chunks: 4 steps
+PASS trace/tp_gemma2_chunks: 4 steps
+PASS trace/tp_gemma3_chunks: 4 steps
+PASS trace/tp_gptneox_chunks: 4 steps
+PASS trace/tp_llama_hd16_chunks: 4 steps
+PASS trace/tp_mamba1_chunks: 4 steps
+PASS trace/tp_mistral_chunks: 4 steps
+PASS trace/tp_mistral_hd16_chunks: 4 steps
+PASS trace/tp_phi3_chunks: 4 steps
+PASS trace/tp_qwen2moe_chunks: 4 steps
+PASS trace/tp_qwen3_chunks: 4 steps
+PASS trace/tp_qwen3_hd16_chunks: 4 steps
+PASS trace/tp_qwen3moe_chunks: 4 steps
+PASS trace/pk_llama_attnres_rec_untagged: 5 steps
+PASS trace/pk_flex_shaw_weight_index: 5 steps
+PASS trace/pk_mor_window: 9 steps
+PASS trace/pk_mor_window_rewind: 3 steps
+PASS accept/documents/model_pk_attnres: accepted
+PASS accept/documents/model_pk_flex_expr: accepted
+PASS accept/documents/model_pk_flex_highway: accepted
+PASS accept/documents/model_pk_flex_mdha: accepted
+PASS accept/documents/model_pk_flex_shaw: accepted
+PASS accept/documents/model_pk_flex_t5: accepted
+PASS accept/documents/model_pk_gpt2: accepted
+PASS accept/documents/model_pk_gpt2_swa: accepted
+PASS accept/documents/model_pk_kimi: accepted
+PASS accept/documents/model_pk_llama: accepted
+PASS accept/documents/model_pk_llama_attnres: accepted
+PASS accept/documents/model_pk_llama_attnres_rec: accepted
+PASS accept/documents/model_pk_mamba: accepted
+PASS accept/documents/model_pk_moe: accepted
+PASS accept/documents/model_pk_mor: accepted
+PASS accept/documents/model_pk_recurrence: accepted
+PASS accept/documents/model_pk_recursive: accepted
+PASS accept/documents/model_pk_srd: accepted
+PASS accept/documents/model_pk_state: accepted
+PASS accept/documents/model_tp_deepseek2: accepted
+PASS accept/documents/model_tp_deepseek3: accepted
+PASS accept/documents/model_tp_gemma2: accepted
+PASS accept/documents/model_tp_gemma3: accepted
+PASS accept/documents/model_tp_gptneox: accepted
+PASS accept/documents/model_tp_llama_hd16: accepted
+PASS accept/documents/model_tp_mamba1: accepted
+PASS accept/documents/model_tp_mistral: accepted
+PASS accept/documents/model_tp_mistral_hd16: accepted
+PASS accept/documents/model_tp_phi3: accepted
+PASS accept/documents/model_tp_qwen2moe: accepted
+PASS accept/documents/model_tp_qwen3: accepted
+PASS accept/documents/model_tp_qwen3_hd16: accepted
+PASS accept/documents/model_tp_qwen3moe: accepted
+PASS accept/documents/rewritten_pk_kimi: accepted
+PASS accept/documents/rewritten_pk_srd: accepted
+PASS accept/documents/rewritten_pk_mamba: accepted
+PASS accept/documents/rewritten_tp_mamba1: accepted
+PASS accept/documents/example_attnres_tiny: accepted
+PASS accept/documents/example_chat_sftfinal: accepted
+PASS accept/documents/example_flex_highway_tiny: accepted
+PASS accept/documents/example_gpt2_tiny: accepted
+PASS accept/documents/example_kimi_tiny: accepted
+PASS accept/documents/example_mamba_tiny: accepted
+PASS accept/documents/example_moe_tiny: accepted
+PASS accept/documents/example_srd_tiny: accepted
+PASS accept/documents/example_swa_tiny: accepted
+PASS accept/documents/substituted_over_duplicate_embedded: accepted
+PASS accept/documents/untagged_application_queries: accepted
+PASS accept/documents/relative_kv_weight_index: accepted
+PASS accept/documents/mor_window: accepted
+PASS chat/render/one user prompt: text equal
+PASS chat/render/system folds into the first user turn: text equal
+PASS chat/render/a lone system message: refused
+PASS chat/render/a system message with no user message: refused
+PASS chat/render/two system messages: refused
+PASS chat/render/a system message mid-conversation: refused
+PASS chat/render/the assistant first: refused
+PASS chat/render/two user messages in a row: refused
+PASS chat/render/a training conversation ending on a user message: refused
+PASS chat/render/a prompt ending on an assistant message: refused
+PASS chat/render/user content holding a role marker: refused
+PASS chat/render/system content holding end-of-text: refused
+PASS chat/render/assistant content holding a marker: refused
+PASS chat/render/<unk> text is ordinary content: text equal
+PASS chat/render/newline-only user content: text equal
+PASS chat/render/newline-only and empty replies in the history: text equal
+PASS chat/render/the tool role is reserved: refused
+PASS chat/render/an unknown role: refused
+PASS chat/render/three exchanges with a system message: text equal
+PASS chat/render/a training conversation with a system message: text equal
+PASS chat/render/loss on a user message: refused
+PASS chat/render/unicode content: text equal
+PASS chat/render/system mode none refuses a system message: refused
+PASS chat/render/system mode none without one: text equal
+PASS chat/render/legacy word-level prompt: text equal
+PASS chat/render/gemma3 trims and folds: text equal
+PASS chat/render/gemma3 trims unicode edge whitespace: text equal
+PASS chat/render/gemma3 trims unicode whitespace in system and history: text equal
+PASS chat/render/gemma3 keeps inner unicode whitespace and zero-width space: text equal
+PASS chat/render/qwen3 strips past reasoning: text equal
+PASS chat/render/qwen2.5 writes its default system turn: text equal
+PASS chat/render/qwen3 thinking off: text equal
+PASS chat/render/v2 one user prompt (v1's text): text equal
+PASS chat/render/v2 user and assistant only (v1's text): text equal
+PASS chat/render/v2 system turn: text equal
+PASS chat/render/v2 empty system message: text equal
+PASS chat/render/v2 system turn and history: text equal
+PASS chat/render/v2 training conversation with a system turn: text equal
+PASS chat/render/v2 system and tool definitions: text equal
+PASS chat/render/v2 tool definitions without a system message: text equal
+PASS chat/render/v2 tool definitions with an empty system message: text equal
+PASS chat/render/v2 unicode tool definition: text equal
+PASS chat/render/v2 a call answered: the prompt ends on the tool message: text equal
+PASS chat/render/v2 a call, its result and the reply: text equal
+PASS chat/render/v2 content before a call: text equal
+PASS chat/render/v2 two calls, two results, a reply, then a user message: text equal
+PASS chat/render/v2 tool_call_id matching the call's id: text equal
+PASS chat/render/v2 a training conversation ending on a call: text equal
+PASS chat/render/v2 empty arguments: text equal
+PASS chat/render/v2 newline-only and empty contents: text equal
+PASS chat/render/v2 a tool message without a call: refused
+PASS chat/render/v2 a tool message first: refused
+PASS chat/render/v2 fewer results than calls: refused
+PASS chat/render/v2 a prompt ending while a call has no result: refused
+PASS chat/render/v2 a reply without its results: refused
+PASS chat/render/v2 tool_call_id not the call's id: refused
+PASS chat/render/v2 tool_call_id when the call has no id: refused
+PASS chat/render/v2 a call name with a newline: refused
+PASS chat/render/v2 an empty call name: refused
+PASS chat/render/v2 arguments holding a control token: refused
+PASS chat/render/v2 arguments that are not a string: refused
+PASS chat/render/v2 a call type other than function: refused
+PASS chat/render/v2 an empty tool_calls list: refused
+PASS chat/render/v2 tool_calls on a user message: refused
+PASS chat/render/v2 user content holding <|system|>: refused
+PASS chat/render/v2 tool content holding a spare token: refused
+PASS chat/render/v2 system content holding <|tool|>: refused
+PASS chat/render/v2 a tool definition holding a control token: refused
+PASS chat/render/v2 a tool definition with a non-integer number: refused
+PASS chat/render/v2 a tool definition that is not an object: refused
+PASS chat/render/v2 a system message mid-conversation: refused
+PASS chat/render/v2 loss on a tool message: refused
+PASS chat/render/v1 refuses tool definitions: refused
+PASS chat/render/v1 refuses tool_calls: refused
+PASS chat/parse_reply/no call: content and calls equal
+PASS chat/parse_reply/content then a call: content and calls equal
+PASS chat/parse_reply/a call alone: content and calls equal
+PASS chat/parse_reply/two calls: content and calls equal
+PASS chat/parse_reply/empty arguments: content and calls equal
+PASS chat/parse_reply/arguments holding a newline: content and calls equal
+PASS chat/parse_reply/the call's text as BPE pieces is content: content and calls equal
+PASS chat/parse_reply/a call without a newline: not parsed
+PASS chat/parse_reply/an empty name: not parsed
+PASS chat/parse_reply/an empty call: not parsed
+PASS chat/parse_reply/one good call and one bad: not parsed
+PASS chat/parse_reply/no ids: content and calls equal
+summary keramos-cleanroom (Rust): 587 pass, 0 fail, 11 skip, 0 xfail, 0 xpass; by kind model 33/0/0, trace 99/0/0, op 84/0/0, refuse 129/0/0, digest 96/0/0, dequant 10/0/0, grad 0/0/11, accept 50/0/0, chat 86/0/0 (pass/fail/skip)

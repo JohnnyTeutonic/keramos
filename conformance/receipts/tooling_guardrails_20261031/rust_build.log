@@ -1,0 +1,40 @@
+   Compiling keramos-cleanroom v0.4.0 (/home/jonat/codex_worktrees/keramos-conformance-20261031/cleanroom/rust)
+warning: function `parse_body` is never used
+   --> src/expr.rs:421:8
+    |
+421 | pub fn parse_body(src: &str) -> Result<Ex, String> {
+    |        ^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: associated items `num` and `type_name` are never used
+  --> src/json.rs:76:12
+   |
+26 | impl Json {
+   | --------- associated items in this implementation
+...
+76 |     pub fn num(v: f64) -> Json {
+   |            ^^^
+...
+88 |     pub fn type_name(&self) -> &'static str {
+   |            ^^^^^^^^^
+
+warning: fields `d` and `ctx` are never read
+  --> src/model.rs:66:9
+   |
+64 | pub struct Model {
+   |            ----- fields in this struct
+65 |     pub vocab: usize,
+66 |     pub d: usize,
+   |         ^
+67 |     pub ctx: usize,
+   |         ^^^
+
+warning: function `uses_turn_state` is never used
+  --> src/session.rs:22:8
+   |
+22 | pub fn uses_turn_state(m: &Model) -> bool {
+   |        ^^^^^^^^^^^^^^^
+
+warning: `keramos-cleanroom` (bin "kcr") generated 4 warnings
+    Finished `release` profile [optimized] target(s) in 24.22s

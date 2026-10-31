@@ -1,0 +1,67 @@
+{
+  "base_commit": "7aa5aed383ff216f4155a8cc0594155b5f22e50a",
+  "scope": "Conformance-tool correctness only; no normative statement/schema/reference arithmetic/expected values changed",
+  "nonfinite_policy": "matching NaN masks allowed; unmatched NaNs fail; infinity-bearing ROUNDING comparison cannot establish pass; EXACT unchanged",
+  "state_policy": "only fixture-required state is checked; missing slot/tensor fails; extra or unrequested reports ignored",
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "packages": {
+      "numpy": "2.3.3",
+      "pytest": "9.0.3",
+      "scipy": "1.16.2",
+      "jsonschema": "4.10.3",
+      "gguf": "0.19.0",
+      "ruff": "0.15.10"
+    },
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)"
+  },
+  "sources": {
+    "tools/ir_conformance.py": "27e75d7c9bea3a06c146706e37b7a4397971196e95c0ad8d30ad44dcb14efaa5",
+    "tests/test_ir_conformance.py": "85aa7e5a0e9ab63b4a27f73cae3055c181a0233c23263316a4af93f087312506",
+    "conformance/README.md": "c7448aadd63eef7e7f0de13e32b27bfa5ae674893e018b235e723f70ef3bd98d"
+  },
+  "pre_fix_runner_sha256": "42ad0c23c45c49ec2ae08f4d535c55d1c6157b0f7b0bea0299b1ff878734344f",
+  "test_source_same_for_before_and_after": "85aa7e5a0e9ab63b4a27f73cae3055c181a0233c23263316a4af93f087312506",
+  "rust_binary_sha256": "487344ab3555ba6165e2e18227cf756c90632c7f74e42e71118bca16ba1a0613",
+  "replays": {
+    "reference_after": {
+      "counts": {
+        "PASS": 587,
+        "FAIL": 0,
+        "SKIP": 11,
+        "XFAIL": 0,
+        "XPASS": 0
+      },
+      "verdicts_identical_to": "conformance/receipts/ir_numpy.json",
+      "compared_cases": 598
+    },
+    "cleanroom_after": {
+      "counts": {
+        "PASS": 587,
+        "FAIL": 0,
+        "SKIP": 11,
+        "XFAIL": 0,
+        "XPASS": 0
+      },
+      "verdicts_identical_to": "conformance/receipts/cleanroom.json",
+      "compared_cases": 598
+    }
+  },
+  "evidence": [
+    "cleanroom_after.json",
+    "cleanroom_after.log",
+    "negative_after.log",
+    "negative_before.log",
+    "negative_initial_fixture.log",
+    "proof_executed.py",
+    "pytest_after.log",
+    "README.md",
+    "reference_after.json",
+    "reference_after.log",
+    "ruff.log",
+    "rust_build.log",
+    "rust_build_initial_path_failure.log"
+  ],
+  "executed_proof_sha256": "bd1373727a7bb2ab572e557560ab25275ecae8b550e74ac1454bb3265a9e4fef"
+}

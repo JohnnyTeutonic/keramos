@@ -65,3 +65,21 @@ reference or the specification, and only in the environment that generated them
 (`../requirements-reference.txt`: CPython 3.13.14, numpy 2.3.5, Windows 11 x86-64; IR_SPEC section 4.6).
 Another numpy build passes the suite but can move ROUNDING values by an ulp
 (`receipts/reference_environment.json`).
+
+
+## Result guards
+
+The runner checks all tensor coordinates, including the NaN mask: section 4.2 permits NaN
+against NaN, but a NaN in only one tensor cannot be discarded by the ROUNDING error reduction.
+Matched NaN coordinates do not contribute to the finite reference scale. The same check guards
+model log-probabilities, preserving their float64 comparison; a nonfinite score cannot disappear
+inside a running maximum of finite errors. An op fixture's
+expected recurrent slot and each expected state tensor must be reported; correct output
+alone cannot substitute for the expected final state. Extra state reports are ignored.
+
+Section 4.3 does not define a ROUNDING comparison for infinity (including matching infinities).
+The runner therefore cannot establish a pass for an infinity-bearing ROUNDING tensor and
+reports that limitation as a failed comparison. It does not infer a numerical bound from
+infinity minus infinity or an infinite reference scale. EXACT still compares signed infinities
+by their bits, and every supported NaN matches any NaN. This tooling guard does not add an IR
+refusal rule or change the finite tolerance, schema, reference arithmetic or stored expected values.

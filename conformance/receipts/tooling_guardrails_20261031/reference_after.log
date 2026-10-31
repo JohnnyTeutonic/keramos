@@ -1,0 +1,600 @@
+adapter ir_numpy (backend cpu, exact True); 298 cases
+PASS model/pk_attnres: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_attnres_decode: 6 steps
+PASS model/pk_flex_expr: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_flex_expr_decode: 6 steps
+PASS model/pk_flex_highway: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_flex_highway_decode: 6 steps
+PASS model/pk_flex_mdha: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_flex_mdha_decode: 6 steps
+PASS trace/pk_flex_mdha_snapshot: 5 steps
+PASS model/pk_flex_shaw: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_flex_shaw_decode: 6 steps
+PASS model/pk_flex_t5: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_flex_t5_decode: 6 steps
+PASS model/pk_gpt2: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_gpt2_decode: 6 steps
+PASS model/pk_gpt2_swa: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_gpt2_swa_decode: 6 steps
+PASS model/pk_kimi: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_kimi_decode: 6 steps
+PASS trace/pk_kimi_snapshot: 5 steps
+PASS model/pk_llama: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_llama_decode: 6 steps
+PASS trace/pk_llama_truncate: 3 steps
+PASS model/pk_llama_attnres: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_llama_attnres_decode: 6 steps
+PASS model/pk_llama_attnres_rec: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_llama_attnres_rec_decode: 6 steps
+PASS model/pk_mamba: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_mamba_decode: 6 steps
+PASS trace/pk_mamba_snapshot: 5 steps
+PASS model/pk_moe: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_moe_decode: 6 steps
+PASS model/pk_mor: log-probs worst 0.00e+00; greedy 4/4; depth traces 4/4
+PASS trace/pk_mor_decode: 6 steps
+PASS trace/pk_mor_truncate: 3 steps
+PASS model/pk_recurrence: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_recurrence_decode: 6 steps
+PASS trace/pk_recurrence_snapshot: 5 steps
+PASS model/pk_recursive: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_recursive_decode: 6 steps
+PASS model/pk_srd: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_srd_decode: 6 steps
+PASS trace/pk_srd_snapshot: 5 steps
+PASS model/pk_state: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/pk_state_evict_on: 9 steps
+PASS trace/pk_state_evict_off: 9 steps
+PASS trace/pk_state_rewind_evicted: 3 steps
+PASS trace/pk_state_rewind_current: 3 steps
+PASS trace/pk_state_rewind_at_block: 3 steps
+PASS model/tp_deepseek2: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/tp_deepseek2_decode: 6 steps
+PASS trace/tp_deepseek2_truncate: 3 steps
+PASS model/tp_deepseek3: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/tp_deepseek3_decode: 6 steps
+PASS trace/tp_deepseek3_truncate: 3 steps
+PASS model/tp_gemma2: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/tp_gemma2_decode: 6 steps
+PASS model/tp_gemma3: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/tp_gemma3_decode: 6 steps
+PASS model/tp_gptneox: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/tp_gptneox_decode: 6 steps
+PASS model/tp_llama_hd16: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/tp_llama_hd16_decode: 6 steps
+PASS trace/tp_llama_hd16_truncate: 3 steps
+PASS model/tp_mamba1: log-probs worst 1.57e-07; greedy 4/4
+PASS trace/tp_mamba1_decode: 6 steps
+PASS trace/tp_mamba1_snapshot: 5 steps
+PASS model/tp_mistral: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/tp_mistral_decode: 6 steps
+PASS model/tp_mistral_hd16: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/tp_mistral_hd16_decode: 6 steps
+PASS model/tp_phi3: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/tp_phi3_decode: 6 steps
+PASS trace/tp_phi3_truncate: 3 steps
+PASS model/tp_qwen2moe: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/tp_qwen2moe_decode: 6 steps
+PASS model/tp_qwen3: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/tp_qwen3_decode: 6 steps
+PASS trace/tp_qwen3_truncate: 3 steps
+PASS model/tp_qwen3_hd16: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/tp_qwen3_hd16_decode: 6 steps
+PASS trace/tp_qwen3_hd16_truncate: 3 steps
+PASS model/tp_qwen3moe: log-probs worst 0.00e+00; greedy 4/4
+PASS trace/tp_qwen3moe_decode: 6 steps
+PASS op/embedding/rows: x 0 values differ in their bits
+PASS op/embedding/state_weight: x 0 values differ in their bits
+PASS op/pos_embedding/rows: y 0 values differ in their bits
+PASS op/linear/bias: y worst 0.00e+00 of max(1, |ref|)
+PASS op/linear/no_bias: y worst 0.00e+00 of max(1, |ref|)
+PASS op/linear/tied_to: y worst 0.00e+00 of max(1, |ref|)
+PASS op/scale/bias: y 0 values differ in their bits
+PASS op/scale/no_bias: y 0 values differ in their bits
+PASS op/split/three: a 0 values differ in their bits; b 0 values differ in their bits; c 0 values differ in their bits
+PASS op/split/groups: a 0 values differ in their bits; b 0 values differ in their bits
+PASS op/rmsnorm/row: y worst 0.00e+00 of max(1, |ref|)
+PASS op/rmsnorm/group: y worst 0.00e+00 of max(1, |ref|)
+PASS op/rmsnorm/weight_offset: y worst 0.00e+00 of max(1, |ref|)
+PASS op/layernorm/row: y worst 0.00e+00 of max(1, |ref|)
+PASS op/gelu/tanh: y worst 0.00e+00 of max(1, |ref|)
+PASS op/gelu/none: y worst 0.00e+00 of max(1, |ref|)
+PASS op/silu/x: y worst 0.00e+00 of max(1, |ref|)
+PASS op/sigmoid/x: y worst 0.00e+00 of max(1, |ref|)
+PASS op/relu/x: y 0 values differ in their bits
+PASS op/add/ab: y 0 values differ in their bits
+PASS op/mul/ab: y 0 values differ in their bits
+PASS op/sub/ab: y 0 values differ in their bits
+PASS op/affine/scale_shift: y 0 values differ in their bits
+PASS op/mul_col/x_c: y 0 values differ in their bits
+PASS op/rms_row/eps: y worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/interleaved: q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/neox: q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/neox_partial: q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/freq_scale: q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/grouped_query: q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/first_head: q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/freq_factors: q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/freq_factors_short: q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/freq_factors_long: q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/attn_factor: q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/freq_factors_partial_attn_factor: q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/rope/freq_factors_values: q worst 0.00e+00 of max(1, |ref|); k worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/causal: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/window_sinks: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/grouped_query: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/position_bias: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/position_bias_window_sinks: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/position_bias_grouped_query: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/relative_kv: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/relative_kv_per_head: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/relative_kv_keys_only: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/relative_kv_window_sinks: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/relative_kv_grouped_query: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/relative_kv_distance_zero: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/softcap: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/softcap_window_sinks: a worst 0.00e+00 of max(1, |ref|)
+PASS op/attention/softcap_position_bias: a worst 0.00e+00 of max(1, |ref|)
+PASS op/moe_ffn/renorm: y worst 0.00e+00 of max(1, |ref|)
+PASS op/moe_ffn/raw: y worst 0.00e+00 of max(1, |ref|)
+PASS op/moe_ffn/sigmoid_renorm: y worst 0.00e+00 of max(1, |ref|)
+PASS op/moe_ffn/sigmoid_bias_groups: y worst 0.00e+00 of max(1, |ref|)
+PASS op/moe_ffn/softmax_bias_raw: y worst 0.00e+00 of max(1, |ref|)
+PASS op/list/two: L 0 values differ in their bits; L 0 values differ in their bits
+PASS op/append/one: L2 0 values differ in their bits; L2 0 values differ in their bits
+PASS op/depth_attend/one_source: h 0 values differ in their bits
+PASS op/depth_attend/three_sources: h worst 0.00e+00 of max(1, |ref|)
+PASS op/depth_attend/eps_default: h worst 0.00e+00 of max(1, |ref|)
+PASS op/expr/gelu_sigmoid: y worst 0.00e+00 of max(1, |ref|)
+PASS op/expr/relu_squared: y worst 0.00e+00 of max(1, |ref|)
+PASS op/expr/where_rowmean: y worst 0.00e+00 of max(1, |ref|)
+PASS op/expr/layer_norm: y worst 0.00e+00 of max(1, |ref|)
+PASS op/expr/rowsum_constant: y worst 0.00e+00 of max(1, |ref|)
+PASS op/expr/depth_200: y worst 0.00e+00 of max(1, |ref|)
+PASS op/linear_attention/two_heads: y worst 0.00e+00 of max(1, |ref|); state lin.num worst 0.00e+00 of max(1, |ref|); state lin.den worst 0.00e+00 of max(1, |ref|)
+PASS op/ssm_scan/n4: y worst 0.00e+00 of max(1, |ref|); state ssm.s worst 0.00e+00 of max(1, |ref|)
+PASS op/conv1d_causal/k4: y worst 0.00e+00 of max(1, |ref|); state conv.x worst 0.00e+00 of max(1, |ref|)
+PASS op/selective_scan/d3n2: y worst 9.07e-08 of max(1, |ref|); state ssm.s worst 6.17e-09 of max(1, |ref|)
+PASS op/recurrence/linear_attention_body: y worst 0.00e+00 of max(1, |ref|); state lin.num worst 0.00e+00 of max(1, |ref|); state lin.den worst 0.00e+00 of max(1, |ref|)
+PASS op/recurrence/ssm_scan_body: y 0 values differ in their bits; state ssm.s 0 values differ in their bits
+PASS op/recurrence/conv1d_causal_body: y 0 values differ in their bits; state conv.x 0 values differ in their bits
+PASS op/recurrence/selective_scan_body: y worst 0.00e+00 of max(1, |ref|); state ssm.s worst 0.00e+00 of max(1, |ref|)
+PASS op/recurrence/rnn_init_offset: y worst 0.00e+00 of max(1, |ref|); state rnn.h worst 0.00e+00 of max(1, |ref|)
+PASS op/recurrence/ema_bias_corrected: y worst 0.00e+00 of max(1, |ref|); state avg.m worst 0.00e+00 of max(1, |ref|); state avg.n worst 0.00e+00 of max(1, |ref|)
+PASS op/recurrence/ema_exact: y 0 values differ in their bits; state avg.m 0 values differ in their bits; state avg.n 0 values differ in their bits
+PASS op/recurrence/square_weight_declaration: y 0 values differ in their bits; state sq.h 0 values differ in their bits
+PASS op/recurrence/read_beyond_declaration: y 0 values differ in their bits; state pad.h 0 values differ in their bits
+PASS op/mla_attention/two_heads: a worst 0.00e+00 of max(1, |ref|)
+PASS op/mla_attention/window_sinks: a worst 0.00e+00 of max(1, |ref|)
+PASS op/mla_attention/one_head: a worst 0.00e+00 of max(1, |ref|)
+PASS refuse/unknown_op: refused (IR_SPEC 3.5 (rule 4))
+PASS refuse/unknown_attribute: refused (IR_SPEC 3.5 (rule 4))
+PASS refuse/unknown_top_key: refused (IR_SPEC 3.2 (rule 1))
+PASS refuse/version_2: refused (IR_SPEC 2.3 (rule 2))
+PASS refuse/repeat_ne_n_layers: refused (IR_SPEC 3.3 (rule 3))
+PASS refuse/model_ctx_missing: refused (IR_SPEC 3.3 (rule 3))
+PASS refuse/per_layer_wrong_length: refused (IR_SPEC 3.8 (rule 6))
+PASS refuse/per_layer_in_head: refused (IR_SPEC 3.8 (rule 6))
+PASS refuse/add_one_input: refused (IR_SPEC 3.5 (rule 7))
+PASS refuse/rope_pairing_unknown: refused (IR_SPEC 5.14 (rule 5))
+PASS refuse/rope_n_rot_odd: refused (IR_SPEC 5.14 (rule 10))
+PASS refuse/attention_not_causal: refused (IR_SPEC 5.15 (rule 14))
+PASS refuse/attention_heads_not_multiple: refused (IR_SPEC 5.15 (rule 10))
+PASS refuse/attention_window_differs: refused (IR_SPEC 5.15 (rule 12))
+PASS refuse/slot_declared_twice: refused (IR_SPEC 6.1 (rule 11))
+PASS refuse/slot_unread: refused (IR_SPEC 6.1 (rule 11))
+PASS refuse/slot_unknown_kind: refused (IR_SPEC 6.1 (rule 11))
+PASS refuse/attention_no_slot: refused (IR_SPEC 6.1 (rule 11))
+PASS refuse/kv_slot_field_missing: refused (IR_SPEC 6.2 (rule 12))
+PASS refuse/tensor_index_without_weight_index: refused (IR_SPEC 7.2 (rule 19))
+PASS refuse/name_with_i_outside_block: refused (IR_SPEC 3.7 (rule 17a))
+PASS refuse/evict_on_causal: refused (IR_SPEC 6.8.3 (rule 16))
+PASS refuse/missing_tensor: refused (IR_SPEC 3.7 (rule 25))
+PASS refuse/gelu_approx_unknown: refused (IR_SPEC 5.8 (rule 5))
+PASS refuse/split_count: refused (IR_SPEC 5.5 (rule 10))
+PASS refuse/expr_does_not_parse: refused (IR_SPEC 5.19 (rule 9))
+PASS refuse/moe_top_k_too_large: refused (IR_SPEC 5.16 (rule 10))
+PASS refuse/moe_gate_norm_unknown: refused (IR_SPEC 5.16 (rule 5))
+PASS refuse/recurrent_dtype_f16: refused (IR_SPEC 6.3 (rule 13))
+PASS refuse/recurrent_shape_mismatch: refused (IR_SPEC 6.3 (rule 13))
+PASS refuse/recurrent_op_mismatch: refused (IR_SPEC 6.3 (rule 13))
+PASS refuse/linear_attention_not_causal: refused (IR_SPEC 6.4 (rule 14))
+PASS refuse/conv_kernel_one: refused (IR_SPEC 6.6 (rule 10))
+PASS refuse/weight_index_wrong_length: refused (IR_SPEC 7.1 (rule 18))
+PASS refuse/weight_index_unused_layer: refused (IR_SPEC 7.1 (rule 18))
+PASS refuse/weight_index_negative: refused (IR_SPEC 7.1 (rule 18))
+PASS refuse/mor_route_not_first: refused (IR_SPEC 7.4 (rule 20))
+PASS refuse/mor_expert_choice: refused (IR_SPEC 7.7 (rule 5))
+PASS refuse/mor_unequal_steps: refused (IR_SPEC 7.4 (rule 20))
+PASS refuse/mor_steps_descending: refused (IR_SPEC 7.4 (rule 20))
+PASS refuse/mor_step_length_wrong: refused (IR_SPEC 3.8 (rule 6))
+PASS refuse/mor_no_kv_rows_active: refused (IR_SPEC 7.5 (rule 21))
+PASS refuse/mor_kv_from: refused (IR_SPEC 7.6 (rule 22))
+PASS refuse/mor_gate_unknown: refused (IR_SPEC 7.4 (rule 5))
+PASS refuse/mor_router_with_i: refused (IR_SPEC 7.7 (rule 20))
+PASS refuse/mor_kv_rows_shared: refused (IR_SPEC 7.5 (rule 5))
+PASS refuse/mor_route_in_head: refused (IR_SPEC 7.4 (rule 20))
+PASS refuse/turn_state_with_window: refused (IR_SPEC 6.8.2 (rule 15))
+PASS refuse/turn_state_without_state_weight: refused (IR_SPEC 6.8.2 (rule 15))
+PASS refuse/evict_without_mask: refused (IR_SPEC 6.8.3 (rule 16))
+PASS refuse/evict_unknown: refused (IR_SPEC 6.8.3 (rule 5))
+PASS refuse/mask_unknown: refused (IR_SPEC 6.8.2 (rule 5))
+PASS refuse/state_weight_with_i: refused (IR_SPEC 6.8.1 (rule 17))
+PASS refuse/two_state_weights: refused (IR_SPEC 6.8.1 (rule 17))
+PASS refuse/state_weight_wrong_name: refused (IR_SPEC 3.7 (rule 25))
+PASS refuse/recurrence_body_does_not_parse: refused (IR_SPEC 6.10 (rule 31))
+PASS refuse/recurrence_name_twice: refused (IR_SPEC 6.10 (rule 31))
+PASS refuse/recurrence_rowsum: refused (IR_SPEC 6.10 (rule 31))
+PASS refuse/recurrence_index_size_zero: refused (IR_SPEC 6.10 (rule 31))
+PASS refuse/recurrence_index_out_of_scope: refused (IR_SPEC 6.10 (rule 32))
+PASS refuse/recurrence_init_reads_input: refused (IR_SPEC 6.10 (rule 32))
+PASS refuse/recurrence_rank_mismatch: refused (IR_SPEC 6.10 (rule 32))
+PASS refuse/recurrence_index_undeclared: refused (IR_SPEC 6.10 (rule 32))
+PASS refuse/recurrence_slot_shape: refused (IR_SPEC 6.10 (rule 33))
+PASS refuse/recurrence_slot_missing_tensor: refused (IR_SPEC 6.10 (rule 33))
+PASS refuse/recurrence_init_flag: refused (IR_SPEC 6.10 (rule 33))
+PASS refuse/recurrence_weight_size: refused (IR_SPEC 6.10 (rule 34))
+PASS refuse/recurrence_assignment_repeats_index: refused (IR_SPEC 6.10 (rule 32))
+PASS refuse/recurrence_bare_undeclared_name: refused (IR_SPEC 6.10 (rule 32))
+PASS refuse/reads_unwritten_value: refused (IR_SPEC 3.5 (rule 36))
+PASS refuse/embed_writes_no_x: refused (IR_SPEC 3.5 (rule 36))
+PASS refuse/head_writes_no_logits: refused (IR_SPEC 3.4 (rule 36))
+PASS refuse/mor_reads_outside_value: refused (IR_SPEC 7.4 (rule 36))
+PASS refuse/mor_step_gap: refused (IR_SPEC 7.4 (rule 20))
+PASS refuse/mor_reads_tokens: refused (IR_SPEC 3.5 (rule 17a))
+PASS refuse/mor_reads_route_out: refused (IR_SPEC 7.4 (rule 17a))
+PASS refuse/position_bias_bucket_negative: refused (IR_SPEC 5.15 (rule 39))
+PASS refuse/position_bias_buckets_empty: refused (IR_SPEC 5.15 (rule 39))
+PASS refuse/position_bias_table_shape: refused (IR_SPEC 5.15 (rule 39))
+PASS refuse/position_bias_per_layer: refused (IR_SPEC 3.8 (rule 6))
+PASS refuse/tensor_index_in_head: refused (IR_SPEC 7.2 (rule 19))
+PASS refuse/tensor_index_value_unknown: refused (IR_SPEC 7.2 (rule 5))
+PASS refuse/tensor_index_on_affine: refused (IR_SPEC 3.5 (rule 4))
+PASS refuse/tensor_index_absent_application_tensor: refused (IR_SPEC 3.7 (rule 25))
+PASS refuse/relative_kv_distance_negative: refused (IR_SPEC 5.15 (rule 40))
+PASS refuse/relative_kv_without_key: refused (IR_SPEC 5.15 (rule 40))
+PASS refuse/relative_kv_unknown_field: refused (IR_SPEC 5.15 (rule 40))
+PASS refuse/relative_kv_key_shape: refused (IR_SPEC 5.15 (rule 40))
+PASS refuse/relative_kv_value_shape: refused (IR_SPEC 5.15 (rule 40))
+PASS refuse/relative_kv_with_position_bias: refused (IR_SPEC 5.15 (rule 40))
+PASS refuse/relative_kv_per_layer: refused (IR_SPEC 3.8 (rule 6))
+PASS refuse/softcap_not_positive: refused (IR_SPEC 5.15 (rule 10))
+PASS refuse/attn_factor_not_positive: refused (IR_SPEC 5.14 (rule 10))
+PASS refuse/freq_factors_without_original_ctx: refused (IR_SPEC 5.14 (rule 41))
+PASS refuse/freq_factors_unknown_field: refused (IR_SPEC 5.14 (rule 41))
+PASS refuse/freq_factors_tensor_shape: refused (IR_SPEC 5.14 (rule 41))
+PASS refuse/freq_factors_per_layer: refused (IR_SPEC 3.8 (rule 6))
+PASS refuse/split_groups_zero: refused (IR_SPEC 5.5 (rule 10))
+PASS refuse/mla_slot_head_dim: refused (IR_SPEC 5.20 (rule 12))
+PASS refuse/mla_slot_kv_heads: refused (IR_SPEC 5.20 (rule 12))
+PASS refuse/mla_k_b_shape: refused (IR_SPEC 5.20 (rule 42))
+PASS refuse/mla_reads_three: refused (IR_SPEC 3.5 (rule 7))
+PASS refuse/mla_without_k_b: refused (IR_SPEC 3.5 (rule 8))
+PASS refuse/mla_not_causal: refused (IR_SPEC 5.20 (rule 14))
+PASS refuse/apply_entries_not_boolean: refused (IR_SPEC 3.8 (rule 43))
+PASS refuse/apply_outside_block: refused (IR_SPEC 3.8 (rule 43))
+PASS refuse/apply_on_attention: refused (IR_SPEC 3.5 (rule 4))
+PASS refuse/apply_leaves_value_unwritten: refused (IR_SPEC 3.5 (rule 36))
+PASS refuse/apply_with_depth_route: refused (IR_SPEC 3.8 (rule 43))
+PASS refuse/moe_groups_not_dividing: refused (IR_SPEC 5.16 (rule 10))
+PASS refuse/moe_scoring_unknown: refused (IR_SPEC 5.16 (rule 5))
+PASS refuse/moe_selection_bias_shape: refused (IR_SPEC 5.16 (rule 44))
+PASS refuse/freq_factors_values_length: refused (IR_SPEC 5.14 (rule 41))
+PASS refuse/freq_factors_values_not_positive: refused (IR_SPEC 5.14 (rule 41))
+PASS refuse/duplicate_member_top: refused (IR_SPEC 3.2 (rule 35))
+PASS refuse/duplicate_member_node: refused (IR_SPEC 3.2 (rule 35))
+PASS refuse/duplicate_member_prose: refused (IR_SPEC 3.2 (rule 35))
+PASS refuse/version_key_mismatch: refused (IR_SPEC 3.1 (rule 24))
+PASS refuse/state_tokens_k_mismatch: refused (IR_SPEC 6.8.1 (rule 28))
+PASS refuse/state_template_not_v1: refused (IR_SPEC 8.2 (rule 28))
+PASS refuse/weight_index_block_count: refused (IR_SPEC 7.1 (rule 27))
+PASS refuse/state_tokens_arch_llama: refused (IR_SPEC 8.2 (rule 28))
+PASS refuse/duplicate_member_embedded: refused (IR_SPEC 3.2 (rule 35))
+PASS refuse/architecture_kimi_as_gpt2: refused (IR_SPEC 3.1 (rule 38))
+PASS refuse/architecture_swa_as_gpt2: refused (IR_SPEC 3.1 (rule 38))
+PASS refuse/architecture_metadata_disagrees: refused (IR_SPEC 3.1 (rule 38))
+PASS refuse/architecture_without_graph: refused (IR_SPEC 3.1 (rule 38))
+PASS refuse/architecture_gemma2_softcap_dropped: refused (IR_SPEC 3.1 (rule 38))
+PASS refuse/architecture_substituted_document: refused (IR_SPEC 3.1 (rule 38))
+PASS digest/vectors/rfc8785_number_0000000000000000: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_0000000000000001: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_8000000000000001: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_7fefffffffffffff: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_ffefffffffffffff: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_4340000000000000: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_c340000000000000: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_4430000000000000: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_44b52d02c7e14af5: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_44b52d02c7e14af6: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_44b52d02c7e14af7: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_444b1ae4d6e2ef4e: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_444b1ae4d6e2ef4f: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_444b1ae4d6e2ef50: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_3eb0c6f7a0b5ed8c: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_3eb0c6f7a0b5ed8d: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_41b3de4355555553: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_41b3de4355555554: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_41b3de4355555555: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_41b3de4355555556: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_41b3de4355555557: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_becbf647612f3696: sha256 equal; canonical equal
+PASS digest/vectors/rfc8785_number_43143ff3c1cb0959: sha256 equal; canonical equal
+PASS digest/vectors/f32_eps: sha256 equal; canonical equal
+PASS digest/vectors/f32_rope_theta: sha256 equal; canonical equal
+PASS digest/vectors/f32_scale: sha256 equal; canonical equal
+PASS digest/vectors/f32_den_floor: sha256 equal; canonical equal
+PASS digest/vectors/integer_2p53: sha256 equal; canonical equal
+PASS digest/vectors/negative_integer: sha256 equal; canonical equal
+PASS digest/vectors/minus_zero_integer_form: sha256 equal; canonical equal
+PASS digest/vectors/exponent_form: sha256 equal; canonical equal
+PASS digest/vectors/string_controls: sha256 equal; canonical equal
+PASS digest/vectors/string_controls_escaped: sha256 equal; canonical equal
+PASS digest/vectors/string_escapes: sha256 equal; canonical equal
+PASS digest/vectors/string_escapes_escaped: sha256 equal; canonical equal
+PASS digest/vectors/string_line_separators: sha256 equal; canonical equal
+PASS digest/vectors/string_line_separators_escaped: sha256 equal; canonical equal
+PASS digest/vectors/string_astral: sha256 equal; canonical equal
+PASS digest/vectors/string_astral_escaped: sha256 equal; canonical equal
+PASS digest/vectors/string_accents: sha256 equal; canonical equal
+PASS digest/vectors/string_accents_escaped: sha256 equal; canonical equal
+PASS digest/vectors/string_names: sha256 equal; canonical equal
+PASS digest/vectors/string_names_escaped: sha256 equal; canonical equal
+PASS digest/vectors/key_order_utf16: sha256 equal; canonical equal
+PASS digest/vectors/nesting: sha256 equal; canonical equal
+PASS digest/vectors/prose_removed: sha256 equal; canonical equal
+PASS digest/vectors/prose_kept_in_serialiser_test: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_attnres: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_flex_expr: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_flex_highway: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_flex_mdha: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_flex_shaw: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_flex_t5: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_gpt2: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_gpt2_swa: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_kimi: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_llama: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_llama_attnres: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_llama_attnres_rec: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_mamba: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_moe: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_mor: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_recurrence: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_recursive: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_srd: sha256 equal; canonical equal
+PASS digest/vectors/document_pk_state: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_deepseek2: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_deepseek3: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_gemma2: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_gemma3: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_gptneox: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_llama_hd16: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_mamba1: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_mistral: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_mistral_hd16: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_phi3: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_qwen2moe: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_qwen3: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_qwen3_hd16: sha256 equal; canonical equal
+PASS digest/vectors/document_tp_qwen3moe: sha256 equal; canonical equal
+PASS digest/vectors/negative_zero: refused
+PASS digest/vectors/integer_beyond_2p53: refused
+PASS digest/vectors/overflow: refused
+PASS digest/vectors/duplicate_key: refused
+PASS digest/vectors/lone_surrogate: refused
+PASS digest/vectors/nan_literal: refused
+PASS digest/vectors/prose_overflow: refused
+PASS digest/vectors/prose_negative_zero: refused
+PASS digest/vectors/prose_integer_beyond_2p53: refused
+PASS digest/vectors/prose_lone_surrogate: refused
+PASS digest/vectors/prose_key_lone_surrogate: refused
+PASS digest/vectors/prose_duplicate_key: refused
+PASS digest/vectors/fraction_form_beyond_2p53: sha256 equal; canonical equal
+PASS digest/vectors/exponent_form_1e300: sha256 equal; canonical equal
+PASS digest/vectors/negative_integer_2p53: sha256 equal; canonical equal
+PASS digest/vectors/negative_integer_beyond_2p53: refused
+PASS dequant/blocks/f32: 0 values differ in their bits
+PASS dequant/blocks/f16: 0 values differ in their bits
+PASS dequant/blocks/q4_0: 0 values differ in their bits
+PASS dequant/blocks/q5_0: 0 values differ in their bits
+PASS dequant/blocks/q5_1: 0 values differ in their bits
+PASS dequant/blocks/q8_0: 0 values differ in their bits
+PASS dequant/blocks/q4_k: 0 values differ in their bits
+PASS dequant/blocks/q5_k: 0 values differ in their bits
+PASS dequant/blocks/q6_k: 0 values differ in their bits
+PASS dequant/blocks/bf16: 0 values differ in their bits
+SKIP grad/recurrence/linear_attention_body: the reference has no backward: the gradient cases are its finite differences
+SKIP grad/recurrence/ssm_scan_body: the reference has no backward: the gradient cases are its finite differences
+SKIP grad/recurrence/conv1d_causal_body: the reference has no backward: the gradient cases are its finite differences
+SKIP grad/recurrence/selective_scan_body: the reference has no backward: the gradient cases are its finite differences
+SKIP grad/recurrence/rnn_init_offset: the reference has no backward: the gradient cases are its finite differences
+SKIP grad/recurrence/ema_bias_corrected: the reference has no backward: the gradient cases are its finite differences
+SKIP grad/recurrence/ema_exact: the reference has no backward: the gradient cases are its finite differences
+SKIP grad/recurrence/square_weight_declaration: the reference has no backward: the gradient cases are its finite differences
+SKIP grad/attention/relative_kv: the reference has no backward: the gradient cases are its finite differences
+SKIP grad/attention/relative_kv_per_head_grouped_query: the reference has no backward: the gradient cases are its finite differences
+SKIP grad/attention/relative_kv_keys_only: the reference has no backward: the gradient cases are its finite differences
+PASS trace/pk_kimi_recurrence: 9 steps
+PASS trace/pk_srd_recurrence: 9 steps
+PASS trace/pk_mamba_recurrence: 9 steps
+PASS trace/tp_mamba1_recurrence: 9 steps
+PASS trace/pk_srd_truncate: 3 steps
+PASS trace/tp_mamba1_truncate: 3 steps
+PASS trace/pk_flex_mdha_truncate: 3 steps
+PASS trace/pk_gpt2_swa_rewind_window: 3 steps
+PASS trace/tp_gemma3_rewind_window: 3 steps
+PASS trace/tp_mistral_hd16_rewind_window: 3 steps
+PASS trace/tp_gemma2_rewind_window: 3 steps
+PASS trace/pk_attnres_chunks: 4 steps
+PASS trace/pk_flex_expr_chunks: 4 steps
+PASS trace/pk_flex_highway_chunks: 4 steps
+PASS trace/pk_flex_mdha_chunks: 4 steps
+PASS trace/pk_flex_shaw_chunks: 4 steps
+PASS trace/pk_flex_t5_chunks: 4 steps
+PASS trace/pk_gpt2_chunks: 4 steps
+PASS trace/pk_gpt2_swa_chunks: 4 steps
+PASS trace/pk_kimi_chunks: 4 steps
+PASS trace/pk_llama_chunks: 4 steps
+PASS trace/pk_llama_attnres_chunks: 4 steps
+PASS trace/pk_llama_attnres_rec_chunks: 4 steps
+PASS trace/pk_mamba_chunks: 4 steps
+PASS trace/pk_moe_chunks: 4 steps
+PASS trace/pk_mor_chunks: 4 steps
+PASS trace/pk_recurrence_chunks: 4 steps
+PASS trace/pk_recursive_chunks: 4 steps
+PASS trace/pk_srd_chunks: 4 steps
+PASS trace/pk_state_chunks: 4 steps
+PASS trace/tp_deepseek2_chunks: 4 steps
+PASS trace/tp_deepseek3_chunks: 4 steps
+PASS trace/tp_gemma2_chunks: 4 steps
+PASS trace/tp_gemma3_chunks: 4 steps
+PASS trace/tp_gptneox_chunks: 4 steps
+PASS trace/tp_llama_hd16_chunks: 4 steps
+PASS trace/tp_mamba1_chunks: 4 steps
+PASS trace/tp_mistral_chunks: 4 steps
+PASS trace/tp_mistral_hd16_chunks: 4 steps
+PASS trace/tp_phi3_chunks: 4 steps
+PASS trace/tp_qwen2moe_chunks: 4 steps
+PASS trace/tp_qwen3_chunks: 4 steps
+PASS trace/tp_qwen3_hd16_chunks: 4 steps
+PASS trace/tp_qwen3moe_chunks: 4 steps
+PASS trace/pk_llama_attnres_rec_untagged: 5 steps
+PASS trace/pk_flex_shaw_weight_index: 5 steps
+PASS trace/pk_mor_window: 9 steps
+PASS trace/pk_mor_window_rewind: 3 steps
+PASS accept/documents/model_pk_attnres: accepted
+PASS accept/documents/model_pk_flex_expr: accepted
+PASS accept/documents/model_pk_flex_highway: accepted
+PASS accept/documents/model_pk_flex_mdha: accepted
+PASS accept/documents/model_pk_flex_shaw: accepted
+PASS accept/documents/model_pk_flex_t5: accepted
+PASS accept/documents/model_pk_gpt2: accepted
+PASS accept/documents/model_pk_gpt2_swa: accepted
+PASS accept/documents/model_pk_kimi: accepted
+PASS accept/documents/model_pk_llama: accepted
+PASS accept/documents/model_pk_llama_attnres: accepted
+PASS accept/documents/model_pk_llama_attnres_rec: accepted
+PASS accept/documents/model_pk_mamba: accepted
+PASS accept/documents/model_pk_moe: accepted
+PASS accept/documents/model_pk_mor: accepted
+PASS accept/documents/model_pk_recurrence: accepted
+PASS accept/documents/model_pk_recursive: accepted
+PASS accept/documents/model_pk_srd: accepted
+PASS accept/documents/model_pk_state: accepted
+PASS accept/documents/model_tp_deepseek2: accepted
+PASS accept/documents/model_tp_deepseek3: accepted
+PASS accept/documents/model_tp_gemma2: accepted
+PASS accept/documents/model_tp_gemma3: accepted
+PASS accept/documents/model_tp_gptneox: accepted
+PASS accept/documents/model_tp_llama_hd16: accepted
+PASS accept/documents/model_tp_mamba1: accepted
+PASS accept/documents/model_tp_mistral: accepted
+PASS accept/documents/model_tp_mistral_hd16: accepted
+PASS accept/documents/model_tp_phi3: accepted
+PASS accept/documents/model_tp_qwen2moe: accepted
+PASS accept/documents/model_tp_qwen3: accepted
+PASS accept/documents/model_tp_qwen3_hd16: accepted
+PASS accept/documents/model_tp_qwen3moe: accepted
+PASS accept/documents/rewritten_pk_kimi: accepted
+PASS accept/documents/rewritten_pk_srd: accepted
+PASS accept/documents/rewritten_pk_mamba: accepted
+PASS accept/documents/rewritten_tp_mamba1: accepted
+PASS accept/documents/example_attnres_tiny: accepted
+PASS accept/documents/example_chat_sftfinal: accepted
+PASS accept/documents/example_flex_highway_tiny: accepted
+PASS accept/documents/example_gpt2_tiny: accepted
+PASS accept/documents/example_kimi_tiny: accepted
+PASS accept/documents/example_mamba_tiny: accepted
+PASS accept/documents/example_moe_tiny: accepted
+PASS accept/documents/example_srd_tiny: accepted
+PASS accept/documents/example_swa_tiny: accepted
+PASS accept/documents/substituted_over_duplicate_embedded: accepted
+PASS accept/documents/untagged_application_queries: accepted
+PASS accept/documents/relative_kv_weight_index: accepted
+PASS accept/documents/mor_window: accepted
+PASS chat/render/one user prompt: text equal
+PASS chat/render/system folds into the first user turn: text equal
+PASS chat/render/a lone system message: refused
+PASS chat/render/a system message with no user message: refused
+PASS chat/render/two system messages: refused
+PASS chat/render/a system message mid-conversation: refused
+PASS chat/render/the assistant first: refused
+PASS chat/render/two user messages in a row: refused
+PASS chat/render/a training conversation ending on a user message: refused
+PASS chat/render/a prompt ending on an assistant message: refused
+PASS chat/render/user content holding a role marker: refused
+PASS chat/render/system content holding end-of-text: refused
+PASS chat/render/assistant content holding a marker: refused
+PASS chat/render/<unk> text is ordinary content: text equal
+PASS chat/render/newline-only user content: text equal
+PASS chat/render/newline-only and empty replies in the history: text equal
+PASS chat/render/the tool role is reserved: refused
+PASS chat/render/an unknown role: refused
+PASS chat/render/three exchanges with a system message: text equal
+PASS chat/render/a training conversation with a system message: text equal
+PASS chat/render/loss on a user message: refused
+PASS chat/render/unicode content: text equal
+PASS chat/render/system mode none refuses a system message: refused
+PASS chat/render/system mode none without one: text equal
+PASS chat/render/legacy word-level prompt: text equal
+PASS chat/render/gemma3 trims and folds: text equal
+PASS chat/render/gemma3 trims unicode edge whitespace: text equal
+PASS chat/render/gemma3 trims unicode whitespace in system and history: text equal
+PASS chat/render/gemma3 keeps inner unicode whitespace and zero-width space: text equal
+PASS chat/render/qwen3 strips past reasoning: text equal
+PASS chat/render/qwen2.5 writes its default system turn: text equal
+PASS chat/render/qwen3 thinking off: text equal
+PASS chat/render/v2 one user prompt (v1's text): text equal
+PASS chat/render/v2 user and assistant only (v1's text): text equal
+PASS chat/render/v2 system turn: text equal
+PASS chat/render/v2 empty system message: text equal
+PASS chat/render/v2 system turn and history: text equal
+PASS chat/render/v2 training conversation with a system turn: text equal
+PASS chat/render/v2 system and tool definitions: text equal
+PASS chat/render/v2 tool definitions without a system message: text equal
+PASS chat/render/v2 tool definitions with an empty system message: text equal
+PASS chat/render/v2 unicode tool definition: text equal
+PASS chat/render/v2 a call answered: the prompt ends on the tool message: text equal
+PASS chat/render/v2 a call, its result and the reply: text equal
+PASS chat/render/v2 content before a call: text equal
+PASS chat/render/v2 two calls, two results, a reply, then a user message: text equal
+PASS chat/render/v2 tool_call_id matching the call's id: text equal
+PASS chat/render/v2 a training conversation ending on a call: text equal
+PASS chat/render/v2 empty arguments: text equal
+PASS chat/render/v2 newline-only and empty contents: text equal
+PASS chat/render/v2 a tool message without a call: refused
+PASS chat/render/v2 a tool message first: refused
+PASS chat/render/v2 fewer results than calls: refused
+PASS chat/render/v2 a prompt ending while a call has no result: refused
+PASS chat/render/v2 a reply without its results: refused
+PASS chat/render/v2 tool_call_id not the call's id: refused
+PASS chat/render/v2 tool_call_id when the call has no id: refused
+PASS chat/render/v2 a call name with a newline: refused
+PASS chat/render/v2 an empty call name: refused
+PASS chat/render/v2 arguments holding a control token: refused
+PASS chat/render/v2 arguments that are not a string: refused
+PASS chat/render/v2 a call type other than function: refused
+PASS chat/render/v2 an empty tool_calls list: refused
+PASS chat/render/v2 tool_calls on a user message: refused
+PASS chat/render/v2 user content holding <|system|>: refused
+PASS chat/render/v2 tool content holding a spare token: refused
+PASS chat/render/v2 system content holding <|tool|>: refused
+PASS chat/render/v2 a tool definition holding a control token: refused
+PASS chat/render/v2 a tool definition with a non-integer number: refused
+PASS chat/render/v2 a tool definition that is not an object: refused
+PASS chat/render/v2 a system message mid-conversation: refused
+PASS chat/render/v2 loss on a tool message: refused
+PASS chat/render/v1 refuses tool definitions: refused
+PASS chat/render/v1 refuses tool_calls: refused
+PASS chat/parse_reply/no call: content and calls equal
+PASS chat/parse_reply/content then a call: content and calls equal
+PASS chat/parse_reply/a call alone: content and calls equal
+PASS chat/parse_reply/two calls: content and calls equal
+PASS chat/parse_reply/empty arguments: content and calls equal
+PASS chat/parse_reply/arguments holding a newline: content and calls equal
+PASS chat/parse_reply/the call's text as BPE pieces is content: content and calls equal
+PASS chat/parse_reply/a call without a newline: not parsed
+PASS chat/parse_reply/an empty name: not parsed
+PASS chat/parse_reply/an empty call: not parsed
+PASS chat/parse_reply/one good call and one bad: not parsed
+PASS chat/parse_reply/no ids: content and calls equal
+summary ir_numpy: 587 pass, 0 fail, 11 skip, 0 xfail, 0 xpass; by kind model 33/0/0, trace 99/0/0, op 84/0/0, refuse 129/0/0, digest 96/0/0, dequant 10/0/0, grad 0/0/11, accept 50/0/0, chat 86/0/0 (pass/fail/skip)
