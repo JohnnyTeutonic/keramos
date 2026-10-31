@@ -1,0 +1,318 @@
+{
+  "status": "PASS",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "interpreter": "C:\\Users\\jonat\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\python.exe",
+  "numpy": "2.3.5",
+  "source_sha256": {
+    "tools/ir_conformance_gen.py": "68802761696383d30c54ac0debca437a7903718154e6ff64aea859287fb77299",
+    "tools/ir_conformance.py": "60f211924539be90763493029b31fe8078ee0ec41248182dcbb24bbb859d1a50",
+    "tools/ir_numpy.py": "37260bd0035d7c7c71d311f1b60e1e23df71783190620d2b4610dce474c6a197",
+    "tools/ir_window_rewind_coverage.py": "5f50624932de4bc9cdec996e9100e87b23706774127fc1f2f4846f1f3b64824b",
+    "tools/ir_routed_longrope_coverage.py": "dbb866d2c61cbeab530bdf78aaa8044d8566f3bd8da7fee027f34b8eb1a560ac",
+    "tests/test_window_rewind_conformance.py": "4eb442cbbdcb51682fdf7a0c54a0a54545b3b844d15f3a083109c36ba6b0885a",
+    "conformance/manifest.json": "90a0d27251d54412f64c29cedabaed93f7c88286ef956c6b7b4f6f809ea18c9c"
+  },
+  "source_unchanged": true,
+  "targeted_regeneration": [
+    {
+      "path": "state/routed_longrope_session_length.json",
+      "generated_sha256": "4fe1750c7e941f3da3ad0030abb5c62d44639a00d191c822a2a9eee53f1be6b0",
+      "committed_sha256": "4fe1750c7e941f3da3ad0030abb5c62d44639a00d191c822a2a9eee53f1be6b0",
+      "bytes_equal": true
+    },
+    {
+      "path": "state/tp_mistral_hd16_discarded_window_rewind.json",
+      "generated_sha256": "136bdad45263e85db7bb9b584130b146af598fe14165328bb87f2548abc8592a",
+      "committed_sha256": "136bdad45263e85db7bb9b584130b146af598fe14165328bb87f2548abc8592a",
+      "bytes_equal": true
+    },
+    {
+      "path": "state/tp_mistral_hd16_discarded_window_fresh.json",
+      "generated_sha256": "db54c1ce526700d6f0d6a9898728f18de46023d7dece7e19cc7abeccf4a9d877",
+      "committed_sha256": "db54c1ce526700d6f0d6a9898728f18de46023d7dece7e19cc7abeccf4a9d877",
+      "bytes_equal": true
+    },
+    {
+      "path": "regressions/routed_longrope/routed_longrope.gguf",
+      "generated_sha256": "18fc9429fe28f2732cfb258cea9469043d650d1fe84e07586aa0e7ebed42e06c",
+      "committed_sha256": "18fc9429fe28f2732cfb258cea9469043d650d1fe84e07586aa0e7ebed42e06c",
+      "bytes_equal": true
+    }
+  ],
+  "manifest_regeneration": [
+    {
+      "id": "trace/routed_longrope_session_length",
+      "exact_generic_regeneration_entry": true
+    },
+    {
+      "id": "trace/tp_mistral_hd16_discarded_window_rewind",
+      "exact_generic_regeneration_entry": true
+    },
+    {
+      "id": "trace/tp_mistral_hd16_discarded_window_fresh",
+      "exact_generic_regeneration_entry": true
+    }
+  ],
+  "bounded_cache_controls": [
+    {
+      "numeric_pass": true,
+      "message": "14 steps",
+      "mode": "retain",
+      "actual_cache_evidence": [
+        {
+          "mode": "retain",
+          "before_len": 48,
+          "cut": 8,
+          "held_positions": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47
+            ],
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47
+            ]
+          ],
+          "needed_for_next": [
+            5,
+            6,
+            7
+          ],
+          "missing_needed": [
+            [],
+            []
+          ]
+        }
+      ]
+    },
+    {
+      "numeric_pass": true,
+      "message": "14 steps",
+      "mode": "safe",
+      "actual_cache_evidence": [
+        {
+          "mode": "safe",
+          "before_len": 48,
+          "cut": 8,
+          "held_positions": [
+            [
+              44,
+              45,
+              46,
+              47
+            ],
+            [
+              44,
+              45,
+              46,
+              47
+            ]
+          ],
+          "needed_for_next": [
+            5,
+            6,
+            7
+          ],
+          "missing_needed": [
+            [
+              5,
+              6,
+              7
+            ],
+            [
+              5,
+              6,
+              7
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "numeric_pass": false,
+      "message": "14 steps; step 13 logits worst 9.02e-01 of max(1, |ref|)",
+      "mode": "unsafe",
+      "actual_cache_evidence": [
+        {
+          "mode": "unsafe",
+          "before_len": 48,
+          "cut": 8,
+          "held_positions": [
+            [
+              44,
+              45,
+              46,
+              47
+            ],
+            [
+              44,
+              45,
+              46,
+              47
+            ]
+          ],
+          "needed_for_next": [
+            5,
+            6,
+            7
+          ],
+          "missing_needed": [
+            [
+              5,
+              6,
+              7
+            ],
+            [
+              5,
+              6,
+              7
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "numeric_pass": false,
+      "explicit_unsupported_refusal": "discarded window rows require re-prefill",
+      "mode": "refuse",
+      "actual_cache_evidence": [
+        {
+          "mode": "refuse",
+          "before_len": 48,
+          "cut": 8,
+          "held_positions": [
+            [
+              44,
+              45,
+              46,
+              47
+            ],
+            [
+              44,
+              45,
+              46,
+              47
+            ]
+          ],
+          "needed_for_next": [
+            5,
+            6,
+            7
+          ],
+          "missing_needed": [
+            [
+              5,
+              6,
+              7
+            ],
+            [
+              5,
+              6,
+              7
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Targeted three-case regeneration only; no real suite regeneration. Test adapter physically discards K/V arrays but is not evidence that all external engines evict. Retention or explicit unsupported refusal remains legal. No model training, GPU, provider or config operation.",
+  "source_git_head": "2c848cb9fd23f2bb34dab7e7e35462db7098d81f",
+  "targeted_tests": {
+    "command": "python -m pytest -q keramos/tests/test_window_rewind_conformance.py keramos/tests/test_routed_longrope_conformance.py",
+    "result": "12 passed in 0.58s"
+  },
+  "initial_format_mismatch_superseded": true
+}

@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "historical_cases_compared": 598,
+  "new_case_count": 3,
+  "verdict_movements": [],
+  "new_ids": [
+    "trace/routed_longrope_session_length",
+    "trace/tp_mistral_hd16_discarded_window_fresh",
+    "trace/tp_mistral_hd16_discarded_window_rewind"
+  ],
+  "counts": {
+    "PASS": 590,
+    "FAIL": 0,
+    "SKIP": 11,
+    "XFAIL": 0,
+    "XPASS": 0
+  },
+  "source_sha256": {
+    "tools/ir_conformance.py": "60f211924539be90763493029b31fe8078ee0ec41248182dcbb24bbb859d1a50",
+    "tools/ir_conformance_gen.py": "68802761696383d30c54ac0debca437a7903718154e6ff64aea859287fb77299",
+    "tools/ir_routed_longrope_coverage.py": "dbb866d2c61cbeab530bdf78aaa8044d8566f3bd8da7fee027f34b8eb1a560ac",
+    "tools/ir_window_rewind_coverage.py": "5f50624932de4bc9cdec996e9100e87b23706774127fc1f2f4846f1f3b64824b",
+    "conformance/manifest.json": "90a0d27251d54412f64c29cedabaed93f7c88286ef956c6b7b4f6f809ea18c9c",
+    "conformance/regressions/routed_longrope/routed_longrope.gguf": "18fc9429fe28f2732cfb258cea9469043d650d1fe84e07586aa0e7ebed42e06c",
+    "conformance/state/tp_mistral_hd16_discarded_window_fresh.json": "db54c1ce526700d6f0d6a9898728f18de46023d7dece7e19cc7abeccf4a9d877",
+    "conformance/state/tp_mistral_hd16_discarded_window_rewind.json": "136bdad45263e85db7bb9b584130b146af598fe14165328bb87f2548abc8592a",
+    "conformance/state/routed_longrope_session_length.json": "4fe1750c7e941f3da3ad0030abb5c62d44639a00d191c822a2a9eee53f1be6b0"
+  },
+  "test_summary": "268 passed, 10 optional skipped; 12 targeted controls passed",
+  "scope": "Existing historical receipt retained; new corrected Rust execution covers601, with no assertion of cache eviction in that engine."
+}

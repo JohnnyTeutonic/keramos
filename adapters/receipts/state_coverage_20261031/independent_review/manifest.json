@@ -1,0 +1,10 @@
+{
+  "files_sha256": {
+    "README.md": "ede56852a66485a6e89eea8b6c54c848f2ad8a7a58b89d9986db20090b23b5af",
+    "replay.py": "c06aafd7ba821bba764b57c000bc050386f41e406c38958d343442ca4c4a7fbb",
+    "review.json": "2a686357ce94460120dd13357e1f6a1fd43644fb6102bcf4938361f1857e3418",
+    "review_initial_format_mismatch.json": "0fe022350634a791bf1d3ee6a8f38a36587cb570542d89932a5e2bddf1ff7bac",
+    "targeted_tests.log": "b7da013ae6f980669e8e4620bb4c2c85b3006c5969238e809f2e2f11bf7a42c2"
+  },
+  "scope": "Independent targeted regeneration and actual bounded KV test-adapter controls only"
+}
