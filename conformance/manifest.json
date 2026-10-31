@@ -2120,6 +2120,27 @@
    "file": "chat/parse_reply.json",
    "profile": "chat",
    "n": 12
+  },
+  {
+   "id": "trace/routed_longrope_session_length",
+   "kind": "trace",
+   "file": "state/routed_longrope_session_length.json",
+   "model": "regressions/routed_longrope",
+   "profile": "state"
+  },
+  {
+   "id": "trace/tp_mistral_hd16_discarded_window_rewind",
+   "kind": "trace",
+   "file": "state/tp_mistral_hd16_discarded_window_rewind.json",
+   "model": "models/tp_mistral_hd16",
+   "profile": "state"
+  },
+  {
+   "id": "trace/tp_mistral_hd16_discarded_window_fresh",
+   "kind": "trace",
+   "file": "state/tp_mistral_hd16_discarded_window_fresh.json",
+   "model": "models/tp_mistral_hd16",
+   "profile": "state"
   }
  ]
 }

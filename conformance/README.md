@@ -83,3 +83,21 @@ reports that limitation as a failed comparison. It does not infer a numerical bo
 infinity minus infinity or an infinite reference scale. EXACT still compares signed infinities
 by their bits, and every supported NaN matches any NaN. This tooling guard does not add an IR
 refusal rule or change the finite tolerance, schema, reference arithmetic or stored expected values.
+
+## Coverage follow-up, 31 October 2026
+
+Three additional traces extend the historical 598-case suite to 601 cases.
+`routed_longrope_session_length` uses a four-token session whose later depth-route
+gather has maximum position two: factor selection must still use full session
+length four. The active-subset-length mutation fails the frozen expected logits.
+Its derived GGUF in `regressions/routed_longrope/` reuses the trained MoR tensors
+with explicit factor tables.
+
+`tp_mistral_hd16_discarded_window_rewind` performs twelve four-token calls,
+truncates from 48 to eight, then continues; the companion fresh trace checks the
+same prefix and continuation. A bounded per-layer KV test engine physically
+discards positions needed by that cut: safe re-prefill passes, accepting the cut
+without rebuilding fails numerically, and legal full retention passes. These
+controls do not assert that every external engine evicts. The existing Gemma 3
+long rewind was already present; the new evidence makes actual discard explicit.
+Historical receipts and study counts remain unchanged.

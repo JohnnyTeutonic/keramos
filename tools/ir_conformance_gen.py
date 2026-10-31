@@ -1550,8 +1550,11 @@ def regenerate():
         (SUITE / f).write_text(json.dumps(case, indent=1) + "\n", encoding="utf-8")
         manifest.append({"id": f"trace/{name}_recurrence", "kind": "trace", "file": f, "model": f"models/{name}",
                          "profile": "recurrence"})
+    from ir_routed_longrope_coverage import routed_longrope_traces
+    from ir_window_rewind_coverage import discarded_window_traces
+
     for name, case in (extra_traces() + window_traces() + chunk_traces() + untagged_traces() + permuted_traces()
-                       + mor_window_traces()):
+                       + mor_window_traces() + routed_longrope_traces() + discarded_window_traces()):
         f = f"state/{name}.json"
         (SUITE / f).write_text(json.dumps(case, indent=1) + "\n", encoding="utf-8")
         manifest.append({"id": f"trace/{name}", "kind": "trace", "file": f, "model": case["model"],

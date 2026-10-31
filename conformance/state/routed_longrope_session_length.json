@@ -1,0 +1,94 @@
+{
+ "model": "regressions/routed_longrope",
+ "evict": null,
+ "class": "ROUNDING",
+ "tol": 1e-05,
+ "steps": [
+  {
+   "method": "forward",
+   "ids": [
+    7,
+    9,
+    5,
+    6
+   ]
+  }
+ ],
+ "expect": [
+  {
+   "len": 4,
+   "logits": {
+    "shape": [
+     4,
+     15
+    ],
+    "f32": "bea7ed1a3fb016e0bf3b2b0fbf18584ebf8a71babf67d491bf4d89623ee574923f1121e8be39811dbddca4aabe806e70be0a8bc8bdbefbf93ffde1e0be30b5e33e039e60bf5d3cc7bf2f8dfdbee12d85bed2c2d6bc1620203f90f8a03fbb218c3f9be85fbf6e8c31bf658d6fbf5eef37bf82c04c3f95d6aabeee6b38bf8b6a1abf0a77d1bee418bc3f0bf81c3f5c3c583fce805f3ddcc6c43d9202f63f8fd57fbf041a6cbef6686dbf0c0072bf182eedbf347549be9d5cb8bec74d16bf880e4bbf6a7f9dbe88a745be5243653f61af813f4512c43f60ed6940001a9abf3ea6b1bf1027f0bf2494afbf338670bcb347b7"
+   },
+   "depth": [
+    2,
+    1,
+    3,
+    1
+   ],
+   "kv_rows": {
+    "kv": [
+     [
+      4
+     ],
+     [
+      4
+     ],
+     [
+      2
+     ],
+     [
+      1
+     ],
+     [
+      4
+     ]
+    ]
+   },
+   "kv_positions": {
+    "kv": [
+     [
+      [
+       0,
+       1,
+       2,
+       3
+      ]
+     ],
+     [
+      [
+       0,
+       1,
+       2,
+       3
+      ]
+     ],
+     [
+      [
+       0,
+       2
+      ]
+     ],
+     [
+      [
+       2
+      ]
+     ],
+     [
+      [
+       0,
+       1,
+       2,
+       3
+      ]
+     ]
+    ]
+   }
+  }
+ ],
+ "_coverage": "Derived from pk_mor's trained tensors, with explicit short=1 and long=2 RoPE factors. Full session length must survive depth-route gathers."
+}
