@@ -1,0 +1,600 @@
+adapter transformers (backend cpu, exact False); 298 cases
+SKIP model/pk_attnres: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_attnres_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_flex_expr: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_expr_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_flex_highway: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_highway_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_flex_mdha: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_mdha_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_mdha_snapshot: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_flex_shaw: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_shaw_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_flex_t5: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_t5_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+PASS model/pk_gpt2: log-probs worst 1.04e-07; greedy 4/4
+PASS trace/pk_gpt2_decode: 6 steps
+SKIP model/pk_gpt2_swa: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_gpt2_swa_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_kimi: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_kimi_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_kimi_snapshot: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+PASS model/pk_llama: log-probs worst 9.25e-08; greedy 4/4
+PASS trace/pk_llama_decode: 6 steps
+PASS trace/pk_llama_truncate: 3 steps
+SKIP model/pk_llama_attnres: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_llama_attnres_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_llama_attnres_rec: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_llama_attnres_rec_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_mamba: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_mamba_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_mamba_snapshot: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+PASS model/pk_moe: log-probs worst 7.58e-08; greedy 4/4
+PASS trace/pk_moe_decode: 6 steps
+SKIP model/pk_mor: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_mor_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_mor_truncate: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_recurrence: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_recurrence_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_recurrence_snapshot: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_recursive: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_recursive_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_srd: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_srd_decode: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_srd_snapshot: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/pk_state: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_state_evict_on: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_state_evict_off: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_state_rewind_evicted: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_state_rewind_current: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_state_rewind_at_block: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/tp_deepseek2: general.architecture 'deepseek2': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_deepseek2_decode: general.architecture 'deepseek2': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_deepseek2_truncate: general.architecture 'deepseek2': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/tp_deepseek3: general.architecture 'deepseek2': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_deepseek3_decode: general.architecture 'deepseek2': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_deepseek3_truncate: general.architecture 'deepseek2': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/tp_gemma2: general.architecture 'gemma2': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_gemma2_decode: general.architecture 'gemma2': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+PASS model/tp_gemma3: log-probs worst 6.91e-07; greedy 4/4
+PASS trace/tp_gemma3_decode: 6 steps
+PASS model/tp_gptneox: log-probs worst 4.28e-07; greedy 4/4
+PASS trace/tp_gptneox_decode: 6 steps
+PASS model/tp_llama_hd16: log-probs worst 3.91e-07; greedy 4/4
+PASS trace/tp_llama_hd16_decode: 6 steps
+PASS trace/tp_llama_hd16_truncate: 3 steps
+PASS model/tp_mamba1: log-probs worst 3.08e-07; greedy 4/4
+PASS trace/tp_mamba1_decode: 6 steps
+FAIL trace/tp_mamba1_snapshot: 5 steps; step 2 logits worst 2.51e-01 of max(1, |ref|); step 2 recurrent conv[1].x worst 1.33e-01 of max(1, |ref|); step 2 recurrent ssm[0].s worst 1.82e-01 of max(1, |ref|); step 2 recurrent ssm[1].s worst 3.47e-01 of max(1, |ref|); step 4 logits worst 4.11e-01 of max(1, |ref|); step 4 recurrent conv[1].x worst 1.17e-01 of max(1, |ref|); step 4 recurrent ssm[0].s worst 2.92e-01 of max(1, |ref|); step 4 recurrent ssm[1].s worst 5.50e-01 of max(1, |ref|)
+PASS model/tp_mistral: log-probs worst 2.83e-07; greedy 4/4
+PASS trace/tp_mistral_decode: 6 steps
+PASS model/tp_mistral_hd16: log-probs worst 6.33e-07; greedy 4/4
+PASS trace/tp_mistral_hd16_decode: 6 steps
+SKIP model/tp_phi3: general.architecture 'phi3': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_phi3_decode: general.architecture 'phi3': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_phi3_truncate: general.architecture 'phi3': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP model/tp_qwen2moe: general.architecture 'qwen2moe': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_qwen2moe_decode: general.architecture 'qwen2moe': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+PASS model/tp_qwen3: log-probs worst 4.73e-07; greedy 4/4
+PASS trace/tp_qwen3_decode: 6 steps
+PASS trace/tp_qwen3_truncate: 3 steps
+PASS model/tp_qwen3_hd16: log-probs worst 3.41e-07; greedy 4/4
+PASS trace/tp_qwen3_hd16_decode: 6 steps
+PASS trace/tp_qwen3_hd16_truncate: 3 steps
+SKIP model/tp_qwen3moe: general.architecture 'qwen3moe': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_qwen3moe_decode: general.architecture 'qwen3moe': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP op/embedding/rows: transformers runs whole models, not single IR nodes
+SKIP op/embedding/state_weight: transformers runs whole models, not single IR nodes
+SKIP op/pos_embedding/rows: transformers runs whole models, not single IR nodes
+SKIP op/linear/bias: transformers runs whole models, not single IR nodes
+SKIP op/linear/no_bias: transformers runs whole models, not single IR nodes
+SKIP op/linear/tied_to: transformers runs whole models, not single IR nodes
+SKIP op/scale/bias: transformers runs whole models, not single IR nodes
+SKIP op/scale/no_bias: transformers runs whole models, not single IR nodes
+SKIP op/split/three: transformers runs whole models, not single IR nodes
+SKIP op/split/groups: transformers runs whole models, not single IR nodes
+SKIP op/rmsnorm/row: transformers runs whole models, not single IR nodes
+SKIP op/rmsnorm/group: transformers runs whole models, not single IR nodes
+SKIP op/rmsnorm/weight_offset: transformers runs whole models, not single IR nodes
+SKIP op/layernorm/row: transformers runs whole models, not single IR nodes
+SKIP op/gelu/tanh: transformers runs whole models, not single IR nodes
+SKIP op/gelu/none: transformers runs whole models, not single IR nodes
+SKIP op/silu/x: transformers runs whole models, not single IR nodes
+SKIP op/sigmoid/x: transformers runs whole models, not single IR nodes
+SKIP op/relu/x: transformers runs whole models, not single IR nodes
+SKIP op/add/ab: transformers runs whole models, not single IR nodes
+SKIP op/mul/ab: transformers runs whole models, not single IR nodes
+SKIP op/sub/ab: transformers runs whole models, not single IR nodes
+SKIP op/affine/scale_shift: transformers runs whole models, not single IR nodes
+SKIP op/mul_col/x_c: transformers runs whole models, not single IR nodes
+SKIP op/rms_row/eps: transformers runs whole models, not single IR nodes
+SKIP op/rope/interleaved: transformers runs whole models, not single IR nodes
+SKIP op/rope/neox: transformers runs whole models, not single IR nodes
+SKIP op/rope/neox_partial: transformers runs whole models, not single IR nodes
+SKIP op/rope/freq_scale: transformers runs whole models, not single IR nodes
+SKIP op/rope/grouped_query: transformers runs whole models, not single IR nodes
+SKIP op/rope/first_head: transformers runs whole models, not single IR nodes
+SKIP op/rope/freq_factors: transformers runs whole models, not single IR nodes
+SKIP op/rope/freq_factors_short: transformers runs whole models, not single IR nodes
+SKIP op/rope/freq_factors_long: transformers runs whole models, not single IR nodes
+SKIP op/rope/attn_factor: transformers runs whole models, not single IR nodes
+SKIP op/rope/freq_factors_partial_attn_factor: transformers runs whole models, not single IR nodes
+SKIP op/rope/freq_factors_values: transformers runs whole models, not single IR nodes
+SKIP op/attention/causal: transformers runs whole models, not single IR nodes
+SKIP op/attention/window_sinks: transformers runs whole models, not single IR nodes
+SKIP op/attention/grouped_query: transformers runs whole models, not single IR nodes
+SKIP op/attention/position_bias: transformers runs whole models, not single IR nodes
+SKIP op/attention/position_bias_window_sinks: transformers runs whole models, not single IR nodes
+SKIP op/attention/position_bias_grouped_query: transformers runs whole models, not single IR nodes
+SKIP op/attention/relative_kv: transformers runs whole models, not single IR nodes
+SKIP op/attention/relative_kv_per_head: transformers runs whole models, not single IR nodes
+SKIP op/attention/relative_kv_keys_only: transformers runs whole models, not single IR nodes
+SKIP op/attention/relative_kv_window_sinks: transformers runs whole models, not single IR nodes
+SKIP op/attention/relative_kv_grouped_query: transformers runs whole models, not single IR nodes
+SKIP op/attention/relative_kv_distance_zero: transformers runs whole models, not single IR nodes
+SKIP op/attention/softcap: transformers runs whole models, not single IR nodes
+SKIP op/attention/softcap_window_sinks: transformers runs whole models, not single IR nodes
+SKIP op/attention/softcap_position_bias: transformers runs whole models, not single IR nodes
+SKIP op/moe_ffn/renorm: transformers runs whole models, not single IR nodes
+SKIP op/moe_ffn/raw: transformers runs whole models, not single IR nodes
+SKIP op/moe_ffn/sigmoid_renorm: transformers runs whole models, not single IR nodes
+SKIP op/moe_ffn/sigmoid_bias_groups: transformers runs whole models, not single IR nodes
+SKIP op/moe_ffn/softmax_bias_raw: transformers runs whole models, not single IR nodes
+SKIP op/list/two: transformers runs whole models, not single IR nodes
+SKIP op/append/one: transformers runs whole models, not single IR nodes
+SKIP op/depth_attend/one_source: transformers runs whole models, not single IR nodes
+SKIP op/depth_attend/three_sources: transformers runs whole models, not single IR nodes
+SKIP op/depth_attend/eps_default: transformers runs whole models, not single IR nodes
+SKIP op/expr/gelu_sigmoid: transformers runs whole models, not single IR nodes
+SKIP op/expr/relu_squared: transformers runs whole models, not single IR nodes
+SKIP op/expr/where_rowmean: transformers runs whole models, not single IR nodes
+SKIP op/expr/layer_norm: transformers runs whole models, not single IR nodes
+SKIP op/expr/rowsum_constant: transformers runs whole models, not single IR nodes
+SKIP op/expr/depth_200: transformers runs whole models, not single IR nodes
+SKIP op/linear_attention/two_heads: transformers runs whole models, not single IR nodes
+SKIP op/ssm_scan/n4: transformers runs whole models, not single IR nodes
+SKIP op/conv1d_causal/k4: transformers runs whole models, not single IR nodes
+SKIP op/selective_scan/d3n2: transformers runs whole models, not single IR nodes
+SKIP op/recurrence/linear_attention_body: transformers runs whole models, not single IR nodes
+SKIP op/recurrence/ssm_scan_body: transformers runs whole models, not single IR nodes
+SKIP op/recurrence/conv1d_causal_body: transformers runs whole models, not single IR nodes
+SKIP op/recurrence/selective_scan_body: transformers runs whole models, not single IR nodes
+SKIP op/recurrence/rnn_init_offset: transformers runs whole models, not single IR nodes
+SKIP op/recurrence/ema_bias_corrected: transformers runs whole models, not single IR nodes
+SKIP op/recurrence/ema_exact: transformers runs whole models, not single IR nodes
+SKIP op/recurrence/square_weight_declaration: transformers runs whole models, not single IR nodes
+SKIP op/recurrence/read_beyond_declaration: transformers runs whole models, not single IR nodes
+SKIP op/mla_attention/two_heads: transformers runs whole models, not single IR nodes
+SKIP op/mla_attention/window_sinks: transformers runs whole models, not single IR nodes
+SKIP op/mla_attention/one_head: transformers runs whole models, not single IR nodes
+SKIP refuse/unknown_op: transformers has no IR validation (it never reads the document)
+SKIP refuse/unknown_attribute: transformers has no IR validation (it never reads the document)
+SKIP refuse/unknown_top_key: transformers has no IR validation (it never reads the document)
+SKIP refuse/version_2: transformers has no IR validation (it never reads the document)
+SKIP refuse/repeat_ne_n_layers: transformers has no IR validation (it never reads the document)
+SKIP refuse/model_ctx_missing: transformers has no IR validation (it never reads the document)
+SKIP refuse/per_layer_wrong_length: transformers has no IR validation (it never reads the document)
+SKIP refuse/per_layer_in_head: transformers has no IR validation (it never reads the document)
+SKIP refuse/add_one_input: transformers has no IR validation (it never reads the document)
+SKIP refuse/rope_pairing_unknown: transformers has no IR validation (it never reads the document)
+SKIP refuse/rope_n_rot_odd: transformers has no IR validation (it never reads the document)
+SKIP refuse/attention_not_causal: transformers has no IR validation (it never reads the document)
+SKIP refuse/attention_heads_not_multiple: transformers has no IR validation (it never reads the document)
+SKIP refuse/attention_window_differs: transformers has no IR validation (it never reads the document)
+SKIP refuse/slot_declared_twice: transformers has no IR validation (it never reads the document)
+SKIP refuse/slot_unread: transformers has no IR validation (it never reads the document)
+SKIP refuse/slot_unknown_kind: transformers has no IR validation (it never reads the document)
+SKIP refuse/attention_no_slot: transformers has no IR validation (it never reads the document)
+SKIP refuse/kv_slot_field_missing: transformers has no IR validation (it never reads the document)
+SKIP refuse/tensor_index_without_weight_index: transformers has no IR validation (it never reads the document)
+SKIP refuse/name_with_i_outside_block: transformers has no IR validation (it never reads the document)
+SKIP refuse/evict_on_causal: transformers has no IR validation (it never reads the document)
+SKIP refuse/missing_tensor: transformers has no IR validation (it never reads the document)
+SKIP refuse/gelu_approx_unknown: transformers has no IR validation (it never reads the document)
+SKIP refuse/split_count: transformers has no IR validation (it never reads the document)
+SKIP refuse/expr_does_not_parse: transformers has no IR validation (it never reads the document)
+SKIP refuse/moe_top_k_too_large: transformers has no IR validation (it never reads the document)
+SKIP refuse/moe_gate_norm_unknown: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrent_dtype_f16: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrent_shape_mismatch: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrent_op_mismatch: transformers has no IR validation (it never reads the document)
+SKIP refuse/linear_attention_not_causal: transformers has no IR validation (it never reads the document)
+SKIP refuse/conv_kernel_one: transformers has no IR validation (it never reads the document)
+SKIP refuse/weight_index_wrong_length: transformers has no IR validation (it never reads the document)
+SKIP refuse/weight_index_unused_layer: transformers has no IR validation (it never reads the document)
+SKIP refuse/weight_index_negative: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_route_not_first: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_expert_choice: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_unequal_steps: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_steps_descending: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_step_length_wrong: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_no_kv_rows_active: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_kv_from: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_gate_unknown: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_router_with_i: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_kv_rows_shared: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_route_in_head: transformers has no IR validation (it never reads the document)
+SKIP refuse/turn_state_with_window: transformers has no IR validation (it never reads the document)
+SKIP refuse/turn_state_without_state_weight: transformers has no IR validation (it never reads the document)
+SKIP refuse/evict_without_mask: transformers has no IR validation (it never reads the document)
+SKIP refuse/evict_unknown: transformers has no IR validation (it never reads the document)
+SKIP refuse/mask_unknown: transformers has no IR validation (it never reads the document)
+SKIP refuse/state_weight_with_i: transformers has no IR validation (it never reads the document)
+SKIP refuse/two_state_weights: transformers has no IR validation (it never reads the document)
+SKIP refuse/state_weight_wrong_name: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_body_does_not_parse: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_name_twice: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_rowsum: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_index_size_zero: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_index_out_of_scope: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_init_reads_input: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_rank_mismatch: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_index_undeclared: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_slot_shape: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_slot_missing_tensor: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_init_flag: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_weight_size: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_assignment_repeats_index: transformers has no IR validation (it never reads the document)
+SKIP refuse/recurrence_bare_undeclared_name: transformers has no IR validation (it never reads the document)
+SKIP refuse/reads_unwritten_value: transformers has no IR validation (it never reads the document)
+SKIP refuse/embed_writes_no_x: transformers has no IR validation (it never reads the document)
+SKIP refuse/head_writes_no_logits: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_reads_outside_value: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_step_gap: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_reads_tokens: transformers has no IR validation (it never reads the document)
+SKIP refuse/mor_reads_route_out: transformers has no IR validation (it never reads the document)
+SKIP refuse/position_bias_bucket_negative: transformers has no IR validation (it never reads the document)
+SKIP refuse/position_bias_buckets_empty: transformers has no IR validation (it never reads the document)
+SKIP refuse/position_bias_table_shape: transformers has no IR validation (it never reads the document)
+SKIP refuse/position_bias_per_layer: transformers has no IR validation (it never reads the document)
+SKIP refuse/tensor_index_in_head: transformers has no IR validation (it never reads the document)
+SKIP refuse/tensor_index_value_unknown: transformers has no IR validation (it never reads the document)
+SKIP refuse/tensor_index_on_affine: transformers has no IR validation (it never reads the document)
+SKIP refuse/tensor_index_absent_application_tensor: transformers has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_distance_negative: transformers has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_without_key: transformers has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_unknown_field: transformers has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_key_shape: transformers has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_value_shape: transformers has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_with_position_bias: transformers has no IR validation (it never reads the document)
+SKIP refuse/relative_kv_per_layer: transformers has no IR validation (it never reads the document)
+SKIP refuse/softcap_not_positive: transformers has no IR validation (it never reads the document)
+SKIP refuse/attn_factor_not_positive: transformers has no IR validation (it never reads the document)
+SKIP refuse/freq_factors_without_original_ctx: transformers has no IR validation (it never reads the document)
+SKIP refuse/freq_factors_unknown_field: transformers has no IR validation (it never reads the document)
+SKIP refuse/freq_factors_tensor_shape: transformers has no IR validation (it never reads the document)
+SKIP refuse/freq_factors_per_layer: transformers has no IR validation (it never reads the document)
+SKIP refuse/split_groups_zero: transformers has no IR validation (it never reads the document)
+SKIP refuse/mla_slot_head_dim: transformers has no IR validation (it never reads the document)
+SKIP refuse/mla_slot_kv_heads: transformers has no IR validation (it never reads the document)
+SKIP refuse/mla_k_b_shape: transformers has no IR validation (it never reads the document)
+SKIP refuse/mla_reads_three: transformers has no IR validation (it never reads the document)
+SKIP refuse/mla_without_k_b: transformers has no IR validation (it never reads the document)
+SKIP refuse/mla_not_causal: transformers has no IR validation (it never reads the document)
+SKIP refuse/apply_entries_not_boolean: transformers has no IR validation (it never reads the document)
+SKIP refuse/apply_outside_block: transformers has no IR validation (it never reads the document)
+SKIP refuse/apply_on_attention: transformers has no IR validation (it never reads the document)
+SKIP refuse/apply_leaves_value_unwritten: transformers has no IR validation (it never reads the document)
+SKIP refuse/apply_with_depth_route: transformers has no IR validation (it never reads the document)
+SKIP refuse/moe_groups_not_dividing: transformers has no IR validation (it never reads the document)
+SKIP refuse/moe_scoring_unknown: transformers has no IR validation (it never reads the document)
+SKIP refuse/moe_selection_bias_shape: transformers has no IR validation (it never reads the document)
+SKIP refuse/freq_factors_values_length: transformers has no IR validation (it never reads the document)
+SKIP refuse/freq_factors_values_not_positive: transformers has no IR validation (it never reads the document)
+SKIP refuse/duplicate_member_top: transformers has no IR validation (it never reads the document)
+SKIP refuse/duplicate_member_node: transformers has no IR validation (it never reads the document)
+SKIP refuse/duplicate_member_prose: transformers has no IR validation (it never reads the document)
+SKIP refuse/version_key_mismatch: transformers has no IR validation (it never reads the document)
+SKIP refuse/state_tokens_k_mismatch: transformers has no IR validation (it never reads the document)
+SKIP refuse/state_template_not_v1: transformers has no IR validation (it never reads the document)
+SKIP refuse/weight_index_block_count: transformers has no IR validation (it never reads the document)
+SKIP refuse/state_tokens_arch_llama: transformers has no IR validation (it never reads the document)
+SKIP refuse/duplicate_member_embedded: transformers has no IR validation (it never reads the document)
+SKIP refuse/architecture_kimi_as_gpt2: transformers has no IR validation (it never reads the document)
+SKIP refuse/architecture_swa_as_gpt2: transformers has no IR validation (it never reads the document)
+SKIP refuse/architecture_metadata_disagrees: transformers has no IR validation (it never reads the document)
+SKIP refuse/architecture_without_graph: transformers has no IR validation (it never reads the document)
+SKIP refuse/architecture_gemma2_softcap_dropped: transformers has no IR validation (it never reads the document)
+SKIP refuse/architecture_substituted_document: transformers has no IR validation (it never reads the document)
+SKIP digest/vectors/rfc8785_number_0000000000000000: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_0000000000000001: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_8000000000000001: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_7fefffffffffffff: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_ffefffffffffffff: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_4340000000000000: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_c340000000000000: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_4430000000000000: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_44b52d02c7e14af5: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_44b52d02c7e14af6: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_44b52d02c7e14af7: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_444b1ae4d6e2ef4e: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_444b1ae4d6e2ef4f: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_444b1ae4d6e2ef50: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_3eb0c6f7a0b5ed8c: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_3eb0c6f7a0b5ed8d: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_41b3de4355555553: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_41b3de4355555554: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_41b3de4355555555: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_41b3de4355555556: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_41b3de4355555557: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_becbf647612f3696: transformers has no IR digest
+SKIP digest/vectors/rfc8785_number_43143ff3c1cb0959: transformers has no IR digest
+SKIP digest/vectors/f32_eps: transformers has no IR digest
+SKIP digest/vectors/f32_rope_theta: transformers has no IR digest
+SKIP digest/vectors/f32_scale: transformers has no IR digest
+SKIP digest/vectors/f32_den_floor: transformers has no IR digest
+SKIP digest/vectors/integer_2p53: transformers has no IR digest
+SKIP digest/vectors/negative_integer: transformers has no IR digest
+SKIP digest/vectors/minus_zero_integer_form: transformers has no IR digest
+SKIP digest/vectors/exponent_form: transformers has no IR digest
+SKIP digest/vectors/string_controls: transformers has no IR digest
+SKIP digest/vectors/string_controls_escaped: transformers has no IR digest
+SKIP digest/vectors/string_escapes: transformers has no IR digest
+SKIP digest/vectors/string_escapes_escaped: transformers has no IR digest
+SKIP digest/vectors/string_line_separators: transformers has no IR digest
+SKIP digest/vectors/string_line_separators_escaped: transformers has no IR digest
+SKIP digest/vectors/string_astral: transformers has no IR digest
+SKIP digest/vectors/string_astral_escaped: transformers has no IR digest
+SKIP digest/vectors/string_accents: transformers has no IR digest
+SKIP digest/vectors/string_accents_escaped: transformers has no IR digest
+SKIP digest/vectors/string_names: transformers has no IR digest
+SKIP digest/vectors/string_names_escaped: transformers has no IR digest
+SKIP digest/vectors/key_order_utf16: transformers has no IR digest
+SKIP digest/vectors/nesting: transformers has no IR digest
+SKIP digest/vectors/prose_removed: transformers has no IR digest
+SKIP digest/vectors/prose_kept_in_serialiser_test: transformers has no IR digest
+SKIP digest/vectors/document_pk_attnres: transformers has no IR digest
+SKIP digest/vectors/document_pk_flex_expr: transformers has no IR digest
+SKIP digest/vectors/document_pk_flex_highway: transformers has no IR digest
+SKIP digest/vectors/document_pk_flex_mdha: transformers has no IR digest
+SKIP digest/vectors/document_pk_flex_shaw: transformers has no IR digest
+SKIP digest/vectors/document_pk_flex_t5: transformers has no IR digest
+SKIP digest/vectors/document_pk_gpt2: transformers has no IR digest
+SKIP digest/vectors/document_pk_gpt2_swa: transformers has no IR digest
+SKIP digest/vectors/document_pk_kimi: transformers has no IR digest
+SKIP digest/vectors/document_pk_llama: transformers has no IR digest
+SKIP digest/vectors/document_pk_llama_attnres: transformers has no IR digest
+SKIP digest/vectors/document_pk_llama_attnres_rec: transformers has no IR digest
+SKIP digest/vectors/document_pk_mamba: transformers has no IR digest
+SKIP digest/vectors/document_pk_moe: transformers has no IR digest
+SKIP digest/vectors/document_pk_mor: transformers has no IR digest
+SKIP digest/vectors/document_pk_recurrence: transformers has no IR digest
+SKIP digest/vectors/document_pk_recursive: transformers has no IR digest
+SKIP digest/vectors/document_pk_srd: transformers has no IR digest
+SKIP digest/vectors/document_pk_state: transformers has no IR digest
+SKIP digest/vectors/document_tp_deepseek2: transformers has no IR digest
+SKIP digest/vectors/document_tp_deepseek3: transformers has no IR digest
+SKIP digest/vectors/document_tp_gemma2: transformers has no IR digest
+SKIP digest/vectors/document_tp_gemma3: transformers has no IR digest
+SKIP digest/vectors/document_tp_gptneox: transformers has no IR digest
+SKIP digest/vectors/document_tp_llama_hd16: transformers has no IR digest
+SKIP digest/vectors/document_tp_mamba1: transformers has no IR digest
+SKIP digest/vectors/document_tp_mistral: transformers has no IR digest
+SKIP digest/vectors/document_tp_mistral_hd16: transformers has no IR digest
+SKIP digest/vectors/document_tp_phi3: transformers has no IR digest
+SKIP digest/vectors/document_tp_qwen2moe: transformers has no IR digest
+SKIP digest/vectors/document_tp_qwen3: transformers has no IR digest
+SKIP digest/vectors/document_tp_qwen3_hd16: transformers has no IR digest
+SKIP digest/vectors/document_tp_qwen3moe: transformers has no IR digest
+SKIP digest/vectors/negative_zero: transformers has no IR digest
+SKIP digest/vectors/integer_beyond_2p53: transformers has no IR digest
+SKIP digest/vectors/overflow: transformers has no IR digest
+SKIP digest/vectors/duplicate_key: transformers has no IR digest
+SKIP digest/vectors/lone_surrogate: transformers has no IR digest
+SKIP digest/vectors/nan_literal: transformers has no IR digest
+SKIP digest/vectors/prose_overflow: transformers has no IR digest
+SKIP digest/vectors/prose_negative_zero: transformers has no IR digest
+SKIP digest/vectors/prose_integer_beyond_2p53: transformers has no IR digest
+SKIP digest/vectors/prose_lone_surrogate: transformers has no IR digest
+SKIP digest/vectors/prose_key_lone_surrogate: transformers has no IR digest
+SKIP digest/vectors/prose_duplicate_key: transformers has no IR digest
+SKIP digest/vectors/fraction_form_beyond_2p53: transformers has no IR digest
+SKIP digest/vectors/exponent_form_1e300: transformers has no IR digest
+SKIP digest/vectors/negative_integer_2p53: transformers has no IR digest
+SKIP digest/vectors/negative_integer_beyond_2p53: transformers has no IR digest
+SKIP dequant/blocks/f32: transformers dequantises GGUF through gguf-py, not code of its own
+SKIP dequant/blocks/f16: transformers dequantises GGUF through gguf-py, not code of its own
+SKIP dequant/blocks/q4_0: transformers dequantises GGUF through gguf-py, not code of its own
+SKIP dequant/blocks/q5_0: transformers dequantises GGUF through gguf-py, not code of its own
+SKIP dequant/blocks/q5_1: transformers dequantises GGUF through gguf-py, not code of its own
+SKIP dequant/blocks/q8_0: transformers dequantises GGUF through gguf-py, not code of its own
+SKIP dequant/blocks/q4_k: transformers dequantises GGUF through gguf-py, not code of its own
+SKIP dequant/blocks/q5_k: transformers dequantises GGUF through gguf-py, not code of its own
+SKIP dequant/blocks/q6_k: transformers dequantises GGUF through gguf-py, not code of its own
+SKIP dequant/blocks/bf16: transformers dequantises GGUF through gguf-py, not code of its own
+SKIP grad/recurrence/linear_attention_body: transformers runs whole models, not single IR nodes
+SKIP grad/recurrence/ssm_scan_body: transformers runs whole models, not single IR nodes
+SKIP grad/recurrence/conv1d_causal_body: transformers runs whole models, not single IR nodes
+SKIP grad/recurrence/selective_scan_body: transformers runs whole models, not single IR nodes
+SKIP grad/recurrence/rnn_init_offset: transformers runs whole models, not single IR nodes
+SKIP grad/recurrence/ema_bias_corrected: transformers runs whole models, not single IR nodes
+SKIP grad/recurrence/ema_exact: transformers runs whole models, not single IR nodes
+SKIP grad/recurrence/square_weight_declaration: transformers runs whole models, not single IR nodes
+SKIP grad/attention/relative_kv: transformers runs whole models, not single IR nodes
+SKIP grad/attention/relative_kv_per_head_grouped_query: transformers runs whole models, not single IR nodes
+SKIP grad/attention/relative_kv_keys_only: transformers runs whole models, not single IR nodes
+SKIP trace/pk_kimi_recurrence: a replacement document: transformers runs the GGUF's architecture, never a document
+SKIP trace/pk_srd_recurrence: a replacement document: transformers runs the GGUF's architecture, never a document
+SKIP trace/pk_mamba_recurrence: a replacement document: transformers runs the GGUF's architecture, never a document
+SKIP trace/tp_mamba1_recurrence: a replacement document: transformers runs the GGUF's architecture, never a document
+SKIP trace/pk_srd_truncate: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+FAIL trace/tp_mamba1_truncate: 3 steps; step 2 logits worst 7.03e-01 of max(1, |ref|); step 2 recurrent conv[1].x worst 9.59e-01 of max(1, |ref|); step 2 recurrent ssm[0].s worst 9.58e-01 of max(1, |ref|); step 2 recurrent ssm[1].s worst 1.17e+00 of max(1, |ref|)
+SKIP trace/pk_flex_mdha_truncate: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_gpt2_swa_rewind_window: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+PASS trace/tp_gemma3_rewind_window: 3 steps
+PASS trace/tp_mistral_hd16_rewind_window: 3 steps
+SKIP trace/tp_gemma2_rewind_window: general.architecture 'gemma2': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_attnres_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_expr_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_highway_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_mdha_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_shaw_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_flex_t5_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+PASS trace/pk_gpt2_chunks: 4 steps
+SKIP trace/pk_gpt2_swa_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_kimi_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+PASS trace/pk_llama_chunks: 4 steps
+SKIP trace/pk_llama_attnres_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_llama_attnres_rec_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_mamba_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+PASS trace/pk_moe_chunks: 4 steps
+SKIP trace/pk_mor_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_recurrence_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_recursive_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_srd_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_state_chunks: general.architecture 'paperkiln': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_deepseek2_chunks: general.architecture 'deepseek2': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_deepseek3_chunks: general.architecture 'deepseek2': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_gemma2_chunks: general.architecture 'gemma2': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+PASS trace/tp_gemma3_chunks: 4 steps
+PASS trace/tp_gptneox_chunks: 4 steps
+PASS trace/tp_llama_hd16_chunks: 4 steps
+FAIL trace/tp_mamba1_chunks: 4 steps; step 1 logits worst 6.68e-01 of max(1, |ref|); step 1 recurrent conv[1].x worst 2.68e-01 of max(1, |ref|); step 1 recurrent ssm[0].s worst 1.70e-01 of max(1, |ref|); step 1 recurrent ssm[1].s worst 4.44e-01 of max(1, |ref|); step 2 logits worst 3.61e-01 of max(1, |ref|); step 2 recurrent conv[1].x worst 2.68e-01 of max(1, |ref|); step 2 recurrent ssm[0].s worst 1.77e-01 of max(1, |ref|); step 2 recurrent ssm[1].s worst 2.17e-01 of max(1, |ref|); step 3 logits worst 8.76e-01 of max(1, |ref|); step 3 recurrent conv[1].x worst 6.70e-01 of max(1, |ref|); step 3 recurrent ssm[0].s worst 8.81e-02 of max(1, |ref|); step 3 recurrent ssm[1].s worst 4.64e-01 of max(1, |ref|)
+PASS trace/tp_mistral_chunks: 4 steps
+PASS trace/tp_mistral_hd16_chunks: 4 steps
+SKIP trace/tp_phi3_chunks: general.architecture 'phi3': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/tp_qwen2moe_chunks: general.architecture 'qwen2moe': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+PASS trace/tp_qwen3_chunks: 4 steps
+PASS trace/tp_qwen3_hd16_chunks: 4 steps
+SKIP trace/tp_qwen3moe_chunks: general.architecture 'qwen3moe': no transformers class (IR_SPEC 9.1: a file no llama.cpp-architecture graph computes)
+SKIP trace/pk_llama_attnres_rec_untagged: a replacement document: transformers runs the GGUF's architecture, never a document
+SKIP trace/pk_flex_shaw_weight_index: a replacement document: transformers runs the GGUF's architecture, never a document
+SKIP trace/pk_mor_window: a replacement document: transformers runs the GGUF's architecture, never a document
+SKIP trace/pk_mor_window_rewind: a replacement document: transformers runs the GGUF's architecture, never a document
+SKIP accept/documents/model_pk_attnres: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_flex_expr: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_flex_highway: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_flex_mdha: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_flex_shaw: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_flex_t5: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_gpt2: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_gpt2_swa: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_kimi: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_llama: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_llama_attnres: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_llama_attnres_rec: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_mamba: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_moe: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_mor: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_recurrence: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_recursive: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_srd: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_pk_state: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_deepseek2: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_deepseek3: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_gemma2: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_gemma3: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_gptneox: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_llama_hd16: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_mamba1: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_mistral: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_mistral_hd16: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_phi3: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_qwen2moe: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_qwen3: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_qwen3_hd16: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/model_tp_qwen3moe: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/rewritten_pk_kimi: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/rewritten_pk_srd: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/rewritten_pk_mamba: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/rewritten_tp_mamba1: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/example_attnres_tiny: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/example_chat_sftfinal: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/example_flex_highway_tiny: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/example_gpt2_tiny: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/example_kimi_tiny: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/example_mamba_tiny: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/example_moe_tiny: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/example_srd_tiny: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/example_swa_tiny: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/substituted_over_duplicate_embedded: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/untagged_application_queries: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/relative_kv_weight_index: transformers has no IR validation (it never reads the document)
+SKIP accept/documents/mor_window: transformers has no IR validation (it never reads the document)
+SKIP chat/render/one user prompt: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/system folds into the first user turn: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/a lone system message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/a system message with no user message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/two system messages: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/a system message mid-conversation: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/the assistant first: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/two user messages in a row: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/a training conversation ending on a user message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/a prompt ending on an assistant message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/user content holding a role marker: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/system content holding end-of-text: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/assistant content holding a marker: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/<unk> text is ordinary content: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/newline-only user content: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/newline-only and empty replies in the history: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/the tool role is reserved: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/an unknown role: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/three exchanges with a system message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/a training conversation with a system message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/loss on a user message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/unicode content: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/system mode none refuses a system message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/system mode none without one: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/legacy word-level prompt: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/gemma3 trims and folds: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/gemma3 trims unicode edge whitespace: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/gemma3 trims unicode whitespace in system and history: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/gemma3 keeps inner unicode whitespace and zero-width space: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/qwen3 strips past reasoning: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/qwen2.5 writes its default system turn: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/qwen3 thinking off: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 one user prompt (v1's text): transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 user and assistant only (v1's text): transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 system turn: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 empty system message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 system turn and history: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 training conversation with a system turn: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 system and tool definitions: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 tool definitions without a system message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 tool definitions with an empty system message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 unicode tool definition: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 a call answered: the prompt ends on the tool message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 a call, its result and the reply: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 content before a call: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 two calls, two results, a reply, then a user message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 tool_call_id matching the call's id: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 a training conversation ending on a call: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 empty arguments: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 newline-only and empty contents: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 a tool message without a call: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 a tool message first: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 fewer results than calls: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 a prompt ending while a call has no result: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 a reply without its results: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 tool_call_id not the call's id: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 tool_call_id when the call has no id: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 a call name with a newline: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 an empty call name: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 arguments holding a control token: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 arguments that are not a string: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 a call type other than function: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 an empty tool_calls list: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 tool_calls on a user message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 user content holding <|system|>: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 tool content holding a spare token: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 system content holding <|tool|>: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 a tool definition holding a control token: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 a tool definition with a non-integer number: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 a tool definition that is not an object: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 a system message mid-conversation: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v2 loss on a tool message: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v1 refuses tool definitions: transformers renders Jinja chat templates, not IR template records
+SKIP chat/render/v1 refuses tool_calls: transformers renders Jinja chat templates, not IR template records
+SKIP chat/parse_reply/no call: not implemented
+SKIP chat/parse_reply/content then a call: not implemented
+SKIP chat/parse_reply/a call alone: not implemented
+SKIP chat/parse_reply/two calls: not implemented
+SKIP chat/parse_reply/empty arguments: not implemented
+SKIP chat/parse_reply/arguments holding a newline: not implemented
+SKIP chat/parse_reply/the call's text as BPE pieces is content: not implemented
+SKIP chat/parse_reply/a call without a newline: not implemented
+SKIP chat/parse_reply/an empty name: not implemented
+SKIP chat/parse_reply/an empty call: not implemented
+SKIP chat/parse_reply/one good call and one bad: not implemented
+SKIP chat/parse_reply/no ids: not implemented
+summary transformers: 38 pass, 3 fail, 557 skip, 0 xfail, 0 xpass; by kind model 11/0/22, trace 27/3/69, op 0/0/84, refuse 0/0/129, digest 0/0/96, dequant 0/0/10, grad 0/0/11, accept 0/0/50, chat 0/0/86 (pass/fail/skip)
