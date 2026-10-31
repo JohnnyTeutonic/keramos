@@ -417,6 +417,16 @@ Every op has the same semantics on T rows (prefill) and on one row (decode, T = 
 attention also reads and appends to its kv slot (section 6.2), and a recurrent op reads and replaces
 its recurrent slot (section 6.3).
 
+The two-set `freq_factors` construct (section 5.14) is non-causal: the realised
+session length selects the factor set for earlier positions as well as new ones.
+Crossing `original_ctx` therefore requires the recomputation already specified in
+sections 5.14 and 6.9. Earlier returned rows need not equal the corresponding rows
+of a later, longer prefill after that crossing; concatenating outputs from calls
+that used different factor sets is not a chunk-invariance guarantee. The current
+slot contents and newly returned rows are compared with a fresh run at the current
+session length. This names the existing length-dependent semantics, without
+changing the factor-selection or recomputation rules.
+
 ### 3.10 The digest
 
 A document's digest identifies it exactly, so a paper can cite the document it used. It is the
@@ -530,6 +540,10 @@ An op's text may give an order of accumulation (for example "in ascending j"):
 ### 4.5 Conditional exactness
 
 Some statements are bit for bit only under a condition stated with them:
+- **Same prefix denotation.** Comparisons across call partitions presume that the
+  compared rows use the same length-dependent choices. In particular, two-set
+  `freq_factors` does not guarantee equality of previously returned rows across a
+  factor-set crossing (sections 3.9 and 5.14).
 - **Same kernel.** A statement that two configurations give the same values bit for bit holds when
   the engine computes both with the same reduction order: eviction against keeping every row
   (section 6.8.3), `turn_state` on ids without a state id against plain causal attention (section
