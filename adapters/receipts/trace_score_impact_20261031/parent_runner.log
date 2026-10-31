@@ -1,0 +1,61 @@
+adapter mtstudio (backend cpu, exact True); 251 cases
+SKIP trace/pk_attnres_decode: not implemented
+SKIP trace/pk_flex_expr_decode: not implemented
+SKIP trace/pk_flex_highway_decode: not implemented
+SKIP trace/pk_flex_mdha_decode: not implemented
+SKIP trace/pk_flex_mdha_snapshot: not implemented
+SKIP trace/pk_flex_shaw_decode: not implemented
+SKIP trace/pk_flex_t5_decode: not implemented
+SKIP trace/pk_gpt2_decode: not implemented
+SKIP trace/pk_gpt2_swa_decode: not implemented
+SKIP trace/pk_kimi_decode: not implemented
+SKIP trace/pk_kimi_snapshot: not implemented
+PASS trace/pk_llama_decode: decode by kv cache, token by token: log-probs worst 2.67e-08, greedy same (via the adapter's score)
+SKIP trace/pk_llama_truncate: not implemented
+SKIP trace/pk_llama_attnres_decode: not implemented
+SKIP trace/pk_llama_attnres_rec_decode: not implemented
+SKIP trace/pk_mamba_decode: not implemented
+SKIP trace/pk_mamba_snapshot: not implemented
+PASS trace/pk_moe_decode: decode by kv cache, token by token: log-probs worst 2.71e-08, greedy same (via the adapter's score)
+PASS trace/pk_mor_decode: decode by kv cache, token by token: log-probs worst 3.55e-08, greedy same; depths of the last 1 decoded token(s) same (via the adapter's score)
+SKIP trace/pk_mor_truncate: not implemented
+SKIP trace/pk_recurrence_decode: not implemented
+SKIP trace/pk_recurrence_snapshot: not implemented
+PASS trace/pk_recursive_decode: decode by kv cache, token by token: log-probs worst 4.81e-08, greedy same (via the adapter's score)
+SKIP trace/pk_srd_decode: not implemented
+SKIP trace/pk_srd_snapshot: not implemented
+PASS trace/pk_state_evict_on: decode by kv cache, token by token: log-probs worst 2.01e-08, greedy same; kv rows 8 legal (via the adapter's score)
+PASS trace/pk_state_evict_off: decode by kv cache, token by token: log-probs worst 2.01e-08, greedy same (via the adapter's score)
+SKIP trace/pk_state_rewind_evicted: not implemented
+SKIP trace/pk_state_rewind_current: not implemented
+SKIP trace/pk_state_rewind_at_block: not implemented
+SKIP trace/pk_kimi_recurrence: not implemented
+SKIP trace/pk_srd_recurrence: not implemented
+SKIP trace/pk_mamba_recurrence: not implemented
+SKIP trace/pk_srd_truncate: not implemented
+SKIP trace/pk_flex_mdha_truncate: not implemented
+SKIP trace/pk_gpt2_swa_rewind_window: not implemented
+SKIP trace/pk_attnres_chunks: not implemented
+SKIP trace/pk_flex_expr_chunks: not implemented
+SKIP trace/pk_flex_highway_chunks: not implemented
+SKIP trace/pk_flex_mdha_chunks: not implemented
+SKIP trace/pk_flex_shaw_chunks: not implemented
+SKIP trace/pk_flex_t5_chunks: not implemented
+SKIP trace/pk_gpt2_chunks: not implemented
+SKIP trace/pk_gpt2_swa_chunks: not implemented
+SKIP trace/pk_kimi_chunks: not implemented
+SKIP trace/pk_llama_chunks: not implemented
+SKIP trace/pk_llama_attnres_chunks: not implemented
+SKIP trace/pk_llama_attnres_rec_chunks: not implemented
+SKIP trace/pk_mamba_chunks: not implemented
+SKIP trace/pk_moe_chunks: not implemented
+SKIP trace/pk_mor_chunks: not implemented
+SKIP trace/pk_recurrence_chunks: not implemented
+SKIP trace/pk_recursive_chunks: not implemented
+SKIP trace/pk_srd_chunks: not implemented
+SKIP trace/pk_state_chunks: not implemented
+SKIP trace/pk_llama_attnres_rec_untagged: not implemented
+SKIP trace/pk_flex_shaw_weight_index: not implemented
+SKIP trace/pk_mor_window: not implemented
+SKIP trace/pk_mor_window_rewind: not implemented
+summary mtstudio: 6 pass, 0 fail, 53 skip, 0 xfail, 0 xpass; by kind trace 6/0/53 (pass/fail/skip)
