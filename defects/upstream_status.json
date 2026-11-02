@@ -1,5 +1,5 @@
 {
-  "source": "Read-only GitHub connector: all eight issues, all comment pages, issue timelines, candidate PR metadata and all PR discussion/review comments. Contributor test claims are not Keramos retests; open PR merge_commit_sha values are not merged fixes.",
+  "source": "Read-only GitHub connector: eight issue metadata/comment listings and candidate PRs 50250, 50206, 31483 with discussions. PR31483 metadata transient failure succeeded on retry. No merged or released fix established. Historical observations retained.",
   "issues": [
     {
       "issue_number": 50195,
@@ -27,10 +27,43 @@
         "volunteer_proposal": true,
         "assignment_verified": false,
         "maintainer_confirmation_verified": false,
-        "candidate_pr": null,
+        "candidate_pr": {
+          "url": "https://github.com/huggingface/transformers/pull/50250",
+          "state": "open",
+          "draft": false,
+          "head_sha": "be493dda56a8418dd9d2ebf4ce63d33dd93392af",
+          "merged": false,
+          "merged_at": null,
+          "verified_merge_commit": null,
+          "comments": [
+            {
+              "url": "https://github.com/huggingface/transformers/pull/50250#issuecomment-6576956540",
+              "login": "github-actions[bot]",
+              "id": 6576956540
+            },
+            {
+              "url": "https://github.com/huggingface/transformers/pull/50250#issuecomment-6576972251",
+              "login": "github-actions[bot]",
+              "id": 6576972251
+            },
+            {
+              "url": "https://github.com/huggingface/transformers/pull/50250#issuecomment-6577288502",
+              "login": "JohnnyTeutonic",
+              "id": 6577288502
+            }
+          ],
+          "number": 50250,
+          "author": "ps-abhi"
+        },
         "merged_fix": null,
         "released_fix": null,
-        "successful_original_reproduction_retest": null
+        "successful_original_reproduction_retest": {
+          "scope": "Reporter CPU retest: mamba-130m chunk error about 116 to 0.0001; chunk, truncate and snapshot traces pass. No GPU/other-family retest claimed.",
+          "url": "https://github.com/huggingface/transformers/pull/50250#issuecomment-6577288502",
+          "head_sha": "be493dda56a8418dd9d2ebf4ce63d33dd93392af",
+          "tested_on": "2026-11-02",
+          "merged_fix": false
+        }
       }
     },
     {
@@ -39,7 +72,7 @@
       "title": "GGUF: Gemma 3 loses global-layer RoPE linear scaling and query_pre_attn_scalar when loaded from a llama.cpp GGUF",
       "state": "open",
       "state_reason": null,
-      "updated_at": "2026-10-31T09:32:35Z",
+      "updated_at": "2026-11-02T16:53:09Z",
       "closed_at": null,
       "assignees": null,
       "comments": [
@@ -47,6 +80,21 @@
           "url": "https://github.com/huggingface/transformers/issues/50196#issuecomment-6541734739",
           "login": "mohitdixit02",
           "id": 6541734739
+        },
+        {
+          "url": "https://github.com/huggingface/transformers/issues/50196#issuecomment-6580490235",
+          "login": "Rocketknight1",
+          "id": 6580490235
+        },
+        {
+          "url": "https://github.com/huggingface/transformers/issues/50196#issuecomment-6581298370",
+          "login": "SunMarc",
+          "id": 6581298370
+        },
+        {
+          "url": "https://github.com/huggingface/transformers/issues/50196#issuecomment-6582943085",
+          "login": "JohnnyTeutonic",
+          "id": 6582943085
         }
       ],
       "disposition": {
@@ -58,7 +106,45 @@
         "merged_fix": null,
         "released_fix": null,
         "successful_original_reproduction_retest": null
-      }
+      },
+      "observations": [
+        {
+          "kind": "prior_published_observation",
+          "checked_on": "2026-11-01",
+          "record": {
+            "issue_number": 50196,
+            "url": "https://github.com/huggingface/transformers/issues/50196",
+            "title": "GGUF: Gemma 3 loses global-layer RoPE linear scaling and query_pre_attn_scalar when loaded from a llama.cpp GGUF",
+            "state": "open",
+            "state_reason": null,
+            "updated_at": "2026-10-31T09:32:35Z",
+            "closed_at": null,
+            "assignees": null,
+            "comments": [
+              {
+                "url": "https://github.com/huggingface/transformers/issues/50196#issuecomment-6541734739",
+                "login": "mohitdixit02",
+                "id": 6541734739
+              }
+            ],
+            "disposition": {
+              "independent_reproduction_reported": false,
+              "volunteer_proposal": true,
+              "assignment_verified": false,
+              "maintainer_confirmation_verified": false,
+              "candidate_pr": null,
+              "merged_fix": null,
+              "released_fix": null,
+              "successful_original_reproduction_retest": null
+            }
+          }
+        },
+        {
+          "kind": "maintainer_loader_path_direction",
+          "url": "https://github.com/huggingface/transformers/issues/50196#issuecomment-6581298370",
+          "scope": "SunMarc directs support to the new GGUF loader; legacy implementation is no longer maintained. This is disposition guidance, not numerical fix confirmation."
+        }
+      ]
     },
     {
       "issue_number": 50197,
@@ -66,10 +152,16 @@
       "title": "GGUF reader: llama.cpp Mixtral loads as dense Llama with random MLPs; Qwen3 head_dim and Mistral detection not mapped",
       "state": "open",
       "state_reason": null,
-      "updated_at": "2026-10-31T04:21:54Z",
+      "updated_at": "2026-11-02T14:13:07Z",
       "closed_at": null,
       "assignees": null,
-      "comments": [],
+      "comments": [
+        {
+          "url": "https://github.com/huggingface/transformers/issues/50197#issuecomment-6579317339",
+          "login": "SunMarc",
+          "id": 6579317339
+        }
+      ],
       "disposition": {
         "independent_reproduction_reported": false,
         "volunteer_proposal": false,
@@ -77,9 +169,7 @@
         "maintainer_confirmation_verified": false,
         "candidate_pr": {
           "url": "https://github.com/huggingface/transformers/pull/50206",
-          "number": 50206,
-          "author": "RohanQ17",
-          "state": "open",
+          "state": "closed",
           "draft": false,
           "head_sha": "632906fb2a33eb1045f2ce0e3585e0ad32ecf14f",
           "merged": false,
@@ -95,8 +185,30 @@
               "url": "https://github.com/huggingface/transformers/pull/50206#issuecomment-6547310912",
               "login": "github-actions[bot]",
               "id": 6547310912
+            },
+            {
+              "url": "https://github.com/huggingface/transformers/pull/50206#issuecomment-6577095577",
+              "login": "Cyrilvallez",
+              "id": 6577095577
+            },
+            {
+              "url": "https://github.com/huggingface/transformers/pull/50206#issuecomment-6577321632",
+              "login": "JohnnyTeutonic",
+              "id": 6577321632
+            },
+            {
+              "url": "https://github.com/huggingface/transformers/pull/50206#issuecomment-6579335609",
+              "login": "SunMarc",
+              "id": 6579335609
+            },
+            {
+              "url": "https://github.com/huggingface/transformers/pull/50206#issuecomment-6580319132",
+              "login": "RohanQ17",
+              "id": 6580319132
             }
-          ]
+          ],
+          "number": 50206,
+          "author": "RohanQ17"
         },
         "merged_fix": null,
         "released_fix": null,
@@ -113,6 +225,71 @@
           "kind": "submitted_pr",
           "url": "https://github.com/huggingface/transformers/pull/50206",
           "scope": "Author reports six CPU mapping tests passing. CI security-gate bot is waiting for maintainer approval; no human confirmation or merge established."
+        },
+        {
+          "kind": "prior_published_observation",
+          "checked_on": "2026-11-01",
+          "record": {
+            "issue_number": 50197,
+            "url": "https://github.com/huggingface/transformers/issues/50197",
+            "title": "GGUF reader: llama.cpp Mixtral loads as dense Llama with random MLPs; Qwen3 head_dim and Mistral detection not mapped",
+            "state": "open",
+            "state_reason": null,
+            "updated_at": "2026-10-31T04:21:54Z",
+            "closed_at": null,
+            "assignees": null,
+            "comments": [],
+            "disposition": {
+              "independent_reproduction_reported": false,
+              "volunteer_proposal": false,
+              "assignment_verified": false,
+              "maintainer_confirmation_verified": false,
+              "candidate_pr": {
+                "url": "https://github.com/huggingface/transformers/pull/50206",
+                "number": 50206,
+                "author": "RohanQ17",
+                "state": "open",
+                "draft": false,
+                "head_sha": "632906fb2a33eb1045f2ce0e3585e0ad32ecf14f",
+                "merged": false,
+                "merged_at": null,
+                "verified_merge_commit": null,
+                "comments": [
+                  {
+                    "url": "https://github.com/huggingface/transformers/pull/50206#issuecomment-6547304151",
+                    "login": "github-actions[bot]",
+                    "id": 6547304151
+                  },
+                  {
+                    "url": "https://github.com/huggingface/transformers/pull/50206#issuecomment-6547310912",
+                    "login": "github-actions[bot]",
+                    "id": 6547310912
+                  }
+                ]
+              },
+              "merged_fix": null,
+              "released_fix": null,
+              "successful_original_reproduction_retest": null
+            },
+            "observations": [
+              {
+                "kind": "fork_test_commit",
+                "url": "https://github.com/anishpentyala/transformers/commit/67eb3ee8b236d2ec6264aa5d5f5671503a2ba05a",
+                "sha": "67eb3ee8b236d2ec6264aa5d5f5671503a2ba05a",
+                "scope": "Synthetic architecture-routing regression tests in a contributor fork; not an upstream merge or original-reproduction retest."
+              },
+              {
+                "kind": "submitted_pr",
+                "url": "https://github.com/huggingface/transformers/pull/50206",
+                "scope": "Author reports six CPU mapping tests passing. CI security-gate bot is waiting for maintainer approval; no human confirmation or merge established."
+              }
+            ]
+          }
+        },
+        {
+          "kind": "maintainer_loader_path_direction",
+          "url": "https://github.com/huggingface/transformers/pull/50206#issuecomment-6579335609",
+          "scope": "SunMarc directs support to the new GGUF loader; legacy implementation is no longer maintained. This is disposition guidance, not numerical fix confirmation."
         }
       ]
     },
@@ -194,8 +371,6 @@
         "maintainer_confirmation_verified": false,
         "candidate_pr": {
           "url": "https://github.com/ggml-org/llama.cpp/pull/31483",
-          "number": 31483,
-          "author": "kukirin-ui",
           "state": "open",
           "draft": false,
           "head_sha": "35e2854b272498ef79d503206782ba8aa7cc4450",
@@ -207,12 +382,25 @@
               "url": "https://github.com/ggml-org/llama.cpp/pull/31483#issuecomment-6548977403",
               "login": "ggml-gh-bot[bot]",
               "id": 6548977403
+            },
+            {
+              "url": "https://github.com/ggml-org/llama.cpp/pull/31483#issuecomment-6577358662",
+              "login": "JohnnyTeutonic",
+              "id": 6577358662
             }
-          ]
+          ],
+          "number": 31483,
+          "author": "kukirin-ui"
         },
         "merged_fix": null,
         "released_fix": null,
-        "successful_original_reproduction_retest": null
+        "successful_original_reproduction_retest": {
+          "scope": "Reporter tested every cut point; candidate refuses exactly broken cuts. Candidate-head result, not merged/released fix.",
+          "url": "https://github.com/ggml-org/llama.cpp/pull/31483#issuecomment-6577358662",
+          "head_sha": "35e2854b272498ef79d503206782ba8aa7cc4450",
+          "tested_on": "2026-11-02",
+          "merged_fix": false
+        }
       },
       "observations": [
         {
@@ -301,8 +489,8 @@
       }
     }
   ],
-  "checked_on": "2026-11-01",
-  "checked_at_utc": "2026-10-31T22:01:07Z",
+  "checked_on": "2026-11-03",
+  "checked_at_utc": "2026-11-02T22:04:00Z",
   "observation_timezone": "Australia/Sydney",
   "maintained_by": "Daily scheduled review, with publication on meaningful verified changes"
 }

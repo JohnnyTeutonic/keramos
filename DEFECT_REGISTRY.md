@@ -5,7 +5,7 @@ Each entry connects the execution contract, a reproduction, the evidence and the
 upstream disposition. These external engines do not claim to implement Keramos;
 the contract supplies an explicit oracle for investigating their native behaviour.
 
-Last published upstream observation: **1 November 2026 (Sydney)**.
+Last published upstream observation: **3 November 2026 (Sydney)**.
 [Machine-readable issue observations](defects/upstream_status.json).
 There are eight filed upstream issues; one contains three distinct mapping findings.
 Contributor activity is recorded below. No merged or released fix is established
@@ -40,11 +40,11 @@ unattributed discrepancies remain in the adapter findings, outside the issue cou
 - Scope: transformers 5.20.2 CPU reference path; the native public-checkpoint
   reproduction distinguishes multi-token continuation from token-by-token continuation.
 - Upstream: [transformers #50195](https://github.com/huggingface/transformers/issues/50195).
-- Status: **independently reproduced; contributor volunteering a fix**.
+- Status: **independently reproduced; candidate PR submitted and CPU retested**.
   [ps-abhi's reproduction](https://github.com/huggingface/transformers/issues/50195#issuecomment-6540811484);
   [author handoff](https://github.com/huggingface/transformers/issues/50195#issuecomment-6542210716).
   The related Mamba-2 PR is background, not a verified fix for this entry.
-- Resolution / retest: no verified fix or retest recorded yet.
+- Resolution / retest: [PR #50250](https://github.com/huggingface/transformers/pull/50250), head `be493dda56a8418dd9d2ebf4ce63d33dd93392af`, remains open and unmerged. The [reporter CPU retest](https://github.com/huggingface/transformers/pull/50250#issuecomment-6577288502) reduced the mamba-130m chunk error from about 116 to 0.0001 and passed chunk, truncate and snapshot traces. GPU kernels and the other three model families were not tested by this retest. No merged or released fix is established.
 
 ### LC-WINDOW-REWIND — a successful rewind must leave a usable prefix state
 
@@ -63,9 +63,9 @@ unattributed discrepancies remain in the adapter findings, outside the issue cou
   [PR #31483](https://github.com/ggml-org/llama.cpp/pull/31483), head
   `35e2854b272498ef79d503206782ba8aa7cc4450`, proposes refusing the cut before
   touching either cache. Its author reports a before/after regression and existing
-  context tests passing; Keramos has not rerun them. A bot flags the new-contributor
+  context tests passing; the [reporter retest](https://github.com/ggml-org/llama.cpp/pull/31483#issuecomment-6577358662) subsequently confirmed refusal at exactly the broken cut points. A bot flags the new-contributor
   open-PR limit. A requested reviewer is not assignment or maintainer confirmation.
-- Resolution / retest: none recorded; the server's existing guard is a control,
+- Resolution / retest: the candidate head has a successful original-reproduction retest; it remains open and unmerged. The server's existing guard is a control,
   not evidence that the library API was fixed.
 
 ## Graph construction and numerical semantics
@@ -73,24 +73,22 @@ unattributed discrepancies remain in the adapter findings, outside the issue cou
 | ID / finding | Contract used for diagnosis | Reproduction and evidence | Upstream / current status |
 |---|---|---|---|
 | HF-GEMMA3-CONFIG: GGUF loading loses global RoPE scaling and the attention scalar | [RoPE §5.14](IR_SPEC.md#514-rope), [attention §5.15](IR_SPEC.md#515-attention), metadata-derived graph (Appendix D) | [GGUF probe](adapters/hf/repro/gguf_gemma3.py), [findings](adapters/hf/FINDINGS.txt); transformers 5.20.2, synthetic Gemma 3, same-tensor config substitution controls | [#50196](https://github.com/huggingface/transformers/issues/50196), **proposed fix; contributor volunteering**. [Proposal](https://github.com/huggingface/transformers/issues/50196#issuecomment-6541734739). No independent reproduction or merged fix established by that comment. |
-| HF-MIXTRAL-GRAPH: llama-with-experts GGUF becomes a dense Llama with newly initialised MLPs | Metadata-derived graph and [closed-set refusal](IR_SPEC.md#10-validation): preserve expert/router semantics or explicitly refuse unsupported input | [Mixtral probe](adapters/hf/repro/gguf_mixtral.py), [findings](adapters/hf/FINDINGS.txt); synthetic GGUF, direct Mixtral construction as control | [#50197](https://github.com/huggingface/transformers/issues/50197), **candidate PR submitted, open**, part 1: [#50206](https://github.com/huggingface/transformers/pull/50206) |
-| HF-QWEN3-HEAD: GGUF key length does not determine the loaded head dimension | Metadata-derived projection/head geometry and [attention](IR_SPEC.md#515-attention) | [mapping-gap probe](adapters/hf/repro/gguf_gaps.py), [findings](adapters/hf/FINDINGS.txt); non-default synthetic head size, first-forward shape error | [#50197](https://github.com/huggingface/transformers/issues/50197), **candidate PR submitted, open**, part 2: [#50206](https://github.com/huggingface/transformers/pull/50206) |
-| HF-MISTRAL-DETECTION: model-name detection loses Mistral's window | [Attention window](IR_SPEC.md#515-attention), metadata-derived graph | [mapping-gap probe](adapters/hf/repro/gguf_gaps.py), [findings](adapters/hf/FINDINGS.txt); GGUF reader and name/detection controls | [#50197](https://github.com/huggingface/transformers/issues/50197), **candidate PR submitted, open**, part 3: [#50206](https://github.com/huggingface/transformers/pull/50206) |
+| HF-MIXTRAL-GRAPH: llama-with-experts GGUF becomes a dense Llama with newly initialised MLPs | Metadata-derived graph and [closed-set refusal](IR_SPEC.md#10-validation): preserve expert/router semantics or explicitly refuse unsupported input | [Mixtral probe](adapters/hf/repro/gguf_mixtral.py), [findings](adapters/hf/FINDINGS.txt); synthetic GGUF, direct Mixtral construction as control | [#50197](https://github.com/huggingface/transformers/issues/50197), **candidate PR closed unmerged; new-loader implementation requested**, part 1: [#50206](https://github.com/huggingface/transformers/pull/50206) |
+| HF-QWEN3-HEAD: GGUF key length does not determine the loaded head dimension | Metadata-derived projection/head geometry and [attention](IR_SPEC.md#515-attention) | [mapping-gap probe](adapters/hf/repro/gguf_gaps.py), [findings](adapters/hf/FINDINGS.txt); non-default synthetic head size, first-forward shape error | [#50197](https://github.com/huggingface/transformers/issues/50197), **candidate PR closed unmerged; new-loader implementation requested**, part 2: [#50206](https://github.com/huggingface/transformers/pull/50206) |
+| HF-MISTRAL-DETECTION: model-name detection loses Mistral's window | [Attention window](IR_SPEC.md#515-attention), metadata-derived graph | [mapping-gap probe](adapters/hf/repro/gguf_gaps.py), [findings](adapters/hf/FINDINGS.txt); GGUF reader and name/detection controls | [#50197](https://github.com/huggingface/transformers/issues/50197), **candidate PR closed unmerged; new-loader implementation requested**, part 3: [#50206](https://github.com/huggingface/transformers/pull/50206) |
 | LC-NEOX-GELU: GPT-NeoX uses tanh GELU where the checkpoint declares erf GELU | [GELU §5.8](IR_SPEC.md#58-gelu), GPT-NeoX graph in Appendix D | [Pythia comparison](adapters/llamacpp/repro/pythia_compare.py), [b6000 probe](adapters/llamacpp/probe_b6000.json), [findings](adapters/llamacpp/FINDINGS.txt); synthetic model and activation/table controls | [llama.cpp #31456](https://github.com/ggml-org/llama.cpp/issues/31456), **contributor proposal; activation scope clarified**, open; details below |
 | ORT-GEMMA3-LOCAL-ROPE: local rotary caches inherit global scaling | [RoPE §5.14](IR_SPEC.md#514-rope), Gemma 3 per-layer graph | [reproduction](adapters/ortgenai/repro/gemma3.py), [local-only diagnostic correction](adapters/ortgenai/repro/builder_local_rope_fix.py), [findings](adapters/ortgenai/FINDINGS.txt); synthetic model, documented config/head-size workarounds | [ORT GenAI #2831](https://github.com/microsoft/onnxruntime-genai/issues/2831), **reported, open** |
 | ORT-MISTRAL-WINDOW: builder omits sliding attention when layer_types is absent | [Attention window §5.15](IR_SPEC.md#515-attention) | [reproduction](adapters/ortgenai/repro/mistral.py), [findings](adapters/ortgenai/FINDINGS.txt); builder 0.18.0, synthetic model, no-window reference control | [ORT GenAI #2832](https://github.com/microsoft/onnxruntime-genai/issues/2832), **reported, open** |
 | ORT-GQA-SHAPE: emitted CPU fused-rotary GQA cannot execute the configured head size | [Explicit capability refusal §10.3](IR_SPEC.md#103-engine-capability-refusals) and attention geometry; a native builder/kernel compatibility finding | [head-size matrix](adapters/ortgenai/repro/head_size.py), [unfused control](adapters/ortgenai/repro/builder_unfused_rope.py), [findings](adapters/ortgenai/FINDINGS.txt); CPU kernel constraints differ with fused rotary | [ORT GenAI #2833](https://github.com/microsoft/onnxruntime-genai/issues/2833), **reported, open** |
 
 For the table's open reports, **no verified fix, fixed release or post-fix retest
-is recorded yet**. This describes the linked observations, not a claim that no
+is recorded for the remaining table entries**. This describes the linked observations, not a claim that no
 unlinked work exists. The Gemma 3 proposal is recorded as a proposal; its attention
 scalar expression is not endorsed as an implemented or validated correction.
 
 For #50197, RohanQ17's [PR #50206](https://github.com/huggingface/transformers/pull/50206)
 at head `632906fb2a33eb1045f2ce0e3585e0ad32ecf14f` proposes all three mapping
-corrections and reports six CPU tests passing. Its CI security gate is waiting
-for maintainer approval; no human confirmation, merge, release or original-probe
-retest is established. A separate contributor-fork
+corrections and reports six CPU tests passing. It was [closed unmerged by SunMarc](https://github.com/huggingface/transformers/pull/50206#issuecomment-6579335609): support should be added through the new GGUF loader rather than repairing the legacy path. The [reporter retest](https://github.com/huggingface/transformers/pull/50206#issuecomment-6577321632) found the Mixtral/Qwen3 fixes but also an unintended default Mistral window and Llama 4 acceptance as Mixtral. Closure does not resolve those findings. A separate contributor-fork
 [test commit](https://github.com/anishpentyala/transformers/commit/67eb3ee8b236d2ec6264aa5d5f5671503a2ba05a)
 references the issue; it is test work, not an upstream merged fix.
 
@@ -130,3 +128,5 @@ bound. Record FAIL or operational ERROR as such. Never infer a fix from closure,
 silently weaken a bound, or overwrite historical receipts. Runtime work and paid
 compute remain separate from status upkeep. No comments or messages are posted to
 other projects as part of upkeep.
+
+On Gemma 3 #50196, [SunMarc requests migration to the new loader](https://github.com/huggingface/transformers/issues/50196#issuecomment-6581298370). This is maintainer direction, not assignment, a validated correction or a merged fix. The original contributor proposal remains historical evidence.
