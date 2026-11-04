@@ -5,7 +5,7 @@ Each entry connects the execution contract, a reproduction, the evidence and the
 upstream disposition. These external engines do not claim to implement Keramos;
 the contract supplies an explicit oracle for investigating their native behaviour.
 
-Last published upstream observation: **4 November 2026 (Sydney)**.
+Last published upstream observation: **5 November 2026 (Sydney)**.
 [Machine-readable issue observations](defects/upstream_status.json).
 There are eight filed upstream issues; one contains three distinct mapping findings.
 Contributor activity is recorded below. No merged or released fix is established
@@ -101,7 +101,7 @@ This preserves the original erf-checkpoint finding, rather than generalising it
 to every GPT-NeoX checkpoint. No corresponding submitted PR or Keramos retest was
 verified in this check.
 
-New discussion on [Mamba #50195](https://github.com/huggingface/transformers/issues/50195#issuecomment-6602374065) questions the candidate's per-token-loop performance and treats it as low priority. The [contributor reports](https://github.com/huggingface/transformers/issues/50195#issuecomment-6613545704) overhead up to 3x without kernels and 109x for a 1024-token chunk with kernels on mamba-130m/L4, and offers a parallel alternative. These are contributor measurements, not independently reproduced here. The candidate head and historical CPU correctness retest are unchanged; no merge or release is established.
+New discussion on [Mamba #50195](https://github.com/huggingface/transformers/issues/50195#issuecomment-6602374065) questions the candidate's per-token-loop performance and treats it as low priority. The [contributor reports](https://github.com/huggingface/transformers/issues/50195#issuecomment-6613545704) overhead up to 3x without kernels and 109x for a 1024-token chunk with kernels on mamba-130m/L4, and offers a parallel alternative. These are contributor measurements, not independently reproduced here. The candidate head and historical CPU correctness retest are unchanged; no merge or release is established. A [subsequent maintainer comment](https://github.com/huggingface/transformers/issues/50195#issuecomment-6629369869) expresses uncertainty about the fix direction and suggests documenting the limitation for users, noting its dependence on the kernel implementation. This is documentation direction, not a submitted documentation PR or a verified fix.
 
 For ORT #2833, [PR #2850](https://github.com/microsoft/onnxruntime-genai/pull/2850) selects standalone rotary or packed Attention according to CPU head size. An [automated review](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4450332017) flagged QKV packing with standalone rotary in an earlier revision. At the current head, the [contributor reports](https://github.com/microsoft/onnxruntime-genai/pull/2850#issuecomment-6599012332) 121 focused tests passing, two full-builder-suite failures and one of 19 native CTest entries failing. Those failures also occurred on earlier PR heads; that does not prove they predate the entire PR. No maintainer confirmation, successful original-reproduction runtime retest, merge or release is established by these reports.
 

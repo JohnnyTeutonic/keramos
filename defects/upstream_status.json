@@ -7,7 +7,7 @@
       "title": "Mamba (Mamba-1): forward of several tokens over a primed cache restarts the selective scan from zero and returns wrong logits",
       "state": "open",
       "state_reason": null,
-      "updated_at": "2026-11-03T19:33:02Z",
+      "updated_at": "2026-11-04T11:25:41Z",
       "closed_at": null,
       "assignees": null,
       "comments": [
@@ -30,6 +30,11 @@
           "url": "https://github.com/huggingface/transformers/issues/50195#issuecomment-6613545704",
           "login": "ps-abhi",
           "id": 6613545704
+        },
+        {
+          "url": "https://github.com/huggingface/transformers/issues/50195#issuecomment-6629369869",
+          "login": "vasqu",
+          "id": 6629369869
         }
       ],
       "disposition": {
@@ -154,6 +159,11 @@
           "kind": "contributor_benchmark_report",
           "url": "https://github.com/huggingface/transformers/issues/50195#issuecomment-6613545704",
           "scope": "ps-abhi reports up to 3x overhead without kernels and 109x for a 1024-token chunk with kernels on mamba-130m/L4, and offers a parallel alternative. Contributor-reported measurements, not independently reproduced here. Candidate head unchanged; prior CPU retest preserved."
+        },
+        {
+          "kind": "maintainer_direction",
+          "url": "https://github.com/huggingface/transformers/issues/50195#issuecomment-6629369869",
+          "scope": "Maintainer is uncertain about the current fix direction and suggests documenting the limitation for users; notes dependence on kernel implementation. Documentation suggestion only, not a submitted documentation PR, correctness confirmation, merge or release. Candidate head and historical CPU retest unchanged."
         }
       ]
     },
@@ -765,8 +775,8 @@
       ]
     }
   ],
-  "checked_on": "2026-11-04",
-  "checked_at_utc": "2026-11-03T22:03:24.181936+00:00",
+  "checked_on": "2026-11-05",
+  "checked_at_utc": "2026-11-04T22:02:32.779391+00:00",
   "observation_timezone": "Australia/Sydney",
   "maintained_by": "Daily scheduled review, with publication on meaningful verified changes"
 }
