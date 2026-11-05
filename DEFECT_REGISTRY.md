@@ -5,7 +5,7 @@ Each entry connects the execution contract, a reproduction, the evidence and the
 upstream disposition. These external engines do not claim to implement Keramos;
 the contract supplies an explicit oracle for investigating their native behaviour.
 
-Last published upstream observation: **5 November 2026 (Sydney)**.
+Last published upstream observation: **6 November 2026 (Sydney)**.
 [Machine-readable issue observations](defects/upstream_status.json).
 There are twelve filed upstream issue numbers, including three duplicate ORT reports;
 the paper groups the findings as nine defects (G1-G9), with three mapping subfindings.
@@ -148,3 +148,9 @@ compute remain separate from status upkeep. No comments or messages are posted t
 other projects as part of upkeep.
 
 On Gemma 3 #50196, [SunMarc requests migration to the new loader](https://github.com/huggingface/transformers/issues/50196#issuecomment-6581298370). This is maintainer direction, not assignment, a validated correction or a merged fix. The original contributor proposal remains historical evidence.
+
+## CPU GQA candidate follow-up (6 November 2026)
+
+PR #2850 remains open/unmerged and now has head `80ac7a53399221e16a8e2182bde94b18ccb4f616`; the `86e8d05` head above is historical. [Human reviewer tianleiwu](https://github.com/microsoft/onnxruntime-genai/pull/2850#pullrequestreview-5777161077) reports that older head `aebe897e` passed 121 focused tests and tiny Llama head sizes 8/16/24 within 3e-7 of PyTorch, while head sizes 4/12 exported unloadable graphs. The base loaded before encountering its original kernel restriction, identifying an additional fallback regression. That review is currently **dismissed**, not an approval of the new head. These are the reviewer's runtime measurements, not a fresh independent Keramos retest.
+
+[Automated review](https://github.com/microsoft/onnxruntime-genai/pull/2850#pullrequestreview-5781170817) additionally flags per-layer Gemma4 geometry, SmolLM3 fusion, Qwen3.5 cache selection, lost attention features, test defects and missing end-to-end coverage. These are automated findings, not independently verified defects. #2869's automated approval recommendation likewise is not maintainer approval or a merged fix. The original bounds, older test reports and unresolved current-head status remain preserved; no merged or released fix is established.

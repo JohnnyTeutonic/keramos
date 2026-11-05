@@ -732,7 +732,7 @@
           "url": "https://github.com/microsoft/onnxruntime-genai/pull/2850",
           "state": "open",
           "draft": false,
-          "head_sha": "86e8d05d6a7fccb6b28ef193efa24dc72d9c3525",
+          "head_sha": "80ac7a53399221e16a8e2182bde94b18ccb4f616",
           "merged": false,
           "merged_at": null,
           "author": "mikemikimike",
@@ -817,6 +817,33 @@
           "merged": false,
           "head_sha": "11f2e9166c0c5306f9edefa1dd9d42517b206f44",
           "scope": "Native build and numerical verification explicitly pending. No successful original-reproduction retest established."
+        },
+        {
+          "kind": "candidate_head_changed",
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2850",
+          "previous_head": "86e8d05d6a7fccb6b28ef193efa24dc72d9c3525",
+          "head_sha": "80ac7a53399221e16a8e2182bde94b18ccb4f616",
+          "scope": "Open and unmerged; older test reports do not validate the new head."
+        },
+        {
+          "kind": "human_review_runtime_report",
+          "id": 5777161077,
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2850#pullrequestreview-5777161077",
+          "login": "tianleiwu",
+          "state": "DISMISSED",
+          "commit_id": "aebe897e18f5caa06bab2108649d375ef3af71b5",
+          "body": "Reviewed commit `aebe897e18f5caa06bab2108649d375ef3af71b5`. Requesting changes for the non-aligned CPU fallback below.\n\nValidation:\n- All 121 focused tests passed: `test_qkv_fusion.py`, `test_gqa_attributes.py`, and `test_windowed_kv_cache.py`.\n- Tiny one-layer FP32 Llama exports with 4 query heads and 2 or 4 KV heads matched PyTorch at head sizes 8, 16, and 24 (maximum absolute error below 3e-7).\n- Head sizes 4 and 12 exported unloadable graphs. Comparing with base `743cc24c7` confirmed that the base graphs load and then hit the original GQA kernel constraint; the graph-load failure comes from the newly selected packed-Attention fallback.\n- Using the existing MultiHeadAttention fallback made the head-size-4/12 cases load and match PyTorch.\n\nRuntime used for the numerical/load checks: ONNX Runtime 1.31.0, Transformers 5.14.1.",
+          "scope": "Attributed upstream report only; not independently rerun by this upkeep. Human review status DISMISSED is preserved, not current approval. No current-head original-reproduction retest established."
+        },
+        {
+          "kind": "automated_review_finding",
+          "id": 5781170817,
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2850#pullrequestreview-5781170817",
+          "login": "copilot-pull-request-reviewer[bot]",
+          "state": "COMMENTED",
+          "commit_id": "86e8d05d6a7fccb6b28ef193efa24dc72d9c3525",
+          "body": "<!-- ccr-overview-v2 -->\n\n### 🟡 Changes recommended\n\nCritical CPU attention-path defects can silently drop required model features or produce invalid and runtime-failing graphs, while failing tests and missing end-to-end coverage leave these paths insufficiently verified.\n\n<details open>\n<summary><strong>7 open issues</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Validate head-size alignment for every Gemma4 layer](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477642916) · New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Honor CPU RoPE fusion limits in SmolLM3 layers](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477642957) · New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Select an existing attention-layer cache for the MHA mask](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477642995) · New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Reject unsupported attention features in the CPU fallback](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643050) · New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Initialize the fake model&#39;s packed matmul flag](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643093) · New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Compare rotary paths against MatMul output names](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643144) · New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Test CPU attention export and decode against a reference](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643178) · New\n</details>\n\n<details>\n<summary><strong>1 resolved since last review</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Split QKV when standalone RoPE is enabled](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4450332017)\n</details>\n\n<sub>Review effort: Max</sub>",
+          "scope": "Attributed upstream report only; not independently rerun by this upkeep. Human review status DISMISSED is preserved, not current approval. No current-head original-reproduction retest established."
         }
       ],
       "duplicate_of": 2791
@@ -954,8 +981,8 @@
       ]
     }
   ],
-  "checked_on": "2026-11-05",
-  "checked_at_utc": "2026-11-05T08:09:59.915666+00:00",
+  "checked_on": "2026-11-06",
+  "checked_at_utc": "2026-11-05T22:06:41.274876+00:00",
   "observation_timezone": "Australia/Sydney",
   "maintained_by": "Daily scheduled review, with publication on meaningful verified changes"
 }
