@@ -7,7 +7,9 @@ the contract supplies an explicit oracle for investigating their native behaviou
 
 Last published upstream observation: **5 November 2026 (Sydney)**.
 [Machine-readable issue observations](defects/upstream_status.json).
-There are eight filed upstream issues; one contains three distinct mapping findings.
+There are twelve filed upstream issue numbers, including three duplicate ORT reports;
+the paper groups the findings as nine defects (G1-G9), with three mapping subfindings.
+The earlier count of eight omitted four ORT filings from 27 October.
 Contributor activity is recorded below. No merged or released fix is established
 by the observations currently linked here.
 
@@ -104,6 +106,18 @@ verified in this check.
 New discussion on [Mamba #50195](https://github.com/huggingface/transformers/issues/50195#issuecomment-6602374065) questions the candidate's per-token-loop performance and treats it as low priority. The [contributor reports](https://github.com/huggingface/transformers/issues/50195#issuecomment-6613545704) overhead up to 3x without kernels and 109x for a 1024-token chunk with kernels on mamba-130m/L4, and offers a parallel alternative. These are contributor measurements, not independently reproduced here. The candidate head and historical CPU correctness retest are unchanged; no merge or release is established. A [subsequent maintainer comment](https://github.com/huggingface/transformers/issues/50195#issuecomment-6629369869) expresses uncertainty about the fix direction and suggests documenting the limitation for users, noting its dependence on the kernel implementation. This is documentation direction, not a submitted documentation PR or a verified fix.
 
 For ORT #2833, [PR #2850](https://github.com/microsoft/onnxruntime-genai/pull/2850) selects standalone rotary or packed Attention according to CPU head size. An [automated review](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4450332017) flagged QKV packing with standalone rotary in an earlier revision. At the current head, the [contributor reports](https://github.com/microsoft/onnxruntime-genai/pull/2850#issuecomment-6599012332) 121 focused tests passing, two full-builder-suite failures and one of 19 native CTest entries failing. Those failures also occurred on earlier PR heads; that does not prove they predate the entire PR. No maintainer confirmation, successful original-reproduction runtime retest, merge or release is established by these reports.
+
+## Earlier ORT filings and current candidates (5 November 2026)
+
+The 31 October triage omitted the 27 October filings: [#2788](https://github.com/microsoft/onnxruntime-genai/issues/2788) is the separate Gemma 3 nested-RoPE build failure (`KeyError: rope_type`); [#2789](https://github.com/microsoft/onnxruntime-genai/issues/2789)/#2831 are duplicate local-RoPE reports, [#2790](https://github.com/microsoft/onnxruntime-genai/issues/2790)/#2832 duplicate window reports, and [#2791](https://github.com/microsoft/onnxruntime-genai/issues/2791)/#2833 duplicate CPU-GQA reports. Duplicate reports add no defects. The paper groups nine defects under twelve issue numbers; the mapping finding contains three subfindings.
+
+Outside contributor 14H034160212 [traces both Gemma defects to source](https://github.com/microsoft/onnxruntime-genai/issues/2789#issuecomment-6643580433) and [confirms the window path](https://github.com/microsoft/onnxruntime-genai/issues/2832#issuecomment-6643569702). These are source confirmations, not maintainer confirmation or independently verified runtime retests. The contributor attributes the window regression to #2386/0.16.0 and names further model configurations; those extensions were not measured here.
+
+Local-RoPE [PR #2869](https://github.com/microsoft/onnxruntime-genai/pull/2869), head `e6d558e652de62a9273b0d39b5819d58fbef3742`, and window [PR #2866](https://github.com/microsoft/onnxruntime-genai/pull/2866), head `eacfe86684910c38f3a10a264940ab92a2e6d19b`, are open/unmerged. Their author test claims are not independent original-reproduction retests. #2869 explicitly does not fix #2788; no candidate addressing that build failure was verified.
+
+GQA [PR #2810](https://github.com/microsoft/onnxruntime-genai/pull/2810), head `804084ee9c104c4689f56fdb775c71c15d1b2600`, is open/unmerged alongside #2850, now head `86e8d05d6a7fccb6b28ef193efa24dc72d9c3525`. The historical #2850 tests above are of `aebe897e`, not its new head. [Review guidance](https://github.com/microsoft/onnxruntime-genai/pull/2810#pullrequestreview-5707714278) requests a kernel change instead. Linked [ORT PR #33768](https://github.com/microsoft/onnxruntime/pull/33768), head `11f2e9166c0c5306f9edefa1dd9d42517b206f44`, is open/unmerged and explicitly awaits native build and numerical verification. The earlier summary of no reviewer response omitted this #2810 guidance. An anticipated release is not a verified fixed release.
+
+No new merge, fixed release or successful original-reproduction retest is established. Historical numerical bounds and retests remain unchanged. Original ORT diagnoses and reproductions are linked from [the findings](adapters/ortgenai/FINDINGS.txt).
 
 ## Keramos-side repairs and specification clarifications
 

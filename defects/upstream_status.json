@@ -1,5 +1,5 @@
 {
-  "source": "Read-only GitHub connector: all eight issue metadata and full comment listings; issue-number PR searches; candidate PRs 50250, 50206, 31483, 50274 and 2850 with discussions/reviews. All candidate states/heads verified; no merged or released fix or fixed-release claim established. Historical observations and retests retained.",
+  "source": "Read-only GitHub connector: earlier ORT filings recovered, duplicate mapping and candidate heads verified. Historical observations retained; no new verified merge/release or original-reproduction retest.",
   "issues": [
     {
       "issue_number": 50195,
@@ -652,11 +652,20 @@
         "volunteer_proposal": false,
         "assignment_verified": false,
         "maintainer_confirmation_verified": false,
-        "candidate_pr": null,
+        "candidate_pr": {
+          "number": 2869,
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2869",
+          "state": "open",
+          "head_sha": "e6d558e652de62a9273b0d39b5819d58fbef3742",
+          "merged": false,
+          "merged_at": null,
+          "author": "sandeepvijayarao09"
+        },
         "merged_fix": null,
         "released_fix": null,
         "successful_original_reproduction_retest": null
-      }
+      },
+      "duplicate_of": 2789
     },
     {
       "issue_number": 2832,
@@ -664,20 +673,44 @@
       "title": "Model builder: Mistral sliding_window dropped (no layer_types, every layer full attention), regression since 0.15.2",
       "state": "open",
       "state_reason": null,
-      "updated_at": "2026-10-31T04:23:05Z",
+      "updated_at": "2026-11-04T22:18:35Z",
       "closed_at": null,
       "assignees": null,
-      "comments": [],
+      "comments": [
+        {
+          "url": "https://github.com/microsoft/onnxruntime-genai/issues/2832#issuecomment-6643569702",
+          "login": "14H034160212",
+          "id": 6643569702
+        }
+      ],
       "disposition": {
         "independent_reproduction_reported": false,
         "volunteer_proposal": false,
         "assignment_verified": false,
         "maintainer_confirmation_verified": false,
-        "candidate_pr": null,
+        "candidate_pr": {
+          "number": 2866,
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2866",
+          "state": "open",
+          "head_sha": "eacfe86684910c38f3a10a264940ab92a2e6d19b",
+          "merged": false,
+          "merged_at": null,
+          "author": "14H034160212"
+        },
         "merged_fix": null,
         "released_fix": null,
         "successful_original_reproduction_retest": null
-      }
+      },
+      "observations": [
+        {
+          "kind": "outside_contributor_source_confirmation",
+          "url": "https://github.com/microsoft/onnxruntime-genai/issues/2832#issuecomment-6643569702",
+          "scope": "I can confirm this. It came in with #2386 (first released in 0.16.0), which made the window per layer:\n\n- `make_attention` now builds each layer with `self.window_size if self.is_local(layer_id) else -1` (`src/python/py/models/builders/base.py:5202`).\n- `is_local` reads `self.layer_types`, and when the config has no `layer_types` the builder falls back to `[\"full_attention\"] * self.num_layers` (`base.py:141-145`).\n\n`MistralConfig` has no `layer_types` (4.57.6 and 5.22.1), so every layer gets `local_window_size = -1`. The same happens to `Phi3Config` with `sliding_window` set (Phi-3-mini-4k-instruct has 2047) and to a `Mistral3ForConditionalGeneration` whose text config has a `sliding_window`. Configs that have `layer_types` (Qwen2, Gemma 2/3, gpt-oss, SmolLM3) are not affected.\n\nThe fix: when `layer_types` is missing, mark every layer `\"sliding_attention\"` if `sliding_window` is a positive int and `use_sliding_window` is not `False`, otherwise `\"full_attention\"`. This is what 0.15.2 did, and what transformers does for these models. I have a PR ready with unit tests (tiny Mistral/Phi-3/Qwen2 configs, no weights).\n",
+          "runtime_retest_verified": false,
+          "maintainer_confirmation": false
+        }
+      ],
+      "duplicate_of": 2790
     },
     {
       "issue_number": 2833,
@@ -699,7 +732,7 @@
           "url": "https://github.com/microsoft/onnxruntime-genai/pull/2850",
           "state": "open",
           "draft": false,
-          "head_sha": "aebe897e18f5caa06bab2108649d375ef3af71b5",
+          "head_sha": "86e8d05d6a7fccb6b28ef193efa24dc72d9c3525",
           "merged": false,
           "merged_at": null,
           "author": "mikemikimike",
@@ -771,12 +804,158 @@
           "kind": "contributor_test_report",
           "url": "https://github.com/microsoft/onnxruntime-genai/pull/2850#issuecomment-6599012332",
           "scope": "At aebe897e contributor reports 121 focused tests passing; full builder suite 2662 passed/29 skipped/2 failures and native CTest 18/19. Failures also occurred on earlier PR heads, not proven to predate the entire PR. No independent original-reproduction retest or released fix established."
+        },
+        {
+          "kind": "reviewer_direction",
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2810#pullrequestreview-5707714278",
+          "scope": "kunal-vaishnavi requested kernel support instead of unfused fallback. Subsequent comment6536085450 anticipates release; not proof of merge/release."
+        },
+        {
+          "kind": "upstream_kernel_candidate",
+          "url": "https://github.com/microsoft/onnxruntime/pull/33768",
+          "state": "open",
+          "merged": false,
+          "head_sha": "11f2e9166c0c5306f9edefa1dd9d42517b206f44",
+          "scope": "Native build and numerical verification explicitly pending. No successful original-reproduction retest established."
+        }
+      ],
+      "duplicate_of": 2791
+    },
+    {
+      "issue_number": 2788,
+      "url": "https://github.com/microsoft/onnxruntime-genai/issues/2788",
+      "title": "Model builder: Gemma 3 fails with KeyError 'rope_type' under transformers 5",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-10-27T01:50:32Z",
+      "closed_at": null,
+      "assignees": null,
+      "disposition": {
+        "assignment_verified": false,
+        "maintainer_confirmation_verified": false,
+        "merged_fix": null,
+        "released_fix": null,
+        "successful_original_reproduction_retest": null
+      },
+      "comments": []
+    },
+    {
+      "issue_number": 2789,
+      "url": "https://github.com/microsoft/onnxruntime-genai/issues/2789",
+      "title": "Model builder: Gemma 3's sliding-window layers get the global layers' linear RoPE scaling",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-11-04T22:19:09Z",
+      "closed_at": null,
+      "assignees": null,
+      "disposition": {
+        "assignment_verified": false,
+        "maintainer_confirmation_verified": false,
+        "merged_fix": null,
+        "released_fix": null,
+        "successful_original_reproduction_retest": null,
+        "candidate_pr": {
+          "number": 2869,
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2869",
+          "state": "open",
+          "head_sha": "e6d558e652de62a9273b0d39b5819d58fbef3742",
+          "merged": false,
+          "merged_at": null,
+          "author": "sandeepvijayarao09"
+        }
+      },
+      "comments": [
+        {
+          "url": "https://github.com/microsoft/onnxruntime-genai/issues/2789#issuecomment-6643580433",
+          "login": "14H034160212",
+          "id": 6643580433
+        }
+      ],
+      "observations": [
+        {
+          "kind": "outside_contributor_source_confirmation",
+          "url": "https://github.com/microsoft/onnxruntime-genai/issues/2789#issuecomment-6643580433",
+          "scope": "I looked into #2789/#2831 and #2788 together, since they are both in Gemma 3's RoPE setup.\n\n#2789 (#2831 is the same): `Gemma3Model.make_rotary_embedding_multi_cache` (`src/python/py/models/builders/gemma.py:134-147`) builds the local caches after changing only `rope_attrs[\"theta\"]` (line 142). `rope_attrs[\"rescale_factors\"]` still holds the global linear factor set in `Model.make_rope_init` (`base.py:745`), so the local caches are scaled by 1/8 on Gemma 3 4B/12B/27B. transformers uses default, unscaled RoPE with `rope_local_base_freq` for the local layers (4.57.6: `rotary_emb_local` with `rope_scaling={\"rope_type\": \"default\"}`; 5.x: the `sliding_attention` entry, `rope_type: \"default\"`).\n\n#2788: under transformers 5, Gemma 3's `rope_parameters` is nested per layer type, and the config no longer has `rope_theta` or `rope_local_base_freq`. `Model.make_rope_init` reads `config.rope_parameters[\"rope_type\"]` (`base.py:717`) and raises `KeyError`. `Gemma3Model` has no `make_rope_init` of its own, unlike `Gemma4Model`.\n\nFix: `Gemma3Model.make_rope_init` reads the nested form (the `full_attention` entry for the global caches and their theta, and the `sliding_attention` theta for the local caches). `make_rotary_embedding_multi_cache` builds the local caches with `rescale_factors = 1` and no other global scaling, then restores the global RoPE attributes. I have a PR ready, with tests that compare the cos/sin caches against transformers' own Gemma 3 rotary embedding for the 4.x and 5.x config forms.\n",
+          "runtime_retest_verified": false,
+          "maintainer_confirmation": false
+        }
+      ],
+      "duplicate_issue_number": 2831
+    },
+    {
+      "issue_number": 2790,
+      "url": "https://github.com/microsoft/onnxruntime-genai/issues/2790",
+      "title": "Model builder: Mistral's sliding window is no longer applied (local_window_size -1 on every layer)",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-10-27T01:50:35Z",
+      "closed_at": null,
+      "assignees": null,
+      "disposition": {
+        "assignment_verified": false,
+        "maintainer_confirmation_verified": false,
+        "merged_fix": null,
+        "released_fix": null,
+        "successful_original_reproduction_retest": null,
+        "candidate_pr": {
+          "number": 2866,
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2866",
+          "state": "open",
+          "head_sha": "eacfe86684910c38f3a10a264940ab92a2e6d19b",
+          "merged": false,
+          "merged_at": null,
+          "author": "14H034160212"
+        }
+      },
+      "comments": [],
+      "duplicate_issue_number": 2832
+    },
+    {
+      "issue_number": 2791,
+      "url": "https://github.com/microsoft/onnxruntime-genai/issues/2791",
+      "title": "Model builder: CPU fp32 models with head_size % 16 != 0 build but fail at the first token (fused rotary in GroupQueryAttention)",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-10-27T01:50:47Z",
+      "closed_at": null,
+      "assignees": null,
+      "disposition": {
+        "assignment_verified": false,
+        "maintainer_confirmation_verified": false,
+        "merged_fix": null,
+        "released_fix": null,
+        "successful_original_reproduction_retest": null,
+        "candidate_pr": {
+          "number": 2810,
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2810",
+          "state": "open",
+          "head_sha": "804084ee9c104c4689f56fdb775c71c15d1b2600",
+          "merged": false,
+          "merged_at": null,
+          "author": "Shoryamishra61"
+        }
+      },
+      "comments": [],
+      "duplicate_issue_number": 2833,
+      "observations": [
+        {
+          "kind": "reviewer_direction",
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2810#pullrequestreview-5707714278",
+          "scope": "kunal-vaishnavi requested kernel support instead of unfused fallback. Subsequent comment6536085450 anticipates release; not proof of merge/release."
+        },
+        {
+          "kind": "upstream_kernel_candidate",
+          "url": "https://github.com/microsoft/onnxruntime/pull/33768",
+          "state": "open",
+          "merged": false,
+          "head_sha": "11f2e9166c0c5306f9edefa1dd9d42517b206f44",
+          "scope": "Native build and numerical verification explicitly pending. No successful original-reproduction retest established."
         }
       ]
     }
   ],
   "checked_on": "2026-11-05",
-  "checked_at_utc": "2026-11-04T22:02:32.779391+00:00",
+  "checked_at_utc": "2026-11-05T08:09:59.915666+00:00",
   "observation_timezone": "Australia/Sydney",
   "maintained_by": "Daily scheduled review, with publication on meaningful verified changes"
 }
