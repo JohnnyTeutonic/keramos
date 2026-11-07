@@ -1,5 +1,5 @@
 {
-  "source": "Read-only GitHub connector: earlier ORT filings recovered, duplicate mapping and candidate heads verified. Historical observations retained; no new verified merge/release or original-reproduction retest.",
+  "source": "Read-only GitHub connector: twelve issues and their comments, nine linked candidate PRs and discussions checked. ORT kernel candidate head/review/CI follow-up recorded; historical observations retained. No verified merge, fixed release or original-reproduction retest.",
   "issues": [
     {
       "issue_number": 50195,
@@ -844,6 +844,50 @@
           "commit_id": "86e8d05d6a7fccb6b28ef193efa24dc72d9c3525",
           "body": "<!-- ccr-overview-v2 -->\n\n### 🟡 Changes recommended\n\nCritical CPU attention-path defects can silently drop required model features or produce invalid and runtime-failing graphs, while failing tests and missing end-to-end coverage leave these paths insufficiently verified.\n\n<details open>\n<summary><strong>7 open issues</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Validate head-size alignment for every Gemma4 layer](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477642916) · New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Honor CPU RoPE fusion limits in SmolLM3 layers](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477642957) · New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Select an existing attention-layer cache for the MHA mask](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477642995) · New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Reject unsupported attention features in the CPU fallback](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643050) · New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Initialize the fake model&#39;s packed matmul flag](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643093) · New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Compare rotary paths against MatMul output names](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643144) · New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Test CPU attention export and decode against a reference](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643178) · New\n</details>\n\n<details>\n<summary><strong>1 resolved since last review</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Split QKV when standalone RoPE is enabled](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4450332017)\n</details>\n\n<sub>Review effort: Max</sub>",
           "scope": "Attributed upstream report only; not independently rerun by this upkeep. Human review status DISMISSED is preserved, not current approval. No current-head original-reproduction retest established."
+        },
+        {
+          "kind": "upstream_kernel_candidate_followup",
+          "observed_on": "2026-11-08",
+          "url": "https://github.com/microsoft/onnxruntime/pull/33768",
+          "state": "open",
+          "merged": false,
+          "head_sha": "866a22a42dc24500a76f2e88da74fe560b3763db",
+          "previous_observed_head": "11f2e9166c0c5306f9edefa1dd9d42517b206f44",
+          "review_states_verified": [
+            {
+              "url": "https://github.com/microsoft/onnxruntime/pull/33768#pullrequestreview-5809443079",
+              "login": "kunal-vaishnavi",
+              "state": "DISMISSED"
+            },
+            {
+              "url": "https://github.com/microsoft/onnxruntime/pull/33768#pullrequestreview-5811497533",
+              "login": "kunal-vaishnavi",
+              "state": "DISMISSED"
+            }
+          ],
+          "contributor_update": {
+            "url": "https://github.com/microsoft/onnxruntime/pull/33768#issuecomment-6703869862",
+            "login": "Shoryamishra61",
+            "scope": "Contributor reports syncing upstream and adding a FlashAttention fallback assertion; says previous approval was invalidated by the stale-review policy. The current PR body additionally describes accepting MATH fallback under ORT_QUICK_BUILD."
+          },
+          "current_head_ci": {
+            "source": "Read-only GitHub workflow-runs connector, first page only",
+            "conclusions": [
+              "action_required"
+            ],
+            "examples": [
+              {
+                "url": "https://github.com/microsoft/onnxruntime/actions/runs/42368988690",
+                "name": "Linux CUDA CI"
+              },
+              {
+                "url": "https://github.com/microsoft/onnxruntime/actions/runs/42368988687",
+                "name": "Linux CI"
+              }
+            ],
+            "scope": "Returned current-head PR workflow runs require action; not evidence of a successful current-head native or numerical test."
+          },
+          "scope": "Earlier numerical claims remain contributor reports. No current approval, merged/released fix or successful Keramos original-reproduction retest established."
         }
       ],
       "duplicate_of": 2791
@@ -977,12 +1021,56 @@
           "merged": false,
           "head_sha": "11f2e9166c0c5306f9edefa1dd9d42517b206f44",
           "scope": "Native build and numerical verification explicitly pending. No successful original-reproduction retest established."
+        },
+        {
+          "kind": "upstream_kernel_candidate_followup",
+          "observed_on": "2026-11-08",
+          "url": "https://github.com/microsoft/onnxruntime/pull/33768",
+          "state": "open",
+          "merged": false,
+          "head_sha": "866a22a42dc24500a76f2e88da74fe560b3763db",
+          "previous_observed_head": "11f2e9166c0c5306f9edefa1dd9d42517b206f44",
+          "review_states_verified": [
+            {
+              "url": "https://github.com/microsoft/onnxruntime/pull/33768#pullrequestreview-5809443079",
+              "login": "kunal-vaishnavi",
+              "state": "DISMISSED"
+            },
+            {
+              "url": "https://github.com/microsoft/onnxruntime/pull/33768#pullrequestreview-5811497533",
+              "login": "kunal-vaishnavi",
+              "state": "DISMISSED"
+            }
+          ],
+          "contributor_update": {
+            "url": "https://github.com/microsoft/onnxruntime/pull/33768#issuecomment-6703869862",
+            "login": "Shoryamishra61",
+            "scope": "Contributor reports syncing upstream and adding a FlashAttention fallback assertion; says previous approval was invalidated by the stale-review policy. The current PR body additionally describes accepting MATH fallback under ORT_QUICK_BUILD."
+          },
+          "current_head_ci": {
+            "source": "Read-only GitHub workflow-runs connector, first page only",
+            "conclusions": [
+              "action_required"
+            ],
+            "examples": [
+              {
+                "url": "https://github.com/microsoft/onnxruntime/actions/runs/42368988690",
+                "name": "Linux CUDA CI"
+              },
+              {
+                "url": "https://github.com/microsoft/onnxruntime/actions/runs/42368988687",
+                "name": "Linux CI"
+              }
+            ],
+            "scope": "Returned current-head PR workflow runs require action; not evidence of a successful current-head native or numerical test."
+          },
+          "scope": "Earlier numerical claims remain contributor reports. No current approval, merged/released fix or successful Keramos original-reproduction retest established."
         }
       ]
     }
   ],
-  "checked_on": "2026-11-06",
-  "checked_at_utc": "2026-11-05T22:06:41.274876+00:00",
+  "checked_on": "2026-11-08",
+  "checked_at_utc": "2026-11-07T22:06:01Z",
   "observation_timezone": "Australia/Sydney",
   "maintained_by": "Daily scheduled review, with publication on meaningful verified changes"
 }

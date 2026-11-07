@@ -5,7 +5,7 @@ Each entry connects the execution contract, a reproduction, the evidence and the
 upstream disposition. These external engines do not claim to implement Keramos;
 the contract supplies an explicit oracle for investigating their native behaviour.
 
-Last published upstream observation: **6 November 2026 (Sydney)**.
+Last published upstream observation: **8 November 2026 (Sydney)**.
 [Machine-readable issue observations](defects/upstream_status.json).
 There are twelve filed upstream issue numbers, including three duplicate ORT reports;
 the paper groups the findings as nine defects (G1-G9), with three mapping subfindings.
@@ -154,3 +154,9 @@ On Gemma 3 #50196, [SunMarc requests migration to the new loader](https://github
 PR #2850 remains open/unmerged and now has head `80ac7a53399221e16a8e2182bde94b18ccb4f616`; the `86e8d05` head above is historical. [Human reviewer tianleiwu](https://github.com/microsoft/onnxruntime-genai/pull/2850#pullrequestreview-5777161077) reports that older head `aebe897e` passed 121 focused tests and tiny Llama head sizes 8/16/24 within 3e-7 of PyTorch, while head sizes 4/12 exported unloadable graphs. The base loaded before encountering its original kernel restriction, identifying an additional fallback regression. That review is currently **dismissed**, not an approval of the new head. These are the reviewer's runtime measurements, not a fresh independent Keramos retest.
 
 [Automated review](https://github.com/microsoft/onnxruntime-genai/pull/2850#pullrequestreview-5781170817) additionally flags per-layer Gemma4 geometry, SmolLM3 fusion, Qwen3.5 cache selection, lost attention features, test defects and missing end-to-end coverage. These are automated findings, not independently verified defects. #2869's automated approval recommendation likewise is not maintainer approval or a merged fix. The original bounds, older test reports and unresolved current-head status remain preserved; no merged or released fix is established.
+
+## ORT kernel candidate follow-up (8 November 2026)
+
+Linked [ORT PR #33768](https://github.com/microsoft/onnxruntime/pull/33768) remains open and unmerged at head `866a22a42dc24500a76f2e88da74fe560b3763db`; the earlier `11f2e916` observation above remains historical. The [contributor update](https://github.com/microsoft/onnxruntime/pull/33768#issuecomment-6703869862) reports an upstream sync and a FlashAttention fallback assertion, and says the stale-review policy invalidated the previous approval. Both recorded human reviews are now [dismissed](https://github.com/microsoft/onnxruntime/pull/33768#pullrequestreview-5809443079), [including the later review](https://github.com/microsoft/onnxruntime/pull/33768#pullrequestreview-5811497533); neither establishes current-head approval.
+
+The current PR body reports earlier numerical CI success and describes accepting the MATH fallback under ORT_QUICK_BUILD. These remain contributor claims. The read-only current-head workflow listing (first page only) instead returns `action_required`, including [Linux CUDA CI](https://github.com/microsoft/onnxruntime/actions/runs/42368988690) and [Linux CI](https://github.com/microsoft/onnxruntime/actions/runs/42368988687). This does not establish current-head native or numerical success. No merged fix, fixed release or successful original-reproduction retest is established; the twelve issue states and other eight candidate heads remain unchanged.
