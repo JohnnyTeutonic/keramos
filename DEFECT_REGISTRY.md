@@ -5,7 +5,7 @@ Each entry connects the execution contract, a reproduction, the evidence and the
 upstream disposition. These external engines do not claim to implement Keramos;
 the contract supplies an explicit oracle for investigating their native behaviour.
 
-Last published upstream observation: **8 November 2026 (Sydney)**.
+Last published upstream observation: **9 November 2026 (Sydney)**.
 [Machine-readable issue observations](defects/upstream_status.json).
 There are twelve filed upstream issue numbers, including three duplicate ORT reports;
 the paper groups the findings as nine defects (G1-G9), with three mapping subfindings.
@@ -160,3 +160,12 @@ PR #2850 remains open/unmerged and now has head `80ac7a53399221e16a8e2182bde94b1
 Linked [ORT PR #33768](https://github.com/microsoft/onnxruntime/pull/33768) remains open and unmerged at head `866a22a42dc24500a76f2e88da74fe560b3763db`; the earlier `11f2e916` observation above remains historical. The [contributor update](https://github.com/microsoft/onnxruntime/pull/33768#issuecomment-6703869862) reports an upstream sync and a FlashAttention fallback assertion, and says the stale-review policy invalidated the previous approval. Both recorded human reviews are now [dismissed](https://github.com/microsoft/onnxruntime/pull/33768#pullrequestreview-5809443079), [including the later review](https://github.com/microsoft/onnxruntime/pull/33768#pullrequestreview-5811497533); neither establishes current-head approval.
 
 The current PR body reports earlier numerical CI success and describes accepting the MATH fallback under ORT_QUICK_BUILD. These remain contributor claims. The read-only current-head workflow listing (first page only) instead returns `action_required`, including [Linux CUDA CI](https://github.com/microsoft/onnxruntime/actions/runs/42368988690) and [Linux CI](https://github.com/microsoft/onnxruntime/actions/runs/42368988687). This does not establish current-head native or numerical success. No merged fix, fixed release or successful original-reproduction retest is established; the twelve issue states and other eight candidate heads remain unchanged.
+
+
+## Current-head approval and candidate update (9 November 2026)
+
+ORT kernel [PR #33768](https://github.com/microsoft/onnxruntime/pull/33768) now has an active [human approval by kunal-vaishnavi](https://github.com/microsoft/onnxruntime/pull/33768#pullrequestreview-5817385314), submitted 8 November at 09:36 UTC and explicitly tied to current head 866a22a42dc24500a76f2e88da74fe560b3763db. This supersedes the earlier observation of no current approval; the two dismissed reviews remain historical. The PR is still open and unmerged.
+
+A complete current-head workflow listing returns 64 runs: 26 failure, 32 cancelled and 6 success. [Linux CUDA CI](https://github.com/microsoft/onnxruntime/actions/runs/42368988690) reports failure and [Linux CI](https://github.com/microsoft/onnxruntime/actions/runs/42368988687) cancellation, superseding their earlier action-required states. These workflow conclusions do not identify failure causes or establish a successful original-reproduction retest. Approval, CI success, merge and release remain separate.
+
+GenAI [PR #2850](https://github.com/microsoft/onnxruntime-genai/pull/2850) is now at head ea73ac5c7f261f128a289781d8b80ab18c4b1b37, still open/unmerged; 80ac7a53 above is historical. Its current body reports 88 focused tests and a broader builder run with 2650 passed, 14 skipped, 346 subtests and 6 failures. These are author reports, not independently verified current-head runtime results; earlier 109/121-test reports and dismissed reviewer measurements retain their original scope. All twelve issue states and the other candidate heads are unchanged. No merged fix, fixed release or new successful original-reproduction retest is established.
