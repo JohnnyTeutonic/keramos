@@ -172,3 +172,5 @@ GenAI [PR #2850](https://github.com/microsoft/onnxruntime-genai/pull/2850) is no
 ### 12 November 2026 upstream observation
 
 [GenAI PR #2866](https://github.com/microsoft/onnxruntime-genai/pull/2866) merged to main on 11 November at 01:48:13 UTC as [5e4a263](https://github.com/microsoft/onnxruntime-genai/commit/5e4a2630421a0221ff1c2e3c74193fe1b2c0b3dc). The change applies a configured sliding window when layer types are absent, unless sliding windows are explicitly disabled. #2832 closed as completed; duplicate #2790 remains open. The latest listed [release, v0.19.0](https://github.com/microsoft/onnxruntime-genai/releases/tag/v0.19.0), predates the merge. No fixed release or successful Keramos original-reproduction retest was verified. The PR author’s builder tests are separate evidence.
+
+The separate GenAI local-RoPE PR #2869 received [human approval](https://github.com/microsoft/onnxruntime-genai/pull/2869#pullrequestreview-5851992647) from kunal-vaishnavi on 11 November. It remains open and unmerged.

@@ -659,7 +659,13 @@
           "head_sha": "e6d558e652de62a9273b0d39b5819d58fbef3742",
           "merged": false,
           "merged_at": null,
-          "author": "sandeepvijayarao09"
+          "author": "sandeepvijayarao09",
+          "human_approval": {
+            "url": "https://github.com/microsoft/onnxruntime-genai/pull/2869#pullrequestreview-5851992647",
+            "reviewer": "kunal-vaishnavi",
+            "submitted_at": "2026-11-11T01:00:29Z",
+            "scope": "Human PR approval; PR remains open and unmerged."
+          }
         },
         "merged_fix": null,
         "released_fix": null,
@@ -989,7 +995,13 @@
           "head_sha": "e6d558e652de62a9273b0d39b5819d58fbef3742",
           "merged": false,
           "merged_at": null,
-          "author": "sandeepvijayarao09"
+          "author": "sandeepvijayarao09",
+          "human_approval": {
+            "url": "https://github.com/microsoft/onnxruntime-genai/pull/2869#pullrequestreview-5851992647",
+            "reviewer": "kunal-vaishnavi",
+            "submitted_at": "2026-11-11T01:00:29Z",
+            "scope": "Human PR approval; PR remains open and unmerged."
+          }
         }
       },
       "comments": [
