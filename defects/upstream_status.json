@@ -83,7 +83,7 @@
       "observations": [
         {
           "kind": "prior_published_observation",
-          "checked_on": "2026-11-03",
+          "checked_on": "2026-11-12",
           "record": {
             "issue_number": 50195,
             "url": "https://github.com/huggingface/transformers/issues/50195",
@@ -233,7 +233,7 @@
       "observations": [
         {
           "kind": "prior_published_observation",
-          "checked_on": "2026-11-01",
+          "checked_on": "2026-11-12",
           "record": {
             "issue_number": 50196,
             "url": "https://github.com/huggingface/transformers/issues/50196",
@@ -269,7 +269,7 @@
         },
         {
           "kind": "prior_published_observation",
-          "checked_on": "2026-11-03",
+          "checked_on": "2026-11-12",
           "record": {
             "issue_number": 50196,
             "url": "https://github.com/huggingface/transformers/issues/50196",
@@ -314,7 +314,7 @@
             "observations": [
               {
                 "kind": "prior_published_observation",
-                "checked_on": "2026-11-01",
+                "checked_on": "2026-11-12",
                 "record": {
                   "issue_number": 50196,
                   "url": "https://github.com/huggingface/transformers/issues/50196",
@@ -440,7 +440,7 @@
         },
         {
           "kind": "prior_published_observation",
-          "checked_on": "2026-11-01",
+          "checked_on": "2026-11-12",
           "record": {
             "issue_number": 50197,
             "url": "https://github.com/huggingface/transformers/issues/50197",
@@ -671,10 +671,10 @@
       "issue_number": 2832,
       "url": "https://github.com/microsoft/onnxruntime-genai/issues/2832",
       "title": "Model builder: Mistral sliding_window dropped (no layer_types, every layer full attention), regression since 0.15.2",
-      "state": "open",
-      "state_reason": null,
-      "updated_at": "2026-11-04T22:18:35Z",
-      "closed_at": null,
+      "state": "closed",
+      "state_reason": "completed",
+      "updated_at": "2026-11-11T01:48:14Z",
+      "closed_at": "2026-11-11T01:48:14Z",
       "assignees": null,
       "comments": [
         {
@@ -691,13 +691,18 @@
         "candidate_pr": {
           "number": 2866,
           "url": "https://github.com/microsoft/onnxruntime-genai/pull/2866",
-          "state": "open",
+          "state": "closed",
           "head_sha": "eacfe86684910c38f3a10a264940ab92a2e6d19b",
-          "merged": false,
-          "merged_at": null,
+          "merged": true,
+          "merged_at": "2026-11-11T01:48:13Z",
           "author": "14H034160212"
         },
-        "merged_fix": null,
+        "merged_fix": {
+          "number": 2866,
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2866",
+          "merge_commit_sha": "5e4a2630421a0221ff1c2e3c74193fe1b2c0b3dc",
+          "merged_at": "2026-11-11T01:48:13Z"
+        },
         "released_fix": null,
         "successful_original_reproduction_retest": null
       },
@@ -767,7 +772,7 @@
       "observations": [
         {
           "kind": "prior_published_observation",
-          "checked_on": "2026-11-03",
+          "checked_on": "2026-11-12",
           "record": {
             "issue_number": 2833,
             "url": "https://github.com/microsoft/onnxruntime-genai/issues/2833",
@@ -1017,16 +1022,21 @@
       "disposition": {
         "assignment_verified": false,
         "maintainer_confirmation_verified": false,
-        "merged_fix": null,
+        "merged_fix": {
+          "number": 2866,
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2866",
+          "merge_commit_sha": "5e4a2630421a0221ff1c2e3c74193fe1b2c0b3dc",
+          "merged_at": "2026-11-11T01:48:13Z"
+        },
         "released_fix": null,
         "successful_original_reproduction_retest": null,
         "candidate_pr": {
           "number": 2866,
           "url": "https://github.com/microsoft/onnxruntime-genai/pull/2866",
-          "state": "open",
+          "state": "closed",
           "head_sha": "eacfe86684910c38f3a10a264940ab92a2e6d19b",
-          "merged": false,
-          "merged_at": null,
+          "merged": true,
+          "merged_at": "2026-11-11T01:48:13Z",
           "author": "14H034160212"
         }
       },
@@ -1163,8 +1173,8 @@
       ]
     }
   ],
-  "checked_on": "2026-11-09",
-  "checked_at_utc": "2026-11-08T22:00:00Z",
+  "checked_on": "2026-11-12",
+  "checked_at_utc": "2026-11-11T22:01:10Z",
   "observation_timezone": "Australia/Sydney",
   "maintained_by": "Daily scheduled review, with publication on meaningful verified changes"
 }
