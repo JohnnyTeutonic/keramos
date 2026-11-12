@@ -1,0 +1,50 @@
+# keramos CI: the tests, the validator over the stored corpus, and the conformance suite against the numpy
+# reference (IR_SPEC section 11). CPU only; a few minutes. Expected values are not regenerated here: they
+# come from the reference environment alone (IR_SPEC 4.6, requirements-reference.txt).
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CUDA_VISIBLE_DEVICES: ""
+      OMP_NUM_THREADS: "2"
+      OPENBLAS_NUM_THREADS: "2"
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # tags, so the results file records the tag, describe and tree (IR_SPEC 2.6)
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install
+        run: python -m pip install -r requirements.txt
+      - name: Tests
+        run: python -m pytest tests -q
+      - name: Validator over the corpus
+        run: python tools/ir_validate.py --corpus --quiet
+      - name: Conformance suite against the numpy reference
+        run: python tools/ir_conformance.py --adapter ir_numpy --json conformance-ir_numpy.json
+      - name: Results file
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: conformance-ir_numpy
+          path: conformance-ir_numpy.json
+          if-no-files-found: ignore
