@@ -4,7 +4,9 @@
     python tools/ir_conformance.py --adapter cmd:"engine --conformance"   # any engine, JSON Lines (11.3)
     python tools/ir_conformance.py --regenerate                     # expected values from tools/ir_numpy.py
 
-Options: --only SUBSTRING (cases whose id contains it), --json RESULTS.json (per-case results), --list.
+Options: --only SUBSTRING (cases whose id contains it), --json RESULTS.json (per-case results, with the
+engine's hello, the suite's revision and commit and the hashes of the runner, manifest and expected failures),
+--list. conformance/IMPLEMENTING.md is the implementer's guide (verdicts, version declaration, reporting).
 
 Kinds of case: op (one node on given inputs), model (prompts, greedy ids, log-probabilities, depth traces),
 trace (adapter sessions: prefill, incremental decode, truncate, snapshot and restore, with kv rows held,
@@ -35,6 +37,20 @@ import ir_numpy  # noqa: E402
 import ir_validate  # noqa: E402
 
 TOL = {"cpu": 1e-5, "cuda": 5e-5}
+
+# The specification revision (IR_SPEC section 2.6) whose cases this checkout's suite holds; it changes in the
+# commit that starts a new revision, with IR_SPEC.md's header (tests/test_minimal_adapter.py checks the two agree).
+SUITE_REVISION = "1.6"
+
+
+def _revision(declared):
+    """"R.S" of a declared revision ("1.6", "1.6.2" or "v1.6.2"), or None when it is not one."""
+    if not isinstance(declared, str):
+        return None
+    parts = declared.strip().lstrip("v").split(".")
+    if len(parts) < 2 or not all(p.isdigit() for p in parts[:3]) or len(parts) > 3:
+        return None
+    return f"{int(parts[0])}.{int(parts[1])}"
 
 
 # ---------------------------------------------------------------- tensors (section 11.2)
@@ -209,10 +225,14 @@ class Adapter:
     """The contract's methods; anything not implemented raises NotImplementedError (reported SKIP)."""
     name, backend, exact = "?", "cpu", True
     profiles = set()
+    spec = None  # the specification revision the engine implements ("R.S"), when it declares one
     score_only = False  # True: model cases only through score (no open/forward fallback)
 
     def hello(self):
-        return {"engine": self.name, "backend": self.backend, "exact": self.exact, "profiles": sorted(self.profiles)}
+        h = {"engine": self.name, "backend": self.backend, "exact": self.exact, "profiles": sorted(self.profiles)}
+        if self.spec is not None:
+            h["spec"] = self.spec
+        return h
 
     def check(self, gguf, ir):
         raise NotImplementedError
@@ -270,6 +290,7 @@ class NumpyAdapter(Adapter):
     tools/ir_validate.py as its loader. It reports the kv rows the rules of IR_SPEC.md 6.8.3 and 7.5
     define (the eager count under eviction)."""
     name, profiles = "ir_numpy", {"core", "state", "recursion", "chat", "thirdparty", "recurrence"}
+    spec = SUITE_REVISION
 
     def __init__(self):
         self.sessions, self.n = {}, 0
@@ -413,12 +434,19 @@ class CmdAdapter(Adapter):
         import shlex
         env = {k: v for k, v in os.environ.items()
                if k in keep_env or not k.startswith(("EMBER_", "MICROTORCH_", "MTSTUDIO_"))}
+        # JSON Lines is UTF-8 whatever the platform's locale (a Windows runner would otherwise decode the
+        # engine's replies, chat text included, as its ANSI code page).
         self.p = subprocess.Popen(shlex.split(command), stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True,
-                                  bufsize=1, env=env)
+                                  encoding="utf-8", bufsize=1, env=env)
         self.n = 0
         h = self._call("hello", {})
         self.name, self.backend, self.exact = h.get("engine", "cmd"), h.get("backend", "cpu"), bool(h.get("exact"))
         self.profiles, self.methods = set(h.get("profiles", [])), set(h.get("methods", []))
+        self.spec, self._hello = h.get("spec"), dict(h)
+
+    def hello(self):
+        """The engine's own reply (its version and any further members included), for the results file."""
+        return dict(self._hello)
 
     def _call(self, method, params):
         self.n += 1
@@ -632,16 +660,23 @@ def run_model_case(adapter, case, model_dir, tol):
     for pr in case["prompts"]:
         ids, cont = pr["ids"], pr["continuation"]
         try:
-            res = adapter.score(model_dir, ids, cont)
-            lp, am, dep = res["logprobs"], res["argmax"], res.get("depth")
-        except NotImplementedError:
-            if adapter.score_only:
-                raise
-            s = adapter.open(gguf)["session"]
-            r = adapter.forward(s, ids + cont[:-1], ["logits"] + (["depth"] if "depth" in pr else []))
-            adapter.close(s)
-            lp, am = logprobs_of(r["logits"][len(ids) - 1:], cont, banned)
-            dep = r.get("depth")
+            try:
+                res = adapter.score(model_dir, ids, cont)
+                lp, am, dep = res["logprobs"], res["argmax"], res.get("depth")
+            except NotImplementedError:
+                if adapter.score_only:
+                    raise
+                s = adapter.open(gguf)["session"]
+                r = adapter.forward(s, ids + cont[:-1], ["logits"] + (["depth"] if "depth" in pr else []))
+                adapter.close(s)
+                lp, am = logprobs_of(r["logits"][len(ids) - 1:], cont, banned)
+                dep = r.get("depth")
+        except NotImplementedError as e:
+            # A skip never hides a mismatch already seen on an earlier prompt of the case.
+            if worst > tol or agree != n or depth_same != sum("depth" in p for p in case["prompts"][:n]):
+                return False, (f"log-probs worst {worst:.2e}; greedy {agree}/{n} on the prompts run, "
+                               f"then a skip ({e})")
+            raise
         ref = np.array(pr["logprobs"])
         error, reason = _rounding_error(np.asarray(lp, dtype=np.float64), ref)
         if reason is not None:
@@ -712,16 +747,21 @@ def _run_trace_sessions(adapter, case, model_dir, tol):
         for j, (step, want) in enumerate(zip(case["steps"], case["expect"])):
             report = [r for r in ("logits", "kv_rows", "kv_positions", "depth", "recurrent") if r in want]
             m = step["method"]
-            if m == "forward":
-                got = adapter.forward(s, step["ids"], report)
-            elif m == "truncate":
-                got = adapter.truncate(s, step["n"], report)
-            elif m == "snapshot":
-                got = adapter.snapshot(s, step["tag"])
-            elif m == "restore":
-                got = adapter.restore(s, step["tag"], report)
-            else:
-                raise SystemExit(f"trace step {m}")
+            try:
+                if m == "forward":
+                    got = adapter.forward(s, step["ids"], report)
+                elif m == "truncate":
+                    got = adapter.truncate(s, step["n"], report)
+                elif m == "snapshot":
+                    got = adapter.snapshot(s, step["tag"])
+                elif m == "restore":
+                    got = adapter.restore(s, step["tag"], report)
+                else:
+                    raise SystemExit(f"trace step {m}")
+            except NotImplementedError as e:
+                if not ok:  # a skip never hides a mismatch already seen on an earlier step of the session
+                    return False, f"{j} of {len(case['steps'])} steps run, then a skip ({e}); " + "; ".join(msgs)
+                raise
             if "len" in want and got.get("len") != want["len"]:
                 ok = False
                 msgs.append(f"step {j}: len {got.get('len')} != {want['len']}")
@@ -760,7 +800,7 @@ def _run_trace_sessions(adapter, case, model_dir, tol):
     return ok, (f"{len(case['steps'])} steps" + ("; " + "; ".join(msgs) if msgs else ""))
 
 
-def run_refuse_case(adapter, case, path):
+def run_refuse_case(adapter, case, path, cites=None):
     """IR_SPEC 11.2: the document (doc, or text: a JSON text, for faults a parsed value cannot hold) in place of
     the GGUF's own, or the GGUF alone, must be refused; the reference must report the cited rule."""
     gguf = SUITE / case["gguf"] if case.get("gguf") else None
@@ -772,11 +812,26 @@ def run_refuse_case(adapter, case, path):
         r = adapter.check(gguf, ir)
     if r["accepted"]:
         return False, "accepted"
+    if cites is not None:
+        cites["cites"] = refusal_cites(case, " ".join(r.get("errors") or [r.get("message", "")]))
     if isinstance(adapter, NumpyAdapter):
         tag = f"IR_SPEC {case['section']} (rule {case['rule']})"
         hit = any(e.startswith(tag) for e in r["errors"])
         return hit, (f"refused ({tag})" if hit else f"refused, but not under {tag}: {r['errors'][:2]}")
     return True, "refused: " + r.get("message", "")[:120]
+
+
+def refusal_cites(case, message):
+    """Report only, no verdict: whether a refusal's message cites the case's rule ("rule"), only its section
+    ("section"), or neither. Section 11.2 requires the reference alone to name the rule; for any other engine a
+    refusal passes whatever it cites, so this column shows whether it refused for the case's reason."""
+    import re
+    rule, section = str(case.get("rule", "")), str(case.get("section", ""))
+    if rule and re.search(rf"\brule\s*{re.escape(rule)}\b", message, re.IGNORECASE):
+        return "rule"
+    if section and re.search(rf"(?<![\d.]){re.escape(section)}(?![\d])", message):
+        return "section"
+    return "neither"
 
 
 def run_accept_case(adapter, c):
@@ -821,6 +876,10 @@ def run_suite(adapter, only=None, out_json=None):
             if not eng.startswith("_") and adapter.name.startswith(eng):
                 xf.update(cases)
     print(f"adapter {adapter.name} (backend {adapter.backend}, exact {adapter.exact}); {len(man['cases'])} cases")
+    spec = spec_check(getattr(adapter, "spec", None))
+    if spec["note"]:
+        print(spec["note"])
+    profile_of = {}
     for c in man["cases"]:
         if only and only not in c["id"]:
             continue
@@ -834,6 +893,8 @@ def run_suite(adapter, only=None, out_json=None):
         else:
             sub = [(c["id"], case)]
         for cid, x in sub:
+            profile_of[cid] = c.get("profile") or "none"
+            cites = {}
             try:
                 if c["kind"] == "op":
                     ok, msg = run_op_case(adapter, x, x.get("tol", tol) if adapter.backend == "cpu" else tol)
@@ -852,20 +913,22 @@ def run_suite(adapter, only=None, out_json=None):
                 elif c["kind"] == "chat":
                     ok, msg = run_chat_case(adapter, x, case.get("records", {}))
                 else:
-                    ok, msg = run_refuse_case(adapter, x, c["file"])
+                    ok, msg = run_refuse_case(adapter, x, c["file"], cites)
                 verdict = "PASS" if ok else "FAIL"
                 if cid in xf or cid.split("/", 2)[0] + "/" + cid.split("/")[1] in xf:
                     verdict = {"PASS": "XPASS", "FAIL": "XFAIL"}[verdict]
                     msg += f" [expected to fail: {xf.get(cid, '')[:80]}]"
             except NotImplementedError as e:
                 verdict, msg = "SKIP", str(e) or "not implemented"
-            except (RuntimeError, ValueError, KeyError, SystemExit) as e:
+            except (RuntimeError, ValueError, KeyError, SystemExit, TypeError, AttributeError, IndexError, OSError) as e:
+                # A malformed result (a member of the wrong type or missing) or an engine that has gone (a
+                # broken pipe) fails the case; it does not abort the run before the results file is written.
                 verdict, msg = "FAIL", f"{type(e).__name__}: {e}"
                 if cid in xf or cid.split("/", 2)[0] + "/" + cid.split("/")[1] in xf:  # an engine error fails too
                     verdict = "XFAIL"
                     msg += f" [expected to fail: {xf.get(cid, '')[:80]}]"
             counts[verdict] += 1
-            results.append({"id": cid, "kind": c["kind"], "verdict": verdict, "detail": msg})
+            results.append({"id": cid, "kind": c["kind"], "verdict": verdict, "detail": msg, **cites})
             print(f"{verdict} {cid}: {msg}")
     by_kind = {}
     for r in results:
@@ -873,10 +936,81 @@ def run_suite(adapter, only=None, out_json=None):
     print(f"summary {adapter.name}: {counts['PASS']} pass, {counts['FAIL']} fail, {counts['SKIP']} skip, "
           f"{counts['XFAIL']} xfail, {counts['XPASS']} xpass; by kind "
           + ", ".join(f"{k} {v['PASS']}/{v['FAIL']}/{v['SKIP']}" for k, v in by_kind.items()) + " (pass/fail/skip)")
+    by_profile = {}
+    for r in results:
+        by_profile.setdefault(profile_of[r["id"]], {"PASS": 0, "FAIL": 0, "SKIP": 0, "XFAIL": 0, "XPASS": 0})[r["verdict"]] += 1
+    declared = sorted(getattr(adapter, "profiles", set()) or [])
+    print(f"profiles declared: {', '.join(declared) or 'none'}; by manifest profile "
+          + ", ".join(f"{k} {v['PASS']}/{v['FAIL']}/{v['SKIP']}" for k, v in sorted(by_profile.items()))
+          + " (pass/fail/skip)")
+    refusal_cites_counts = {"rule": 0, "section": 0, "neither": 0}
+    for r in results:
+        if "cites" in r:
+            refusal_cites_counts[r["cites"]] += 1
+    if sum(refusal_cites_counts.values()):
+        print(f"refusals citing the case's rule {refusal_cites_counts['rule']}, its section only "
+              f"{refusal_cites_counts['section']}, neither {refusal_cites_counts['neither']} (report only; no verdict "
+              f"depends on it outside the reference)")
+    if spec["note"]:
+        print(spec["note"])
     if out_json:
-        Path(out_json).write_text(json.dumps({"adapter": adapter.hello(), "counts": counts, "by_kind": by_kind,
+        Path(out_json).write_text(json.dumps({"adapter": adapter.hello(), "spec": dict(spec["record"]),
+                                              "provenance": suite_provenance(), "counts": counts, "by_kind": by_kind,
+                                              "by_profile": by_profile, "refusal_cites": refusal_cites_counts,
                                               "results": results}, indent=1) + "\n", encoding="utf-8")
     return counts
+
+
+def spec_check(declared):
+    """IR_SPEC 2.6 and conformance/IMPLEMENTING.md: the revision the engine declares in hello's optional "spec"
+    against the revision this suite checks. A mismatch changes no verdict; it is printed and recorded, and the
+    results are a report against neither revision (run the suite of the tag the engine implements)."""
+    record = {"repository": "keramos", "suite_revision": SUITE_REVISION, **_git_identity(),
+              "engine_declares": declared, "match": None}
+    rev = _revision(declared)
+    if declared is None:
+        note = (f"note: the engine declares no specification revision (hello's \"spec\"); these results are "
+                f"against revision {SUITE_REVISION}, the revision of this suite")
+    elif rev is None:
+        record["match"] = False
+        note = f"WARNING: hello's \"spec\" {declared!r} is not a revision R.S; this suite checks revision {SUITE_REVISION}"
+    elif rev != SUITE_REVISION:
+        record["match"] = False
+        note = (f"WARNING: the engine implements revision {rev}; this suite checks revision {SUITE_REVISION}. Verdicts "
+                f"are unchanged, but this run reports against neither revision: run the suite at tag v{rev}.x")
+    else:
+        record["match"], note = True, ""
+    return {"record": record, "note": note}
+
+
+def _git_identity():
+    """The checkout's tag and commit, when the runner sits at the top of a keramos Git checkout (not when this
+    repository is vendored inside another one, whose commit would name the wrong tree)."""
+    def git(*args):
+        try:
+            r = subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True, timeout=30)
+        except (OSError, subprocess.SubprocessError):
+            return None
+        return r.stdout.strip() if r.returncode == 0 else None
+    top = git("rev-parse", "--show-toplevel")
+    if top is None or Path(top).resolve() != ROOT.resolve():
+        return {"tag": None, "describe": None, "commit": None, "tree": None, "modified": None}
+    status = git("status", "--porcelain", "--untracked-files=no")
+    # The tree as well as the commit: a rewritten history changes commit ids but not the tree of the same files,
+    # so the tree still identifies the suite a receipt ran against.
+    return {"tag": git("describe", "--tags", "--exact-match"), "describe": git("describe", "--tags", "--always"),
+            "commit": git("rev-parse", "HEAD"), "tree": git("rev-parse", "HEAD^{tree}"),
+            "modified": None if status is None else bool(status)}
+
+
+def suite_provenance():
+    """sha256 of the runner, the manifest and the expected failures (the files that decide every verdict)."""
+    import hashlib
+
+    def h(p):
+        return hashlib.sha256(p.read_bytes()).hexdigest() if p.is_file() else None
+    return {"runner_sha256": h(Path(__file__).resolve()), "manifest_sha256": h(SUITE / "manifest.json"),
+            "expected_fail_sha256": h(SUITE / "expected_fail.json")}
 
 
 # ---------------------------------------------------------------- generating the suite

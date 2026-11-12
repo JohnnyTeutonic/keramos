@@ -82,6 +82,10 @@ the messages.
     python tools/ir_conformance.py --adapter cmd:"..." --only trace/ --json results.json
     python tools/ir_conformance.py --list
 
+To implement keramos in another engine, start with the
+[implementer's guide](conformance/IMPLEMENTING.md): the contract, a minimal adapter that runs against
+the suite, the verdicts, version declaration and how to report a run.
+
 An engine joins through an adapter: a program that reads one JSON request per line on stdin and
 writes one JSON reply per line on stdout (IR_SPEC section 11.3). `conformance/README.md` lists the
 methods in the order worth building them; a method not built yet replies `{"id": n, "skip": "..."}`,

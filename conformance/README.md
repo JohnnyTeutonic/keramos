@@ -53,6 +53,10 @@ the op cases need `run_node`. The digest vectors need `digest`, the stored block
 the gradient cases (for engines that train) `run_node_grad`, and the chat cases `render_chat` and `parse_reply`. Reply `{"id": n, "skip": "..."}` to
 anything not built yet.
 
+[`IMPLEMENTING.md`](IMPLEMENTING.md) is the guide for an engine author outside the project: where the
+contract is, `hello`'s members, a minimal adapter that runs (`../adapters/minimal/minimal_adapter.py`),
+what each verdict means, how to declare the revision implemented and how to report a run.
+
 ## Regenerating
 
     python tools/ir_conformance.py --regenerate     # every expected value, from numpy
