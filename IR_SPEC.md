@@ -2,7 +2,7 @@
 
 *Normative specification of the keramos IR: a versioned JSON graph of a language model that an
 engine interprets, rather than recognising a fixed architecture. IR version 1, specification revision
-1.6 (28 October 2026; v1.6.1).*
+1.6 (28 October 2026; latest tag v1.6.2, 30 October 2026; v1.6.3 unreleased, Appendix B).*
 
 The format's GGUF keys keep their `paperkiln.` prefix (`paperkiln.ir`, `paperkiln.ir_version`,
 `paperkiln.ir_sha256` and the rest), as does the architecture label "paperkiln" (rule 38): they are
@@ -117,6 +117,11 @@ means a consumer must reject the document at load, naming the rule (section 10).
 Appendices A to C are informative. Appendix D is normative where section 3.1 cites it: for rule 38, and
 for an engine that builds the document of a GGUF without one.
 
+References to `LOCAL_LLM_STACK.md` and `LOCAL_LLM_WORK.md`, and to paperkiln's and ember.cpp's files
+(`include/microtorch/ir.hpp`, `src/`, `graph_ir.cpp` and the rest), are informative wherever they occur
+(v1.6.3). They record the provenance and gates of the two in-house engines; those documents are not in
+this repository, and every statement a consumer needs is in this text.
+
 ## 2. Versioning, profiles and change control
 
 ### 2.1 ir_version
@@ -200,9 +205,12 @@ Each revision of this document is a tag of the keramos repository, `vR.S.P`. R.S
 counts later commits that change no valid document's meaning, no part of `ir.schema.json` and no
 expected value of an existing case: wording, clarifications that state what the text already
 requires, a fix that brings the reference into line with the text, new cases for such statements,
-paths, the tools' interfaces, tests and receipts. A new revision or major version starts at P = 0. An engine names the tag and the full commit it conforms
-to, in its receipt (`conformance/receipts/`); an engine that vendors this repository pins one tag
-and records its commit.
+paths, the tools' interfaces, tests and receipts. A new revision or major version starts at P = 0. An engine names the tag, the full commit and the
+commit's tree it conforms to (the tree from v1.6.3), in its receipt (`conformance/receipts/`); an engine
+that vendors this repository pins one tag and records its commit. The tree identifies the suite even
+where a commit id does not: the repository's history was rewritten on 2 and 3 November 2026, so the
+commits that receipts written before then name are no longer reachable, and those receipts are matched
+by their tag. Appendix B lists every tag.
 
 ## 3. The document (core)
 
@@ -520,11 +528,15 @@ op, EXACT ones included, and still conforms.
 ### 4.3 Tolerances
 
 A ROUNDING result passes when, per tensor, |a - b| <= tol * max(1, max|ref|), with tol = 1e-5 on
-CPU and 5e-5 on CUDA. A path that runs its matrix products in TF32 is looser and is judged on greedy
-parity; which paths do is stated per engine in Appendix C.
+CPU and 5e-5 on CUDA. From v1.6.3, in the conformance suite: 1e-5 on the CPU backend (the adapter's
+`hello` reports `backend` `"cpu"`, section 11.3) and 5e-5 on every other backend, whatever its name
+(CUDA, WebGPU, an engine that reports its WebAssembly build as its own backend). A path that runs its
+matrix products in TF32 is looser and is judged on greedy parity; which paths do is stated per engine
+in Appendix C. The suite has no greedy-only mode: such a path is outside its logits checks, and its
+greedy gate is the engine's own, stated with it in Appendix C (v1.6.3).
 
-- The whole-model gate is greedy parity (`LOCAL_LLM_STACK.md` section 3 point 1): the same greedy
-  tokens on the frozen prompts.
+- The whole-model gate is greedy parity (*informative reference:* `LOCAL_LLM_STACK.md` section 3
+  point 1): the same greedy tokens on the frozen prompts.
 - For official third-party checkpoints the gate is greedy N/N plus top-1 at every position, and
   logit closeness is judged against a float64 evaluation of the same document (`tools/ir_numpy.py`
   with float64 arithmetic), because float32 conditioning grows with depth.
@@ -2433,8 +2445,8 @@ subclass of the runner's `Adapter`) joins through `ir_conformance.main(argv, ada
 factory})`; paperkiln's `mtstudio` adapter is one (paperkiln's `tools/ir_conformance_mtstudio.py`,
 through `mtstudio score`, `expr_eval` and `ir_eval`).
 
-**Transport.** JSON Lines: one request per line on the program's stdin, one reply per line on its
-stdout, in request order; stderr is free for logs. A request is `{"id": int, "method": str,
+**Transport.** JSON Lines in UTF-8 (v1.6.3): one request per line on the program's stdin, one reply
+per line on its stdout, in request order; stderr is free for logs. A request is `{"id": int, "method": str,
 "params": {...}}`. A reply is one of
 
     {"id": n, "result": {...}}     the method ran
@@ -2462,7 +2474,10 @@ The adapter may find the refusal when it loads the model, by a throwaway run on 
 before the case's first call, and then skips every call of the case; its reason quotes the
 engine's message. An exception from a path the engine offers for the case (a builder that lists the
 architecture and stops) is an `error`, so the case fails; so is a refusal after some of the case's
-values have been computed. (ONNX Runtime GenAI's CPU kernel refusing head sizes its own builder
+values have been computed. A report the engine cannot give is not such a refusal (v1.6.3): it is a
+`skip` of the first call that asks for it, whichever step of the case that is. Whatever the engine
+replies, a case in which any value the runner compared before a `skip` differed fails; a skip never
+hides a mismatch already seen. (ONNX Runtime GenAI's CPU kernel refusing head sizes its own builder
 emits is a skip; its builder stopping on an architecture it lists is a failure:
 `adapters/ortgenai/FINDINGS.txt`, findings 1 and 2.)
 
@@ -2474,8 +2489,8 @@ session owns the ids it has seen, so it can re-prefill after a rewind (section 6
 
 | Method | params | result |
 |---|---|---|
-| `hello` | `{}` | `{"engine", "version", "backend", "exact": bool, "profiles", "methods"}` |
-| `check` | `{"gguf": path or null, "ir": path or null}` | `{"accepted": true}` or `{"accepted": false, "message": str}`: load only; a refusal is a result, not an error. `gguf` null checks the document `ir` alone (the document rules, no container rules) |
+| `hello` | `{}` | `{"engine", "version", "backend", "exact": bool, "profiles", "methods", "spec"?}` |
+| `check` | `{"gguf": path or null, "ir": path or null}` | `{"accepted": true}` or `{"accepted": false, "message": str}`: load only; a refusal is a result, not an error. `gguf` null checks the document `ir` alone (the document rules, no container rules). `accepted` false states that the document breaks a rule of section 10.1; a capability refusal (section 10.3) is a `skip` (v1.6.3) |
 | `open` | `{"gguf": path, "ir": path or null, "evict": true / false / null}` | `{"session": str, "vocab": int, "applications": int, "state_k": int}` |
 | `forward` | `{"session", "ids": [...], "report": [...]}` | `{"len": int, ...the reports}` |
 | `truncate` | `{"session", "n": int, "report": [...]}` | `{"len": n, ...the reports}` |
@@ -2489,6 +2504,14 @@ session owns the ids it has seen, so it can re-prefill after a rewind (section 6
 | `render_chat` | `{"record": object, "messages": [...], "generation_prompt": bool, "thinking": bool or null, "tools"?: [...]}` | `{"text": str}` or `{"refused": str}` |
 | `parse_reply` | `{"tokens": {id: str}, "ids": [...], "call_id": int}` | `{"parsed": true, "content": str, "tool_calls": [...]}` or `{"parsed": false}` |
 
+- `hello` (v1.6.3): `engine` names the engine (the key of its entries in `expected_fail.json`, matched
+  by prefix); `version` is the engine's own version, free text; `backend` names the backend and selects
+  section 4.3's tolerance (`"cpu"` is the CPU backend); `exact` is true when the path follows every EXACT
+  order of this document; `profiles` lists the profiles of section 2.4 the engine implements; `methods`
+  the methods it implements; `spec` (optional) is the revision it implements, `"R.S"`. A runner whose
+  suite is of another revision reports the mismatch and changes no verdict; such a run is a report of
+  conformance to neither revision. The runner chooses no case by `profiles` or `methods`: a case the
+  engine cannot run is a `skip`.
 - `ir` (optional) is a document that replaces the file's embedded one (ember's `EMBER_IR`).
 - `evict`: null runs the document as declared; false keeps every kv row even where the document
   declares `evict: turn_state` (the comparison run of section 6.8.3); true requires the declaration,
@@ -2589,7 +2612,18 @@ the whole prefix and reports the row counts and positions the rules above define
 A case passes when every value is bit-identical (class EXACT) or within its tolerance (ROUNDING:
 |a - b| <= tol * max(1, max|ref|)), greedy ids and depth traces are identical, and kv rows held and
 their positions are among the allowed values. The runner prints one line per case and a summary,
-and exits 1 on any failure.
+and exits 1 on any failure. A refusal case passes on any refusal by an engine other than the
+reference; the results file reports separately whether each refusal names the case's rule (v1.6.3).
+
+### 11.5 Conformance claims (v1.6.3)
+
+An engine conforms to revision R.S, for the profiles it states, on a backend, when the suite of a tag
+vR.S.p run against it on that backend gives no FAIL and no XFAIL, and every SKIP is a method the engine
+does not claim (the gradient cases for an engine that does not train) or a capability refusal of
+section 10.3 that its report names. A report names the tag, the full commit and the commit's tree
+(section 2.6), the engine and its version, the backend and `exact`, the counts by kind and every SKIP's
+reason. Counts that do not meet this are a measurement, not a claim of conformance; an exit status of 0
+alone is neither. `conformance/IMPLEMENTING.md` (informative) shows how to produce such a report.
 
 ## 12. Questions: settled and open
 
@@ -3040,6 +3074,25 @@ equal to dc29b5e6 bit for bit) and the pinned commits of the RunPod campaigns ar
   width are free (it is ROUNDING), and section 12.6's measured distance for `pk_flex_shaw` under `weight_index`
   [1, 0] is corrected from 1.4e-1 to 1.3e-1 (the reference gives 1.27e-1). No document, schema or expected value
   changes.
+  From the external-interoperability audit (13 November 2026), also documentation only, for an implementer
+  outside the project: the references to the in-house engines' files and workspace documents are informative
+  (section 1.2); a receipt names the commit's tree as well as the tag and commit, and the history rewrite of 2
+  and 3 November is recorded (section 2.6); the suite's tolerance is 1e-5 on the backend `hello` reports as
+  `"cpu"` and 5e-5 on every other, and a TF32 path is judged by its engine's own greedy gate, outside the
+  suite's logits checks (section 4.3); the adapter transport is UTF-8; `hello`'s members are defined, with
+  the optional `spec` (the revision implemented) and how a runner treats a mismatch; in `check`, a capability
+  refusal is a `skip`, not `accepted: false`; a report the engine cannot give is a `skip` of the first call
+  asking for it, and a skip never hides a mismatch already seen (section 11.3); refusal citations are
+  reported (section 11.4); and conformance claims are defined (section 11.5). The implementer's guide is
+  `conformance/IMPLEMENTING.md`. Not adopted: a refusal case that passes only when the refusal names the
+  case's rule. A refusal that names a different but correct rule is still a correct refusal, so the citation
+  is reported per case and verdicts are unchanged.
+
+- **v1.6.2** (tag, 30 October 2026; revision 1.6). Tooling, receipts and the clean-room engine; no normative
+  statement, schema or expected value changes. The command adapter checks each reply's envelope (the echoed
+  integer `id` and exactly one of `result`, `error` and `skip`, correctly typed) before reading it; the
+  clean-room Rust engine computes revision 1.6, its receipt passing 587 cases with 11 gradient skips; receipts
+  of ember at v1.6.1 and of the reference and clean-room engine at v1.6.0.
 
 - **v1.6.1** (tag, 28 October 2026; revision 1.6). Documentation only: Appendix E, one table of the class
   required, the result measured and its receipt, per op group and per engine and backend, with what is and is not

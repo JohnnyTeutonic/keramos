@@ -78,9 +78,9 @@ report and `close` give the model cases, the refusals and the acceptance cases; 
 **Skip or error.** A method or report not built, or a model or op the engine declines (an architecture it
 has no graph for, a kernel's shape precondition, a capability refusal of section 10.3), is a `skip`,
 decided before anything is computed. A failure of a path the engine offers, or a refusal after some of the
-case's values are computed, is an `error`. Recommended, though the text does not yet say it: in `check`,
-report a capability refusal as `skip` and keep `{"accepted": false}` for a document the validation rules
-of section 10.1 refuse. Otherwise a refusal case can pass for the wrong reason (a document refused because
+case's values are computed, is an `error`. In `check`, a capability refusal is a `skip`, and
+`{"accepted": false}` is kept for a document the validation rules of section 10.1 refuse (section 11.3,
+from v1.6.3). Otherwise a refusal case can pass for the wrong reason (a document refused because
 the engine lacks its op, not because of the rule the case breaks), and an acceptance case fails where it
 should be skipped.
 
@@ -143,8 +143,8 @@ status 0 alone does not mean an engine conforms.
     `"match": false`. Verdicts are unchanged, and the run is a report against neither revision: run the
     suite of your revision's tag;
   - absent: a note, recorded as `"match": null`; the run is against the suite's revision.
-  Runners older than this guide ignore the member, so declaring it is safe at every tag. It is a
-  convention of the runner, proposed for section 11.3; the text does not yet require it.
+  Runners older than this guide ignore the member, so declaring it is safe at every tag. Section 11.3
+  defines it from v1.6.3; it is optional.
 - **Profiles.** Declare the profiles of section 2.4 you implement. The runner runs every case whatever you
   declare: a case that needs a profile you do not implement must `skip` (a capability refusal). The
   results file counts verdicts by the manifest's profile label, which is per manifest entry (an op file, a
@@ -171,8 +171,9 @@ Record the tree as well as the commit. A rewritten history changes commit ids bu
 same files, so the tree still identifies the suite after a rewrite. This repository's history was
 rewritten on 2 and 3 November 2026, and the commits named in receipts written before then are not
 reachable from any current ref: match those by their tag and, where recorded, their provenance hashes.
-Do not shorten that to "conformant" while cases of a profile you claim are skipped: the text does not yet
-define a conformance claim, so the counts and the reasons for the skips are the claim.
+Section 11.5 (from v1.6.3) defines when such a report is a claim of conformance: no FAIL and no XFAIL,
+and every SKIP an unclaimed method or a named capability refusal. Otherwise the counts and the reasons
+for the skips are a measurement; do not shorten them to "conformant".
 
 `conformance/receipts/` holds the project's records of runs it made or reproduced. An outside engine
 publishes its own results file and report; a run with a modified `expected_fail.json` or fixture shows it
