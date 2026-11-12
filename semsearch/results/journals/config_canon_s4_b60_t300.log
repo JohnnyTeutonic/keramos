@@ -1,0 +1,120 @@
+[config+canon s4] eval 1 fit -2.693 acc 0.17 win 4 initial 
+[config+canon s4] eval 2 fit -2.728 acc 0.17 win 4 initial 
+[config+canon s4] eval 3 fit -2.778 acc 0.07 win 4 initial 
+[config+canon s4] eval 4 fit -2.779 acc 0.08 win 4 initial 
+[config+canon s4] eval 5 fit -2.792 acc 0.06 win 4 initial 
+[config+canon s4] eval 6 fit -2.792 acc 0.06 win 4 initial 
+[config+canon s4] eval 7 fit -2.786 acc 0.06 win 4 initial 
+[config+canon s4] eval 8 fit -2.782 acc 0.08 win 4 initial 
+[config+canon s4] eval 9 fit -2.754 acc 0.13 win 4 initial 
+[config+canon s4] eval 10 fit -2.790 acc 0.06 win 4 initial 
+[config+canon s4] eval 11 fit -2.785 acc 0.06 win 4 initial 
+[config+canon s4] eval 12 fit -2.775 acc 0.07 win 4 initial 
+[config+canon s4] eval 13 fit -2.723 acc 0.16 win 4 qk_norm=False 
+[config+canon s4] eval 14 fit -2.680 acc 0.18 win 4 tie_embeddings=False 
+[config+canon s4] eval 15 fit -2.775 acc 0.07 win 4 inject=add WASTED fingerprint
+[config+canon s4] eval 16 fit -2.779 acc 0.08 win 4 inject=add WASTED fingerprint
+[config+canon s4] eval 17 fit -2.778 acc 0.08 win 4 sinks=0 
+[config+canon s4] eval 18 fit -2.791 acc 0.06 win 4 tie_embeddings=True 
+[config+canon s4] eval 19 fit -2.754 acc 0.12 win 4 n_heads=8 
+[config+canon s4] eval 20 fit -2.376 acc 0.19 win 16 window=16 
+[config+canon s4] eval 21 fit -2.775 acc 0.07 win 4 rope_theta=100000.0 
+[config+canon s4] eval 22 fit -2.728 acc 0.15 win 4 sinks=2 
+[config+canon s4] eval 23 fit -2.738 acc 0.14 win 4 n_kv_heads=1 
+[config+canon s4] eval 24 fit -2.731 acc 0.17 win 4 rope_theta=100000.0 
+[config+canon s4] eval 25 fit -2.716 acc 0.18 win 4 rope_theta=100000.0 
+[config+canon s4] eval 26 fit -2.448 acc 0.17 win 16 qk_norm=True 
+[config+canon s4] eval 27 fit -2.379 acc 0.18 win 16 repeats=2 
+[config+canon s4] eval 28 fit -2.167 acc 0.18 win 16 n_kv_heads=8 
+[config+canon s4] eval 29 fit -2.756 acc 0.11 win 4 window=4 
+[config+canon s4] eval 30 fit -2.347 acc 0.18 win 16 n_kv_heads=2 
+[config+canon s4] eval 31 fit -2.095 acc 0.19 win 16 qk_norm=False 
+[config+canon s4] eval 32 fit -2.558 acc 0.15 win 16 n_layers=1 
+[config+canon s4] eval 33 fit -1.877 acc 0.24 win 0 window=0 
+[config+canon s4] eval 34 fit -2.094 acc 0.19 win 16 rope_theta=100000.0 
+[config+canon s4] eval 35 fit -1.853 acc 0.24 win 0 d_ff=64 
+[config+canon s4] eval 36 fit -2.188 acc 0.18 win 16 d_ff=96 
+[config+canon s4] eval 37 fit -2.391 acc 0.15 win 0 n_layers=1 
+[config+canon s4] eval 38 fit -2.236 acc 0.18 win 16 d_ff=32 
+[config+canon s4] eval 39 fit -1.955 acc 0.24 win 0 n_layers=2 
+[config+canon s4] eval 40 fit -2.028 acc 0.20 win 0 qk_norm=True 
+[config+canon s4] eval 41 fit -1.853 acc 0.24 win 0 inject=none WASTED fingerprint
+[config+canon s4] eval 42 fit -1.925 acc 0.20 win 0 qk_norm=True 
+[config+canon s4] eval 43 fit -1.971 acc 0.19 win 0 n_kv_heads=2 
+[config+canon s4] eval 44 fit -2.018 acc 0.19 win 24 window=24 
+[config+canon s4] eval 45 fit -1.955 acc 0.24 win 0 inject=none WASTED fingerprint
+[config+canon s4] eval 46 fit -2.094 acc 0.19 win 16 inject=none WASTED fingerprint
+[config+canon s4] eval 47 fit -2.465 acc 0.16 win 0 n_layers=1 
+[config+canon s4] eval 48 fit -2.083 acc 0.18 win 24 tie_embeddings=True 
+[config+canon s4] eval 49 fit -1.860 acc 0.26 win 0 n_heads=4 
+[config+canon s4] eval 50 fit -1.971 acc 0.19 win 0 inject=none WASTED fingerprint
+[config+canon s4] eval 51 fit -2.209 acc 0.18 win 16 window=16 
+[config+canon s4] eval 52 fit -1.936 acc 0.22 win 0 rope_dims=4 
+[config+canon s4] eval 53 fit -2.048 acc 0.18 win 0 n_kv_heads=1 
+[config+canon s4] eval 54 fit -2.044 acc 0.21 win 0 tie_embeddings=True 
+[config+canon s4] eval 55 fit -2.081 acc 0.19 win 0 tie_embeddings=True 
+[config+canon s4] eval 56 fit -2.081 acc 0.19 win 0 tie_embeddings=True WASTED fingerprint
+[config+canon s4] eval 57 fit -2.143 acc 0.17 win 0 qk_norm=True 
+[config+canon s4] eval 58 fit -1.970 acc 0.19 win 0 rope_theta=100000.0 
+[config+canon s4] eval 59 fit -1.896 acc 0.25 win 0 n_heads=2 
+[config+canon s4] eval 60 fit -1.936 acc 0.22 win 0 inject=none WASTED fingerprint
+[config+canon s4] eval 1 fit -2.693 acc 0.17 win 4 initial 
+[config+canon s4] eval 2 fit -2.728 acc 0.17 win 4 initial 
+[config+canon s4] eval 3 fit -2.778 acc 0.07 win 4 initial 
+[config+canon s4] eval 4 fit -2.779 acc 0.08 win 4 initial 
+[config+canon s4] eval 5 fit -2.792 acc 0.06 win 4 initial 
+[config+canon s4] eval 6 fit -2.792 acc 0.06 win 4 initial 
+[config+canon s4] eval 7 fit -2.786 acc 0.06 win 4 initial 
+[config+canon s4] eval 8 fit -2.782 acc 0.08 win 4 initial 
+[config+canon s4] eval 9 fit -2.754 acc 0.13 win 4 initial 
+[config+canon s4] eval 10 fit -2.790 acc 0.06 win 4 initial 
+[config+canon s4] eval 11 fit -2.785 acc 0.06 win 4 initial 
+[config+canon s4] eval 12 fit -2.775 acc 0.07 win 4 initial 
+[config+canon s4] eval 13 fit -2.723 acc 0.16 win 4 qk_norm=False 
+[config+canon s4] eval 14 fit -2.680 acc 0.18 win 4 tie_embeddings=False 
+[config+canon s4] eval 15 fit -2.775 acc 0.07 win 4 inject=add WASTED fingerprint
+[config+canon s4] eval 16 fit -2.779 acc 0.08 win 4 inject=add WASTED fingerprint
+[config+canon s4] eval 17 fit -2.778 acc 0.08 win 4 sinks=0 
+[config+canon s4] eval 18 fit -2.791 acc 0.06 win 4 tie_embeddings=True 
+[config+canon s4] eval 19 fit -2.754 acc 0.12 win 4 n_heads=8 
+[config+canon s4] eval 20 fit -2.376 acc 0.19 win 16 window=16 
+[config+canon s4] eval 21 fit -2.775 acc 0.07 win 4 rope_theta=100000.0 
+[config+canon s4] eval 22 fit -2.728 acc 0.15 win 4 sinks=2 
+[config+canon s4] eval 23 fit -2.738 acc 0.14 win 4 n_kv_heads=1 
+[config+canon s4] eval 24 fit -2.731 acc 0.17 win 4 rope_theta=100000.0 
+[config+canon s4] eval 25 fit -2.716 acc 0.18 win 4 rope_theta=100000.0 
+[config+canon s4] eval 26 fit -2.448 acc 0.17 win 16 qk_norm=True 
+[config+canon s4] eval 27 fit -2.379 acc 0.18 win 16 repeats=2 
+[config+canon s4] eval 28 fit -2.167 acc 0.18 win 16 n_kv_heads=8 
+[config+canon s4] eval 29 fit -2.756 acc 0.11 win 4 window=4 
+[config+canon s4] eval 30 fit -2.347 acc 0.18 win 16 n_kv_heads=2 
+[config+canon s4] eval 31 fit -2.095 acc 0.19 win 16 qk_norm=False 
+[config+canon s4] eval 32 fit -2.558 acc 0.15 win 16 n_layers=1 
+[config+canon s4] eval 33 fit -1.877 acc 0.24 win 0 window=0 
+[config+canon s4] eval 34 fit -2.094 acc 0.19 win 16 rope_theta=100000.0 
+[config+canon s4] eval 35 fit -1.853 acc 0.24 win 0 d_ff=64 
+[config+canon s4] eval 36 fit -2.188 acc 0.18 win 16 d_ff=96 
+[config+canon s4] eval 37 fit -2.391 acc 0.15 win 0 n_layers=1 
+[config+canon s4] eval 38 fit -2.236 acc 0.18 win 16 d_ff=32 
+[config+canon s4] eval 39 fit -1.955 acc 0.24 win 0 n_layers=2 
+[config+canon s4] eval 40 fit -2.028 acc 0.20 win 0 qk_norm=True 
+[config+canon s4] eval 41 fit -1.853 acc 0.24 win 0 inject=none WASTED fingerprint
+[config+canon s4] eval 42 fit -1.925 acc 0.20 win 0 qk_norm=True 
+[config+canon s4] eval 43 fit -1.971 acc 0.19 win 0 n_kv_heads=2 
+[config+canon s4] eval 44 fit -2.018 acc 0.19 win 24 window=24 
+[config+canon s4] eval 45 fit -1.955 acc 0.24 win 0 inject=none WASTED fingerprint
+[config+canon s4] eval 46 fit -2.094 acc 0.19 win 16 inject=none WASTED fingerprint
+[config+canon s4] eval 47 fit -2.465 acc 0.16 win 0 n_layers=1 
+[config+canon s4] eval 48 fit -2.083 acc 0.18 win 24 tie_embeddings=True 
+[config+canon s4] eval 49 fit -1.860 acc 0.26 win 0 n_heads=4 
+[config+canon s4] eval 50 fit -1.971 acc 0.19 win 0 inject=none WASTED fingerprint
+[config+canon s4] eval 51 fit -2.209 acc 0.18 win 16 window=16 
+[config+canon s4] eval 52 fit -1.936 acc 0.22 win 0 rope_dims=4 
+[config+canon s4] eval 53 fit -2.048 acc 0.18 win 0 n_kv_heads=1 
+[config+canon s4] eval 54 fit -2.044 acc 0.21 win 0 tie_embeddings=True 
+[config+canon s4] eval 55 fit -2.081 acc 0.19 win 0 tie_embeddings=True 
+[config+canon s4] eval 56 fit -2.081 acc 0.19 win 0 tie_embeddings=True WASTED fingerprint
+[config+canon s4] eval 57 fit -2.143 acc 0.17 win 0 qk_norm=True 
+[config+canon s4] eval 58 fit -1.970 acc 0.19 win 0 rope_theta=100000.0 
+[config+canon s4] eval 59 fit -1.896 acc 0.25 win 0 n_heads=2 
+[config+canon s4] eval 60 fit -1.936 acc 0.22 win 0 inject=none WASTED fingerprint

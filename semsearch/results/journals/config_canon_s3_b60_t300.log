@@ -1,0 +1,120 @@
+[config+canon s3] eval 1 fit -2.787 acc 0.05 win 4 initial 
+[config+canon s3] eval 2 fit -2.787 acc 0.06 win 4 initial 
+[config+canon s3] eval 3 fit -2.719 acc 0.15 win 4 initial 
+[config+canon s3] eval 4 fit -2.796 acc 0.06 win 4 initial 
+[config+canon s3] eval 5 fit -2.759 acc 0.14 win 4 initial 
+[config+canon s3] eval 6 fit -2.727 acc 0.17 win 4 initial 
+[config+canon s3] eval 7 fit -2.807 acc 0.06 win 4 initial 
+[config+canon s3] eval 8 fit -2.733 acc 0.16 win 4 initial 
+[config+canon s3] eval 9 fit -2.785 acc 0.06 win 4 initial 
+[config+canon s3] eval 10 fit -2.726 acc 0.16 win 4 initial 
+[config+canon s3] eval 11 fit -2.806 acc 0.06 win 4 initial 
+[config+canon s3] eval 12 fit -2.714 acc 0.16 win 4 initial 
+[config+canon s3] eval 13 fit -2.785 acc 0.06 win 4 sinks=0 
+[config+canon s3] eval 14 fit -2.703 acc 0.17 win 4 tie_embeddings=False 
+[config+canon s3] eval 15 fit -2.719 acc 0.15 win 4 qk_norm=True 
+[config+canon s3] eval 16 fit -2.724 acc 0.17 win 4 repeats=2 
+[config+canon s3] eval 17 fit -2.719 acc 0.15 win 4 rope_theta=10000.0 
+[config+canon s3] eval 18 fit -2.700 acc 0.16 win 4 repeats=1 
+[config+canon s3] eval 19 fit -2.754 acc 0.10 win 4 n_layers=1 
+[config+canon s3] eval 20 fit -2.703 acc 0.17 win 4 inject=add WASTED fingerprint
+[config+canon s3] eval 21 fit -2.727 acc 0.17 win 4 tie_embeddings=True WASTED fingerprint
+[config+canon s3] eval 22 fit -1.964 acc 0.28 win 0 window=64 
+[config+canon s3] eval 23 fit -2.099 acc 0.22 win 24 window=24 
+[config+canon s3] eval 24 fit -2.083 acc 0.23 win 0 rope_theta=10000.0 
+[config+canon s3] eval 25 fit -2.088 acc 0.19 win 0 rope_dims=4 
+[config+canon s3] eval 26 fit -2.045 acc 0.19 win 24 n_layers=4 
+[config+canon s3] eval 27 fit -2.190 acc 0.18 win 0 tie_embeddings=True 
+[config+canon s3] eval 28 fit -2.196 acc 0.19 win 0 n_layers=1 
+[config+canon s3] eval 29 fit -2.035 acc 0.19 win 24 d_ff=96 
+[config+canon s3] eval 30 fit -1.191 acc 0.62 win 0 repeats=1 
+[config+canon s3] eval 31 fit -1.459 acc 0.53 win 24 window=24 
+[config+canon s3] eval 32 fit -2.236 acc 0.18 win 24 tie_embeddings=True 
+[config+canon s3] eval 33 fit -2.594 acc 0.15 win 8 window=8 
+[config+canon s3] eval 34 fit -2.034 acc 0.21 win 24 n_layers=4 
+[config+canon s3] eval 35 fit -0.588 acc 0.84 win 0 rope_theta=10000.0 
+[config+canon s3] eval 36 fit -0.588 acc 0.84 win 0 inject=add WASTED fingerprint
+[config+canon s3] eval 37 fit -0.925 acc 0.69 win 0 d_ff=96 
+[config+canon s3] eval 38 fit -2.189 acc 0.17 win 0 n_heads=8 
+[config+canon s3] eval 39 fit -1.191 acc 0.62 win 0 inject=add WASTED fingerprint
+[config+canon s3] eval 40 fit -0.925 acc 0.69 win 0 inject=add WASTED fingerprint
+[config+canon s3] eval 41 fit -2.212 acc 0.18 win 0 tie_embeddings=True 
+[config+canon s3] eval 42 fit -1.575 acc 0.48 win 0 rope_dims=4 
+[config+canon s3] eval 43 fit -1.645 acc 0.45 win 0 qk_norm=False 
+[config+canon s3] eval 44 fit -2.213 acc 0.19 win 0 tie_embeddings=True 
+[config+canon s3] eval 45 fit -2.354 acc 0.19 win 0 n_layers=1 
+[config+canon s3] eval 46 fit -1.990 acc 0.23 win 0 n_layers=3 
+[config+canon s3] eval 47 fit -1.332 acc 0.54 win 0 rope_theta=100000.0 
+[config+canon s3] eval 48 fit -2.104 acc 0.21 win 0 rope_dims=4 
+[config+canon s3] eval 49 fit -2.189 acc 0.17 win 0 n_heads=8 WASTED fingerprint
+[config+canon s3] eval 50 fit -1.951 acc 0.25 win 0 n_layers=3 
+[config+canon s3] eval 51 fit -2.213 acc 0.19 win 0 tie_embeddings=True WASTED fingerprint
+[config+canon s3] eval 52 fit -1.645 acc 0.45 win 0 qk_norm=False WASTED fingerprint
+[config+canon s3] eval 53 fit -2.321 acc 0.19 win 16 window=16 
+[config+canon s3] eval 54 fit -1.951 acc 0.25 win 0 inject=none WASTED fingerprint
+[config+canon s3] eval 55 fit -2.222 acc 0.18 win 0 n_heads=8 
+[config+canon s3] eval 56 fit -2.009 acc 0.26 win 0 n_kv_heads=0 
+[config+canon s3] eval 57 fit -2.680 acc 0.16 win 8 window=8 
+[config+canon s3] eval 58 fit -2.207 acc 0.18 win 0 tie_embeddings=True 
+[config+canon s3] eval 59 fit -1.938 acc 0.23 win 0 n_layers=4 
+[config+canon s3] eval 60 fit -2.074 acc 0.20 win 0 d_ff=32 
+[config+canon s3] eval 1 fit -2.787 acc 0.05 win 4 initial 
+[config+canon s3] eval 2 fit -2.787 acc 0.06 win 4 initial 
+[config+canon s3] eval 3 fit -2.719 acc 0.15 win 4 initial 
+[config+canon s3] eval 4 fit -2.796 acc 0.06 win 4 initial 
+[config+canon s3] eval 5 fit -2.759 acc 0.14 win 4 initial 
+[config+canon s3] eval 6 fit -2.727 acc 0.17 win 4 initial 
+[config+canon s3] eval 7 fit -2.807 acc 0.06 win 4 initial 
+[config+canon s3] eval 8 fit -2.733 acc 0.16 win 4 initial 
+[config+canon s3] eval 9 fit -2.785 acc 0.06 win 4 initial 
+[config+canon s3] eval 10 fit -2.726 acc 0.16 win 4 initial 
+[config+canon s3] eval 11 fit -2.806 acc 0.06 win 4 initial 
+[config+canon s3] eval 12 fit -2.714 acc 0.16 win 4 initial 
+[config+canon s3] eval 13 fit -2.785 acc 0.06 win 4 sinks=0 
+[config+canon s3] eval 14 fit -2.703 acc 0.17 win 4 tie_embeddings=False 
+[config+canon s3] eval 15 fit -2.719 acc 0.15 win 4 qk_norm=True 
+[config+canon s3] eval 16 fit -2.724 acc 0.17 win 4 repeats=2 
+[config+canon s3] eval 17 fit -2.719 acc 0.15 win 4 rope_theta=10000.0 
+[config+canon s3] eval 18 fit -2.700 acc 0.16 win 4 repeats=1 
+[config+canon s3] eval 19 fit -2.754 acc 0.10 win 4 n_layers=1 
+[config+canon s3] eval 20 fit -2.703 acc 0.17 win 4 inject=add WASTED fingerprint
+[config+canon s3] eval 21 fit -2.727 acc 0.17 win 4 tie_embeddings=True WASTED fingerprint
+[config+canon s3] eval 22 fit -1.964 acc 0.28 win 0 window=64 
+[config+canon s3] eval 23 fit -2.099 acc 0.22 win 24 window=24 
+[config+canon s3] eval 24 fit -2.083 acc 0.23 win 0 rope_theta=10000.0 
+[config+canon s3] eval 25 fit -2.088 acc 0.19 win 0 rope_dims=4 
+[config+canon s3] eval 26 fit -2.045 acc 0.19 win 24 n_layers=4 
+[config+canon s3] eval 27 fit -2.190 acc 0.18 win 0 tie_embeddings=True 
+[config+canon s3] eval 28 fit -2.196 acc 0.19 win 0 n_layers=1 
+[config+canon s3] eval 29 fit -2.035 acc 0.19 win 24 d_ff=96 
+[config+canon s3] eval 30 fit -1.191 acc 0.62 win 0 repeats=1 
+[config+canon s3] eval 31 fit -1.459 acc 0.53 win 24 window=24 
+[config+canon s3] eval 32 fit -2.236 acc 0.18 win 24 tie_embeddings=True 
+[config+canon s3] eval 33 fit -2.594 acc 0.15 win 8 window=8 
+[config+canon s3] eval 34 fit -2.034 acc 0.21 win 24 n_layers=4 
+[config+canon s3] eval 35 fit -0.588 acc 0.84 win 0 rope_theta=10000.0 
+[config+canon s3] eval 36 fit -0.588 acc 0.84 win 0 inject=add WASTED fingerprint
+[config+canon s3] eval 37 fit -0.925 acc 0.69 win 0 d_ff=96 
+[config+canon s3] eval 38 fit -2.189 acc 0.17 win 0 n_heads=8 
+[config+canon s3] eval 39 fit -1.191 acc 0.62 win 0 inject=add WASTED fingerprint
+[config+canon s3] eval 40 fit -0.925 acc 0.69 win 0 inject=add WASTED fingerprint
+[config+canon s3] eval 41 fit -2.212 acc 0.18 win 0 tie_embeddings=True 
+[config+canon s3] eval 42 fit -1.575 acc 0.48 win 0 rope_dims=4 
+[config+canon s3] eval 43 fit -1.645 acc 0.45 win 0 qk_norm=False 
+[config+canon s3] eval 44 fit -2.213 acc 0.19 win 0 tie_embeddings=True 
+[config+canon s3] eval 45 fit -2.354 acc 0.19 win 0 n_layers=1 
+[config+canon s3] eval 46 fit -1.990 acc 0.23 win 0 n_layers=3 
+[config+canon s3] eval 47 fit -1.332 acc 0.54 win 0 rope_theta=100000.0 
+[config+canon s3] eval 48 fit -2.104 acc 0.21 win 0 rope_dims=4 
+[config+canon s3] eval 49 fit -2.189 acc 0.17 win 0 n_heads=8 WASTED fingerprint
+[config+canon s3] eval 50 fit -1.951 acc 0.25 win 0 n_layers=3 
+[config+canon s3] eval 51 fit -2.213 acc 0.19 win 0 tie_embeddings=True WASTED fingerprint
+[config+canon s3] eval 52 fit -1.645 acc 0.45 win 0 qk_norm=False WASTED fingerprint
+[config+canon s3] eval 53 fit -2.321 acc 0.19 win 16 window=16 
+[config+canon s3] eval 54 fit -1.951 acc 0.25 win 0 inject=none WASTED fingerprint
+[config+canon s3] eval 55 fit -2.222 acc 0.18 win 0 n_heads=8 
+[config+canon s3] eval 56 fit -2.009 acc 0.26 win 0 n_kv_heads=0 
+[config+canon s3] eval 57 fit -2.680 acc 0.16 win 8 window=8 
+[config+canon s3] eval 58 fit -2.207 acc 0.18 win 0 tie_embeddings=True 
+[config+canon s3] eval 59 fit -1.938 acc 0.23 win 0 n_layers=4 
+[config+canon s3] eval 60 fit -2.074 acc 0.20 win 0 d_ff=32 

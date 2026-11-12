@@ -1,0 +1,120 @@
+[semantic s0] eval 1 fit -2.777 acc 0.07 win 4 initial 
+[semantic s0] eval 2 fit -2.787 acc 0.06 win 4 initial 
+[semantic s0] eval 3 fit -2.725 acc 0.16 win 4 initial 
+[semantic s0] eval 4 fit -2.778 acc 0.07 win 4 initial 
+[semantic s0] eval 5 fit -2.784 acc 0.06 win 4 initial 
+[semantic s0] eval 6 fit -2.757 acc 0.12 win 4 initial 
+[semantic s0] eval 7 fit -2.744 acc 0.13 win 4 initial 
+[semantic s0] eval 8 fit -2.752 acc 0.12 win 4 initial 
+[semantic s0] eval 9 fit -2.754 acc 0.12 win 4 initial 
+[semantic s0] eval 10 fit -2.778 acc 0.08 win 4 initial 
+[semantic s0] eval 11 fit -2.779 acc 0.06 win 4 initial 
+[semantic s0] eval 12 fit -2.706 acc 0.17 win 4 initial 
+[semantic s0] eval 13 fit -2.722 acc 0.18 win 4 untie 
+[semantic s0] eval 14 fit -2.782 acc 0.06 win None delete sublayer (add) 
+[semantic s0] eval 15 fit -2.728 acc 0.15 win 4 heads 8/8x4 
+[semantic s0] eval 16 fit -2.762 acc 0.11 win 4 heads 8/1x4 
+[semantic s0] eval 17 fit -2.710 acc 0.18 win 4 rewire parallel 
+[semantic s0] eval 18 fit -2.727 acc 0.16 win 4 repeat 3->4 
+[semantic s0] eval 19 fit -2.729 acc 0.15 win 4 set_attr rope.theta 
+[semantic s0] eval 20 fit -2.782 acc 0.06 win None delete sublayer (add) 
+[semantic s0] eval 21 fit -2.722 acc 0.17 win 4 width 64->32 
+[semantic s0] eval 22 fit -2.749 acc 0.13 win 4 heads 8/8x4 
+[semantic s0] eval 23 fit -0.054 acc 0.98 win 4 insert attn at end 
+[semantic s0] eval 24 fit -0.073 acc 0.98 win 4 width 64->96 
+[semantic s0] eval 25 fit -2.726 acc 0.16 win 4 width 64->96 
+[semantic s0] eval 26 fit -2.705 acc 0.17 win 4 width 64->96 
+[semantic s0] eval 27 fit -0.159 acc 0.95 win 4 set_attr rope.n_rot 
+[semantic s0] eval 28 fit -0.056 acc 0.98 win 4 qk_norm insert 
+[semantic s0] eval 29 fit -0.443 acc 0.86 win 4 repeat 3->4 
+[semantic s0] eval 30 fit -2.204 acc 0.20 win 0 delete sublayer (add) 
+[semantic s0] eval 31 fit -0.131 acc 0.95 win 4 swap rmsnorm->layernorm 
+[semantic s0] eval 32 fit -0.206 acc 0.95 win 4 set_attr rope.n_rot 
+[semantic s0] eval 33 fit -0.491 acc 0.79 win 4 heads 2/2x16 
+[semantic s0] eval 34 fit -0.025 acc 0.99 win 4 swap rmsnorm->layernorm 
+[semantic s0] eval 35 fit -1.059 acc 0.58 win 4 untie 
+[semantic s0] eval 36 fit -0.023 acc 0.99 win 4 heads 2/2x16 
+[semantic s0] eval 37 fit -0.002 acc 1.00 win 4 rewire parallel 
+[semantic s0] eval 38 fit -0.002 acc 1.00 win 4 qk_norm insert 
+[semantic s0] eval 39 fit -0.025 acc 1.00 win 4 untie 
+[semantic s0] eval 40 fit -0.017 acc 1.00 win 4 swap layernorm->rmsnorm 
+[semantic s0] eval 41 fit -0.000 acc 1.00 win 4 insert conv at 2 
+[semantic s0] eval 42 fit -0.017 acc 1.00 win 4 repeat 3->2 
+[semantic s0] eval 43 fit -0.057 acc 0.98 win 4 swap rmsnorm->layernorm 
+[semantic s0] eval 44 fit -0.008 acc 1.00 win 4 delete sublayer (add) 
+[semantic s0] eval 45 fit -0.012 acc 1.00 win 4 heads 4/2x8 
+[semantic s0] eval 46 fit -0.001 acc 1.00 win 4 qk_norm insert 
+[semantic s0] eval 47 fit -0.191 acc 0.96 win 4 set_attr attention.window 
+[semantic s0] eval 48 fit -2.060 acc 0.21 win 4 heads 4/1x8 
+[semantic s0] eval 49 fit -0.001 acc 1.00 win 4 set_attr rope.theta 
+[semantic s0] eval 50 fit -0.000 acc 1.00 win 4 rewire parallel 
+[semantic s0] eval 51 fit -0.916 acc 0.71 win 4 set_attr attention.window 
+[semantic s0] eval 52 fit -0.013 acc 1.00 win 4 untie 
+[semantic s0] eval 53 fit -0.029 acc 0.99 win 4 width 96->64 
+[semantic s0] eval 54 fit -0.001 acc 1.00 win 4 rewire parallel 
+[semantic s0] eval 55 fit -0.001 acc 1.00 win 4 insert mlp at 1 
+[semantic s0] eval 56 fit -0.001 acc 1.00 win 4 set_attr attention.softcap 
+[semantic s0] eval 57 fit -0.003 acc 1.00 win 4 width 96->128 
+[semantic s0] eval 58 fit -0.004 acc 1.00 win 4 untie 
+[semantic s0] eval 59 fit -0.000 acc 1.00 win 2 set_attr attention.window 
+[semantic s0] eval 60 fit -0.011 acc 1.00 win 4 heads 2/1x16 
+[semantic s0] eval 1 fit -2.777 acc 0.07 win 4 initial 
+[semantic s0] eval 2 fit -2.787 acc 0.06 win 4 initial 
+[semantic s0] eval 3 fit -2.725 acc 0.16 win 4 initial 
+[semantic s0] eval 4 fit -2.778 acc 0.07 win 4 initial 
+[semantic s0] eval 5 fit -2.784 acc 0.06 win 4 initial 
+[semantic s0] eval 6 fit -2.757 acc 0.12 win 4 initial 
+[semantic s0] eval 7 fit -2.744 acc 0.13 win 4 initial 
+[semantic s0] eval 8 fit -2.752 acc 0.12 win 4 initial 
+[semantic s0] eval 9 fit -2.754 acc 0.12 win 4 initial 
+[semantic s0] eval 10 fit -2.778 acc 0.08 win 4 initial 
+[semantic s0] eval 11 fit -2.779 acc 0.06 win 4 initial 
+[semantic s0] eval 12 fit -2.706 acc 0.17 win 4 initial 
+[semantic s0] eval 13 fit -2.722 acc 0.18 win 4 untie 
+[semantic s0] eval 14 fit -2.782 acc 0.06 win None delete sublayer (add) 
+[semantic s0] eval 15 fit -2.728 acc 0.15 win 4 heads 8/8x4 
+[semantic s0] eval 16 fit -2.762 acc 0.11 win 4 heads 8/1x4 
+[semantic s0] eval 17 fit -2.710 acc 0.18 win 4 rewire parallel 
+[semantic s0] eval 18 fit -2.727 acc 0.16 win 4 repeat 3->4 
+[semantic s0] eval 19 fit -2.729 acc 0.15 win 4 set_attr rope.theta 
+[semantic s0] eval 20 fit -2.782 acc 0.06 win None delete sublayer (add) 
+[semantic s0] eval 21 fit -2.722 acc 0.17 win 4 width 64->32 
+[semantic s0] eval 22 fit -2.749 acc 0.13 win 4 heads 8/8x4 
+[semantic s0] eval 23 fit -0.054 acc 0.98 win 4 insert attn at end 
+[semantic s0] eval 24 fit -0.073 acc 0.98 win 4 width 64->96 
+[semantic s0] eval 25 fit -2.726 acc 0.16 win 4 width 64->96 
+[semantic s0] eval 26 fit -2.705 acc 0.17 win 4 width 64->96 
+[semantic s0] eval 27 fit -0.159 acc 0.95 win 4 set_attr rope.n_rot 
+[semantic s0] eval 28 fit -0.056 acc 0.98 win 4 qk_norm insert 
+[semantic s0] eval 29 fit -0.443 acc 0.86 win 4 repeat 3->4 
+[semantic s0] eval 30 fit -2.204 acc 0.20 win 0 delete sublayer (add) 
+[semantic s0] eval 31 fit -0.131 acc 0.95 win 4 swap rmsnorm->layernorm 
+[semantic s0] eval 32 fit -0.206 acc 0.95 win 4 set_attr rope.n_rot 
+[semantic s0] eval 33 fit -0.491 acc 0.79 win 4 heads 2/2x16 
+[semantic s0] eval 34 fit -0.025 acc 0.99 win 4 swap rmsnorm->layernorm 
+[semantic s0] eval 35 fit -1.059 acc 0.58 win 4 untie 
+[semantic s0] eval 36 fit -0.023 acc 0.99 win 4 heads 2/2x16 
+[semantic s0] eval 37 fit -0.002 acc 1.00 win 4 rewire parallel 
+[semantic s0] eval 38 fit -0.002 acc 1.00 win 4 qk_norm insert 
+[semantic s0] eval 39 fit -0.025 acc 1.00 win 4 untie 
+[semantic s0] eval 40 fit -0.017 acc 1.00 win 4 swap layernorm->rmsnorm 
+[semantic s0] eval 41 fit -0.000 acc 1.00 win 4 insert conv at 2 
+[semantic s0] eval 42 fit -0.017 acc 1.00 win 4 repeat 3->2 
+[semantic s0] eval 43 fit -0.057 acc 0.98 win 4 swap rmsnorm->layernorm 
+[semantic s0] eval 44 fit -0.008 acc 1.00 win 4 delete sublayer (add) 
+[semantic s0] eval 45 fit -0.012 acc 1.00 win 4 heads 4/2x8 
+[semantic s0] eval 46 fit -0.001 acc 1.00 win 4 qk_norm insert 
+[semantic s0] eval 47 fit -0.191 acc 0.96 win 4 set_attr attention.window 
+[semantic s0] eval 48 fit -2.060 acc 0.21 win 4 heads 4/1x8 
+[semantic s0] eval 49 fit -0.001 acc 1.00 win 4 set_attr rope.theta 
+[semantic s0] eval 50 fit -0.000 acc 1.00 win 4 rewire parallel 
+[semantic s0] eval 51 fit -0.916 acc 0.71 win 4 set_attr attention.window 
+[semantic s0] eval 52 fit -0.013 acc 1.00 win 4 untie 
+[semantic s0] eval 53 fit -0.029 acc 0.99 win 4 width 96->64 
+[semantic s0] eval 54 fit -0.001 acc 1.00 win 4 rewire parallel 
+[semantic s0] eval 55 fit -0.001 acc 1.00 win 4 insert mlp at 1 
+[semantic s0] eval 56 fit -0.001 acc 1.00 win 4 set_attr attention.softcap 
+[semantic s0] eval 57 fit -0.003 acc 1.00 win 4 width 96->128 
+[semantic s0] eval 58 fit -0.004 acc 1.00 win 4 untie 
+[semantic s0] eval 59 fit -0.000 acc 1.00 win 2 set_attr attention.window 
+[semantic s0] eval 60 fit -0.011 acc 1.00 win 4 heads 2/1x16 

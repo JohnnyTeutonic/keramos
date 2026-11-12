@@ -1,0 +1,120 @@
+[semantic-cfg s2] eval 1 fit -2.779 acc 0.07 win 4 initial 
+[semantic-cfg s2] eval 2 fit -2.780 acc 0.06 win 4 initial 
+[semantic-cfg s2] eval 3 fit -2.791 acc 0.07 win 4 initial 
+[semantic-cfg s2] eval 4 fit -2.780 acc 0.06 win 4 initial 
+[semantic-cfg s2] eval 5 fit -2.770 acc 0.08 win 4 initial 
+[semantic-cfg s2] eval 6 fit -2.694 acc 0.18 win 4 initial 
+[semantic-cfg s2] eval 7 fit -2.794 acc 0.06 win 4 initial 
+[semantic-cfg s2] eval 8 fit -2.789 acc 0.06 win 4 initial 
+[semantic-cfg s2] eval 9 fit -2.720 acc 0.18 win 4 initial 
+[semantic-cfg s2] eval 10 fit -2.772 acc 0.09 win 4 initial 
+[semantic-cfg s2] eval 11 fit -2.740 acc 0.14 win 4 initial 
+[semantic-cfg s2] eval 12 fit -2.730 acc 0.15 win 4 initial 
+[semantic-cfg s2] eval 13 fit -2.722 acc 0.17 win 4 heads 4/4x8 
+[semantic-cfg s2] eval 14 fit -2.754 acc 0.11 win 4 tie 
+[semantic-cfg s2] eval 15 fit -2.729 acc 0.17 win 4 width 128->96 
+[semantic-cfg s2] eval 16 fit -2.462 acc 0.19 win 16 set_attr attention.window 
+[semantic-cfg s2] eval 17 fit -2.624 acc 0.14 win 16 tie 
+[semantic-cfg s2] eval 18 fit -2.547 acc 0.16 win 16 heads 4/1x8 
+[semantic-cfg s2] eval 19 fit -2.405 acc 0.19 win 16 repeat 2->3 
+[semantic-cfg s2] eval 20 fit -2.565 acc 0.15 win 16 heads 8/4x4 
+[semantic-cfg s2] eval 21 fit -2.429 acc 0.17 win 16 qk_norm insert 
+[semantic-cfg s2] eval 22 fit -2.386 acc 0.18 win 16 repeat 3->4 
+[semantic-cfg s2] eval 23 fit -2.375 acc 0.18 win 16 width 32->96 
+[semantic-cfg s2] eval 24 fit -2.348 acc 0.18 win 16 repeat 4->5 
+[semantic-cfg s2] eval 25 fit -2.454 acc 0.17 win 16 tie 
+[semantic-cfg s2] eval 26 fit -2.332 acc 0.18 win 16 qk_norm delete 
+[semantic-cfg s2] eval 27 fit -2.335 acc 0.17 win 16 qk_norm delete 
+[semantic-cfg s2] eval 28 fit -2.780 acc 0.06 win 4 set_attr attention.window 
+[semantic-cfg s2] eval 29 fit -2.362 acc 0.18 win 16 set_attr rope.theta 
+[semantic-cfg s2] eval 30 fit -2.441 acc 0.16 win 16 heads 4/1x8 
+[semantic-cfg s2] eval 31 fit -2.359 acc 0.18 win 16 heads 1/1x32 
+[semantic-cfg s2] eval 32 fit -2.426 acc 0.17 win 16 tie 
+[semantic-cfg s2] eval 33 fit -2.432 acc 0.17 win 16 tie 
+[semantic-cfg s2] eval 34 fit -2.006 acc 0.32 win 0 set_attr attention.window 
+[semantic-cfg s2] eval 35 fit -2.392 acc 0.16 win 16 tie 
+[semantic-cfg s2] eval 36 fit -2.354 acc 0.17 win 16 heads 4/4x8 
+[semantic-cfg s2] eval 37 fit -0.212 acc 0.96 win 0 width 96->128 
+[semantic-cfg s2] eval 38 fit -1.753 acc 0.41 win 0 heads 2/1x16 
+[semantic-cfg s2] eval 39 fit -1.148 acc 0.67 win 0 width 128->32 
+[semantic-cfg s2] eval 40 fit -2.358 acc 0.19 win 16 set_attr rope.n_rot 
+[semantic-cfg s2] eval 41 fit -2.064 acc 0.27 win 0 qk_norm insert 
+[semantic-cfg s2] eval 42 fit -2.136 acc 0.19 win 0 heads 8/8x4 
+[semantic-cfg s2] eval 43 fit -0.157 acc 0.98 win 0 set_attr rope.theta 
+[semantic-cfg s2] eval 44 fit -2.292 acc 0.17 win 0 tie 
+[semantic-cfg s2] eval 45 fit -0.035 acc 1.00 win 0 width 96->64 
+[semantic-cfg s2] eval 46 fit -0.114 acc 0.98 win 0 repeat 4->3 
+[semantic-cfg s2] eval 47 fit -0.620 acc 0.85 win 0 set_attr rope.theta 
+[semantic-cfg s2] eval 48 fit -0.736 acc 0.80 win 0 set_attr attention.softcap 
+[semantic-cfg s2] eval 49 fit -1.567 acc 0.53 win 0 repeat 4->3 
+[semantic-cfg s2] eval 50 fit -0.020 acc 1.00 win 0 heads 1/1x32 
+[semantic-cfg s2] eval 51 fit -0.015 acc 1.00 win 0 width 64->32 
+[semantic-cfg s2] eval 52 fit -0.123 acc 0.98 win 0 repeat 4->5 
+[semantic-cfg s2] eval 53 fit -0.219 acc 0.96 win 0 qk_norm insert 
+[semantic-cfg s2] eval 54 fit -0.020 acc 1.00 win 0 set_attr attention.softcap 
+[semantic-cfg s2] eval 55 fit -0.015 acc 1.00 win 0 qk_norm insert 
+[semantic-cfg s2] eval 56 fit -0.012 acc 1.00 win 0 width 32->96 
+[semantic-cfg s2] eval 57 fit -2.289 acc 0.22 win 0 tie 
+[semantic-cfg s2] eval 58 fit -2.780 acc 0.06 win 4 set_attr attention.window 
+[semantic-cfg s2] eval 59 fit -2.306 acc 0.16 win 0 heads 8/2x4 
+[semantic-cfg s2] eval 60 fit -1.795 acc 0.41 win 0 heads 2/2x16 
+[semantic-cfg s2] eval 1 fit -2.779 acc 0.07 win 4 initial 
+[semantic-cfg s2] eval 2 fit -2.780 acc 0.06 win 4 initial 
+[semantic-cfg s2] eval 3 fit -2.791 acc 0.07 win 4 initial 
+[semantic-cfg s2] eval 4 fit -2.780 acc 0.06 win 4 initial 
+[semantic-cfg s2] eval 5 fit -2.770 acc 0.08 win 4 initial 
+[semantic-cfg s2] eval 6 fit -2.694 acc 0.18 win 4 initial 
+[semantic-cfg s2] eval 7 fit -2.794 acc 0.06 win 4 initial 
+[semantic-cfg s2] eval 8 fit -2.789 acc 0.06 win 4 initial 
+[semantic-cfg s2] eval 9 fit -2.720 acc 0.18 win 4 initial 
+[semantic-cfg s2] eval 10 fit -2.772 acc 0.09 win 4 initial 
+[semantic-cfg s2] eval 11 fit -2.740 acc 0.14 win 4 initial 
+[semantic-cfg s2] eval 12 fit -2.730 acc 0.15 win 4 initial 
+[semantic-cfg s2] eval 13 fit -2.722 acc 0.17 win 4 heads 4/4x8 
+[semantic-cfg s2] eval 14 fit -2.754 acc 0.11 win 4 tie 
+[semantic-cfg s2] eval 15 fit -2.729 acc 0.17 win 4 width 128->96 
+[semantic-cfg s2] eval 16 fit -2.462 acc 0.19 win 16 set_attr attention.window 
+[semantic-cfg s2] eval 17 fit -2.624 acc 0.14 win 16 tie 
+[semantic-cfg s2] eval 18 fit -2.547 acc 0.16 win 16 heads 4/1x8 
+[semantic-cfg s2] eval 19 fit -2.405 acc 0.19 win 16 repeat 2->3 
+[semantic-cfg s2] eval 20 fit -2.565 acc 0.15 win 16 heads 8/4x4 
+[semantic-cfg s2] eval 21 fit -2.429 acc 0.17 win 16 qk_norm insert 
+[semantic-cfg s2] eval 22 fit -2.386 acc 0.18 win 16 repeat 3->4 
+[semantic-cfg s2] eval 23 fit -2.375 acc 0.18 win 16 width 32->96 
+[semantic-cfg s2] eval 24 fit -2.348 acc 0.18 win 16 repeat 4->5 
+[semantic-cfg s2] eval 25 fit -2.454 acc 0.17 win 16 tie 
+[semantic-cfg s2] eval 26 fit -2.332 acc 0.18 win 16 qk_norm delete 
+[semantic-cfg s2] eval 27 fit -2.335 acc 0.17 win 16 qk_norm delete 
+[semantic-cfg s2] eval 28 fit -2.780 acc 0.06 win 4 set_attr attention.window 
+[semantic-cfg s2] eval 29 fit -2.362 acc 0.18 win 16 set_attr rope.theta 
+[semantic-cfg s2] eval 30 fit -2.441 acc 0.16 win 16 heads 4/1x8 
+[semantic-cfg s2] eval 31 fit -2.359 acc 0.18 win 16 heads 1/1x32 
+[semantic-cfg s2] eval 32 fit -2.426 acc 0.17 win 16 tie 
+[semantic-cfg s2] eval 33 fit -2.432 acc 0.17 win 16 tie 
+[semantic-cfg s2] eval 34 fit -2.006 acc 0.32 win 0 set_attr attention.window 
+[semantic-cfg s2] eval 35 fit -2.392 acc 0.16 win 16 tie 
+[semantic-cfg s2] eval 36 fit -2.354 acc 0.17 win 16 heads 4/4x8 
+[semantic-cfg s2] eval 37 fit -0.212 acc 0.96 win 0 width 96->128 
+[semantic-cfg s2] eval 38 fit -1.753 acc 0.41 win 0 heads 2/1x16 
+[semantic-cfg s2] eval 39 fit -1.148 acc 0.67 win 0 width 128->32 
+[semantic-cfg s2] eval 40 fit -2.358 acc 0.19 win 16 set_attr rope.n_rot 
+[semantic-cfg s2] eval 41 fit -2.064 acc 0.27 win 0 qk_norm insert 
+[semantic-cfg s2] eval 42 fit -2.136 acc 0.19 win 0 heads 8/8x4 
+[semantic-cfg s2] eval 43 fit -0.157 acc 0.98 win 0 set_attr rope.theta 
+[semantic-cfg s2] eval 44 fit -2.292 acc 0.17 win 0 tie 
+[semantic-cfg s2] eval 45 fit -0.035 acc 1.00 win 0 width 96->64 
+[semantic-cfg s2] eval 46 fit -0.114 acc 0.98 win 0 repeat 4->3 
+[semantic-cfg s2] eval 47 fit -0.620 acc 0.85 win 0 set_attr rope.theta 
+[semantic-cfg s2] eval 48 fit -0.736 acc 0.80 win 0 set_attr attention.softcap 
+[semantic-cfg s2] eval 49 fit -1.567 acc 0.53 win 0 repeat 4->3 
+[semantic-cfg s2] eval 50 fit -0.020 acc 1.00 win 0 heads 1/1x32 
+[semantic-cfg s2] eval 51 fit -0.015 acc 1.00 win 0 width 64->32 
+[semantic-cfg s2] eval 52 fit -0.123 acc 0.98 win 0 repeat 4->5 
+[semantic-cfg s2] eval 53 fit -0.219 acc 0.96 win 0 qk_norm insert 
+[semantic-cfg s2] eval 54 fit -0.020 acc 1.00 win 0 set_attr attention.softcap 
+[semantic-cfg s2] eval 55 fit -0.015 acc 1.00 win 0 qk_norm insert 
+[semantic-cfg s2] eval 56 fit -0.012 acc 1.00 win 0 width 32->96 
+[semantic-cfg s2] eval 57 fit -2.289 acc 0.22 win 0 tie 
+[semantic-cfg s2] eval 58 fit -2.780 acc 0.06 win 4 set_attr attention.window 
+[semantic-cfg s2] eval 59 fit -2.306 acc 0.16 win 0 heads 8/2x4 
+[semantic-cfg s2] eval 60 fit -1.795 acc 0.41 win 0 heads 2/2x16 

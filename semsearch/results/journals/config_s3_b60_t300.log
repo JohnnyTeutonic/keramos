@@ -1,0 +1,120 @@
+[config s3] eval 1 fit -2.787 acc 0.05 win 4 initial 
+[config s3] eval 2 fit -2.787 acc 0.06 win 4 initial 
+[config s3] eval 3 fit -2.719 acc 0.15 win 4 initial 
+[config s3] eval 4 fit -2.796 acc 0.06 win 4 initial 
+[config s3] eval 5 fit -2.759 acc 0.14 win 4 initial 
+[config s3] eval 6 fit -2.727 acc 0.17 win 4 initial 
+[config s3] eval 7 fit -2.807 acc 0.06 win 4 initial 
+[config s3] eval 8 fit -2.733 acc 0.16 win 4 initial 
+[config s3] eval 9 fit -2.785 acc 0.06 win 4 initial 
+[config s3] eval 10 fit -2.726 acc 0.16 win 4 initial 
+[config s3] eval 11 fit -2.806 acc 0.06 win 4 initial 
+[config s3] eval 12 fit -2.714 acc 0.16 win 4 initial 
+[config s3] eval 13 fit -2.712 acc 0.15 win 4 rope_pairing=interleaved WASTED class
+[config s3] eval 14 fit -2.714 acc 0.16 win 4 checkpoint_blocks=False WASTED class,exact,fingerprint
+[config s3] eval 15 fit -2.700 acc 0.16 win 4 repeats=1 
+[config s3] eval 16 fit -2.784 acc 0.06 win 4 sinks=0 
+[config s3] eval 17 fit -2.716 acc 0.17 win 4 n_layers=4 
+[config s3] eval 18 fit -2.681 acc 0.16 win 4 rope_theta=10000.0 
+[config s3] eval 19 fit -2.726 acc 0.15 win 4 repeats=2 
+[config s3] eval 20 fit -2.699 acc 0.17 win 4 rope_pairing=interleaved WASTED class
+[config s3] eval 21 fit -2.715 acc 0.17 win 4 rope_theta=10000.0 
+[config s3] eval 22 fit -2.681 acc 0.16 win 4 checkpoint_blocks=False WASTED class,exact,fingerprint
+[config s3] eval 23 fit -2.672 acc 0.17 win 8 window=8 
+[config s3] eval 24 fit -1.645 acc 0.45 win 0 window=64 
+[config s3] eval 25 fit -1.964 acc 0.32 win 24 window=24 
+[config s3] eval 26 fit -2.104 acc 0.22 win 0 rope_theta=100000.0 
+[config s3] eval 27 fit -1.999 acc 0.30 win 24 rope_pairing=interleaved WASTED class
+[config s3] eval 28 fit -2.681 acc 0.16 win 4 rope_dims=8 WASTED class,exact,fingerprint
+[config s3] eval 29 fit -2.673 acc 0.16 win 8 window=8 
+[config s3] eval 30 fit -1.931 acc 0.25 win 0 n_layers=3 
+[config s3] eval 31 fit -2.384 acc 0.17 win 24 n_layers=1 
+[config s3] eval 32 fit -2.031 acc 0.23 win 0 n_kv_heads=0 
+[config s3] eval 33 fit -2.031 acc 0.23 win 0 checkpoint_blocks=True WASTED class,exact,fingerprint
+[config s3] eval 34 fit -1.931 acc 0.25 win 0 sinks=0 WASTED class,exact,fingerprint
+[config s3] eval 35 fit -2.156 acc 0.21 win 24 sinks=0 
+[config s3] eval 36 fit -1.897 acc 0.26 win 0 rope_theta=10000.0 
+[config s3] eval 37 fit -2.104 acc 0.22 win 0 n_layers=2 WASTED class,exact,fingerprint
+[config s3] eval 38 fit -1.993 acc 0.20 win 0 repeats=2 
+[config s3] eval 39 fit -2.014 acc 0.19 win 0 rope_pairing=interleaved WASTED class
+[config s3] eval 40 fit -1.883 acc 0.26 win 0 n_kv_heads=4 
+[config s3] eval 41 fit -1.897 acc 0.26 win 0 rope_theta=10000.0 WASTED class,exact,fingerprint
+[config s3] eval 42 fit -2.010 acc 0.20 win 0 rope_theta=10000.0 
+[config s3] eval 43 fit -1.812 acc 0.29 win 0 repeats=2 
+[config s3] eval 44 fit -1.897 acc 0.26 win 0 inject=add WASTED fingerprint
+[config s3] eval 45 fit -1.883 acc 0.26 win 0 inject=add WASTED fingerprint
+[config s3] eval 46 fit -2.702 acc 0.16 win 4 window=4 
+[config s3] eval 47 fit -1.857 acc 0.27 win 0 qk_norm=True 
+[config s3] eval 48 fit -2.233 acc 0.20 win 16 window=16 
+[config s3] eval 49 fit -1.915 acc 0.24 win 0 n_layers=2 
+[config s3] eval 50 fit -1.914 acc 0.26 win 0 repeats=1 
+[config s3] eval 51 fit -2.009 acc 0.21 win 0 tie_embeddings=True 
+[config s3] eval 52 fit -2.118 acc 0.20 win 0 n_layers=1 
+[config s3] eval 53 fit -1.857 acc 0.27 win 0 window=0 WASTED class,exact,fingerprint
+[config s3] eval 54 fit -2.033 acc 0.19 win 0 n_kv_heads=2 
+[config s3] eval 55 fit -1.988 acc 0.21 win 0 d_ff=32 
+[config s3] eval 56 fit -1.848 acc 0.27 win 0 d_ff=96 
+[config s3] eval 57 fit -2.005 acc 0.21 win 0 n_layers=2 
+[config s3] eval 58 fit -2.061 acc 0.20 win 0 tie_embeddings=True 
+[config s3] eval 59 fit -1.915 acc 0.24 win 0 checkpoint_blocks=True WASTED class,exact,fingerprint
+[config s3] eval 60 fit -1.849 acc 0.27 win 0 n_layers=4 
+[config s3] eval 1 fit -2.787 acc 0.05 win 4 initial 
+[config s3] eval 2 fit -2.787 acc 0.06 win 4 initial 
+[config s3] eval 3 fit -2.719 acc 0.15 win 4 initial 
+[config s3] eval 4 fit -2.796 acc 0.06 win 4 initial 
+[config s3] eval 5 fit -2.759 acc 0.14 win 4 initial 
+[config s3] eval 6 fit -2.727 acc 0.17 win 4 initial 
+[config s3] eval 7 fit -2.807 acc 0.06 win 4 initial 
+[config s3] eval 8 fit -2.733 acc 0.16 win 4 initial 
+[config s3] eval 9 fit -2.785 acc 0.06 win 4 initial 
+[config s3] eval 10 fit -2.726 acc 0.16 win 4 initial 
+[config s3] eval 11 fit -2.806 acc 0.06 win 4 initial 
+[config s3] eval 12 fit -2.714 acc 0.16 win 4 initial 
+[config s3] eval 13 fit -2.712 acc 0.15 win 4 rope_pairing=interleaved WASTED class
+[config s3] eval 14 fit -2.714 acc 0.16 win 4 checkpoint_blocks=False WASTED class,exact,fingerprint
+[config s3] eval 15 fit -2.700 acc 0.16 win 4 repeats=1 
+[config s3] eval 16 fit -2.784 acc 0.06 win 4 sinks=0 
+[config s3] eval 17 fit -2.716 acc 0.17 win 4 n_layers=4 
+[config s3] eval 18 fit -2.681 acc 0.16 win 4 rope_theta=10000.0 
+[config s3] eval 19 fit -2.726 acc 0.15 win 4 repeats=2 
+[config s3] eval 20 fit -2.699 acc 0.17 win 4 rope_pairing=interleaved WASTED class
+[config s3] eval 21 fit -2.715 acc 0.17 win 4 rope_theta=10000.0 
+[config s3] eval 22 fit -2.681 acc 0.16 win 4 checkpoint_blocks=False WASTED class,exact,fingerprint
+[config s3] eval 23 fit -2.672 acc 0.17 win 8 window=8 
+[config s3] eval 24 fit -1.645 acc 0.45 win 0 window=64 
+[config s3] eval 25 fit -1.964 acc 0.32 win 24 window=24 
+[config s3] eval 26 fit -2.104 acc 0.22 win 0 rope_theta=100000.0 
+[config s3] eval 27 fit -1.999 acc 0.30 win 24 rope_pairing=interleaved WASTED class
+[config s3] eval 28 fit -2.681 acc 0.16 win 4 rope_dims=8 WASTED class,exact,fingerprint
+[config s3] eval 29 fit -2.673 acc 0.16 win 8 window=8 
+[config s3] eval 30 fit -1.931 acc 0.25 win 0 n_layers=3 
+[config s3] eval 31 fit -2.384 acc 0.17 win 24 n_layers=1 
+[config s3] eval 32 fit -2.031 acc 0.23 win 0 n_kv_heads=0 
+[config s3] eval 33 fit -2.031 acc 0.23 win 0 checkpoint_blocks=True WASTED class,exact,fingerprint
+[config s3] eval 34 fit -1.931 acc 0.25 win 0 sinks=0 WASTED class,exact,fingerprint
+[config s3] eval 35 fit -2.156 acc 0.21 win 24 sinks=0 
+[config s3] eval 36 fit -1.897 acc 0.26 win 0 rope_theta=10000.0 
+[config s3] eval 37 fit -2.104 acc 0.22 win 0 n_layers=2 WASTED class,exact,fingerprint
+[config s3] eval 38 fit -1.993 acc 0.20 win 0 repeats=2 
+[config s3] eval 39 fit -2.014 acc 0.19 win 0 rope_pairing=interleaved WASTED class
+[config s3] eval 40 fit -1.883 acc 0.26 win 0 n_kv_heads=4 
+[config s3] eval 41 fit -1.897 acc 0.26 win 0 rope_theta=10000.0 WASTED class,exact,fingerprint
+[config s3] eval 42 fit -2.010 acc 0.20 win 0 rope_theta=10000.0 
+[config s3] eval 43 fit -1.812 acc 0.29 win 0 repeats=2 
+[config s3] eval 44 fit -1.897 acc 0.26 win 0 inject=add WASTED fingerprint
+[config s3] eval 45 fit -1.883 acc 0.26 win 0 inject=add WASTED fingerprint
+[config s3] eval 46 fit -2.702 acc 0.16 win 4 window=4 
+[config s3] eval 47 fit -1.857 acc 0.27 win 0 qk_norm=True 
+[config s3] eval 48 fit -2.233 acc 0.20 win 16 window=16 
+[config s3] eval 49 fit -1.915 acc 0.24 win 0 n_layers=2 
+[config s3] eval 50 fit -1.914 acc 0.26 win 0 repeats=1 
+[config s3] eval 51 fit -2.009 acc 0.21 win 0 tie_embeddings=True 
+[config s3] eval 52 fit -2.118 acc 0.20 win 0 n_layers=1 
+[config s3] eval 53 fit -1.857 acc 0.27 win 0 window=0 WASTED class,exact,fingerprint
+[config s3] eval 54 fit -2.033 acc 0.19 win 0 n_kv_heads=2 
+[config s3] eval 55 fit -1.988 acc 0.21 win 0 d_ff=32 
+[config s3] eval 56 fit -1.848 acc 0.27 win 0 d_ff=96 
+[config s3] eval 57 fit -2.005 acc 0.21 win 0 n_layers=2 
+[config s3] eval 58 fit -2.061 acc 0.20 win 0 tie_embeddings=True 
+[config s3] eval 59 fit -1.915 acc 0.24 win 0 checkpoint_blocks=True WASTED class,exact,fingerprint
+[config s3] eval 60 fit -1.849 acc 0.27 win 0 n_layers=4 

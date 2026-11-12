@@ -1,0 +1,120 @@
+[semantic s4] eval 1 fit -2.693 acc 0.17 win 4 initial 
+[semantic s4] eval 2 fit -2.728 acc 0.17 win 4 initial 
+[semantic s4] eval 3 fit -2.778 acc 0.07 win 4 initial 
+[semantic s4] eval 4 fit -2.779 acc 0.08 win 4 initial 
+[semantic s4] eval 5 fit -2.792 acc 0.06 win 4 initial 
+[semantic s4] eval 6 fit -2.792 acc 0.06 win 4 initial 
+[semantic s4] eval 7 fit -2.786 acc 0.06 win 4 initial 
+[semantic s4] eval 8 fit -2.782 acc 0.08 win 4 initial 
+[semantic s4] eval 9 fit -2.754 acc 0.13 win 4 initial 
+[semantic s4] eval 10 fit -2.790 acc 0.06 win 4 initial 
+[semantic s4] eval 11 fit -2.785 acc 0.06 win 4 initial 
+[semantic s4] eval 12 fit -2.775 acc 0.07 win 4 initial 
+[semantic s4] eval 13 fit -2.736 acc 0.16 win 4 repeat 4->3 
+[semantic s4] eval 14 fit -2.683 acc 0.18 win 4 untie 
+[semantic s4] eval 15 fit -2.788 acc 0.06 win 4 tie 
+[semantic s4] eval 16 fit -2.128 acc 0.20 win 4 insert attn at 1 
+[semantic s4] eval 17 fit -2.124 acc 0.19 win 4 swap rmsnorm->layernorm 
+[semantic s4] eval 18 fit -2.101 acc 0.20 win 4 width 96->128 
+[semantic s4] eval 19 fit -2.734 acc 0.16 win 4 qk_norm delete 
+[semantic s4] eval 20 fit -2.133 acc 0.20 win 4 set_attr rope.theta 
+[semantic s4] eval 21 fit -2.028 acc 0.27 win 4 rewire parallel 
+[semantic s4] eval 22 fit -2.106 acc 0.19 win 4 swap rmsnorm->layernorm 
+[semantic s4] eval 23 fit -2.106 acc 0.19 win 4 set_attr attention.softcap 
+[semantic s4] eval 24 fit -2.123 acc 0.19 win 4 swap layernorm->rmsnorm 
+[semantic s4] eval 25 fit -2.179 acc 0.18 win 4 insert mlp at 1 
+[semantic s4] eval 26 fit -2.101 acc 0.20 win 4 qk_norm delete 
+[semantic s4] eval 27 fit -2.143 acc 0.20 win 4 width 128->32 
+[semantic s4] eval 28 fit -1.959 acc 0.29 win 4 set_attr rope.theta 
+[semantic s4] eval 29 fit -1.983 acc 0.27 win 4 set_attr rope.n_rot 
+[semantic s4] eval 30 fit -2.050 acc 0.20 win 4 insert swiglu at end 
+[semantic s4] eval 31 fit -2.126 acc 0.20 win 4 width 96->64 
+[semantic s4] eval 32 fit -2.433 acc 0.16 win 4 repeat 2->1 
+[semantic s4] eval 33 fit -2.390 acc 0.17 win 4 repeat 2->1 
+[semantic s4] eval 34 fit -2.068 acc 0.22 win 4 set_attr rope.theta 
+[semantic s4] eval 35 fit -1.921 acc 0.28 win 4 untie 
+[semantic s4] eval 36 fit -2.099 acc 0.21 win 4 set_attr rope.n_rot 
+[semantic s4] eval 37 fit -0.026 acc 1.00 win 4 qk_norm insert 
+[semantic s4] eval 38 fit -2.302 acc 0.18 win 4 repeat 2->1 
+[semantic s4] eval 39 fit -0.044 acc 0.99 win 4 qk_norm delete 
+[semantic s4] eval 40 fit -1.922 acc 0.28 win 4 set_attr attention.softcap 
+[semantic s4] eval 41 fit -1.816 acc 0.36 win 0 delete sublayer (add) 
+[semantic s4] eval 42 fit -1.467 acc 0.51 win 4 tie 
+[semantic s4] eval 43 fit -0.047 acc 0.99 win 4 rewire sequential 
+[semantic s4] eval 44 fit -0.013 acc 1.00 win 4 rewire parallel 
+[semantic s4] eval 45 fit -0.057 acc 0.99 win 4 repeat 2->3 
+[semantic s4] eval 46 fit -0.028 acc 0.99 win 4 set_attr attention.softcap 
+[semantic s4] eval 47 fit -0.005 acc 1.00 win 4 rewire sequential 
+[semantic s4] eval 48 fit -0.006 acc 1.00 win 4 swap rmsnorm->layernorm 
+[semantic s4] eval 49 fit -2.335 acc 0.18 win 4 repeat 2->1 
+[semantic s4] eval 50 fit -0.026 acc 1.00 win 4 repeat 2->3 
+[semantic s4] eval 51 fit -0.457 acc 0.88 win 4 heads 4/2x8 
+[semantic s4] eval 52 fit -0.011 acc 1.00 win 4 repeat 2->3 
+[semantic s4] eval 53 fit -1.968 acc 0.29 win 4 tie 
+[semantic s4] eval 54 fit -0.445 acc 0.87 win 4 qk_norm delete 
+[semantic s4] eval 55 fit -0.092 acc 0.99 win 4 swap layernorm->rmsnorm 
+[semantic s4] eval 56 fit -0.006 acc 1.00 win 4 set_attr rope.theta 
+[semantic s4] eval 57 fit -2.057 acc 0.24 win 4 tie 
+[semantic s4] eval 58 fit -1.894 acc 0.26 win 4 insert swiglu at 2 
+[semantic s4] eval 59 fit -2.099 acc 0.21 win 4 tie 
+[semantic s4] eval 60 fit -0.014 acc 1.00 win 4 repeat 2->3 
+[semantic s4] eval 1 fit -2.693 acc 0.17 win 4 initial 
+[semantic s4] eval 2 fit -2.728 acc 0.17 win 4 initial 
+[semantic s4] eval 3 fit -2.778 acc 0.07 win 4 initial 
+[semantic s4] eval 4 fit -2.779 acc 0.08 win 4 initial 
+[semantic s4] eval 5 fit -2.792 acc 0.06 win 4 initial 
+[semantic s4] eval 6 fit -2.792 acc 0.06 win 4 initial 
+[semantic s4] eval 7 fit -2.786 acc 0.06 win 4 initial 
+[semantic s4] eval 8 fit -2.782 acc 0.08 win 4 initial 
+[semantic s4] eval 9 fit -2.754 acc 0.13 win 4 initial 
+[semantic s4] eval 10 fit -2.790 acc 0.06 win 4 initial 
+[semantic s4] eval 11 fit -2.785 acc 0.06 win 4 initial 
+[semantic s4] eval 12 fit -2.775 acc 0.07 win 4 initial 
+[semantic s4] eval 13 fit -2.736 acc 0.16 win 4 repeat 4->3 
+[semantic s4] eval 14 fit -2.683 acc 0.18 win 4 untie 
+[semantic s4] eval 15 fit -2.788 acc 0.06 win 4 tie 
+[semantic s4] eval 16 fit -2.128 acc 0.20 win 4 insert attn at 1 
+[semantic s4] eval 17 fit -2.124 acc 0.19 win 4 swap rmsnorm->layernorm 
+[semantic s4] eval 18 fit -2.101 acc 0.20 win 4 width 96->128 
+[semantic s4] eval 19 fit -2.734 acc 0.16 win 4 qk_norm delete 
+[semantic s4] eval 20 fit -2.133 acc 0.20 win 4 set_attr rope.theta 
+[semantic s4] eval 21 fit -2.028 acc 0.27 win 4 rewire parallel 
+[semantic s4] eval 22 fit -2.106 acc 0.19 win 4 swap rmsnorm->layernorm 
+[semantic s4] eval 23 fit -2.106 acc 0.19 win 4 set_attr attention.softcap 
+[semantic s4] eval 24 fit -2.123 acc 0.19 win 4 swap layernorm->rmsnorm 
+[semantic s4] eval 25 fit -2.179 acc 0.18 win 4 insert mlp at 1 
+[semantic s4] eval 26 fit -2.101 acc 0.20 win 4 qk_norm delete 
+[semantic s4] eval 27 fit -2.143 acc 0.20 win 4 width 128->32 
+[semantic s4] eval 28 fit -1.959 acc 0.29 win 4 set_attr rope.theta 
+[semantic s4] eval 29 fit -1.983 acc 0.27 win 4 set_attr rope.n_rot 
+[semantic s4] eval 30 fit -2.050 acc 0.20 win 4 insert swiglu at end 
+[semantic s4] eval 31 fit -2.126 acc 0.20 win 4 width 96->64 
+[semantic s4] eval 32 fit -2.433 acc 0.16 win 4 repeat 2->1 
+[semantic s4] eval 33 fit -2.390 acc 0.17 win 4 repeat 2->1 
+[semantic s4] eval 34 fit -2.068 acc 0.22 win 4 set_attr rope.theta 
+[semantic s4] eval 35 fit -1.921 acc 0.28 win 4 untie 
+[semantic s4] eval 36 fit -2.099 acc 0.21 win 4 set_attr rope.n_rot 
+[semantic s4] eval 37 fit -0.026 acc 1.00 win 4 qk_norm insert 
+[semantic s4] eval 38 fit -2.302 acc 0.18 win 4 repeat 2->1 
+[semantic s4] eval 39 fit -0.044 acc 0.99 win 4 qk_norm delete 
+[semantic s4] eval 40 fit -1.922 acc 0.28 win 4 set_attr attention.softcap 
+[semantic s4] eval 41 fit -1.816 acc 0.36 win 0 delete sublayer (add) 
+[semantic s4] eval 42 fit -1.467 acc 0.51 win 4 tie 
+[semantic s4] eval 43 fit -0.047 acc 0.99 win 4 rewire sequential 
+[semantic s4] eval 44 fit -0.013 acc 1.00 win 4 rewire parallel 
+[semantic s4] eval 45 fit -0.057 acc 0.99 win 4 repeat 2->3 
+[semantic s4] eval 46 fit -0.028 acc 0.99 win 4 set_attr attention.softcap 
+[semantic s4] eval 47 fit -0.005 acc 1.00 win 4 rewire sequential 
+[semantic s4] eval 48 fit -0.006 acc 1.00 win 4 swap rmsnorm->layernorm 
+[semantic s4] eval 49 fit -2.335 acc 0.18 win 4 repeat 2->1 
+[semantic s4] eval 50 fit -0.026 acc 1.00 win 4 repeat 2->3 
+[semantic s4] eval 51 fit -0.457 acc 0.88 win 4 heads 4/2x8 
+[semantic s4] eval 52 fit -0.011 acc 1.00 win 4 repeat 2->3 
+[semantic s4] eval 53 fit -1.968 acc 0.29 win 4 tie 
+[semantic s4] eval 54 fit -0.445 acc 0.87 win 4 qk_norm delete 
+[semantic s4] eval 55 fit -0.092 acc 0.99 win 4 swap layernorm->rmsnorm 
+[semantic s4] eval 56 fit -0.006 acc 1.00 win 4 set_attr rope.theta 
+[semantic s4] eval 57 fit -2.057 acc 0.24 win 4 tie 
+[semantic s4] eval 58 fit -1.894 acc 0.26 win 4 insert swiglu at 2 
+[semantic s4] eval 59 fit -2.099 acc 0.21 win 4 tie 
+[semantic s4] eval 60 fit -0.014 acc 1.00 win 4 repeat 2->3 
