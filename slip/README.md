@@ -34,6 +34,7 @@ From this folder, with Python 3.10 or later and numpy (slip uses the keramos che
     python -m slip diff A B [--tensor-names]                  # the architectural difference
     python -m slip digest FILE                                # the keramos digest
     python -m slip run MODEL --weights W.gguf [--tokens 1,2,3] [--generate N] [--against OTHER]
+    python -m slip run MODEL --random [--seed S] [--shape @ffn_up=64 ...] [--save OUT.gguf]  # no weights needed
 
 A model (MODEL, DOC, A, B) is a `.slip`, a keramos `.json`, a GGUF carrying one, or a folder holding
 one: a paperkiln run's export folder gives its `.ir.json`, or else the GGUF that carries the document.
@@ -54,13 +55,51 @@ column of the node where two numbers meet, saying where each came from:
               ^
 
 Each width is an unknown, and each op says which unknowns are equal, or equal to a number, by its
-IR_SPEC section: model.d for the residual stream, model.vocab for the logits, heads x head_dim for
-attention and rope, a split's sizes, a linear's [out, in] weight, and, given weights (`--weights`, or the
-model's own GGUF), every tensor's shape in the file. Nothing is annotated. Without weights the
-attributes fix most shapes (`--shapes` prints them); what is left free is what only a weight can say,
-as an FFN's hidden width. Ops whose widths it does not model (`recurrence`, `depth_route`) write values
-of unknown width, and an attribute that differs between layers is left out. The check runs only on a
-document keramos accepts.
+IR_SPEC section: model.d for the residual stream, model.vocab for the logits and the embedding's rows,
+model.ctx for a position table's rows, heads x head_dim for attention and rope, a split's sizes, a
+linear's [out, in] weight, a recurrence's declarations (an input's width is the product of its index
+sizes, as is the readout's; a weight holds as many elements as its declaration), depth_route's router
+[n_rec, d], the widths of a list's tensors (attention residuals), and, given weights (`--weights`, or the
+model's own GGUF), every tensor's shape in the file. Every op of IR_SPEC sections 5 to 7 is modelled,
+and nothing is annotated. Without weights the graph fixes most shapes (`--shapes` prints them); what is
+left free is what only a weight can say: an FFN's hidden width, a low-rank projection's rank, the number
+of state tokens. An attribute whose value differs between layers fixes no width (one block stands for
+every application). The check runs only on a document keramos accepts.
+
+### Prototyping without weights
+
+`run --random` runs a model that has no weights anywhere, on random weights of the solved shapes. The
+sizes the graph leaves free are named once each, and given with `--shape`:
+
+    $ python -m slip run examples/retention.slip --random
+    random weights need every tensor's shape; still free:
+      blk.{i}.ffn_down.weight [32, ?]
+      blk.{i}.ffn_gate.weight [?, 32]
+      blk.{i}.ffn_up.weight [?, 32]
+    give the free sizes: --shape @ffn_gate=N1
+
+    $ python -m slip run examples/retention.slip --random --shape @ffn_up=64 --generate 4
+    random weights, seed 0: 33 tensors, 33,004 parameters
+    tokens  [1, 2, 3, 4, 5, 6, 7, 8]
+    logits  [8, 32]; argmax per position [13, 8, 30, 27, 16, 29, 30, 4]
+    greedy  [4, 27, 11, 1]
+
+[`examples/retention.slip`](examples/retention.slip) is a token mixer no GGUF holds (a decayed matrix
+state per head, written as a keramos `recurrence`); it runs in keramos's reference interpreter straight
+from its source. `--shape NAME=AxB` gives a whole shape, `NAME=H` a tensor's free sizes in order; NAME is
+the document's tensor name or slip's `@path`. Where the spec allows several sizes and nothing chose one
+(relative_kv's width, position_bias's bucket count) the least is taken. Matrices are N(0, 1/in), gains 1,
+biases and attention-residual pseudo-queries 0, a state-space transition 0.5 I plus noise, selective_scan's
+A negative; each tensor draws from its own stream (seed, name). A linear tied to another tensor reads it,
+as it would in a file without the weight.
+
+`--save OUT.gguf` writes the model and its random weights with the conformance suite's own writer
+(`tools/ir_conformance.py`): architecture `paperkiln`, F32 tensors, the document embedded, a placeholder
+word tokenizer (with the chat markers where the model has per-turn state tokens). `run` refuses to
+report success unless keramos's file checks (`ir_check`) accept the file, so ember and paperkiln can load
+the prototype as it stands. The tests run every conformance model this way: given only its free sizes,
+the solved shapes are its file's, tensor for tensor; the logits are finite; and the saved GGUF passes
+keramos's checks and reads back to bit-identical logits.
 
 ### diff
 
@@ -116,7 +155,5 @@ model's weights, and finds one in every model whose two block weights of differe
 
 ## Not yet
 
-- Random weights for `run`, from the solved shapes, so a new architecture runs before a GGUF exists. The
-  shapes the attributes leave free (an FFN's hidden width) would need a width given on the command line.
 - A keramos document whose block has an `out` list of one name has no slip spelling (none exists
   in the corpus); the decompiler says so.

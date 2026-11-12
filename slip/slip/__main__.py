@@ -6,6 +6,7 @@
     python -m slip diff A B [--tensor-names]          the architectural difference, as a diff of slip
     python -m slip digest FILE                         the keramos digest of a .slip, .json or .gguf
     python -m slip run MODEL --weights W.gguf [--tokens 1,2,3] [--generate N] [--against OTHER]
+    python -m slip run MODEL --random [--seed S] [--shape @ffn_up=64 ...]   no weights needed
 
 MODEL, A and B are each a .slip, a keramos .json, a GGUF carrying one, or a folder holding one (a
 paperkiln run's export folder: its .ir.json, else its GGUF).
@@ -114,9 +115,18 @@ def main(argv=None):
     f.add_argument("-U", "--context", type=int, default=3)
     g = sub.add_parser("digest")
     g.add_argument("file")
-    r = sub.add_parser("run", help="run a model in keramos's reference interpreter on a GGUF's weights")
+    r = sub.add_parser("run", help="run a model in keramos's reference interpreter, on a GGUF's weights or "
+                                   "on random weights of the solved shapes")
     r.add_argument("model")
-    r.add_argument("--weights", required=True, help="the GGUF whose tensors the graph names")
+    src = r.add_mutually_exclusive_group(required=True)
+    src.add_argument("--weights", help="the GGUF whose tensors the graph names")
+    src.add_argument("--random", action="store_true", help="random weights, each tensor's shape solved from the "
+                                                           "graph (free sizes given with --shape)")
+    r.add_argument("--shape", action="append", default=[], metavar="TENSOR=AxB|TENSOR=H",
+                   help="a tensor's shape, or the sizes of its free dimensions (@ffn_up=64); repeatable")
+    r.add_argument("--seed", type=int, default=0)
+    r.add_argument("--save", metavar="OUT.gguf", help="with --random: write the model and its random weights as "
+                                                      "a GGUF keramos accepts (ember and paperkiln load it)")
     r.add_argument("--tokens", help="comma-separated token ids (default 1, 2, ... up to 8)")
     r.add_argument("--generate", type=int, default=0, help="then this many greedy tokens")
     r.add_argument("--against", help="another model to compare logits with, bit for bit")
@@ -128,7 +138,7 @@ def main(argv=None):
         n = report(p, src, errs)
         if a.shapes and not n:
             _, w = widths.check(doc, weight_dims(a.weights, p))
-            for t in sorted(w.tensors):
+            for t in w.names():
                 print(f"  {t} {widths.fmt(w.shape(t))}")
         print(f"{p}: {'ok' if not n else f'{n} problem(s)'}; digest {keramos.digest(doc)}")
         return 1 if n else 0
@@ -183,11 +193,30 @@ def main(argv=None):
         if errs:
             print("\n".join(errs), file=sys.stderr)
             return 1
-        W = run.load_weights(resolve(a.weights))
+        if a.random:
+            W, w = run.random_weights(doc, a.shape, a.seed)
+            n_par = sum(int(np.prod(x.shape)) for x in W.values())
+            weights_line = f"random weights, seed {a.seed}: {len(W)} tensors, {n_par:,} parameters"
+            if a.save:
+                run.save_gguf(a.save, doc, W, Path(a.model).stem)
+                bad = keramos.tools().file_errors(a.save)
+                if bad:
+                    print(f"{a.save}: keramos refuses the written file:\n" + "\n".join(bad), file=sys.stderr)
+                    return 1
+                weights_line += f"\nwritten  {a.save} (keramos's file checks pass)"
+        else:
+            if a.shape or a.save:
+                print("--shape and --save are for --random", file=sys.stderr)
+                return 2
+            W = run.load_weights(resolve(a.weights))
+            weights_line = f"weights {a.weights}"
         V, ctx = doc["model"]["vocab"], doc["model"]["ctx"]
         ids = [int(t) for t in a.tokens.split(",")] if a.tokens else [j % V for j in range(1, min(8, ctx - 1) + 1)]
         logits = run.forward(doc, W, ids)
-        print(f"{a.model}: digest {keramos.digest(doc)}")
+        print(f"{a.model}: digest {keramos.digest(doc)}\n{weights_line}")
+        if not np.all(np.isfinite(logits)):
+            print("logits  not all finite", file=sys.stderr)
+            return 1
         print(f"tokens  {ids}\nlogits  {list(logits.shape)}; argmax per position {logits.argmax(axis=1).tolist()}")
         if a.generate:
             print(f"greedy  {run.greedy(doc, W, ids, a.generate)[len(ids):]}")

@@ -15,7 +15,7 @@ from .compiler import tensor_name
 from .parser import RESERVED
 
 IDENT = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
-TENSOR_PATH = re.compile(r"^[A-Za-z0-9_][A-Za-z0-9_.{}-]*$")
+TENSOR_PATH = re.compile(r"^(?:[A-Za-z0-9_]|\{i\})(?:[A-Za-z0-9_.-]|\{i\})*$")
 TENSOR_KEYS = {"weight", "bias", "router", "experts", "state_weight", "tied_to", "a", "b", "c", "d",
                "k_b", "v_b", "selection_bias"}
 BINOPS = {"add": "+", "sub": "-", "mul": "*"}

@@ -15,7 +15,7 @@ PUNCT = ["+=", "-=", "*=", "(", ")", "[", "]", "{", "}", ",", "=", ":", "+", "-"
 
 _NUMBER = re.compile(r"(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?")
 _IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
-_TENSOR = re.compile(r"@[A-Za-z0-9_][A-Za-z0-9_.{}-]*")
+_TENSOR = re.compile(r"@(?:[A-Za-z0-9_]|\{i\})(?:[A-Za-z0-9_.-]|\{i\})*")  # braces only as {i}
 _STRING = re.compile(r'"(?:[^"\\\x00-\x1f]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4})*"')
 
 

@@ -2,14 +2,23 @@
 
 Values flow as [T, width] (IR_SPEC 3.6), so a value has one unknown, its width, and a tensor one
 unknown per dimension (IR_SPEC 3.7: [out, in], the reverse of the GGUF's ne). Each op says which of
-those unknowns are equal, or equal to a number: model.d and model.vocab, an attribute product
-(heads * head_dim), a split's sizes, a tensor's shape in the weights when they are given. Two numbers
-meeting in one unknown is a width mismatch, reported at the node that brought them together, with
-where each number came from. Nothing here adds a rule: each op's widths are its IR_SPEC section's.
+those unknowns are equal, or equal to a number: model.d, model.vocab and model.ctx, an attribute product
+(heads * head_dim), a split's sizes, a recurrence's declarations, a tensor's shape in the weights when
+they are given (or on the command line). Two numbers meeting in one unknown is a width mismatch,
+reported at the node that brought them together, with where each number came from. Nothing here adds
+a rule: each op's widths are its IR_SPEC section's.
 
-An op this module does not model (recurrence, depth_route) writes values of unknown width, which
-constrain nothing; an attribute that differs between layers (per_layer) is left out.
+Every op of IR_SPEC sections 5 to 7 is modelled. A list value (section 5.17) carries the widths of its
+tensors. An attribute whose value differs between layers (per_layer) fixes no width, since one block
+stands for every application; the shapes it governs stay free unless something else fixes them.
+
+The solver also records what each tensor is (a gain, a bias, a matrix, ...), for random weights.
 """
+
+import re
+
+DECL = re.compile(r"^\s*([A-Za-z_][A-Za-z0-9_]*)\s*\[([^\]]*)\]")
+
 
 class Dim:
     __slots__ = ("parent", "value", "why")
@@ -35,18 +44,42 @@ def fmt(shape):
     return "[" + ", ".join("?" if v is None else str(v) for v in shape) + "]"
 
 
+def _prod(xs):
+    p = 1
+    for x in xs:
+        p *= x
+    return p
+
+
+def _decl(s):
+    """'name[i, j]' (an assignment's left side or a declaration) -> (name, [i, j])."""
+    m = DECL.match(s) if isinstance(s, str) else None
+    if not m:
+        return None, None
+    return m.group(1), [x.strip() for x in m.group(2).split(",") if x.strip()]
+
+
 class Widths:
-    def __init__(self, doc, dims=None):
-        """dims: tensor name -> shape [out, in, ...] (numpy order), from the weights, or None."""
+    def __init__(self, doc, dims=None, given=None):
+        """dims: tensor name -> shape [out, in, ...] (numpy order), from the weights, or None.
+        given: tensor name (with {i}) -> shape, stated by hand (as `run --shape`)."""
         self.doc = doc
         self.dims = dims
+        self.given = given or {}
         self.tensors = {}
+        self.roles = {}
+        self.flat = {}       # recurrence weights: name -> element count (their stored shape is free)
+        self.defaults = []   # (tensor, dim index, value): taken by random weights where still free
+        self.app_indexed = set()
+        self.tied = set()    # linear weights with tied_to: absent from a file, they read the tied tensor
         self.errors = []
         self.deferred = []
         m = doc.get("model", {})
         self.d = self.const(m.get("d"), "model.d")
         self.vocab = self.const(m.get("vocab"), "model.vocab")
+        self.ctx = self.const(m.get("ctx"), "model.ctx")
         self.L = doc.get("block", {}).get("repeat")
+        self._node = {}
 
     # unknowns
     def const(self, v, why):
@@ -78,19 +111,23 @@ class Widths:
         return v
 
     # tensors
-    def tensor(self, name, rank, what):
+    def tensor(self, name, rank, what, role="matrix"):
         if not isinstance(name, str):
             return [Dim() for _ in range(rank)]
+        if self._node.get("tensor_index") == "application":
+            self.app_indexed.add(name)
         if name not in self.tensors:
             dims = [Dim() for _ in range(rank)]
             self.tensors[name] = dims
-            shape = self._file_shape(name)
-            if shape is not None:
+            self.roles[name] = role
+            for shape, why in ((self.given.get(name), "given"), (self._file_shape(name), "in the weights")):
+                if shape is None:
+                    continue
                 if len(shape) != rank:
-                    raise Conflict(f"{what}: {name} has {len(shape)} dimensions in the weights, {fmt(shape)}; "
+                    raise Conflict(f"{what}: {name} has {len(shape)} dimensions ({why}), {fmt(shape)}; "
                                    f"the op reads {rank}")
                 for d, v in zip(dims, shape):
-                    d.value, d.why = v, f"{name} is {fmt(shape)} in the weights"
+                    self.fix(d, v, f"{name} is {fmt(shape)} {why}", f"{what}: the shape of {name}")
         dims = self.tensors[name]
         if len(dims) != rank:
             raise Conflict(f"{what}: {name} is read with {rank} dimensions here and {len(dims)} elsewhere")
@@ -101,12 +138,29 @@ class Widths:
             return None
         if "{i}" not in name:
             return self.dims.get(name)
-        shapes = [self.dims.get(name.replace("{i}", str(i))) for i in range(self.L or 0)]
+        shapes = [self.dims.get(n) for n in self.instances(name)]
         shapes = [s for s in shapes if s is not None]
         return shapes[0] if shapes and all(s == shapes[0] for s in shapes) else None
 
+    def instances(self, name):
+        """The tensor names a template stands for: {i} as each stored layer (IR_SPEC 7.1), or as each
+        application where the node is tagged tensor_index (7.2)."""
+        if "{i}" not in name:
+            return [name]
+        wi = (self.doc.get("block") or {}).get("weight_index")
+        if name in self.app_indexed or not isinstance(wi, dict):
+            layers = range(self.L or 0)
+        else:
+            layers = sorted(set(wi.get("per_layer") or []))
+        return [name.replace("{i}", str(i)) for i in layers]
+
     def shape(self, name):
+        if name in self.flat and name not in self.tensors:
+            return [self.flat[name]]
         return [find(d).value for d in self.tensors[name]]
+
+    def names(self):
+        return sorted(set(self.tensors) | set(self.flat))
 
     # values
     def width(self, env, name):
@@ -117,7 +171,7 @@ class Widths:
             d = Dim()
             env[name] = d
             return d
-        return Dim()  # a list where a tensor is read, or a value of unknown kind
+        return Dim()  # a list where a tensor is read
 
     # the document
     def run(self):
@@ -131,18 +185,20 @@ class Widths:
             self.written = set()
             for idx, n in enumerate(s.get("nodes", [])):
                 self._idx = idx
+                self._node = n if isinstance(n, dict) else {}
                 try:
-                    self.node(sect, n, env)
+                    self.node(sect, self._node, env)
                 except Conflict as e:
                     self.errors.append((sect, idx, str(e)))
+            self._node = {}
             try:
                 if sect == "embed" and isinstance(env.get("x"), Dim):
                     self.unify(env["x"], self.d, "the residual stream x the embed section writes and model.d")
                 if sect == "block":  # what an application reads from the one before it
                     for name in self.read_first:
-                        if isinstance(before.get(name), Dim) and isinstance(env.get(name), Dim):
-                            self.unify(env[name], before[name],
-                                       f"{name} as one application writes it and the next reads it")
+                        a, b = env.get(name), before.get(name)
+                        if isinstance(a, Dim) and isinstance(b, Dim):
+                            self.unify(a, b, f"{name} as one application writes it and the next reads it")
                 if sect == "head" and isinstance(env.get("logits"), Dim):
                     self.unify(env["logits"], self.vocab, "the logits the head writes and model.vocab")
             except Conflict as e:
@@ -161,6 +217,7 @@ class Widths:
         for name in ins:
             if name not in self.written:
                 self.read_first.add(name)
+        self._lists = [env.get(i) if isinstance(env.get(i), tuple) else None for i in ins]
         W = [self.width(env, i) if isinstance(i, str) else Dim() for i in ins]
         prior = {o: env.get(o) for o in outs}
         f = getattr(self, "op_" + str(op), None)
@@ -179,39 +236,45 @@ class Widths:
                     self.unify(r, prior[o], f"{o} as this node writes it and as it stands where the node "
                                             "is not applied")
 
-    # ops (IR_SPEC section 5 and 6)
+    # ops (IR_SPEC sections 5 to 7)
     def _name(self, n):
         return f"{n.get('op')} writing {n.get('out')}"
 
     def op_embedding(self, n, W, sect):
-        w = self.tensor(n.get("weight"), 2, self._name(n))
+        what = self._name(n)
+        w = self.tensor(n.get("weight"), 2, what, "embedding")
+        self.unify(w[0], self.vocab, f"{what}: the rows of {n.get('weight')} (IR_SPEC 5.1: [vocab, d])")
         if n.get("state_weight"):
-            s = self.tensor(n["state_weight"], 2, self._name(n))
-            self.unify(s[1], w[1], f"{self._name(n)}: the widths of weight and state_weight")
+            s = self.tensor(n["state_weight"], 2, what, "embedding")
+            self.unify(s[1], w[1], f"{what}: the widths of weight and state_weight")
         return w[1]
 
     def op_pos_embedding(self, n, W, sect):
-        w = self.tensor(n.get("weight"), 2, self._name(n))
-        self.unify(W[0], w[1], f"{self._name(n)}: the width of {n['in'][0]} and of the position table")
+        what = self._name(n)
+        w = self.tensor(n.get("weight"), 2, what, "embedding")
+        self.unify(w[0], self.ctx, f"{what}: the rows of {n.get('weight')} (IR_SPEC 5.2: [ctx, d])")
+        self.unify(W[0], w[1], f"{what}: the width of {n['in'][0]} and of the position table")
         return W[0]
 
     def op_linear(self, n, W, sect):
         what = self._name(n)
         w = self.tensor(n.get("weight"), 2, what)
         if n.get("tied_to"):
-            t = self.tensor(n["tied_to"], 2, what)
+            if isinstance(n.get("weight"), str):
+                self.tied.add(n["weight"])
+            t = self.tensor(n["tied_to"], 2, what, "embedding")
             self.unify(w[0], t[0], f"{what}: rows of weight and of tied_to")
             self.unify(w[1], t[1], f"{what}: columns of weight and of tied_to")
         self.unify(W[0], w[1], f"{what}: the width of its input {n['in'][0]} and the weight's in-dimension")
         if n.get("bias"):
-            b = self.tensor(n["bias"], 1, what)
+            b = self.tensor(n["bias"], 1, what, "bias")
             self.unify(b[0], w[0], f"{what}: the bias length and the weight's out-dimension")
         return w[0]
 
     def _per_feature(self, n, W, keys):
         for k in keys:
             if n.get(k):
-                t = self.tensor(n[k], 1, self._name(n))
+                t = self.tensor(n[k], 1, self._name(n), "bias" if k == "bias" else "gain")
                 self.unify(t[0], W[0], f"{self._name(n)}: the length of {k} and the width of {n['in'][0]}")
         return W[0]
 
@@ -226,10 +289,9 @@ class Widths:
         if g is None:
             return self._per_feature(n, W, ("weight",))
         if n.get("weight"):
-            t = self.tensor(n["weight"], 1, self._name(n))
+            t = self.tensor(n["weight"], 1, self._name(n), "gain")
             self.fix(t[0], g, f"group {g}", f"{self._name(n)}: the weight's length and the group")
-        x, name = W[0], n["in"][0]
-        idx = self._idx
+        x, name, idx = W[0], n["in"][0], self._idx
 
         def check():
             v = find(x).value
@@ -281,7 +343,7 @@ class Widths:
         nr = self.attr(n, "n_rot", n.get("head_dim"))
         ff = n.get("freq_factors")
         for name in ([ff] if isinstance(ff, str) else [ff.get("short"), ff.get("long")] if isinstance(ff, dict) else []):
-            t = self.tensor(name, 1, what)
+            t = self.tensor(name, 1, what, "gain")
             if nr is not None:
                 self.fix(t[0], nr // 2, f"n_rot {nr} / 2", f"{what}: the length of {name}")
         if n.get("rope_heads") == "first":
@@ -299,9 +361,32 @@ class Widths:
         self.unify(W[2], kv, f"{what}: the width of {n['in'][2]}")
         pb = n.get("position_bias")
         if isinstance(pb, dict) and pb.get("weight"):
-            t = self.tensor(pb["weight"], 2, what)
+            t = self.tensor(pb["weight"], 2, what, "small")
             self.fix(t[1], h, "heads", f"{what}: the columns of the position bias table")
+            b = pb.get("buckets")
+            if isinstance(b, list) and b and all(isinstance(x, int) for x in b):
+                self.defaults.append((pb["weight"], 0, max(b) + 1))  # B > every bucket: the least B
+        rk = n.get("relative_kv")
+        if isinstance(rk, dict) and isinstance(rk.get("max_distance"), int):
+            K1 = rk["max_distance"] + 1
+            for key in ("key", "value"):
+                if isinstance(rk.get(key), str):
+                    t = self.tensor(rk[key], 2, what, "small")
+                    self.fix(t[0], K1, "max_distance + 1", f"{what}: the rows of {rk[key]}")
+                    self._one_of(t[1], (hd, None if h is None or hd is None else h * hd), what, rk[key])
+                    self.defaults.append((rk[key], 1, hd))  # one set shared by every head
         return W[0]
+
+    def _one_of(self, d, allowed, what, name):
+        idx = self._idx
+        allowed = [a for a in allowed if a is not None]
+
+        def check():
+            v = find(d).value
+            if v is not None and allowed and v not in allowed:
+                return f"{what}: the width of {name}, {v} ({find(d).why}), is neither head_dim nor heads x head_dim " \
+                       f"({' nor '.join(map(str, allowed))})"
+        self.deferred.append(("block", idx, check))
 
     def op_linear_attention(self, n, W, sect):
         h, hd = self.attr(n, "heads"), self.attr(n, "head_dim")
@@ -320,7 +405,7 @@ class Widths:
         for j, (v, why) in enumerate(want):
             self.fix(W[j], v, why, f"{what}: the width of {n['in'][j]}")
         for key, shape in (("k_b", (H, r, dn)), ("v_b", (H, dv, r))):
-            t = self.tensor(n.get(key), 3, what)
+            t = self.tensor(n.get(key), 3, what, "stack")
             for d, v in zip(t, shape):
                 self.fix(d, v, f"{key} [heads, ...] from the attributes", f"{what}: the shape of {n.get(key)}")
         return Dim(H * dv, f"heads {H} x v_head_dim {dv} of mla_attention")
@@ -332,7 +417,7 @@ class Widths:
         self.fix(r[0], E, "n_experts", f"{what}: the router's rows")
         self.unify(r[1], W[0], f"{what}: the router's columns and the width of {n['in'][0]}")
         ex = n.get("experts") or {}
-        g, u, dn = (self.tensor(ex.get(k), 3, what) for k in ("gate", "up", "down"))
+        g, u, dn = (self.tensor(ex.get(k), 3, what, "stack") for k in ("gate", "up", "down"))
         for t, k in ((g, "gate"), (u, "up"), (dn, "down")):
             self.unify(t[0], r[0], f"{what}: the expert count of {k} and the router's rows")
         self.unify(g[2], W[0], f"{what}: gate's in-dimension and the width of {n['in'][0]}")
@@ -341,31 +426,37 @@ class Widths:
         self.unify(dn[2], g[1], f"{what}: down's in-dimension and the hidden width")
         self.unify(dn[1], W[0], f"{what}: down's out-dimension and the width of {n['in'][0]}")
         if n.get("selection_bias"):
-            b = self.tensor(n["selection_bias"], 1, what)
+            b = self.tensor(n["selection_bias"], 1, what, "bias")
             self.unify(b[0], r[0], f"{what}: the selection bias length and the expert count")
         return W[0]
 
+    # list values (IR_SPEC 5.17, 5.18): ("list", [width, ...]), or ("list", None) where unknown
     def op_list(self, n, W, sect):
-        return ("list", W)
+        return ("list", list(W))
 
     def op_append(self, n, W, sect):
-        return ("list", None)
+        L = self._lists[0] if self._lists else None
+        return ("list", (L[1] + [W[1]]) if L and L[1] is not None and len(W) > 1 else None)
 
     def op_depth_attend(self, n, W, sect):
         what = self._name(n)
         out = Dim()
-        for j in range(1, len(W)):
-            self.unify(W[j], out, f"{what}: the width of {n['in'][j]}")
+        L = self._lists[0] if self._lists else None
+        sources = [(f"{n['in'][0]}[{k}]", d) for k, d in enumerate(L[1])] if L and L[1] else []
+        sources += [(n["in"][j], W[j]) for j in range(1, len(W))]
+        for label, d in sources:
+            self.unify(d, out, f"{what}: the width of {label}")
         if n.get("weight"):
-            t = self.tensor(n["weight"], 1, what)
+            t = self.tensor(n["weight"], 1, what, "zero")
             self.unify(t[0], out, f"{what}: the pseudo-query's length and the width of its sources")
         return out
 
+    # the state profile (section 6) and recursion (section 7)
     def op_ssm_scan(self, n, W, sect):
         what, N = self._name(n), self.attr(n, "n")
         self.fix(W[0], N, "n of ssm_scan", f"{what}: the width of {n['in'][0]}")
-        for key, rank in (("a", 2), ("b", 1), ("c", 1), ("d", 1)):
-            t = self.tensor(n.get(key), rank, what)
+        for key, rank, role in (("a", 2, "transition"), ("b", 1, "small"), ("c", 1, "small"), ("d", 1, "small")):
+            t = self.tensor(n.get(key), rank, what, role)
             want = [N, N] if key == "a" else [1] if key == "d" else [N]
             for d, v in zip(t, want):
                 self.fix(d, v, "n of ssm_scan" if v == N else "ssm_scan's d", f"{what}: the shape of {n.get(key)}")
@@ -378,7 +469,7 @@ class Widths:
         self.fix(t[0], C, "channels", f"{what}: the rows of {n.get('weight')}")
         self.fix(t[1], K, "kernel", f"{what}: the columns of {n.get('weight')}")
         if n.get("bias"):
-            b = self.tensor(n["bias"], 1, what)
+            b = self.tensor(n["bias"], 1, what, "bias")
             self.fix(b[0], C, "channels", f"{what}: the length of {n['bias']}")
         return W[0]
 
@@ -387,18 +478,61 @@ class Widths:
         for j, (v, why) in enumerate(((D, "channels"), (D, "channels"), (N, "d_state"), (N, "d_state"))):
             if j < len(W):
                 self.fix(W[j], v, f"{why} of selective_scan", f"{what}: the width of {n['in'][j]}")
-        a = self.tensor(n.get("a"), 2, what)
+        a = self.tensor(n.get("a"), 2, what, "negative")
         self.fix(a[0], D, "channels", f"{what}: the rows of {n.get('a')}")
         self.fix(a[1], N, "d_state", f"{what}: the columns of {n.get('a')}")
         if n.get("d"):
-            t = self.tensor(n["d"], 1, what)
+            t = self.tensor(n["d"], 1, what, "gain")
             self.fix(t[0], D, "channels", f"{what}: the length of {n['d']}")
         return W[0]
 
+    def op_recurrence(self, n, W, sect):
+        """IR_SPEC 6.10.1: an input's width is the product of its declared sizes, a weight holds as many
+        elements as its declaration (its stored shape is otherwise free), the readout's width is the product
+        of its sizes."""
+        what = self._name(n)
+        index = n.get("index") if isinstance(n.get("index"), dict) else {}
 
-def check(doc, dims=None):
+        def size(idx, label):
+            if not idx or any(not isinstance(index.get(i), int) for i in idx):
+                return None
+            return _prod(index[i] for i in idx)
+
+        for j, decl in enumerate(n.get("inputs") or []):
+            name, idx = _decl(decl)
+            if j < len(W):
+                self.fix(W[j], size(idx, decl), f"{decl} with index {index}", f"{what}: the width of {n['in'][j]}")
+        for decl, tname in (n.get("weights") or {}).items():
+            _, idx = _decl(decl)
+            count = size(idx, decl)
+            if not isinstance(tname, str) or count is None:
+                continue
+            if self._node.get("tensor_index") == "application":
+                self.app_indexed.add(tname)
+            shape = self.given.get(tname) or self._file_shape(tname)
+            if shape is not None and _prod(shape) != count:
+                raise Conflict(f"{what}: {tname} holds {_prod(shape)} elements ({fmt(shape)}) against {count} "
+                               f"(its declaration {decl} with index {index})")
+            self.flat[tname] = count
+            self.roles[tname] = "small"
+            if tname not in self.tensors:
+                self.tensors[tname] = [Dim(index[i], f"{decl}") for i in idx]
+        lhs = str(n.get("readout") or "").split("=")[0].strip()
+        _, idx = _decl(lhs)
+        v = size(idx, lhs)
+        return Dim(v, f"the readout {lhs} with index {index}") if v else None
+
+    def op_depth_route(self, n, W, sect):
+        what, R = self._name(n), self.attr(n, "n_rec")
+        t = self.tensor(n.get("weight"), 2, what)
+        self.fix(t[0], R, "n_rec", f"{what}: the router's rows")
+        self.unify(t[1], W[0], f"{what}: the router's columns and the width of {n['in'][0]}")
+        return Dim(1, "depth_route's depth report")
+
+
+def check(doc, dims=None, given=None):
     """(errors, solver): errors are (section, node index or None, message)."""
-    w = Widths(doc, dims)
+    w = Widths(doc, dims, given)
     w.run()
     return w.errors, w
 

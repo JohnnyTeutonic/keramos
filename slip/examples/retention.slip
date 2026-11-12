@@ -1,0 +1,41 @@
+# A new architecture, prototyped in slip with no weights anywhere: a retention-style token mixer (a
+# matrix state per head, decayed by a learned per-head rate; after Sun et al. 2023, arXiv 2307.08621,
+# without its normalisation or rotation) in place of attention, written as a keramos recurrence, with a
+# SwiGLU FFN. No GGUF of it exists. slip solves every tensor's shape from the graph, except the FFN's
+# hidden width, which only a weight could say, so it is given on the command line:
+#
+#   python -m slip check examples/retention.slip --shapes
+#   python -m slip run examples/retention.slip --random --shape @ffn_up=64 --generate 4
+#
+# S[h,e,f] = sigmoid(g[h]) * S[h,e,f] + k[h,e] * v[h,f]; the readout is q's product with S.
+
+ir_version 1
+family_hint retention
+model {vocab: 32, d: 32, n_layers: 3, ctx: 64, dtype: f32}
+
+embed {
+  x = embedding(tokens) @token_embd
+}
+
+block(repeat=3) {
+  state S = recurrent(op=recurrence, dtype=f32, tensors=[{name: S, shape: [4, 8, 8], init: 0}])
+
+  h = rmsnorm(x, eps=1e-5) @attn_norm
+  a = recurrence(
+    linear(h) @attn_q, linear(h) @attn_k, linear(h) @attn_v,
+    state=S,
+    index={h: 4, e: 8, f: 8},
+    inputs=["q[h,e]", "k[h,e]", "v[h,f]"],
+    weights={"g[h]": @retention_decay},
+    update=["S[h,e,f] = sigmoid(g[h]) * S[h,e,f] + k[h,e] * v[h,f]"],
+    readout="y[h,f] = sum(e, q[h,e] * S[h,e,f])",
+  )
+  x += linear(a) @attn_output
+
+  h = rmsnorm(x, eps=1e-5) @ffn_norm
+  x += linear(silu(linear(h) @ffn_gate) * linear(h) @ffn_up) @ffn_down
+}
+
+head {
+  logits = linear(rmsnorm(x, eps=1e-5) @output_norm) @output
+}
