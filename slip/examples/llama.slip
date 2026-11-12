@@ -1,0 +1,35 @@
+# A Llama model in slip, written by hand.
+#
+# It has the shape of keramos's pk_llama conformance model, so it runs on that model's weights, and
+# its logits are bit-identical to those of the document paperkiln exported. That document is 242
+# lines of JSON; decompiled, 57 lines of slip; written by hand, the block below is 12.
+#
+#   python -m slip run examples/llama.slip \
+#       --weights ../conformance/models/pk_llama/pk_llama.gguf \
+#       --against ../conformance/models/pk_llama/pk_llama.gguf
+
+ir_version 1
+family_hint llama
+model {vocab: 15, d: 16, n_layers: 2, ctx: 16, dtype: f32}
+
+embed {
+  x = embedding(tokens) @token_embd
+}
+
+block(repeat=2) {
+  state kv = kv(heads=2, kv_heads=2, head_dim=8, max_len=16, window=0, sinks=0)
+
+  h = rmsnorm(x, eps=1e-5) @attn_norm
+  q, k = rope(linear(h) @attn_q, linear(h) @attn_k, pos,
+              heads=2, head_dim=8, theta=10000, rope_heads=all, pairing=interleaved)
+  a = attention(q, k, linear(h) @attn_v, state=kv,
+                heads=2, kv_heads=2, head_dim=8, scale=0.35355338, causal=true, window=0, sinks=0)
+  x += linear(a) @attn_output
+
+  h = rmsnorm(x, eps=1e-5) @ffn_norm
+  x += linear(silu(linear(h) @ffn_gate) * linear(h) @ffn_up) @ffn_down
+}
+
+head {
+  logits = linear(rmsnorm(x, eps=1e-5) @output_norm, tied_to=@token_embd) @output
+}
