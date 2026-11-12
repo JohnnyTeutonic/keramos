@@ -800,7 +800,7 @@ def _run_trace_sessions(adapter, case, model_dir, tol):
     return ok, (f"{len(case['steps'])} steps" + ("; " + "; ".join(msgs) if msgs else ""))
 
 
-def run_refuse_case(adapter, case, path):
+def run_refuse_case(adapter, case, path, cites=None):
     """IR_SPEC 11.2: the document (doc, or text: a JSON text, for faults a parsed value cannot hold) in place of
     the GGUF's own, or the GGUF alone, must be refused; the reference must report the cited rule."""
     gguf = SUITE / case["gguf"] if case.get("gguf") else None
@@ -812,11 +812,26 @@ def run_refuse_case(adapter, case, path):
         r = adapter.check(gguf, ir)
     if r["accepted"]:
         return False, "accepted"
+    if cites is not None:
+        cites["cites"] = refusal_cites(case, " ".join(r.get("errors") or [r.get("message", "")]))
     if isinstance(adapter, NumpyAdapter):
         tag = f"IR_SPEC {case['section']} (rule {case['rule']})"
         hit = any(e.startswith(tag) for e in r["errors"])
         return hit, (f"refused ({tag})" if hit else f"refused, but not under {tag}: {r['errors'][:2]}")
     return True, "refused: " + r.get("message", "")[:120]
+
+
+def refusal_cites(case, message):
+    """Report only, no verdict: whether a refusal's message cites the case's rule ("rule"), only its section
+    ("section"), or neither. Section 11.2 requires the reference alone to name the rule; for any other engine a
+    refusal passes whatever it cites, so this column shows whether it refused for the case's reason."""
+    import re
+    rule, section = str(case.get("rule", "")), str(case.get("section", ""))
+    if rule and re.search(rf"\brule\s*{re.escape(rule)}\b", message, re.IGNORECASE):
+        return "rule"
+    if section and re.search(rf"(?<![\d.]){re.escape(section)}(?![\d])", message):
+        return "section"
+    return "neither"
 
 
 def run_accept_case(adapter, c):
@@ -879,6 +894,7 @@ def run_suite(adapter, only=None, out_json=None):
             sub = [(c["id"], case)]
         for cid, x in sub:
             profile_of[cid] = c.get("profile") or "none"
+            cites = {}
             try:
                 if c["kind"] == "op":
                     ok, msg = run_op_case(adapter, x, x.get("tol", tol) if adapter.backend == "cpu" else tol)
@@ -897,7 +913,7 @@ def run_suite(adapter, only=None, out_json=None):
                 elif c["kind"] == "chat":
                     ok, msg = run_chat_case(adapter, x, case.get("records", {}))
                 else:
-                    ok, msg = run_refuse_case(adapter, x, c["file"])
+                    ok, msg = run_refuse_case(adapter, x, c["file"], cites)
                 verdict = "PASS" if ok else "FAIL"
                 if cid in xf or cid.split("/", 2)[0] + "/" + cid.split("/")[1] in xf:
                     verdict = {"PASS": "XPASS", "FAIL": "XFAIL"}[verdict]
@@ -912,7 +928,7 @@ def run_suite(adapter, only=None, out_json=None):
                     verdict = "XFAIL"
                     msg += f" [expected to fail: {xf.get(cid, '')[:80]}]"
             counts[verdict] += 1
-            results.append({"id": cid, "kind": c["kind"], "verdict": verdict, "detail": msg})
+            results.append({"id": cid, "kind": c["kind"], "verdict": verdict, "detail": msg, **cites})
             print(f"{verdict} {cid}: {msg}")
     by_kind = {}
     for r in results:
@@ -927,13 +943,21 @@ def run_suite(adapter, only=None, out_json=None):
     print(f"profiles declared: {', '.join(declared) or 'none'}; by manifest profile "
           + ", ".join(f"{k} {v['PASS']}/{v['FAIL']}/{v['SKIP']}" for k, v in sorted(by_profile.items()))
           + " (pass/fail/skip)")
+    refusal_cites_counts = {"rule": 0, "section": 0, "neither": 0}
+    for r in results:
+        if "cites" in r:
+            refusal_cites_counts[r["cites"]] += 1
+    if sum(refusal_cites_counts.values()):
+        print(f"refusals citing the case's rule {refusal_cites_counts['rule']}, its section only "
+              f"{refusal_cites_counts['section']}, neither {refusal_cites_counts['neither']} (report only; no verdict "
+              f"depends on it outside the reference)")
     if spec["note"]:
         print(spec["note"])
     if out_json:
         Path(out_json).write_text(json.dumps({"adapter": adapter.hello(), "spec": dict(spec["record"]),
                                               "provenance": suite_provenance(), "counts": counts, "by_kind": by_kind,
-                                              "by_profile": by_profile, "results": results}, indent=1) + "\n",
-                                  encoding="utf-8")
+                                              "by_profile": by_profile, "refusal_cites": refusal_cites_counts,
+                                              "results": results}, indent=1) + "\n", encoding="utf-8")
     return counts
 
 
@@ -970,10 +994,13 @@ def _git_identity():
         return r.stdout.strip() if r.returncode == 0 else None
     top = git("rev-parse", "--show-toplevel")
     if top is None or Path(top).resolve() != ROOT.resolve():
-        return {"tag": None, "describe": None, "commit": None, "modified": None}
+        return {"tag": None, "describe": None, "commit": None, "tree": None, "modified": None}
     status = git("status", "--porcelain", "--untracked-files=no")
+    # The tree as well as the commit: a rewritten history changes commit ids but not the tree of the same files,
+    # so the tree still identifies the suite a receipt ran against.
     return {"tag": git("describe", "--tags", "--exact-match"), "describe": git("describe", "--tags", "--always"),
-            "commit": git("rev-parse", "HEAD"), "modified": None if status is None else bool(status)}
+            "commit": git("rev-parse", "HEAD"), "tree": git("rev-parse", "HEAD^{tree}"),
+            "modified": None if status is None else bool(status)}
 
 
 def suite_provenance():

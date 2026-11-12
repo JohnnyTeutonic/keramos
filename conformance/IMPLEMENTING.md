@@ -119,7 +119,11 @@ Each case gets one verdict:
 A refusal is a result, not an error: `check` gives `{"accepted": false, "message"}`, `digest`
 `{"refused"}`, `render_chat` `{"refused"}`, `parse_reply` `{"parsed": false}`. Where the case expects a
 refusal it passes, with any message (only the reference must also name the case's rule); elsewhere it
-fails.
+fails. Because a refusal for another reason (a missing tensor, an unsupported op) also passes, the results
+file records for each refusal case whether the message cites the case's rule (`"cites": "rule"`, matched as
+`rule N`), only its section (`"section"`) or neither, and counts them in `refusal_cites`. No verdict depends
+on it. Name the rule in your refusal messages in the reference's form, `IR_SPEC <section> (rule <n>): ...`,
+so a reader can see that each refusal was for the case's reason.
 
 The runner exits 1 on any FAIL and 0 otherwise. SKIPs and XFAILs do not change the exit status, so exit
 status 0 alone does not mean an engine conforms.
@@ -152,14 +156,21 @@ status 0 alone does not mean an engine conforms.
 
 - `adapter`: the engine's own `hello` reply (for an in-process adapter, the members it sets);
 - `spec`: the suite's revision; the checkout's tag (when the commit is tagged), `git describe`, full
-  commit and whether tracked files were modified; the revision the engine declares, and `match`;
+  commit, the commit's tree and whether tracked files were modified; the revision the engine declares,
+  and `match`;
 - `provenance`: sha256 of the runner, the manifest and `expected_fail.json`;
-- `counts`, `by_kind`, `by_profile` and every case's verdict and detail.
+- `counts`, `by_kind`, `by_profile`, `refusal_cites` and every case's verdict and detail.
 
-A report of conformance names: the keramos tag and full commit (and that no tracked file was modified);
-the engine, its version and build, the backend and `exact`; the platform; the counts overall and by kind;
-every FAIL and XFAIL with its reason; and the SKIPs grouped by reason. For example: *"my_engine 0.3,
-CPU, exact: keramos v1.6.2 (commit ...), 587 pass, 0 fail, 11 skip (the gradient cases: no backward)."*
+A report of conformance names: the keramos tag, full commit and tree (and that no tracked file was
+modified); the engine, its version and build, the backend and `exact`; the platform; the counts overall
+and by kind; every FAIL and XFAIL with its reason; and the SKIPs grouped by reason. For example:
+*"my_engine 0.3, CPU, exact: keramos v1.6.2 (commit ..., tree ...), 587 pass, 0 fail, 11 skip (the
+gradient cases: no backward)."*
+
+Record the tree as well as the commit. A rewritten history changes commit ids but not the tree of the
+same files, so the tree still identifies the suite after a rewrite. This repository's history was
+rewritten on 2 and 3 November 2026, and the commits named in receipts written before then are not
+reachable from any current ref: match those by their tag and, where recorded, their provenance hashes.
 Do not shorten that to "conformant" while cases of a profile you claim are skipped: the text does not yet
 define a conformance claim, so the counts and the reasons for the skips are the claim.
 

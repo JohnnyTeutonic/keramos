@@ -36,6 +36,7 @@ def test_minimal_adapter_passes_what_it_implements_and_skips_the_rest(tmp_path):
     assert data["adapter"]["version"] == "0.1 (example)"  # the engine's own hello is recorded
     assert data["spec"]["suite_revision"] == conf.SUITE_REVISION and data["spec"]["match"] is True
     assert set(data["provenance"]) == {"runner_sha256", "manifest_sha256", "expected_fail_sha256"}
+    assert "tree" in data["spec"] and "commit" in data["spec"]
     assert sum(sum(v.values()) for v in data["by_profile"].values()) == len(data["results"])
 
 
@@ -101,6 +102,25 @@ def test_a_later_skip_does_not_hide_an_earlier_mismatch_in_a_model_case():
     ok, msg = conf.run_model_case(_Scripted([{"logits": logits}, NotImplementedError("later")]), case,
                                   _model_dir(), 1e-5)
     assert not ok and "then a skip" in msg
+
+
+def test_refusal_citation_is_reported_without_changing_the_verdict(tmp_path):
+    case = {"rule": 17, "section": "3.7"}
+    assert conf.refusal_cites(case, "IR_SPEC 3.7 (rule 17): bad name") == "rule"
+    assert conf.refusal_cites(case, "rule 17a broken; see 3.7") == "section"
+    assert conf.refusal_cites(case, "rule 1 and 13.75 and 3.71") == "neither"
+
+    class RefusesEverything(conf.Adapter):
+        name = "refuses-everything"
+
+        def check(self, gguf, ir):
+            return {"accepted": False, "message": "missing tensor"}
+
+    out = tmp_path / "refuse.json"
+    counts = conf.run_suite(RefusesEverything(), only="refuse/", out_json=out)
+    data = json.loads(out.read_text(encoding="utf-8"))
+    assert counts["FAIL"] == 0 and counts["PASS"] == len(data["results"])  # any refusal still passes
+    assert data["refusal_cites"]["neither"] == counts["PASS"]
 
 
 def test_a_malformed_result_fails_the_case_without_aborting_the_run():
