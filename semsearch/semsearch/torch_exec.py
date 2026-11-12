@@ -24,8 +24,21 @@ SUPPORTED = {"embedding", "pos_embedding", "linear", "scale", "rmsnorm", "layern
 
 
 def supported(doc):
-    ops = {n.get("op") for s in ("embed", "block", "head") for n in (doc.get(s) or {}).get("nodes", [])}
-    return ops <= SUPPORTED and not any("apply" in n for n in doc["block"]["nodes"])
+    """The ops and attributes this interpreter implements (others raise Unsupported in forward)."""
+    nodes = [n for s in ("embed", "block", "head") for n in (doc.get(s) or {}).get("nodes", [])]
+    if not {n.get("op") for n in nodes} <= SUPPORTED:
+        return False
+    for n in nodes:
+        if "apply" in n or "tensor_index" in n:
+            return False
+        if n.get("op") == "attention" and (n.get("mask", "causal") != "causal" or n.get("position_bias")
+                                           or n.get("relative_kv")):
+            return False
+        if n.get("op") == "rope" and (n.get("freq_factors") is not None or n.get("attn_factor", 1.0) != 1.0):
+            return False
+        if n.get("op") == "split" and n.get("groups", 1) != 1:
+            return False
+    return True
 
 
 def init_params(doc, given=None, seed=0):
@@ -120,7 +133,7 @@ def run_nodes(nodes, env, P, i=None, wi=None):
         elif op == "silu":
             y = x * torch.sigmoid(x)
         elif op == "relu":
-            y = torch.relu(x)
+            y = torch.where(x > 0, x, torch.zeros_like(x))   # 5.9: relu(NaN) = +0
         elif op == "sigmoid":
             y = torch.sigmoid(x)
         elif op in ("add", "sub", "mul"):

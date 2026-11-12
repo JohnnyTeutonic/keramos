@@ -96,6 +96,8 @@ class SSA:
             s.nodes.append({"sect": nd.sect, "raw": raw, "ins": [vid(v) for v in nd.ins],
                             "outs": [vid(v) for v in nd.outs], "multi": isinstance(nd.raw.get("out"), list)})
         for name in g.carried:
+            if name not in g.embed_env:
+                raise ValueError(f"the block carries {name}, which the embed does not write")
             s.carry_out[name] = vid(g.block_final[name])
             s.embed_out[name] = vid(g.embed_env[name])
         s.logits = vid(g.logits)
@@ -598,7 +600,10 @@ def edit_delete(s, given, rng):
         return None
     a, b, cone, reads = rng.choice(subs)
     add = s.nodes[a]
-    stream_in = [u for u in add["ins"] if u != b][0]
+    rest = [u for u in add["ins"] if u != b]
+    if not rest:
+        return None
+    stream_in = rest[0]
     out = add["outs"][0]
     op = s.nodes[a]["raw"]["op"]
     s.nodes.pop(a)
@@ -637,7 +642,10 @@ def _resize_per_layer(obj, L):
 
 def edit_repeat(s, given, rng):
     L = s.block_attrs["repeat"]
-    new = rng.choice([x for x in (L - 1, L + 1) if 1 <= x <= 6])
+    opts = [x for x in (L - 1, L + 1) if 1 <= x and (x <= 6 or x < L)]   # grow up to 6, shrink from any
+    if not opts:
+        return None
+    new = rng.choice(opts)
     s.block_attrs["repeat"] = new
     s.top["model"]["n_layers"] = new
     wi = s.block_attrs.get("weight_index")
@@ -672,7 +680,8 @@ def edit_tie(s, given, rng):
 def edit_width(s, given, rng):
     groups = {}
     for t, shp in given.items():
-        stem = t.rsplit("_", 1)[0] if "_" in t.split(".")[-2] else t
+        parts = t.split(".")
+        stem = t.rsplit("_", 1)[0] if len(parts) >= 2 and "_" in parts[-2] else t
         groups.setdefault(stem, []).append(t)
     if not groups:
         return None

@@ -28,7 +28,7 @@ import random
 import time
 from pathlib import Path
 
-from . import canon, config_space as cs, fingerprint as fp, mutate as mu, task
+from . import canon, canon_v1, config_space as cs, fingerprint as fp, mutate as mu, task
 
 ARMS = ("config", "config+canon", "semantic", "semantic-cfg")
 CFG_EDITS = ("set_attr", "heads", "qk_norm", "repeat", "tie", "width")
@@ -95,7 +95,8 @@ def _any_unbounded(doc):
     return False
 
 
-def run(arm, seed, budget=60, pop_size=12, sample=4, steps=300, journal=None, start=None, log=None):
+def run(arm, seed, budget=60, pop_size=12, sample=4, steps=300, journal=None, start=None, log=None,
+        strict_check=False):
     """One search. Returns a summary dict with the history of every charged evaluation."""
     rng = random.Random(seed)
     J = Journal(journal)
@@ -106,7 +107,8 @@ def run(arm, seed, budget=60, pop_size=12, sample=4, steps=300, journal=None, st
     seen_class, seen_exact = {}, {}
     history = []
     counters = {"invalid_proposals": 0, "noop_filtered": 0, "inapplicable": 0, "cache_hits": 0,
-                "fingerprint_hits": 0, "wasted_class": 0, "wasted_exact": 0, "wasted_fingerprint": 0}
+                "fingerprint_hits": 0, "wasted_class": 0, "wasted_exact": 0, "wasted_fingerprint": 0,
+                "fingerprint_match_strict_agree": 0, "fingerprint_match_strict_disagree": 0}
     train_seed = seed
     best_doc = []
 
@@ -128,16 +130,23 @@ def run(arm, seed, budget=60, pop_size=12, sample=4, steps=300, journal=None, st
             return cache[key], False
         v = fp.fingerprint(doc, given)
         j = fps.find(v)
+        if j is not None and strict_check:
+            # measured, never acted on: does the match survive perturbed gains and biases (a second weight seed)?
+            md, mg = fps.keys[j]
+            agree = fp.match(fp.fingerprint(doc, given, seeds=(1,), perturb=0.2),
+                             fp.fingerprint(md, mg, seeds=(1,), perturb=0.2))
+            counters["fingerprint_match_strict_agree" if agree else "fingerprint_match_strict_disagree"] += 1
         if arm.startswith("semantic") and j is not None:
             counters["fingerprint_hits"] += 1
             cache[key] = fp_fit[j]
             return fp_fit[j], False
-        # charged: a training run
-        jkey = f"{h_exact}/{train_seed}/{steps}"
+        # charged: a training run (journalled by the hash the runs were recorded under: canon_v1)
+        jkey = f"{canon_v1.canonical_hash(doc, 'exact', given)}/{train_seed}/{steps}"
         res = J.get(jkey)
         if res is None:
             res = task.evaluate(doc, given, steps=steps, seed=train_seed, held=held)
             J.put(jkey, res)
+            counters["trained_now"] = counters.get("trained_now", 0) + 1
         wasted = []
         if h_class in seen_class:
             counters["wasted_class"] += 1
@@ -151,7 +160,7 @@ def run(arm, seed, budget=60, pop_size=12, sample=4, steps=300, journal=None, st
         seen_class[h_class] = res["fitness"]
         seen_exact[h_exact] = res["fitness"]
         if j is None:
-            fps.add(v)
+            fps.add(v, key=(doc, given))
             fp_fit.append(res["fitness"])
         cache[key] = res["fitness"]
         if not best_doc or res["fitness"] > best_doc[0]:

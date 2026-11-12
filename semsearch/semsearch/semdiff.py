@@ -14,9 +14,12 @@ is read as typed edits:
   tie               aligned nodes whose tensor is shared on one side only  cost 0.5
   repeat            block applications differ                              cost 1 (also weight_index)
 
-The distance is the sum. It is 0 for documents of one canonical hash, symmetric, and an upper bound on
-a graph edit distance with these costs (the alignment follows the canonical order rather than searching
-every node correspondence, which is NP-hard in general). The text form is slip's diff of the two
+The distance is the sum. It is 0 for documents of one canonical hash and an upper bound on a graph edit
+distance with these costs. The node correspondence is heuristic (anchors by unique forward or backward
+structural hash, then greedy propagation along edges, then alignment in canonical order), not a search
+over every correspondence, which is NP-hard in general, followed by a local search that swaps or moves
+partners while the cost drops. One direction's script is therefore not guaranteed to cost what the
+reverse costs; `distance` takes the smaller, so it is symmetric. The text form is slip's diff of the two
 canonical documents, tensor names masked, so it reads as slip.
 """
 
@@ -54,8 +57,7 @@ def _prepare(doc, given, level):
             row = {"op": n["op"], "attrs": attrs, "ins": list(n["in"]),
                    "src": [prod.get(u, ("ext", u)) for u in n["in"]],
                    "shapes": [shapes.get(t) for _, t in refs],
-                   "shared": [uses.get(t, 0) > 1 or t == "token_embd.weight" and n["op"] != "embedding"
-                              for _, t in refs]}
+                   "shared": [uses.get(t, 0) > 1 for _, t in refs]}
             outs = n["out"] if isinstance(n["out"], list) else [n["out"]]
             row["final"] = [o for o in outs if o in ("x", "logits")]
             rows.append(row)
@@ -147,10 +149,9 @@ def _match(A, B):
             if j not in used:
                 ib[h].append(j)
         for h, lst in ia.items():
-            if h in ib and len(lst) == len(ib[h]):
-                for i, j in zip(lst, ib[h]):
-                    m[i] = j
-                    used.add(j)
+            if h in ib and len(lst) == 1 and len(ib[h]) == 1:   # unique on both sides; the rest by edges
+                m[lst[0]] = ib[h][0]
+                used.add(ib[h][0])
 
     anchor(fa, fb)
     anchor(ba, bb)
@@ -164,20 +165,79 @@ def _match(A, B):
                     m[sa_[0]] = sb_[0]
                     used.add(sb_[0])
                     changed = True
+            # consumers: only where one unmatched reader of this op at this input position exists on each side
             for (c, k, o) in ca[i]:
                 if c in m:
                     continue
-                for (d, k2, o2) in cb[j]:
-                    if d not in used and k2 == k and o2 == o and A[c]["op"] == B[d]["op"]:
-                        m[c] = d
-                        used.add(d)
-                        changed = True
-                        break
+                ca_ = [x for (x, k1, o1) in ca[i] if x not in m and k1 == k and o1 == o and A[x]["op"] == A[c]["op"]]
+                cb_ = [d for (d, k2, o2) in cb[j] if d not in used and k2 == k and o2 == o and B[d]["op"] == A[c]["op"]]
+                if len(ca_) == 1 and len(cb_) == 1:
+                    m[c] = cb_[0]
+                    used.add(cb_[0])
+                    changed = True
     ra = [i for i in range(len(A)) if i not in m]
     rb = [j for j in range(len(B)) if j not in used]
     for i, j in _align([A[i] for i in ra], [B[j] for j in rb]):
         if i is not None and j is not None:
             m[ra[i]] = rb[j]
+    m = _repair(A, B, m)
+    # a second start: alignment of the whole canonical sequences; keep the cheaper local optimum
+    m2 = {i: j for i, j in _align(A, B) if i is not None and j is not None}
+    m2 = _repair(A, B, m2)
+    return m if _cost(A, B, m) <= _cost(A, B, m2) else m2
+
+
+def _broken_edges(A, B, m):
+    n = 0
+    for i, j in m.items():
+        for sa_, sb_ in zip(A[i]["src"], B[j]["src"]):
+            if sa_[0] == "ext" or sb_[0] == "ext":
+                n += sa_ != sb_
+            else:
+                n += m.get(sa_[0]) != sb_[0] or sa_[1] != sb_[1]
+    return n
+
+
+def _cost(A, B, m):
+    """The distance of a correspondence: substitutions, broken edges, and nodes left unmatched."""
+    return (sum(_sub_cost(A[i], B[j]) for i, j in m.items()) + COST["rewire"] * _broken_edges(A, B, m)
+            + COST["delete"] * (len(A) - len(m)) + COST["insert"] * (len(B) - len(m)))
+
+
+def _repair(A, B, m, rounds=6):
+    """Local search on the correspondence: swap the partners of two matched nodes, or move a node's partner
+    to an unmatched node of the same op, whenever the cost drops (interchangeable nodes, such as the q, k
+    and v projections or two attention sublayers, matched crosswise)."""
+    best = _cost(A, B, m)
+    for _ in range(rounds):
+        improved = False
+        keys = sorted(m)
+        for x in range(len(keys)):
+            for y in range(x + 1, len(keys)):
+                i1, i2 = keys[x], keys[y]
+                if A[i1]["op"] != A[i2]["op"]:
+                    continue
+                m[i1], m[i2] = m[i2], m[i1]
+                c = _cost(A, B, m)
+                if c < best - 1e-9:
+                    best, improved = c, True
+                else:
+                    m[i1], m[i2] = m[i2], m[i1]
+        free = [j for j in range(len(B)) if j not in set(m.values())]
+        for i in sorted(m):
+            for j in free:
+                if B[j]["op"] != A[i]["op"]:
+                    continue
+                old = m[i]
+                m[i] = j
+                c = _cost(A, B, m)
+                if c < best - 1e-9:
+                    best, improved = c, True
+                    free = [jj for jj in range(len(B)) if jj not in set(m.values())]
+                    break
+                m[i] = old
+        if not improved:
+            break
     return m
 
 
@@ -235,7 +295,9 @@ def edits(a, b, given_a=None, given_b=None, level="class"):
 
 
 def distance(a, b, given_a=None, given_b=None, level="class"):
-    return edits(a, b, given_a, given_b, level)[0]
+    """The smaller of the two directions' edit-script costs: each is an upper bound on the graph edit
+    distance with these costs, so the smaller is the tighter, and it is symmetric by construction."""
+    return min(edits(a, b, given_a, given_b, level)[0], edits(b, a, given_b, given_a, level)[0])
 
 
 def text(a, b, level="class", name_a="a", name_b="b"):

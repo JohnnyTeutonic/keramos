@@ -30,11 +30,18 @@ def shape_args(given):
     return [f"{t}=" + "x".join(str(int(x)) for x in s) for t, s in (given or {}).items()]
 
 
-def random_weights(doc, given=None, seed=0, keyed="name"):
+def random_weights(doc, given=None, seed=0, keyed="name", perturb=0.0):
     """Weights for every tensor of the document, initialised as slip's `run --random` does (role by role),
-    each instance drawing from its own stream: (seed, instance name) or (seed, canonical id, layer)."""
+    each instance drawing from its own stream: (seed, instance name) or (seed, canonical id, layer).
+    perturb > 0 adds N(0, perturb^2) noise to every tensor (gains and biases included, which slip sets to
+    1 and 0), so that a graph that is the identity only at those values (a gain, a zero bias) is told
+    apart: the strict fingerprint."""
     if keyed == "name":
         W, _ = bridge.slip_run.random_weights(doc, shape_args(given), seed=seed)
+        if perturb:
+            for k in sorted(W):
+                rng = np.random.default_rng([seed, 99, zlib.crc32(k.encode())])
+                W[k] = (W[k] + rng.normal(0, perturb, W[k].shape)).astype(np.float32)
         return W
     W, w = bridge.slip_run.random_weights(doc, shape_args(given), seed=seed)
     g = canon.Graph(canon.normalise(doc), shapes=canon.solved_shapes(doc, given))
@@ -59,14 +66,14 @@ def random_weights(doc, given=None, seed=0, keyed="name"):
     return out
 
 
-def fingerprint(doc, given=None, seeds=(0,), n_probes=2, keyed="name"):
+def fingerprint(doc, given=None, seeds=(0,), n_probes=2, keyed="name", perturb=0.0):
     """The logits on the probes, flattened, for each weight seed: one float32 vector."""
     nr = bridge.numpy_ref()
     m = doc["model"]
     ps = probes(m["vocab"], m["ctx"], n_probes)
     parts = []
     for s in seeds:
-        W = random_weights(doc, given, seed=s, keyed=keyed)
+        W = random_weights(doc, given, seed=s, keyed=keyed, perturb=perturb)
         for p in ps:
             parts.append(np.asarray(nr.forward(doc, W, p), np.float32).reshape(-1))
     return np.concatenate(parts)

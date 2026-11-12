@@ -45,4 +45,7 @@ def test_symmetric_and_small_for_single_edits():
         d1 = semdiff.distance(a, b, ga, gb)
         d2 = semdiff.distance(b, a, gb, ga)
         assert d1 == d2
-        assert 0 < d1 <= 10, desc   # an inserted attention sublayer is the largest single edit (9 nodes)
+        # an inserted attention sublayer is the largest single edit: 8 nodes, an add, a rewire
+        assert 0 < d1 <= 10, desc
+        one_way = semdiff.edits(a, b, ga, gb)[0]
+        assert d1 <= one_way <= d1 + 1.5, desc

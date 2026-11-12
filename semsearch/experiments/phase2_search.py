@@ -22,7 +22,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from semsearch import bridge, canon, search, task  # noqa: E402
+from semsearch import bridge, canon, canon_v1, search, task  # noqa: E402
 
 RESULTS = HERE.parent / "results"
 RESEEDS = (100, 101, 102)
@@ -52,12 +52,13 @@ def one(args):
     tag = f"{arm.replace('+', '_')}_s{seed}_b{a.budget}_t{a.steps}"
     logf = open(jdir / f"{tag}.log", "a")
     r = search.run(arm, seed, budget=a.budget, pop_size=a.pop, sample=a.sample, steps=a.steps,
-                   journal=jdir / f"{tag}.jsonl", start=_parse_start(a.start), log=logf)
+                   journal=jdir / f"{tag}.jsonl", start=_parse_start(a.start), log=logf,
+                   strict_check=a.strict_check)
     J = search.Journal(jdir / f"{tag}.reeval.jsonl")
     held = task.heldout()
     re = []
     doc, given = r["best_document"], r["best_given"]
-    h = canon.canonical_hash(doc, "exact", given)
+    h = canon_v1.canonical_hash(doc, "exact", given)
     for s in RESEEDS:
         key = f"{h}/{s}/{a.steps}"
         res = J.get(key)
@@ -100,6 +101,10 @@ def summarise(runs):
             "noop_filtered": ms([r["counters"]["noop_filtered"] for r in rs]),
             "cache_hits": ms([r["counters"]["cache_hits"] for r in rs]),
             "fingerprint_hits": ms([r["counters"]["fingerprint_hits"] for r in rs]),
+            "fingerprint_match_strict_agree": sum(r["counters"].get("fingerprint_match_strict_agree", 0) for r in rs),
+            "fingerprint_match_strict_disagree": sum(r["counters"].get("fingerprint_match_strict_disagree", 0)
+                                                     for r in rs),
+            "trained_now": sum(r["counters"].get("trained_now", 0) for r in rs),
             "best_search_fitness": ms([r["best"]["fitness"] for r in rs]),
             "best_search_acc": ms([r["best"]["acc"] for r in rs]),
             "best_reeval_fitness": ms([r["best_reeval"]["mean_fitness"] for r in rs]),
@@ -128,6 +133,8 @@ def main():
     p.add_argument("--start", nargs="*", default=["window=4"])
     p.add_argument("--journals", default="~/semsearch_scratch/journals")
     p.add_argument("--tag", default="phase2")
+    p.add_argument("--strict-check", action="store_true",
+                   help="check every fingerprint match with perturbed weights (recorded, never acted on)")
     a = p.parse_args()
     runs_path = RESULTS / f"{a.tag}_runs.jsonl"
     done = {}

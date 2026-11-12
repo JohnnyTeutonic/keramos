@@ -18,9 +18,19 @@ IR_SPEC section named):
              causal attention", and p < ctx, 3.3); with window 0 the sinks are 0 (the mask applies only
              with a window, 5.15);
   identity   weight_index [0, 1, ..., L-1] is no weight_index (7.1); apply true is no apply (3.8);
-  tying      a linear with tied_to reads the tied tensor (5.3: in a weightless genome the weight is
-             absent, so the tied tensor is what it reads);
-  tensors    tensor names do not count; which nodes share a tensor, and its shape, do.
+  tying      a linear with tied_to reads the tied tensor (5.3 reads it only when the file lacks the
+             weight; a search genome carries no weights, so it always does. A document read against a
+             file that holds the weight is outside this module's claim);
+  tensors    tensor names do not count; which nodes share a tensor (each reader identified by what it
+             computes from and where its result goes), and its shape, do. A name with "{i}" and a literal
+             per-layer name for the same tensor (blk.1.w) are treated as different tensors: a possible
+             false split, never a false merge.
+
+The claim: two documents of one hash compute the same function, on weights that correspond through a
+renaming of tensors. The rewrites are each licensed by the spec; the hash is a Merkle hash plus a
+refinement of tensor identities, so a merge of different graphs needs a hash collision or a sharing
+pattern that forward and backward contexts cannot tell apart (none known; the review of 13 Nov 2026
+found the one-round version's counterexample, now a test).
 
 and, at level "class", one rewrite that keeps the *function class* and the training distribution but
 not the function on fixed weights:
@@ -94,8 +104,9 @@ def normalise(doc, level="exact"):
                 sl[k] = _collapse(v["per_layer"])
 
     wi = blk.get("weight_index")
-    if isinstance(wi, dict) and wi.get("per_layer") == list(range(L)):
-        del blk["weight_index"]
+    if isinstance(wi, dict) and wi.get("per_layer") == list(range(L)) and \
+            not any("tensor_index" in n for n in blk.get("nodes", [])):
+        del blk["weight_index"]   # (tensor_index needs a weight_index, rule 19: then it stays)
 
     # attention windows: >= ctx is unbounded; unbounded has no sinks. Node and slot alike.
     def fix_window(obj):
@@ -109,11 +120,13 @@ def normalise(doc, level="exact"):
         if "sinks" in obj:
             obj["sinks"] = _collapse(ss)
 
+    # (not under the turn_state mask, whose rule needs window 0 as written: 6.8.2)
+    turn_state_slots = {n.get("state") for n in blk.get("nodes", []) if n.get("mask") == "turn_state"}
     for n in blk.get("nodes", []):
-        if n.get("op") in ATTENTION_OPS:
+        if n.get("op") in ATTENTION_OPS and n.get("mask") != "turn_state":
             fix_window(n)
     for sl in blk.get("state", []):
-        if sl.get("kind") == "kv":
+        if sl.get("kind") == "kv" and sl.get("name") not in turn_state_slots:
             fix_window(sl)
 
     for sect in ("embed", "block", "head"):
@@ -129,16 +142,35 @@ def normalise(doc, level="exact"):
 def _rope_pairing_class(A):
     """neox RoPE -> interleaved, where the permutation between them folds into trainable weights."""
     g = Graph(A, hash_tensors=False)
+    tensor_reads = {}
+    for i in g.reach_nodes:
+        for _, t in _tensor_refs(g.nodes[i].raw):
+            tensor_reads[t] = tensor_reads.get(t, 0) + 1
+    finals = {}
+    for name, v in g.block_final.items():
+        finals.setdefault(v, []).append(name)
+
+    def private(nd):
+        """Every tensor of the node is read by this node alone (so a permutation of it moves nothing else)."""
+        return all(tensor_reads.get(t, 0) == 1 for _, t in _tensor_refs(nd.raw))
+
     for node in g.nodes:
         if node.op != "rope" or node.raw.get("pairing") != "neox" or node.raw.get("rope_heads", "all") != "all":
             continue
+        if node.raw.get("freq_factors") is not None:
+            continue
         ok = True
-        # each rotated output is read only by an attention node, as its q (output 0) or k (output 1)
+        # each rotated output is read only by an attention node, as its q (output 0) or k (output 1), and is not
+        # read as a carried value by the next application or by the head
         for k, vid in enumerate(node.outs):
             for (ri, pos) in g.uses.get(vid, []):
                 r = g.nodes[ri]
-                if r.op not in ATTENTION_OPS or pos != k:
+                if ri in g.reach_nodes and (r.op not in ATTENTION_OPS or pos != k):
                     ok = False
+            for name in finals.get(vid, []):
+                for key in (("carry", name), ("final", name)):
+                    if any(c in g.reach_nodes for c, _ in g.uses.get(key, [])):
+                        ok = False
         # each input (q, k) comes from a linear, optionally through an rmsnorm whose group is head_dim, and
         # every value on that chain is read only along it
         for k in (0, 1):
@@ -148,15 +180,22 @@ def _rope_pairing_class(A):
                 ok = False
                 continue
             pn = g.nodes[p[0]]
-            if pn.op == "rmsnorm" and pn.raw.get("group") == node.raw.get("head_dim"):
+            if pn.op == "rmsnorm" and pn.raw.get("group") == node.raw.get("head_dim") and \
+                    not pn.raw.get("weight_offset"):
+                if not private(pn):
+                    ok = False
                 vid2 = pn.ins[0]
                 p2 = g.producer.get(vid2)
                 if p2 is None or len(g.uses.get(vid2, [])) != 1:
                     ok = False
                     continue
                 pn = g.nodes[p2[0]]
-            if pn.op != "linear":
+            if pn.op != "linear" or not private(pn):
                 ok = False
+            for vv in (vid,):
+                for name in finals.get(vv, []):
+                    if any(c in g.reach_nodes for c, _ in g.uses.get(("carry", name), []) + g.uses.get(("final", name), [])):
+                        ok = False
         if ok:
             node.raw["pairing"] = "interleaved"   # node.raw is the node of A itself
 
@@ -208,9 +247,12 @@ class Graph:
                     written.append(o)
         benv = dict(env)
         self.carried = []
+        # every name the block writes is read, before the block writes it, as the carried value: the embed's
+        # in application 0 (if it wrote one), the previous application's after. Without per-layer apply a
+        # read before any write of a name the embed did not write is refused (rule 36); with it, such a read
+        # in a later application sees the previous application's write (3.8), which this links.
         for name in written:
-            if name in env:
-                benv[name] = ("carry", name)
+            benv[name] = ("carry", name)
         self._section("block", benv)
         self.block_final = {name: benv[name] for name in written}
         # carried: names the block reads before writing (their carry placeholder is read)
@@ -350,16 +392,56 @@ class Graph:
             sys.setrecursionlimit(old)
         return hashes, logits
 
+    def _backward(self):
+        """{node: hash of its local label and, recursively, of every reader of its outputs with the input
+        position read (unordered for add and mul)}. The loop edges (a block's last write read by the next
+        application or the head) end in markers, so the recursion is over a DAG."""
+        finals = {}
+        for name, v in self.block_final.items():
+            finals.setdefault(v, []).append(name)
+        memo = {}
+
+        def bh(i):
+            if i in memo:
+                return memo[i]
+            nd = self.nodes[i]
+            cons = []
+            live = self.reach_nodes
+            for k, v in enumerate(nd.outs):
+                for (c, pos) in self.uses.get(v, []):
+                    if c in live:
+                        cons.append([k, bh(c), "c" if self.nodes[c].op in COMMUTATIVE else pos])
+                for name in finals.get(v, []):
+                    read_next = any(c in live for c, _ in self.uses.get(("carry", name), []))
+                    read_head = any(c in live for c, _ in self.uses.get(("final", name), []))
+                    if read_next or read_head:    # a last write nobody reads is no edge (names aside)
+                        cons.append([k, "loop", read_next, read_head])
+                if v == self.logits:
+                    cons.append([k, "logits"])
+            r = _h(self._local(nd), sorted(cons, key=json.dumps))
+            memo[i] = r
+            return r
+
+        import sys
+        old = sys.getrecursionlimit()
+        sys.setrecursionlimit(max(old, 20000))
+        try:
+            return {i: bh(i) for i in range(len(self.nodes))}
+        finally:
+            sys.setrecursionlimit(old)
+
     def _hash(self, shapes):
         h1, _ = self._merkle(lambda nd: self._local(nd))
         for i, nd in enumerate(self.nodes):
             nd.h1 = h1[i]
-        # tensor classes: which reachable nodes read a tensor (by their tensor-blind hash), and its shape
+        bwd = self._backward()
+        # tensor classes: which reachable nodes read a tensor, each by its tensor-blind hash (what it computes
+        # from) and its backward hash (where its result goes, input position included), and the shape
         consumers = {}
         for i in sorted(self.reach_nodes):
             nd = self.nodes[i]
             for path, name in _tensor_refs(nd.raw):
-                consumers.setdefault(name, []).append([nd.h1, path])
+                consumers.setdefault(name, []).append([nd.h1, bwd[i], path])
         self.tensor_ids = {}
         for name, cs in consumers.items():
             shp = shapes.get(name)
@@ -374,7 +456,7 @@ class Graph:
         blk = self.A.get("block") or {}
         m = self.A.get("model") or {}
         control = sorted(self.nodes[i].h2 for i in self.reach_nodes if self.nodes[i].op in CONTROL_OPS)
-        self.hash = _h("semsearch/1", {k: m.get(k) for k in ("vocab", "d", "ctx", "n_layers")},
+        self.hash = _h("semsearch/2", {k: m.get(k) for k in ("vocab", "d", "ctx", "n_layers")},
                        blk.get("repeat"), blk.get("weight_index"), logits, control,
                        sorted(self.tensor_ids[n] for n in consumers))
 

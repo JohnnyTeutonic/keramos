@@ -1,0 +1,105 @@
+{
+ "n_configs": 60,
+ "seed": 0,
+ "tolerance": 1e-05,
+ "by_key": {
+  "n_layers": {
+   "different_class": 60,
+   "min_rel_diff_when_different": 0.3286471366882324,
+   "below_tolerance_when_different": 0,
+   "same_class": 0,
+   "max_rel_diff_when_same": null
+  },
+  "n_heads": {
+   "different_class": 37,
+   "min_rel_diff_when_different": 0.2507721185684204,
+   "below_tolerance_when_different": 0,
+   "same_class": 0,
+   "max_rel_diff_when_same": null
+  },
+  "n_kv_heads": {
+   "different_class": 28,
+   "min_rel_diff_when_different": 0.28223681449890137,
+   "below_tolerance_when_different": 0,
+   "same_class": 11,
+   "max_rel_diff_when_same": 0.0
+  },
+  "d_ff": {
+   "different_class": 60,
+   "min_rel_diff_when_different": 0.33181360363960266,
+   "below_tolerance_when_different": 0,
+   "same_class": 0,
+   "max_rel_diff_when_same": null
+  },
+  "rope_theta": {
+   "different_class": 60,
+   "min_rel_diff_when_different": 0.004558405838906765,
+   "below_tolerance_when_different": 0,
+   "same_class": 0,
+   "max_rel_diff_when_same": null
+  },
+  "rope_pairing": {
+   "different_class": 0,
+   "min_rel_diff_when_different": null,
+   "below_tolerance_when_different": 0,
+   "same_class": 60,
+   "max_rel_diff_when_same": 0.8409027457237244
+  },
+  "rope_dims": {
+   "different_class": 28,
+   "min_rel_diff_when_different": 0.09318488836288452,
+   "below_tolerance_when_different": 0,
+   "same_class": 10,
+   "max_rel_diff_when_same": 0.0
+  },
+  "qk_norm": {
+   "different_class": 60,
+   "min_rel_diff_when_different": 0.07350362837314606,
+   "below_tolerance_when_different": 0,
+   "same_class": 0,
+   "max_rel_diff_when_same": null
+  },
+  "tie_embeddings": {
+   "different_class": 60,
+   "min_rel_diff_when_different": 0.9847220778465271,
+   "below_tolerance_when_different": 0,
+   "same_class": 0,
+   "max_rel_diff_when_same": null
+  },
+  "window": {
+   "different_class": 53,
+   "min_rel_diff_when_different": 0.08309134840965271,
+   "below_tolerance_when_different": 0,
+   "same_class": 7,
+   "max_rel_diff_when_same": 0.0
+  },
+  "sinks": {
+   "different_class": 39,
+   "min_rel_diff_when_different": 0.046720992773771286,
+   "below_tolerance_when_different": 0,
+   "same_class": 21,
+   "max_rel_diff_when_same": 0.0
+  },
+  "repeats": {
+   "different_class": 60,
+   "min_rel_diff_when_different": 0.12222421914339066,
+   "below_tolerance_when_different": 0,
+   "same_class": 0,
+   "max_rel_diff_when_same": null
+  },
+  "inject": {
+   "different_class": 60,
+   "min_rel_diff_when_different": 0.0,
+   "below_tolerance_when_different": 28,
+   "same_class": 0,
+   "max_rel_diff_when_same": null
+  },
+  "checkpoint_blocks": {
+   "different_class": 0,
+   "min_rel_diff_when_different": null,
+   "below_tolerance_when_different": 0,
+   "same_class": 60,
+   "max_rel_diff_when_same": 0.0
+  }
+ }
+}
