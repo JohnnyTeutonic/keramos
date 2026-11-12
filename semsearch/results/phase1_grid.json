@@ -1,0 +1,86 @@
+{
+ "space": {
+  "n_layers": [
+   1,
+   2,
+   3
+  ],
+  "n_heads": [
+   1,
+   2,
+   4
+  ],
+  "n_kv_heads": [
+   0,
+   1,
+   2,
+   4
+  ],
+  "d_ff": [
+   64,
+   128
+  ],
+  "rope_theta": [
+   10000.0,
+   100000.0
+  ],
+  "rope_pairing": [
+   "interleaved",
+   "neox"
+  ],
+  "rope_dims": [
+   0,
+   4,
+   8
+  ],
+  "qk_norm": [
+   false,
+   true
+  ],
+  "tie_embeddings": [
+   true,
+   false
+  ],
+  "window": [
+   0,
+   8,
+   16,
+   32
+  ],
+  "sinks": [
+   0,
+   2
+  ],
+  "repeats": [
+   1,
+   2
+  ],
+  "inject": [
+   "none",
+   "add"
+  ],
+  "checkpoint_blocks": [
+   false,
+   true
+  ]
+ },
+ "configs": 221184,
+ "valid_configs": 165888,
+ "invalid_configs": 55296,
+ "distinct": {
+  "config": 165888,
+  "digest": 24192,
+  "rule38": 20160,
+  "rule38_shapes": 40320,
+  "exact": 28800,
+  "class": 14400
+ },
+ "class_size_histogram": {
+  "4": 3840,
+  "8": 6912,
+  "16": 1728,
+  "32": 1728,
+  "64": 192
+ },
+ "note": "distinct counts over every valid config of the grid; 'config' is the number of distinct valid config dicts. rule38 ignores the FFN width (a weight shape, not a graph attribute); rule38_shapes adds it."
+}

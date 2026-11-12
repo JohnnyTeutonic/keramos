@@ -1,0 +1,81 @@
+{
+ "walks": 100,
+ "steps": 100,
+ "seed": 0,
+ "space": "config_space.SPACE",
+ "totals": {
+  "moves": 10000,
+  "new_config": 8987,
+  "noop_exact": 1401,
+  "noop_class": 2126,
+  "noop_fingerprint": 1741,
+  "new_config_seen_graph": 2163,
+  "invalid": 354,
+  "distinct_configs": 9087,
+  "distinct_class_graphs": 6924
+ },
+ "by_key": {
+  "checkpoint_blocks": {
+   "moves": 746,
+   "noop_exact": 746,
+   "noop_class": 746,
+   "noop_fingerprint": 746
+  },
+  "d_ff": {
+   "moves": 734
+  },
+  "inject": {
+   "moves": 690,
+   "noop_fingerprint": 340
+  },
+  "n_heads": {
+   "moves": 708,
+   "invalid": 157
+  },
+  "n_kv_heads": {
+   "moves": 723,
+   "noop_exact": 153,
+   "noop_class": 153,
+   "noop_fingerprint": 153,
+   "invalid": 197
+  },
+  "n_layers": {
+   "moves": 738
+  },
+  "qk_norm": {
+   "moves": 679
+  },
+  "repeats": {
+   "moves": 735
+  },
+  "rope_dims": {
+   "moves": 722,
+   "noop_exact": 112,
+   "noop_class": 112,
+   "noop_fingerprint": 112
+  },
+  "rope_pairing": {
+   "moves": 725,
+   "noop_class": 725
+  },
+  "rope_theta": {
+   "moves": 695
+  },
+  "sinks": {
+   "moves": 681,
+   "noop_exact": 278,
+   "noop_class": 278,
+   "noop_fingerprint": 278
+  },
+  "tie_embeddings": {
+   "moves": 693
+  },
+  "window": {
+   "moves": 731,
+   "noop_exact": 112,
+   "noop_class": 112,
+   "noop_fingerprint": 112
+  }
+ },
+ "note": "a move changes one key to another value of its list; an invalid move is rejected and the walk stays; a no-op is a valid move whose child has the parent's canonical hash"
+}

@@ -1,0 +1,16 @@
+{
+ "n": 3000,
+ "seed": 0,
+ "distinct": {
+  "config": 3000,
+  "digest": 2812,
+  "rule38_shapes": 2891,
+  "exact": 2765,
+  "class": 2560,
+  "fingerprint": 2649
+ },
+ "exact_classes_with_two_fingerprints": 0,
+ "exact_hashes_merged_by_fingerprint": 116,
+ "fingerprint_classes_holding_several_class_hashes": 116,
+ "note": "fingerprint: logits of ir_numpy on 2 fixed probes of 32 tokens, weights by tensor name (seed 0), match within 1e-5 of max(1, max |logit|)"
+}
