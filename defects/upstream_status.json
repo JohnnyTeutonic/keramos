@@ -1,5 +1,5 @@
 {
-  "source": "Read-only GitHub connector: twelve issues/comments and nine candidate PR discussions checked. Current-head ORT human approval verified by review commit_id; full64-workflow listing checked. GenAI candidate head advanced. No verified merge, fixed release or fresh original-reproduction retest.",
+  "source": "gh CLI read of the twelve issues and the candidate PRs on 13 Nov 2026: ORT GenAI #2884 and #2866 merged 11 Nov; #2788, #2789, #2832 closed as completed; duplicates #2790 and #2831 closed by the reporter; original reproductions retested on the builder's main branch. No released fix. llama.cpp, transformers and the head-size candidates unchanged.",
   "issues": [
     {
       "issue_number": 50195,
@@ -641,10 +641,10 @@
       "issue_number": 2831,
       "url": "https://github.com/microsoft/onnxruntime-genai/issues/2831",
       "title": "Model builder: Gemma 3 sliding layers inherit the global layers RoPE linear scaling (rescale_factors)",
-      "state": "open",
-      "state_reason": null,
+      "state": "closed",
+      "state_reason": "not_planned",
       "updated_at": "2026-10-31T04:23:04Z",
-      "closed_at": null,
+      "closed_at": "2026-11-12T17:54:54Z",
       "assignees": null,
       "comments": [],
       "disposition": {
@@ -667,11 +667,37 @@
             "scope": "Human PR approval; PR remains open and unmerged."
           }
         },
-        "merged_fix": null,
+        "merged_fix": {
+          "number": 2884,
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2884",
+          "merge_commit_sha": "25809d6f0d09f7aadb3e0a202a8b1ac625962db5",
+          "merged_at": "2026-11-11T01:51:42Z",
+          "author": "14H034160212",
+          "merged_by_maintainer": "kunal-vaishnavi"
+        },
         "released_fix": null,
-        "successful_original_reproduction_retest": null
+        "successful_original_reproduction_retest": {
+          "kind": "original_reproduction_retest",
+          "observed_on": "2026-11-13",
+          "builder": "onnxruntime-genai main 75fa2250c9afd6cb188287cd66b27e59b22b42df (builder.py from the source tree)",
+          "runtime": "onnxruntime-genai 0.18.0, onnxruntime 1.31.1, CPU, fp32",
+          "transformers": "5.20.2",
+          "script": "adapters/ortgenai/repro/retest_main.sh",
+          "output": "adapters/ortgenai/repro/retest_main_20261113.txt",
+          "result": "duplicate of #2789, closed by the reporter citing 25809d6"
+        },
+        "release_note": "latest release v0.19.0 was published 2026-11-04, before the merges"
       },
-      "duplicate_of": 2789
+      "duplicate_of": 2789,
+      "observations": [
+        {
+          "kind": "reporter_duplicate_closure",
+          "observed_on": "2026-11-13",
+          "scope": "closed as not_planned via https://github.com/microsoft/onnxruntime-genai/pull/2884 (25809d6)",
+          "runtime_retest_verified": true,
+          "maintainer_confirmation": false
+        }
+      ]
     },
     {
       "issue_number": 2832,
@@ -707,10 +733,22 @@
           "number": 2866,
           "url": "https://github.com/microsoft/onnxruntime-genai/pull/2866",
           "merge_commit_sha": "5e4a2630421a0221ff1c2e3c74193fe1b2c0b3dc",
-          "merged_at": "2026-11-11T01:48:13Z"
+          "merged_at": "2026-11-11T01:48:13Z",
+          "author": "14H034160212",
+          "merged_by_maintainer": "kunal-vaishnavi"
         },
         "released_fix": null,
-        "successful_original_reproduction_retest": null
+        "successful_original_reproduction_retest": {
+          "kind": "original_reproduction_retest",
+          "observed_on": "2026-11-13",
+          "builder": "onnxruntime-genai main 75fa2250c9afd6cb188287cd66b27e59b22b42df (builder.py from the source tree)",
+          "runtime": "onnxruntime-genai 0.18.0, onnxruntime 1.31.1, CPU, fp32",
+          "transformers": "5.20.2",
+          "script": "adapters/ortgenai/repro/retest_main.sh",
+          "output": "adapters/ortgenai/repro/retest_main_20261113.txt",
+          "result": "window on both layers; logits within 3.43e-7 for one-shot and token-by-token decoding"
+        },
+        "release_note": "latest release v0.19.0 was published 2026-11-04, before the merges"
       },
       "observations": [
         {
@@ -719,6 +757,13 @@
           "scope": "I can confirm this. It came in with #2386 (first released in 0.16.0), which made the window per layer:\n\n- `make_attention` now builds each layer with `self.window_size if self.is_local(layer_id) else -1` (`src/python/py/models/builders/base.py:5202`).\n- `is_local` reads `self.layer_types`, and when the config has no `layer_types` the builder falls back to `[\"full_attention\"] * self.num_layers` (`base.py:141-145`).\n\n`MistralConfig` has no `layer_types` (4.57.6 and 5.22.1), so every layer gets `local_window_size = -1`. The same happens to `Phi3Config` with `sliding_window` set (Phi-3-mini-4k-instruct has 2047) and to a `Mistral3ForConditionalGeneration` whose text config has a `sliding_window`. Configs that have `layer_types` (Qwen2, Gemma 2/3, gpt-oss, SmolLM3) are not affected.\n\nThe fix: when `layer_types` is missing, mark every layer `\"sliding_attention\"` if `sliding_window` is a positive int and `use_sliding_window` is not `False`, otherwise `\"full_attention\"`. This is what 0.15.2 did, and what transformers does for these models. I have a PR ready with unit tests (tiny Mistral/Phi-3/Qwen2 configs, no weights).\n",
           "runtime_retest_verified": false,
           "maintainer_confirmation": false
+        },
+        {
+          "kind": "maintainer_merge_and_closure",
+          "observed_on": "2026-11-13",
+          "scope": "closed as completed via https://github.com/microsoft/onnxruntime-genai/pull/2866 (5e4a263)",
+          "runtime_retest_verified": true,
+          "maintainer_confirmation": true
         }
       ],
       "duplicate_of": 2790
@@ -959,35 +1004,77 @@
       "issue_number": 2788,
       "url": "https://github.com/microsoft/onnxruntime-genai/issues/2788",
       "title": "Model builder: Gemma 3 fails with KeyError 'rope_type' under transformers 5",
-      "state": "open",
-      "state_reason": null,
+      "state": "closed",
+      "state_reason": "completed",
       "updated_at": "2026-10-27T01:50:32Z",
-      "closed_at": null,
+      "closed_at": "2026-11-11T01:51:43Z",
       "assignees": null,
       "disposition": {
         "assignment_verified": false,
         "maintainer_confirmation_verified": false,
-        "merged_fix": null,
+        "merged_fix": {
+          "number": 2884,
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2884",
+          "merge_commit_sha": "25809d6f0d09f7aadb3e0a202a8b1ac625962db5",
+          "merged_at": "2026-11-11T01:51:42Z",
+          "author": "14H034160212",
+          "merged_by_maintainer": "kunal-vaishnavi"
+        },
         "released_fix": null,
-        "successful_original_reproduction_retest": null
+        "successful_original_reproduction_retest": {
+          "kind": "original_reproduction_retest",
+          "observed_on": "2026-11-13",
+          "builder": "onnxruntime-genai main 75fa2250c9afd6cb188287cd66b27e59b22b42df (builder.py from the source tree)",
+          "runtime": "onnxruntime-genai 0.18.0, onnxruntime 1.31.1, CPU, fp32",
+          "transformers": "5.20.2",
+          "script": "adapters/ortgenai/repro/retest_main.sh",
+          "output": "adapters/ortgenai/repro/retest_main_20261113.txt",
+          "result": "Gemma 3 build completes under transformers 5.20.2"
+        },
+        "release_note": "latest release v0.19.0 was published 2026-11-04, before the merges"
       },
-      "comments": []
+      "comments": [],
+      "observations": [
+        {
+          "kind": "maintainer_merge_and_closure",
+          "observed_on": "2026-11-13",
+          "scope": "closed as completed via https://github.com/microsoft/onnxruntime-genai/pull/2884 (25809d6)",
+          "runtime_retest_verified": true,
+          "maintainer_confirmation": true
+        }
+      ]
     },
     {
       "issue_number": 2789,
       "url": "https://github.com/microsoft/onnxruntime-genai/issues/2789",
       "title": "Model builder: Gemma 3's sliding-window layers get the global layers' linear RoPE scaling",
-      "state": "open",
-      "state_reason": null,
+      "state": "closed",
+      "state_reason": "completed",
       "updated_at": "2026-11-04T22:19:09Z",
-      "closed_at": null,
+      "closed_at": "2026-11-11T01:51:44Z",
       "assignees": null,
       "disposition": {
         "assignment_verified": false,
         "maintainer_confirmation_verified": false,
-        "merged_fix": null,
+        "merged_fix": {
+          "number": 2884,
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2884",
+          "merge_commit_sha": "25809d6f0d09f7aadb3e0a202a8b1ac625962db5",
+          "merged_at": "2026-11-11T01:51:42Z",
+          "author": "14H034160212",
+          "merged_by_maintainer": "kunal-vaishnavi"
+        },
         "released_fix": null,
-        "successful_original_reproduction_retest": null,
+        "successful_original_reproduction_retest": {
+          "kind": "original_reproduction_retest",
+          "observed_on": "2026-11-13",
+          "builder": "onnxruntime-genai main 75fa2250c9afd6cb188287cd66b27e59b22b42df (builder.py from the source tree)",
+          "runtime": "onnxruntime-genai 0.18.0, onnxruntime 1.31.1, CPU, fp32",
+          "transformers": "5.20.2",
+          "script": "adapters/ortgenai/repro/retest_main.sh",
+          "output": "adapters/ortgenai/repro/retest_main_20261113.txt",
+          "result": "local cache unscaled; logits within 5.45e-7 of transformers over 48 positions"
+        },
         "candidate_pr": {
           "number": 2869,
           "url": "https://github.com/microsoft/onnxruntime-genai/pull/2869",
@@ -1001,8 +1088,10 @@
             "reviewer": "kunal-vaishnavi",
             "submitted_at": "2026-11-11T01:00:29Z",
             "scope": "Human PR approval; PR remains open and unmerged."
-          }
-        }
+          },
+          "note": "#2869 is still open; the merged fix is #2884"
+        },
+        "release_note": "latest release v0.19.0 was published 2026-11-04, before the merges"
       },
       "comments": [
         {
@@ -1018,6 +1107,13 @@
           "scope": "I looked into #2789/#2831 and #2788 together, since they are both in Gemma 3's RoPE setup.\n\n#2789 (#2831 is the same): `Gemma3Model.make_rotary_embedding_multi_cache` (`src/python/py/models/builders/gemma.py:134-147`) builds the local caches after changing only `rope_attrs[\"theta\"]` (line 142). `rope_attrs[\"rescale_factors\"]` still holds the global linear factor set in `Model.make_rope_init` (`base.py:745`), so the local caches are scaled by 1/8 on Gemma 3 4B/12B/27B. transformers uses default, unscaled RoPE with `rope_local_base_freq` for the local layers (4.57.6: `rotary_emb_local` with `rope_scaling={\"rope_type\": \"default\"}`; 5.x: the `sliding_attention` entry, `rope_type: \"default\"`).\n\n#2788: under transformers 5, Gemma 3's `rope_parameters` is nested per layer type, and the config no longer has `rope_theta` or `rope_local_base_freq`. `Model.make_rope_init` reads `config.rope_parameters[\"rope_type\"]` (`base.py:717`) and raises `KeyError`. `Gemma3Model` has no `make_rope_init` of its own, unlike `Gemma4Model`.\n\nFix: `Gemma3Model.make_rope_init` reads the nested form (the `full_attention` entry for the global caches and their theta, and the `sliding_attention` theta for the local caches). `make_rotary_embedding_multi_cache` builds the local caches with `rescale_factors = 1` and no other global scaling, then restores the global RoPE attributes. I have a PR ready, with tests that compare the cos/sin caches against transformers' own Gemma 3 rotary embedding for the 4.x and 5.x config forms.\n",
           "runtime_retest_verified": false,
           "maintainer_confirmation": false
+        },
+        {
+          "kind": "maintainer_merge_and_closure",
+          "observed_on": "2026-11-13",
+          "scope": "closed as completed via https://github.com/microsoft/onnxruntime-genai/pull/2884 (25809d6)",
+          "runtime_retest_verified": true,
+          "maintainer_confirmation": true
         }
       ],
       "duplicate_issue_number": 2831
@@ -1026,10 +1122,10 @@
       "issue_number": 2790,
       "url": "https://github.com/microsoft/onnxruntime-genai/issues/2790",
       "title": "Model builder: Mistral's sliding window is no longer applied (local_window_size -1 on every layer)",
-      "state": "open",
-      "state_reason": null,
+      "state": "closed",
+      "state_reason": "not_planned",
       "updated_at": "2026-10-27T01:50:35Z",
-      "closed_at": null,
+      "closed_at": "2026-11-12T17:54:57Z",
       "assignees": null,
       "disposition": {
         "assignment_verified": false,
@@ -1038,10 +1134,21 @@
           "number": 2866,
           "url": "https://github.com/microsoft/onnxruntime-genai/pull/2866",
           "merge_commit_sha": "5e4a2630421a0221ff1c2e3c74193fe1b2c0b3dc",
-          "merged_at": "2026-11-11T01:48:13Z"
+          "merged_at": "2026-11-11T01:48:13Z",
+          "author": "14H034160212",
+          "merged_by_maintainer": "kunal-vaishnavi"
         },
         "released_fix": null,
-        "successful_original_reproduction_retest": null,
+        "successful_original_reproduction_retest": {
+          "kind": "original_reproduction_retest",
+          "observed_on": "2026-11-13",
+          "builder": "onnxruntime-genai main 75fa2250c9afd6cb188287cd66b27e59b22b42df (builder.py from the source tree)",
+          "runtime": "onnxruntime-genai 0.18.0, onnxruntime 1.31.1, CPU, fp32",
+          "transformers": "5.20.2",
+          "script": "adapters/ortgenai/repro/retest_main.sh",
+          "output": "adapters/ortgenai/repro/retest_main_20261113.txt",
+          "result": "duplicate of #2832, closed by the reporter citing 5e4a263"
+        },
         "candidate_pr": {
           "number": 2866,
           "url": "https://github.com/microsoft/onnxruntime-genai/pull/2866",
@@ -1050,10 +1157,20 @@
           "merged": true,
           "merged_at": "2026-11-11T01:48:13Z",
           "author": "14H034160212"
-        }
+        },
+        "release_note": "latest release v0.19.0 was published 2026-11-04, before the merges"
       },
       "comments": [],
-      "duplicate_issue_number": 2832
+      "duplicate_issue_number": 2832,
+      "observations": [
+        {
+          "kind": "reporter_duplicate_closure",
+          "observed_on": "2026-11-13",
+          "scope": "closed as not_planned via https://github.com/microsoft/onnxruntime-genai/pull/2866 (5e4a263)",
+          "runtime_retest_verified": true,
+          "maintainer_confirmation": false
+        }
+      ]
     },
     {
       "issue_number": 2791,
@@ -1185,8 +1302,8 @@
       ]
     }
   ],
-  "checked_on": "2026-11-12",
-  "checked_at_utc": "2026-11-11T22:01:10Z",
+  "checked_on": "2026-11-13",
+  "checked_at_utc": "2026-11-13T05:00:00Z",
   "observation_timezone": "Australia/Sydney",
   "maintained_by": "Daily scheduled review, with publication on meaningful verified changes"
 }

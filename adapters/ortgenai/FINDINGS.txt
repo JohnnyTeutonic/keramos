@@ -392,3 +392,31 @@ Issue 4. Model builder / CPU GroupQueryAttention: head sizes the CPU kernel refu
   Suggested fix. In the builder, on CPU, fall back to a separate RotaryEmbedding (with unpacked Q/K/V: the
   packed form leaves the RotaryEmbedding inputs empty) when head_size % 16 != 0, and refuse at build time when
   head_size % 8 != 0; or lift the kernel's restriction.
+
+
+RETEST ON THE BUILDER'S MAIN BRANCH (13 Nov 2026)
+-------------------------------------------------
+
+Upstream merged two fixes by 14H034160212 on 11 Nov 2026: PR #2884 (commit 25809d6, Gemma 3: transformers 5's
+nested rope_parameters, and unscaled local rotary caches), which closed #2788 and #2789, and PR #2866 (commit
+5e4a263, the window on every layer when the configuration has no layer_types), which closed #2832. The
+duplicates #2831 and #2790 were closed by the reporter on 13 Nov. #2791/#2833 (head size, Issue 4) are open.
+No release carries the fixes: 0.19.0 was published on 4 Nov 2026, before the merges.
+
+The original reproductions were rerun with main's builder.py (main at 75fa2250, 12 Nov 2026, which contains
+both commits) and the receipt's runtime (onnxruntime-genai 0.18.0, onnxruntime 1.31.1, CPU, fp32), by
+repro/retest_main.sh; output in repro/retest_main_20261113.txt.
+
+  Issue 1 (#2788, KeyError 'rope_type'). Under transformers 5.20.2 the Gemma 3 build completes from the nested
+    rope_parameters (gemma3.py, ort2_repro.py). Fixed on main.
+  Issue 2 (#2789, local caches scaled). The local cos cache matches cos(p * inv_freq) within 1.67e-5 and is
+    2.0 off the 1/8-scaled form; the global cache keeps its factor 8 (1.12e-6). Logits are within 5.45e-7 of
+    transformers over 48 positions, argmax equal throughout. Fixed on main.
+  Issue 3 (#2832, Mistral window). Both GroupQueryAttention nodes carry local_window_size 8 and genai_config
+    lists the window for layers 0 and 1; logits are within 3.43e-7 of transformers for one-shot prompts of 16
+    and 48 and for token-by-token decoding to 48. Fixed on main.
+
+Under transformers 4.57.6 the same builder writes the same caches and windows, but the 0.15.2 runtime (the
+newest whose builder imports under transformers 4) rejects main's genai_config.json ("Unknown value
+cache_slack"): a builder/runtime version skew, not one of these defects. The suite receipt
+(conformance/receipts/ortgenai_cpu.json) was not rerun; the adapter imports the installed 0.18.0 builder.

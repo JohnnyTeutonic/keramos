@@ -1,0 +1,70 @@
+main 75fa2250c9afd6cb188287cd66b27e59b22b42df 2026-11-12T07:32:14+00:00
+contains 25809d6 (#2884): yes
+contains 5e4a263 (#2866): yes
+##### ort2_repro.py tf5.20.2 main
+
+cos_cache_global: vs cos(p * inv_freq) 2.00e+00, vs cos(p * inv_freq / 8) 1.12e-06
+cos_cache_local: vs cos(p * inv_freq) 1.67e-05, vs cos(p * inv_freq / 8) 2.00e+00
+vs transformers: max |diff| / max |logit| 5.45e-07 (position 0: 2.23e-07), argmax differs at 0 of 48 positions
+##### ort3_repro.py tf5.20.2 main
+
+/model/layers.0/attn/GroupQueryAttention local_window_size [8]
+/model/layers.1/attn/GroupQueryAttention local_window_size [8]
+genai_config sliding_window: {'window_size': 8, 'slide_key_value_cache': False, 'slide_inputs': False, 'layers': [0, 1], 'cache_slack': 0}
+prompt of 16: 16 positions, max |diff| / max |logit| 3.48e-07, first position past 1e-5: None, argmax differs at 0
+prompt of 8, then one token at a time: 48 positions, max |diff| / max |logit| 3.43e-07, first position past 1e-5: None, argmax differs at 0
+prompt of 48: 48 positions, max |diff| / max |logit| 3.43e-07, first position past 1e-5: None, argmax differs at 0
+##### gemma3.py tf5.20.2 main
+
+transformers 5.20.2 onnxruntime-genai 0.18.0 onnxruntime 1.31.1 builder: /home/jonat/ort_keramos/genai_main/src/python/py/models/builder.py
+cos_cache_global: max |c - cos(p * inv_freq)| 2.00e+00, max |c - cos(p * inv_freq / 8)| 1.12e-06
+cos_cache_local: max |c - cos(p * inv_freq)| 1.67e-05, max |c - cos(p * inv_freq / 8)| 2.00e+00
+onnxruntime-genai vs transformers, 48 tokens: max |diff| / max |logit| 5.45e-07 (position 0: 2.23e-07), argmax differs at 0 of 48
+##### mistral.py tf5.20.2 main
+
+transformers 5.20.2 onnxruntime-genai 0.18.0 onnxruntime 1.31.1 builder: /home/jonat/ort_keramos/genai_main/src/python/py/models/builder.py
+config.sliding_window: 8  config.layer_types: None
+/model/layers.0/attn/GroupQueryAttention local_window_size = [8]
+/model/layers.1/attn/GroupQueryAttention local_window_size = [8]
+genai_config sliding_window: {'window_size': 8, 'slide_key_value_cache': False, 'slide_inputs': False, 'layers': [0, 1], 'cache_slack': 0}
+prompt of 8, then 1 token at a time to 48: 48 positions, max |diff| / max |logit| 3.43e-07, first position past 1e-5: None, argmax differs at 0 of 48
+prompt of 16: 16 positions, max |diff| / max |logit| 3.48e-07, first position past 1e-5: None, argmax differs at 0 of 16
+prompt of 48: 48 positions, max |diff| / max |logit| 3.43e-07, first position past 1e-5: None, argmax differs at 0 of 48
+##### ort2_repro.py tf4.57.6 main
+cos_cache_global: vs cos(p * inv_freq) 2.00e+00, vs cos(p * inv_freq / 8) 1.12e-06
+cos_cache_local: vs cos(p * inv_freq) 1.67e-05, vs cos(p * inv_freq / 8) 2.00e+00
+Traceback (most recent call last):
+  File "/mnt/c/Users/jonat/OneDrive/Documents/research_portfolio_complete/keramos/adapters/ortgenai/repro/ort2_repro.py", line 39, in <module>
+    c = og.Config(out)
+        ^^^^^^^^^^^^^^
+RuntimeError: Error encountered while parsing '/tmp/tmpbrok_ov_/onnx/genai_config.json' JSON Error: model:decoder:sliding_window: Unknown value "cache_slack" at line 32 index 33
+##### ort3_repro.py tf4.57.6 main
+/model/layers.0/attn/GroupQueryAttention local_window_size [8]
+/model/layers.1/attn/GroupQueryAttention local_window_size [8]
+genai_config sliding_window: {'window_size': 8, 'slide_key_value_cache': False, 'slide_inputs': False, 'layers': [0, 1], 'cache_slack': 0}
+Traceback (most recent call last):
+  File "/mnt/c/Users/jonat/OneDrive/Documents/research_portfolio_complete/keramos/adapters/ortgenai/repro/ort3_repro.py", line 34, in <module>
+    c = og.Config(out)
+        ^^^^^^^^^^^^^^
+RuntimeError: Error encountered while parsing '/tmp/tmp3gylsa9g/onnx/genai_config.json' JSON Error: model:decoder:sliding_window: Unknown value "cache_slack" at line 32 index 33
+##### gemma3.py tf4.57.6 main
+transformers 4.57.6 onnxruntime-genai 0.15.2 onnxruntime 1.31.1 builder: /home/jonat/ort_keramos/genai_main/src/python/py/models/builder.py
+cos_cache_global: max |c - cos(p * inv_freq)| 2.00e+00, max |c - cos(p * inv_freq / 8)| 1.12e-06
+cos_cache_local: max |c - cos(p * inv_freq)| 1.67e-05, max |c - cos(p * inv_freq / 8)| 2.00e+00
+Traceback (most recent call last):
+  File "/mnt/c/Users/jonat/OneDrive/Documents/research_portfolio_complete/keramos/adapters/ortgenai/repro/gemma3.py", line 63, in <module>
+    cfg = og.Config(out)
+          ^^^^^^^^^^^^^^
+RuntimeError: Error encountered while parsing '/tmp/tmpzgazzwt1/onnx/genai_config.json' JSON Error: model:decoder:sliding_window: Unknown value "cache_slack" at line 32 index 33
+##### mistral.py tf4.57.6 main
+transformers 4.57.6 onnxruntime-genai 0.15.2 onnxruntime 1.31.1 builder: /home/jonat/ort_keramos/genai_main/src/python/py/models/builder.py
+config.sliding_window: 8  config.layer_types: None
+/model/layers.0/attn/GroupQueryAttention local_window_size = [8]
+/model/layers.1/attn/GroupQueryAttention local_window_size = [8]
+genai_config sliding_window: {'window_size': 8, 'slide_key_value_cache': False, 'slide_inputs': False, 'layers': [0, 1], 'cache_slack': 0}
+Traceback (most recent call last):
+  File "/mnt/c/Users/jonat/OneDrive/Documents/research_portfolio_complete/keramos/adapters/ortgenai/repro/mistral.py", line 54, in <module>
+    c = og.Config(out)
+        ^^^^^^^^^^^^^^
+RuntimeError: Error encountered while parsing '/tmp/tmphzxqru9u/onnx/genai_config.json' JSON Error: model:decoder:sliding_window: Unknown value "cache_slack" at line 32 index 33
+DONE

@@ -5,12 +5,15 @@ Each entry connects the execution contract, a reproduction, the evidence and the
 upstream disposition. These external engines do not claim to implement Keramos;
 the contract supplies an explicit oracle for investigating their native behaviour.
 
-Last published upstream observation: **12 November 2026 (Sydney)**.
+Last published upstream observation: **13 November 2026 (Sydney)**.
 [Machine-readable issue observations](defects/upstream_status.json).
 There are twelve filed upstream issue numbers, including three duplicate ORT reports;
 the paper groups the findings as nine defects (G1-G9), with three mapping subfindings.
 The earlier count of eight omitted four ORT filings from 27 October.
-Contributor activity is recorded below. The GenAI sliding-window fix has merged; no fixed release or original-reproduction retest is verified for it.
+Contributor activity is recorded below. Three ORT GenAI builder defects have merged
+fixes (PRs #2884 and #2866, 11 November 2026), retested with the original reproductions
+on the builder's main branch; no released fix is established, and no other entry has a
+merged fix.
 
 ## Reading the status
 
@@ -78,12 +81,13 @@ unattributed discrepancies remain in the adapter findings, outside the issue cou
 | HF-QWEN3-HEAD: GGUF key length does not determine the loaded head dimension | Metadata-derived projection/head geometry and [attention](IR_SPEC.md#515-attention) | [mapping-gap probe](adapters/hf/repro/gguf_gaps.py), [findings](adapters/hf/FINDINGS.txt); non-default synthetic head size, first-forward shape error | [#50197](https://github.com/huggingface/transformers/issues/50197), **candidate PR closed unmerged; new-loader implementation requested**, part 2: [#50206](https://github.com/huggingface/transformers/pull/50206) |
 | HF-MISTRAL-DETECTION: model-name detection loses Mistral's window | [Attention window](IR_SPEC.md#515-attention), metadata-derived graph | [mapping-gap probe](adapters/hf/repro/gguf_gaps.py), [findings](adapters/hf/FINDINGS.txt); GGUF reader and name/detection controls | [#50197](https://github.com/huggingface/transformers/issues/50197), **candidate PR closed unmerged; new-loader implementation requested**, part 3: [#50206](https://github.com/huggingface/transformers/pull/50206) |
 | LC-NEOX-GELU: GPT-NeoX uses tanh GELU where the checkpoint declares erf GELU | [GELU §5.8](IR_SPEC.md#58-gelu), GPT-NeoX graph in Appendix D | [Pythia comparison](adapters/llamacpp/repro/pythia_compare.py), [b6000 probe](adapters/llamacpp/probe_b6000.json), [findings](adapters/llamacpp/FINDINGS.txt); synthetic model and activation/table controls | [llama.cpp #31456](https://github.com/ggml-org/llama.cpp/issues/31456), **contributor proposal; activation scope clarified**, open; details below |
-| ORT-GEMMA3-LOCAL-ROPE: local rotary caches inherit global scaling | [RoPE §5.14](IR_SPEC.md#514-rope), Gemma 3 per-layer graph | [reproduction](adapters/ortgenai/repro/gemma3.py), [local-only diagnostic correction](adapters/ortgenai/repro/builder_local_rope_fix.py), [findings](adapters/ortgenai/FINDINGS.txt); synthetic model, documented config/head-size workarounds | [ORT GenAI #2831](https://github.com/microsoft/onnxruntime-genai/issues/2831), **reported, open** |
-| ORT-MISTRAL-WINDOW: builder omits sliding attention when layer_types is absent | [Attention window §5.15](IR_SPEC.md#515-attention) | [reproduction](adapters/ortgenai/repro/mistral.py), [findings](adapters/ortgenai/FINDINGS.txt); builder 0.18.0, synthetic model, no-window reference control | [ORT GenAI #2832](https://github.com/microsoft/onnxruntime-genai/issues/2832), **closed after candidate fix merged; release and retest unverified** |
+| ORT-GEMMA3-LOCAL-ROPE: local rotary caches inherit global scaling | [RoPE §5.14](IR_SPEC.md#514-rope), Gemma 3 per-layer graph | [reproduction](adapters/ortgenai/repro/gemma3.py), [local-only diagnostic correction](adapters/ortgenai/repro/builder_local_rope_fix.py), [findings](adapters/ortgenai/FINDINGS.txt); synthetic model, documented config/head-size workarounds | [ORT GenAI #2789](https://github.com/microsoft/onnxruntime-genai/issues/2789) (duplicate #2831), **merged fix, retested on main; not released**: [PR #2884](https://github.com/microsoft/onnxruntime-genai/pull/2884) by 14H034160212, commit `25809d6`, merged 11 Nov 2026; [retest](adapters/ortgenai/repro/retest_main_20261113.txt) within 5.45e-7 of transformers |
+| ORT-GEMMA3-NESTED-ROPE: the build stops on transformers 5's per-layer-type RoPE parameters (`KeyError: 'rope_type'`) | [RoPE §5.14](IR_SPEC.md#514-rope), Gemma 3 per-layer graph | [reproduction](adapters/ortgenai/repro/ort1_repro.py), [findings](adapters/ortgenai/FINDINGS.txt); builder 0.18.0 under transformers 5.20.2 | [ORT GenAI #2788](https://github.com/microsoft/onnxruntime-genai/issues/2788), **merged fix, retested on main; not released**: the same PR #2884; the Gemma 3 build completes under transformers 5.20.2 |
+| ORT-MISTRAL-WINDOW: builder omits sliding attention when layer_types is absent | [Attention window §5.15](IR_SPEC.md#515-attention) | [reproduction](adapters/ortgenai/repro/mistral.py), [findings](adapters/ortgenai/FINDINGS.txt); builder 0.18.0, synthetic model, no-window reference control | [ORT GenAI #2832](https://github.com/microsoft/onnxruntime-genai/issues/2832) (duplicate #2790), **merged fix, retested on main; not released**: [PR #2866](https://github.com/microsoft/onnxruntime-genai/pull/2866) by 14H034160212, commit `5e4a263`, merged 11 Nov 2026; [retest](adapters/ortgenai/repro/retest_main_20261113.txt) within 3.43e-7 of transformers |
 | ORT-GQA-SHAPE: emitted CPU fused-rotary GQA cannot execute the configured head size | [Explicit capability refusal §10.3](IR_SPEC.md#103-engine-capability-refusals) and attention geometry; a native builder/kernel compatibility finding | [head-size matrix](adapters/ortgenai/repro/head_size.py), [unfused control](adapters/ortgenai/repro/builder_unfused_rope.py), [findings](adapters/ortgenai/FINDINGS.txt); CPU kernel constraints differ with fused rotary | [ORT GenAI #2833](https://github.com/microsoft/onnxruntime-genai/issues/2833), **candidate PR submitted, open and unmerged**: [#2850](https://github.com/microsoft/onnxruntime-genai/pull/2850), head `aebe897e18f5caa06bab2108649d375ef3af71b5`; details below |
 
-For the table's open reports, **no verified fix, fixed release or post-fix retest
-is recorded for the remaining table entries**. This describes the linked observations, not a claim that no
+For the table's open reports (every entry except the three ORT GenAI rows with merged
+fixes), **no verified fix, fixed release or post-fix retest is recorded**. This describes the linked observations, not a claim that no
 unlinked work exists. The earlier Gemma 3 proposal remains historical; its attention scalar expression
 is not endorsed by recording the separately submitted new-loader PR.
 
@@ -174,3 +178,18 @@ GenAI [PR #2850](https://github.com/microsoft/onnxruntime-genai/pull/2850) is no
 [GenAI PR #2866](https://github.com/microsoft/onnxruntime-genai/pull/2866) merged to main on 11 November at 01:48:13 UTC as [5e4a263](https://github.com/microsoft/onnxruntime-genai/commit/5e4a2630421a0221ff1c2e3c74193fe1b2c0b3dc). The change applies a configured sliding window when layer types are absent, unless sliding windows are explicitly disabled. #2832 closed as completed; duplicate #2790 remains open. The latest listed [release, v0.19.0](https://github.com/microsoft/onnxruntime-genai/releases/tag/v0.19.0), predates the merge. No fixed release or successful Keramos original-reproduction retest was verified. The PR author’s builder tests are separate evidence.
 
 The separate GenAI local-RoPE PR #2869 received [human approval](https://github.com/microsoft/onnxruntime-genai/pull/2869#pullrequestreview-5851992647) from kunal-vaishnavi on 11 November. It remains open and unmerged.
+
+## Merged ORT GenAI fixes and retest on main (13 November 2026)
+
+On 11 November 2026 maintainer kunal-vaishnavi merged two PRs by outside contributor 14H034160212 and closed three issues as completed:
+
+- [PR #2884](https://github.com/microsoft/onnxruntime-genai/pull/2884), commit `25809d6f0d09f7aadb3e0a202a8b1ac625962db5` (Gemma 3: transformers 5's nested `rope_parameters`, and unscaled local rotary caches), closing [#2788](https://github.com/microsoft/onnxruntime-genai/issues/2788) and [#2789](https://github.com/microsoft/onnxruntime-genai/issues/2789).
+- [PR #2866](https://github.com/microsoft/onnxruntime-genai/pull/2866), commit `5e4a2630421a0221ff1c2e3c74193fe1b2c0b3dc` (the window on every layer when the configuration has no `layer_types`), closing [#2832](https://github.com/microsoft/onnxruntime-genai/issues/2832).
+
+PR #2884 was not in the 12 November observation. The reporter closed the duplicates [#2831](https://github.com/microsoft/onnxruntime-genai/issues/2831) and [#2790](https://github.com/microsoft/onnxruntime-genai/issues/2790) on 13 November, citing those commits. The competing local-RoPE [PR #2869](https://github.com/microsoft/onnxruntime-genai/pull/2869), approved by kunal-vaishnavi on 11 November, is still open; the merged fix is #2884.
+
+The original reproductions were rerun with main's `builder.py` at `75fa2250c9afd6cb188287cd66b27e59b22b42df` (12 November, containing both commits) and the receipt's runtime, onnxruntime-genai 0.18.0 with onnxruntime 1.31.1 on CPU in fp32 ([script](adapters/ortgenai/repro/retest_main.sh), [output](adapters/ortgenai/repro/retest_main_20261113.txt), [findings](adapters/ortgenai/FINDINGS.txt)). Under transformers 5.20.2 the Gemma 3 build completes; its local rotary cache is unscaled and its logits are within 5.45e-7 of transformers over 48 positions; the Mistral build carries the window on both layers, with logits within 3.43e-7 for one-shot and token-by-token decoding. This is a successful original-reproduction retest of the merged fixes on the main branch. It is not a released fix: [0.19.0](https://github.com/microsoft/onnxruntime-genai/releases/tag/v0.19.0) was published on 4 November, before the merges. The suite receipt was not rerun.
+
+Under transformers 4.57.6 the 0.15.2 runtime rejects main's `genai_config.json` (`cache_slack`), a version skew between builder and runtime rather than one of these defects.
+
+The head-size entry ([#2791](https://github.com/microsoft/onnxruntime-genai/issues/2791)/[#2833](https://github.com/microsoft/onnxruntime-genai/issues/2833)) and its candidates (GenAI [#2810](https://github.com/microsoft/onnxruntime-genai/pull/2810) and [#2850](https://github.com/microsoft/onnxruntime-genai/pull/2850), ORT [#33768](https://github.com/microsoft/onnxruntime/pull/33768)) are open and unmerged at the heads recorded above. The llama.cpp and transformers entries are unchanged since 9 November. The 12 November observation's statement that no Keramos retest was verified holds for that date; this retest is the first.
