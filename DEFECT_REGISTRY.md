@@ -5,7 +5,7 @@ Each entry connects the execution contract, a reproduction, the evidence and the
 upstream disposition. These external engines do not claim to implement Keramos;
 the contract supplies an explicit oracle for investigating their native behaviour.
 
-Last published upstream observation: **13 November 2026 (Sydney)**.
+Last published upstream observation: **15 November 2026 (Sydney)**.
 [Machine-readable issue observations](defects/upstream_status.json).
 There are twelve filed upstream issue numbers, including three duplicate ORT reports;
 the paper groups the findings as nine defects (G1-G9), with three mapping subfindings.
@@ -193,3 +193,9 @@ The original reproductions were rerun with main's `builder.py` at `75fa2250c9afd
 Under transformers 4.57.6 the 0.15.2 runtime rejects main's `genai_config.json` (`cache_slack`), a version skew between builder and runtime rather than one of these defects.
 
 The head-size entry ([#2791](https://github.com/microsoft/onnxruntime-genai/issues/2791)/[#2833](https://github.com/microsoft/onnxruntime-genai/issues/2833)) and its candidates (GenAI [#2810](https://github.com/microsoft/onnxruntime-genai/pull/2810) and [#2850](https://github.com/microsoft/onnxruntime-genai/pull/2850), ORT [#33768](https://github.com/microsoft/onnxruntime/pull/33768)) are open and unmerged at the heads recorded above. The llama.cpp and transformers entries are unchanged since 9 November. The 12 November observation's statement that no Keramos retest was verified holds for that date; this retest is the first.
+
+### 15 November 2026 upstream observation
+
+The GenAI CPU GQA fallback [PR #2810](https://github.com/microsoft/onnxruntime-genai/pull/2810) closed without merging. The separate ORT kernel [PR #33768](https://github.com/microsoft/onnxruntime/pull/33768) remains open at the same head; a [review follow-up](https://github.com/microsoft/onnxruntime/pull/33768#issuecomment-6866622552) reports failing CI and asks for fixes. No merged or released CPU GQA fix was established.
+
+On the closed Transformers PR #50206, a [contributor proposed](https://github.com/huggingface/transformers/pull/50206#issuecomment-6873691015) implementing Mixtral support in the new GGUF loader. No assignment or replacement PR was verified.

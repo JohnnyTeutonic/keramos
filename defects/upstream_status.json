@@ -502,6 +502,12 @@
           "kind": "maintainer_loader_path_direction",
           "url": "https://github.com/huggingface/transformers/pull/50206#issuecomment-6579335609",
           "scope": "SunMarc directs support to the new GGUF loader; legacy implementation is no longer maintained. This is disposition guidance, not numerical fix confirmation."
+        },
+        {
+          "observed_on": "2026-11-15",
+          "kind": "volunteer_proposal",
+          "url": "https://github.com/huggingface/transformers/pull/50206#issuecomment-6873691015",
+          "scope": "Contributor proposes Mixtral support in the new loader. No assignment or replacement PR verified."
         }
       ]
     },
@@ -898,7 +904,7 @@
           "login": "copilot-pull-request-reviewer[bot]",
           "state": "COMMENTED",
           "commit_id": "86e8d05d6a7fccb6b28ef193efa24dc72d9c3525",
-          "body": "<!-- ccr-overview-v2 -->\n\n### \u00f0\u0178\u0178\u00a1 Changes recommended\n\nCritical CPU attention-path defects can silently drop required model features or produce invalid and runtime-failing graphs, while failing tests and missing end-to-end coverage leave these paths insufficiently verified.\n\n<details open>\n<summary><strong>7 open issues</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Validate head-size alignment for every Gemma4 layer](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477642916) \u00c2\u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Honor CPU RoPE fusion limits in SmolLM3 layers](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477642957) \u00c2\u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Select an existing attention-layer cache for the MHA mask](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477642995) \u00c2\u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Reject unsupported attention features in the CPU fallback](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643050) \u00c2\u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Initialize the fake model&#39;s packed matmul flag](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643093) \u00c2\u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Compare rotary paths against MatMul output names](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643144) \u00c2\u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Test CPU attention export and decode against a reference](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643178) \u00c2\u00b7 New\n</details>\n\n<details>\n<summary><strong>1 resolved since last review</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Split QKV when standalone RoPE is enabled](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4450332017)\n</details>\n\n<sub>Review effort: Max</sub>",
+          "body": "<!-- ccr-overview-v2 -->\n\n### ðŸŸ¡ Changes recommended\n\nCritical CPU attention-path defects can silently drop required model features or produce invalid and runtime-failing graphs, while failing tests and missing end-to-end coverage leave these paths insufficiently verified.\n\n<details open>\n<summary><strong>7 open issues</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Validate head-size alignment for every Gemma4 layer](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477642916) Â· New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Honor CPU RoPE fusion limits in SmolLM3 layers](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477642957) Â· New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Select an existing attention-layer cache for the MHA mask](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477642995) Â· New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Reject unsupported attention features in the CPU fallback](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643050) Â· New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Initialize the fake model&#39;s packed matmul flag](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643093) Â· New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Compare rotary paths against MatMul output names](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643144) Â· New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Test CPU attention export and decode against a reference](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4477643178) Â· New\n</details>\n\n<details>\n<summary><strong>1 resolved since last review</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/high-v2-light.png\" alt=\"High severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Split QKV when standalone RoPE is enabled](https://github.com/microsoft/onnxruntime-genai/pull/2850#discussion_r4450332017)\n</details>\n\n<sub>Review effort: Max</sub>",
           "scope": "Attributed upstream report only; not independently rerun by this upkeep. Human review status DISMISSED is preserved, not current approval. No current-head original-reproduction retest established."
         },
         {
@@ -996,6 +1002,18 @@
           "state": "open",
           "merged": false,
           "scope": "Current PR body reports88 focused tests and full builder2650 passed14 skipped346 subtests6 failed. These are author claims, not independent current-head original-reproduction retests. Earlier109/121-test reports and dismissed human review remain historical."
+        },
+        {
+          "observed_on": "2026-11-15",
+          "kind": "candidate_closed_unmerged",
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2810",
+          "scope": "Closed without merge. The separate kernel candidate remains open."
+        },
+        {
+          "observed_on": "2026-11-15",
+          "kind": "review_followup",
+          "url": "https://github.com/microsoft/onnxruntime/pull/33768#issuecomment-6866622552",
+          "scope": "Reviewer reports failing CI and requests fixes. Kernel PR remains open and unmerged."
         }
       ],
       "duplicate_of": 2791
@@ -1190,7 +1208,7 @@
         "candidate_pr": {
           "number": 2810,
           "url": "https://github.com/microsoft/onnxruntime-genai/pull/2810",
-          "state": "open",
+          "state": "closed",
           "head_sha": "804084ee9c104c4689f56fdb775c71c15d1b2600",
           "merged": false,
           "merged_at": null,
@@ -1298,12 +1316,24 @@
             "source": "Read-only GitHub REST workflow-runs listing, all64 returned on one100-entry page"
           },
           "scope": "Active human approval at current head is distinct from the two historically dismissed reviews. Mixed workflow outcomes do not establish a successful original-reproduction retest, merge or fixed release."
+        },
+        {
+          "observed_on": "2026-11-15",
+          "kind": "candidate_closed_unmerged",
+          "url": "https://github.com/microsoft/onnxruntime-genai/pull/2810",
+          "scope": "Closed without merge. The separate kernel candidate remains open."
+        },
+        {
+          "observed_on": "2026-11-15",
+          "kind": "review_followup",
+          "url": "https://github.com/microsoft/onnxruntime/pull/33768#issuecomment-6866622552",
+          "scope": "Reviewer reports failing CI and requests fixes. Kernel PR remains open and unmerged."
         }
       ]
     }
   ],
-  "checked_on": "2026-11-13",
-  "checked_at_utc": "2026-11-13T05:00:00Z",
+  "checked_on": "2026-11-15",
+  "checked_at_utc": "2026-11-14T21:59:07Z",
   "observation_timezone": "Australia/Sydney",
   "maintained_by": "Daily scheduled review, with publication on meaningful verified changes"
 }
