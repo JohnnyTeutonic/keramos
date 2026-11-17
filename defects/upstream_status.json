@@ -1,5 +1,5 @@
 {
-  "source": "GitHub CLI read of twelve issues, candidate PRs and v0.20.0 ancestry, 17 November 2026.",
+  "source": "GitHub CLI read of tracked issues, candidate PRs and GenAI release, 18 November 2026.",
   "issues": [
     {
       "issue_number": 50195,
@@ -1046,6 +1046,18 @@
           "kind": "review_followup",
           "url": "https://github.com/microsoft/onnxruntime/pull/33768#issuecomment-6866622552",
           "scope": "Reviewer reports failing CI and requests fixes. Kernel PR remains open and unmerged."
+        },
+        {
+          "date": "2026-11-18",
+          "status": "open_unmerged",
+          "url": "https://github.com/microsoft/onnxruntime/pull/33768",
+          "head_sha": "3a800f7b870614026f320cacb3a24d729bac5022",
+          "dismissed_review": {
+            "url": "https://github.com/microsoft/onnxruntime/pull/33768#pullrequestreview-5817385314",
+            "commit_id": "866a22a42dc24500a76f2e88da74fe560b3763db"
+          },
+          "author_comment": "https://github.com/microsoft/onnxruntime/pull/33768#issuecomment-6943906441",
+          "successful_original_reproduction_retest_verified": false
         }
       ],
       "duplicate_of": 2791
@@ -1410,12 +1422,24 @@
           "kind": "review_followup",
           "url": "https://github.com/microsoft/onnxruntime/pull/33768#issuecomment-6866622552",
           "scope": "Reviewer reports failing CI and requests fixes. Kernel PR remains open and unmerged."
+        },
+        {
+          "date": "2026-11-18",
+          "status": "open_unmerged",
+          "url": "https://github.com/microsoft/onnxruntime/pull/33768",
+          "head_sha": "3a800f7b870614026f320cacb3a24d729bac5022",
+          "dismissed_review": {
+            "url": "https://github.com/microsoft/onnxruntime/pull/33768#pullrequestreview-5817385314",
+            "commit_id": "866a22a42dc24500a76f2e88da74fe560b3763db"
+          },
+          "author_comment": "https://github.com/microsoft/onnxruntime/pull/33768#issuecomment-6943906441",
+          "successful_original_reproduction_retest_verified": false
         }
       ]
     }
   ],
-  "checked_on": "2026-11-17",
-  "checked_at_utc": "2026-11-16T22:02:54Z",
+  "checked_on": "2026-11-18",
+  "checked_at_utc": "2026-11-17T22:01:48Z",
   "observation_timezone": "Australia/Sydney",
   "maintained_by": "Daily scheduled review, with publication on meaningful verified changes"
 }

@@ -5,7 +5,7 @@ Each entry connects the execution contract, a reproduction, the evidence and the
 upstream disposition. These external engines do not claim to implement Keramos;
 the contract supplies an explicit oracle for investigating their native behaviour.
 
-Last published upstream observation: **17 November 2026 (Sydney)**.
+Last published upstream observation: **18 November 2026 (Sydney)**.
 [Machine-readable issue observations](defects/upstream_status.json).
 There are twelve filed upstream issue numbers, including three duplicate ORT reports;
 the paper groups the findings as nine defects (G1-G9), with three mapping subfindings.
@@ -204,3 +204,7 @@ On the closed Transformers PR #50206, a [contributor proposed](https://github.co
 - [GenAI v0.20.0](https://github.com/microsoft/onnxruntime-genai/releases/tag/v0.20.0), published 14 November at 21:20 UTC, descends from both fix commits `25809d6` and `5e4a263` according to GitHub's commit comparisons. The original reproduction retests above used main. The release package has yet to be retested.
 
 The [ORT #33768 author](https://github.com/microsoft/onnxruntime/pull/33768#issuecomment-6914868539) identified dependency download failures in several jobs and reported that others still need investigation. The [Mixtral branch author clarified](https://github.com/huggingface/transformers/pull/50206#issuecomment-6888422850) that their branch targets the legacy loader.
+
+## Upstream observation (18 November 2026)
+
+[ORT PR #33768](https://github.com/microsoft/onnxruntime/pull/33768) remains open and unmerged at head `3a800f7b870614026f320cacb3a24d729bac5022`. The [previous human approval](https://github.com/microsoft/onnxruntime/pull/33768#pullrequestreview-5817385314) for `866a22a4` is now dismissed. The [author reports](https://github.com/microsoft/onnxruntime/pull/33768#issuecomment-6943906441) a NumPy 2.x casting fix in the test suite and requests a CI run for `5cdedcd392`. That comment does not establish CI success or an original-reproduction retest on the current head.
